@@ -21,6 +21,7 @@ jobs:
         path: dgca-app-core-ios
     - uses: actions/checkout@v2
       with:
+        ref: feat/ci
         path: it-dgc-verificaC19-ios
     - name: debug
       run: |-
