@@ -21,7 +21,7 @@ jobs:
         path: dgca-app-core-ios
     - uses: actions/checkout@v2
       with:
-        path: /it-dgc-verificaC19-ios
+        path: it-dgc-verificaC19-ios
     - name: debug
       run: |-
         ls -la .
@@ -32,7 +32,7 @@ jobs:
         /usr/bin/xcodebuild -version
     - name: xcode test
       run: |-
-        cd .//it-dgc-verificaC19-ios
+        cd ./it-dgc-verificaC19-ios
         xcodebuild test \
         -scheme Verifier \
         -project Verifier.xcodeproj \
