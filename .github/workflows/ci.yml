@@ -42,4 +42,5 @@ jobs:
     - uses: tbartelmess/analyze-xcoderesults-action@0.1.1
       with:
         results: TestResults.xcresult
+        testFailureAnnotations: false
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
