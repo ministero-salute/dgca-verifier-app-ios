@@ -40,6 +40,6 @@ jobs:
         -resultBundlePath TestResults \
         -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5' | xcpretty && exit ${PIPESTATUS[0]}
     - uses: tbartelmess/analyze-xcoderesults-action@0.1.0
-        with:
-          results: TestResults.xcresult
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        results: TestResults.xcresult
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
