@@ -64,6 +64,9 @@
 		651410932683C07D0035F270 /* testaka4-sogei-it.der in Resources */ = {isa = PBXBuildFile; fileRef = 9F90C579265E284A00B2F992 /* testaka4-sogei-it.der */; };
 		651410942683C07D0035F270 /* TitilliumWeb-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F90C585265E591D00B2F992 /* TitilliumWeb-BoldItalic.ttf */; };
 		651410952683C07D0035F270 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F90C57C265E591D00B2F992 /* Roboto-Medium.ttf */; };
+		651411722683C6330035F270 /* EHNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651410F12683C60E0035F270 /* EHNTests.swift */; };
+		651411732683C6330035F270 /* DGCAVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651410F22683C60E0035F270 /* DGCAVerifierTests.swift */; };
+		651411742683C6380035F270 /* DGCAVerifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6514116B2683C6230035F270 /* DGCAVerifierUITests.swift */; };
 		6B155166265BE463001D19E2 /* VaccineValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */; };
 		6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */; };
 		6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155164265BE463001D19E2 /* TestValidityCheck.swift */; };
@@ -146,6 +149,11 @@
 /* Begin PBXFileReference section */
 		651410992683C07D0035F270 /* VerificaC19 Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VerificaC19 Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		651410A52683C0FF0035F270 /* Info-Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dev.plist"; sourceTree = "<group>"; };
+		651410F12683C60E0035F270 /* EHNTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EHNTests.swift; sourceTree = "<group>"; };
+		651410F22683C60E0035F270 /* DGCAVerifierTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCAVerifierTests.swift; sourceTree = "<group>"; };
+		651410F32683C60E0035F270 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6514116B2683C6230035F270 /* DGCAVerifierUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCAVerifierUITests.swift; sourceTree = "<group>"; };
+		6514116C2683C6230035F270 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineValidityCheck.swift; sourceTree = "<group>"; };
 		6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryValidityCheck.swift; sourceTree = "<group>"; };
 		6B155164265BE463001D19E2 /* TestValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestValidityCheck.swift; sourceTree = "<group>"; };
@@ -208,10 +216,8 @@
 		9F90C64A265EA5E500B2F992 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		CEA6D6E8261F8D2700715333 /* VerificaC19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerificaC19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D6FE261F8D2900715333 /* VerifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEA6D704261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEA6D709261F8D2900715333 /* VerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* VerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifierUITests.swift; sourceTree = "<group>"; };
-		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +307,30 @@
 				651410A52683C0FF0035F270 /* Info-Dev.plist */,
 			);
 			path = Plists;
+			sourceTree = "<group>";
+		};
+		651410F02683C60E0035F270 /* DGCAVerifierTests */ = {
+			isa = PBXGroup;
+			children = (
+				651410F12683C60E0035F270 /* EHNTests.swift */,
+				651410F22683C60E0035F270 /* DGCAVerifierTests.swift */,
+				6BA8B9DF266EB8E80060D767 /* VaccineValidityCheckTests.swift */,
+				6BA8B9E1266F7E4C0060D767 /* RecoveryValidityCheckTests.swift */,
+				6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */,
+				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
+				651410F32683C60E0035F270 /* Info.plist */,
+			);
+			path = DGCAVerifierTests;
+			sourceTree = "<group>";
+		};
+		6514116A2683C6230035F270 /* DGCAVerifierUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6514116B2683C6230035F270 /* DGCAVerifierUITests.swift */,
+				CEA6D70D261F8D2900715333 /* VerifierUITests.swift */,
+				6514116C2683C6230035F270 /* Info.plist */,
+			);
+			path = DGCAVerifierUITests;
 			sourceTree = "<group>";
 		};
 		9F315B74264A70E600F07B24 /* Observable */ = {
@@ -421,9 +451,9 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				CEA6D6EA261F8D2700715333 /* Verifier */,
-				CEA6D701261F8D2900715333 /* VerifierTests */,
-				CEA6D70C261F8D2900715333 /* VerifierUITests */,
+				CEA6D6EA261F8D2700715333 /* DGCAVerifier */,
+				651410F02683C60E0035F270 /* DGCAVerifierTests */,
+				6514116A2683C6230035F270 /* DGCAVerifierUITests */,
 				CEA6D6E9261F8D2700715333 /* Products */,
 				CE56B5032639F48E00FB31B1 /* Frameworks */,
 			);
@@ -440,7 +470,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CEA6D6EA261F8D2700715333 /* Verifier */ = {
+		CEA6D6EA261F8D2700715333 /* DGCAVerifier */ = {
 			isa = PBXGroup;
 			children = (
 				9F4F3C2B2649D60B00F59BA2 /* Classes */,
@@ -449,28 +479,7 @@
 				9F4F3C392649D60B00F59BA2 /* Utils */,
 				9F4F3C452649D60B00F59BA2 /* Resources */,
 			);
-			path = Verifier;
-			sourceTree = "<group>";
-		};
-		CEA6D701261F8D2900715333 /* VerifierTests */ = {
-			isa = PBXGroup;
-			children = (
-				CEA6D704261F8D2900715333 /* Info.plist */,
-				6BA8B9DF266EB8E80060D767 /* VaccineValidityCheckTests.swift */,
-				6BA8B9E1266F7E4C0060D767 /* RecoveryValidityCheckTests.swift */,
-				6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */,
-				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
-			);
-			path = VerifierTests;
-			sourceTree = "<group>";
-		};
-		CEA6D70C261F8D2900715333 /* VerifierUITests */ = {
-			isa = PBXGroup;
-			children = (
-				CEA6D70D261F8D2900715333 /* VerifierUITests.swift */,
-				CEA6D70F261F8D2900715333 /* Info.plist */,
-			);
-			path = VerifierUITests;
+			path = DGCAVerifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -803,9 +812,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651411732683C6330035F270 /* DGCAVerifierTests.swift in Sources */,
 				6BA8B9E82671227C0060D767 /* LocalDataTests.swift in Sources */,
 				6BA8B9E2266F7E4C0060D767 /* RecoveryValidityCheckTests.swift in Sources */,
 				6BA8B9E4266F840B0060D767 /* TestValidityCheckTests.swift in Sources */,
+				651411722683C6330035F270 /* EHNTests.swift in Sources */,
 				6BA8B9E0266EB8E80060D767 /* VaccineValidityCheckTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -814,6 +825,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651411742683C6380035F270 /* DGCAVerifierUITests.swift in Sources */,
 				CEA6D70E261F8D2900715333 /* VerifierUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,7 +866,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = "Verifier/Resources/Plists/Info-Dev.plist";
+				INFOPLIST_FILE = "DGCAVerifier/Resources/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -877,7 +889,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = "Verifier/Resources/Plists/Info-Dev.plist";
+				INFOPLIST_FILE = "DGCAVerifier/Resources/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -963,7 +975,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Plists/Info.plist;
+				INFOPLIST_FILE = DGCAVerifier/Resources/Plists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -986,7 +998,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = "Verifier/Resources/Plists/Info-Dev.plist";
+				INFOPLIST_FILE = "DGCAVerifier/Resources/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1010,7 +1022,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Info.plist;
+				INFOPLIST_FILE = DGCAVerifierTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1116,7 +1128,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Plists/Info.plist;
+				INFOPLIST_FILE = DGCAVerifier/Resources/Plists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1139,7 +1151,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = "Verifier/Resources/Plists/Info-Dev.plist";
+				INFOPLIST_FILE = "DGCAVerifier/Resources/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1163,7 +1175,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Info.plist;
+				INFOPLIST_FILE = DGCAVerifierTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1332,7 +1344,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Plists/Info.plist;
+				INFOPLIST_FILE = DGCAVerifier/Resources/Plists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1355,7 +1367,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Plists/Info.plist;
+				INFOPLIST_FILE = DGCAVerifier/Resources/Plists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1379,7 +1391,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Info.plist;
+				INFOPLIST_FILE = DGCAVerifierTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1405,7 +1417,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = NFBYJRA8B5;
-				INFOPLIST_FILE = Verifier/Resources/Info.plist;
+				INFOPLIST_FILE = DGCAVerifierTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
