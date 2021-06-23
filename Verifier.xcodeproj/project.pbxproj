@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65140FFD2683B4BE0035F270 /* SwiftDGC in Frameworks */ = {isa = PBXBuildFile; productRef = 65140FFC2683B4BE0035F270 /* SwiftDGC */; };
 		6B155166265BE463001D19E2 /* VaccineValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */; };
 		6B155167265BE463001D19E2 /* RecoveryValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */; };
 		6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155164265BE463001D19E2 /* TestValidityCheck.swift */; };
@@ -154,7 +155,6 @@
 		CEA6D709261F8D2900715333 /* VerifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA6D70D261F8D2900715333 /* VerifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifierUITests.swift; sourceTree = "<group>"; };
 		CEA6D70F261F8D2900715333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEDCA7972639E6E700FCB83E /* SwiftDGC */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftDGC; path = "../dgca-app-core-ios"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +164,7 @@
 			files = (
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
 				CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */,
+				65140FFD2683B4BE0035F270 /* SwiftDGC in Frameworks */,
 				CE1F155C2639F9E700736D48 /* SwiftyJSON in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 			);
@@ -336,7 +337,6 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				CEDCA7972639E6E700FCB83E /* SwiftDGC */,
 				9F2AF7EE2653D27F00619B9C /* DGCAVerifier */,
 				CEA6D6EA261F8D2700715333 /* Verifier */,
 				CEA6D701261F8D2900715333 /* VerifierTests */,
@@ -408,6 +408,7 @@
 				CE8912FA2634C6B900CB92AF /* Alamofire */,
 				CE56B5042639F48E00FB31B1 /* SwiftDGC */,
 				CE1F155B2639F9E700736D48 /* SwiftyJSON */,
+				65140FFC2683B4BE0035F270 /* SwiftDGC */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* VerificaC19.app */;
@@ -485,6 +486,7 @@
 				CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				CE8912F92634C6B900CB92AF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				65140FFB2683B4BE0035F270 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -957,6 +959,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		65140FFB2683B4BE0035F270 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eu-digital-green-certificates/dgca-app-core-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
@@ -984,6 +994,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		65140FFC2683B4BE0035F270 /* SwiftDGC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65140FFB2683B4BE0035F270 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */;
+			productName = SwiftDGC;
+		};
 		CE13CEFF262DCC180070C80E /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */;
