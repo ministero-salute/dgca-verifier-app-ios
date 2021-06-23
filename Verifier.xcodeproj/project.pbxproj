@@ -187,13 +187,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9F2AF7EE2653D27F00619B9C /* DGCAVerifier */ = {
+		65140FFE2683B5A10035F270 /* MedicalRules */ = {
 			isa = PBXGroup;
 			children = (
-				9F4F3C3D2649D60B00F59BA2 /* Models */,
-				9F4F3C432649D60B00F59BA2 /* Services */,
+				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
+				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
+				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
 			);
-			path = DGCAVerifier;
+			path = MedicalRules;
+			sourceTree = "<group>";
+		};
+		65140FFF2683B5E00035F270 /* Certificates */ = {
+			isa = PBXGroup;
+			children = (
+				9F90C579265E284A00B2F992 /* testaka4-sogei-it.der */,
+				6B24E85A2660E0030003808F /* get-dgc-gov-it.der */,
+			);
+			path = Certificates;
+			sourceTree = "<group>";
+		};
+		651410002683B67C0035F270 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */,
+				9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */,
+				9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		9F315B74264A70E600F07B24 /* Observable */ = {
@@ -208,12 +228,10 @@
 		9F4F3C2B2649D60B00F59BA2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */,
 				9F4F3C422649D60B00F59BA2 /* AppDelegate.swift */,
 				9F4F3C2C2649D60B00F59BA2 /* Home */,
 				9F4F3C362649D60B00F59BA2 /* Camera */,
 				9F4F3C302649D60B00F59BA2 /* Result */,
-				9F4F3C392649D60B00F59BA2 /* Utils */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -253,6 +271,7 @@
 		9F4F3C392649D60B00F59BA2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6B155165265BE463001D19E2 /* Setting.swift */,
 				9F315B74264A70E600F07B24 /* Observable */,
 				9F4F3C3A2649D60B00F59BA2 /* UIViewController+Alert.swift */,
 				9F4F3C3B2649D60B00F59BA2 /* UIView+Shadow.swift */,
@@ -261,32 +280,11 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		9F4F3C3D2649D60B00F59BA2 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
-				6B155165265BE463001D19E2 /* Setting.swift */,
-				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
-				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
-				9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		9F4F3C432649D60B00F59BA2 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		9F4F3C452649D60B00F59BA2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				65140FFF2683B5E00035F270 /* Certificates */,
 				9F90C57B265E591D00B2F992 /* Fonts */,
-				9F90C579265E284A00B2F992 /* testaka4-sogei-it.der */,
-				6B24E85A2660E0030003808F /* get-dgc-gov-it.der */,
 				9F4F3C462649D60B00F59BA2 /* LaunchScreen.storyboard */,
 				9F4F3C472649D60B00F59BA2 /* Assets.xcassets */,
 				9F4F3C632649D71F00F59BA2 /* Localizable.strings */,
@@ -337,7 +335,6 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				9F2AF7EE2653D27F00619B9C /* DGCAVerifier */,
 				CEA6D6EA261F8D2700715333 /* Verifier */,
 				CEA6D701261F8D2900715333 /* VerifierTests */,
 				CEA6D70C261F8D2900715333 /* VerifierUITests */,
@@ -360,6 +357,9 @@
 			isa = PBXGroup;
 			children = (
 				9F4F3C2B2649D60B00F59BA2 /* Classes */,
+				65140FFE2683B5A10035F270 /* MedicalRules */,
+				651410002683B67C0035F270 /* Managers */,
+				9F4F3C392649D60B00F59BA2 /* Utils */,
 				9F4F3C452649D60B00F59BA2 /* Resources */,
 			);
 			path = Verifier;
