@@ -17,7 +17,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="VerificaC19" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Verifier" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="qUS-xt-ZaR" id="0NB-6I-8CE"/>
                 <outlet property="introLabel" destination="Wvf-mj-r7Z" id="5Bc-dt-IVP"/>
