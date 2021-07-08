@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="TitilliumWeb-Regular.ttf">
-            <string>TitilliumWeb-Regular</string>
-        </array>
         <array key="TitilliumWeb-Bold.ttf">
             <string>TitilliumWeb-Bold</string>
+        </array>
+        <array key="TitilliumWeb-Regular.ttf">
+            <string>TitilliumWeb-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -56,7 +56,7 @@
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                             <state key="normal" title="Scan QR Code" image="icon_qr-code">
-                                <color key="titleColor" systemColor="labelColor"/>
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -77,7 +77,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the QR code of a vaccination ticket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUS-xt-ZaR">
-                            <rect key="frame" x="20" y="65" width="334" height="18"/>
+                            <rect key="frame" x="20" y="65" width="334" height="23"/>
                             <fontDescription key="fontDescription" name="TitilliumWeb-Regular" family="TitilliumWeb" pointSize="15"/>
                             <color key="textColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-RK-YeW">
-                    <rect key="frame" x="20" y="527" width="374" height="138.5"/>
+                    <rect key="frame" x="20" y="527" width="374" height="154"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offline availability" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJb-4f-FYJ">
                             <rect key="frame" x="20" y="10" width="334" height="35"/>
@@ -125,19 +125,19 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wvf-mj-r7Z">
-                            <rect key="frame" x="20" y="55" width="334" height="35.5"/>
+                            <rect key="frame" x="20" y="55" width="334" height="46"/>
                             <fontDescription key="fontDescription" name="TitilliumWeb-Regular" family="TitilliumWeb" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaB-yQ-1Eh" userLabel="Link Label">
-                            <rect key="frame" x="20" y="106.5" width="334" height="18"/>
+                            <rect key="frame" x="20" y="117" width="334" height="23"/>
                             <fontDescription key="fontDescription" name="TitilliumWeb-Regular" family="TitilliumWeb" pointSize="15"/>
                             <color key="textColor" systemColor="linkColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="xaB-yQ-1Eh" firstAttribute="leading" secondItem="ZBf-RK-YeW" secondAttribute="leading" constant="20" id="0Ew-pd-CH7"/>
                         <constraint firstItem="aJb-4f-FYJ" firstAttribute="leading" secondItem="ZBf-RK-YeW" secondAttribute="leading" constant="20" id="1lw-ml-4iE"/>
@@ -175,23 +175,24 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading certificates..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-zz-kdF">
-                    <rect key="frame" x="20" y="820" width="374" height="14.5"/>
+                    <rect key="frame" x="20" y="812" width="374" height="18.5"/>
                     <fontDescription key="fontDescription" name="TitilliumWeb-Regular" family="TitilliumWeb" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DLF-jL-Tia">
-                    <rect key="frame" x="197" y="785" width="20" height="20"/>
+                    <rect key="frame" x="197" y="777" width="20" height="20"/>
+                    <color key="color" systemColor="labelColor"/>
                 </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVq-wA-ym1">
-                    <rect key="frame" x="20" y="839.5" width="374" height="14.5"/>
+                    <rect key="frame" x="20" y="835.5" width="374" height="18.5"/>
                     <fontDescription key="fontDescription" name="TitilliumWeb-Regular" family="TitilliumWeb" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="KfD-9R-RDC"/>
-            <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="iXl-gk-RDc" secondAttribute="trailing" constant="20" id="3Nj-zS-Qyi"/>
                 <constraint firstItem="hRa-PJ-CxI" firstAttribute="top" secondItem="iXl-gk-RDc" secondAttribute="bottom" constant="20" id="70u-0I-NVH"/>
@@ -222,6 +223,9 @@
         </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
