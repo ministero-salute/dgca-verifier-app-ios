@@ -27,6 +27,9 @@
 "result.future.description" = "La certificazione non è ancora valida.";
 "result.notValid.description" = "La certificazione non è valida o non è stato possibile verificarla.";
 
+"result.notDCC.title" = "Errore di lettura";
+"result.notDCC.description" = "Il QR Code scansionato non è un DCC o non è stato letto in modo corretto, si prega di riprovare.";
+
 "result.rescan" = "Ripeti scansione";
 "result.nextScan" = "Prossima scansione";
 
