@@ -77,16 +77,23 @@ class VerificationViewModel {
     }
 
     var imageName: String {
-        return status == .valid ? "icon_checkmark-filled" : "icon_misuse"
+        switch status {
+        case .valid:
+            return "icon_checkmark-filled"
+        case .notDCC:
+            return "icon_warning"
+        case .expired, .future, .invalidQR, .notValid:
+            return "icon_misuse"
+        }
     }
     var title: String {
         switch status {
-        case .invalidQR:
-            return "result.invalid.title".localized
+        case .valid:
+            return "result.valid.title".localized
         case .notDCC:
             return "result.notDCC.title".localized
-        default:
-            return "result.valid.title".localized
+        case .expired, .future, .invalidQR, .notValid:
+            return "result.invalid.title".localized
         }
     }
     var description: String {

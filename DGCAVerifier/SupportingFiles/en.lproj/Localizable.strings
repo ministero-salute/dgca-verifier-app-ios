@@ -28,7 +28,7 @@
 "result.notValid.description" = "La certificazione non è valida o non è stato possibile verificarla.";
 
 "result.notDCC.title" = "Errore di lettura";
-"result.notDCC.description" = "Il QR Code scansionato non è un DCC o non è stato letto in modo corretto, si prega di riprovare.";
+"result.notDCC.description" = "Il QR Code scansionato non corrisponde a una Certificazione verde COVID-19 o non è stato letto in modo corretto, si prega di riprovare.";
 
 "result.rescan" = "Ripeti scansione";
 "result.nextScan" = "Prossima scansione";
