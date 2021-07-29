@@ -27,6 +27,7 @@
                 <outlet property="rescanButton" destination="ICW-sq-Dag" id="dUE-DA-gOB"/>
                 <outlet property="resultImageView" destination="fsL-Wu-klM" id="Yjc-ns-G7l"/>
                 <outlet property="titleLabel" destination="bgj-PP-ub7" id="UUW-Ze-Ko8"/>
+                <outlet property="validationDateTimeLabel" destination="AsP-43-pQf" id="1Yi-lf-x9L"/>
                 <outlet property="view" destination="2ox-tZ-GfJ" id="gDB-Bm-fdt"/>
             </connections>
         </placeholder>
@@ -43,13 +44,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificato valido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgj-PP-ub7">
-                    <rect key="frame" x="20" y="284" width="374" height="49"/>
+                    <rect key="frame" x="20" y="274" width="374" height="49"/>
                     <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="32"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2n-Hx-XXJ">
-                    <rect key="frame" x="20" y="343" width="374" height="35.5"/>
+                    <rect key="frame" x="20" y="333" width="374" height="35.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -104,8 +105,14 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-wJ-v7T">
-                    <rect key="frame" x="20" y="418.5" width="374" height="353.5"/>
+                    <rect key="frame" x="20" y="401.5" width="374" height="370.5"/>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Validation date and time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AsP-43-pQf">
+                    <rect key="frame" x="20" y="376.5" width="374" height="18"/>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="OzW-CK-pC1"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -114,20 +121,23 @@
                 <constraint firstItem="ICW-sq-Dag" firstAttribute="centerX" secondItem="2ox-tZ-GfJ" secondAttribute="centerX" id="7Wn-z5-8hT"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="bgj-PP-ub7" secondAttribute="trailing" constant="20" id="8PK-Xt-J75"/>
                 <constraint firstItem="s2n-Hx-XXJ" firstAttribute="top" secondItem="bgj-PP-ub7" secondAttribute="bottom" constant="10" id="Ap0-G0-Zh7"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="AsP-43-pQf" secondAttribute="trailing" constant="20" id="Cl0-He-WTj"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="s2n-Hx-XXJ" secondAttribute="trailing" constant="20" id="GMa-nQ-AdO"/>
                 <constraint firstItem="fsL-Wu-klM" firstAttribute="centerX" secondItem="2ox-tZ-GfJ" secondAttribute="centerX" id="GZb-Hm-zpU"/>
-                <constraint firstItem="pDT-wJ-v7T" firstAttribute="top" secondItem="s2n-Hx-XXJ" secondAttribute="bottom" constant="40" id="KLy-vM-M0O"/>
+                <constraint firstItem="AsP-43-pQf" firstAttribute="top" secondItem="s2n-Hx-XXJ" secondAttribute="bottom" constant="8" id="KLy-vM-M0O"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="pDT-wJ-v7T" secondAttribute="trailing" constant="20" id="KOA-dD-nwZ"/>
+                <constraint firstItem="AsP-43-pQf" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="MLs-ok-k9a"/>
                 <constraint firstItem="ICW-sq-Dag" firstAttribute="top" secondItem="pDT-wJ-v7T" secondAttribute="bottom" constant="20" placeholder="YES" id="OoR-pe-YnY"/>
                 <constraint firstItem="pDT-wJ-v7T" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="UpB-YX-wDN"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="bottom" secondItem="ICW-sq-Dag" secondAttribute="bottom" constant="20" id="W1w-Ua-ieY"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="XYP-Zz-3fa" secondAttribute="trailing" constant="20" id="W7r-kd-ZtP"/>
                 <constraint firstItem="s2n-Hx-XXJ" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="W8A-4w-3zQ"/>
+                <constraint firstItem="pDT-wJ-v7T" firstAttribute="top" secondItem="AsP-43-pQf" secondAttribute="bottom" constant="7" id="hQd-Dm-SHc"/>
                 <constraint firstItem="bgj-PP-ub7" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="20" id="hap-sT-9IT"/>
                 <constraint firstItem="fsL-Wu-klM" firstAttribute="top" secondItem="OzW-CK-pC1" secondAttribute="top" constant="100" id="hpl-eH-UCf"/>
-                <constraint firstItem="bgj-PP-ub7" firstAttribute="top" secondItem="fsL-Wu-klM" secondAttribute="bottom" constant="40" id="zl2-D3-JSl"/>
+                <constraint firstItem="bgj-PP-ub7" firstAttribute="top" secondItem="fsL-Wu-klM" secondAttribute="bottom" constant="30" id="zl2-D3-JSl"/>
             </constraints>
-            <point key="canvasLocation" x="-767" y="-1570"/>
+            <point key="canvasLocation" x="-768.11594202898561" y="-1570.3125"/>
         </view>
     </objects>
     <resources>

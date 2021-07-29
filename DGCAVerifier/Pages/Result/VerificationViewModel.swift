@@ -112,6 +112,12 @@ class VerificationViewModel {
             return "result.notDCC.description".localized
         }
     }
+    var validationDateTime: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm',' dd/MM/yyyy"
+        let date = Date()
+        return "result.validationDateTime".localized + dateFormatter.string(from: date)
+    }
     var rescanButtonTitle: String {
         return status == .valid ? "result.nextScan".localized : "result.rescan".localized
     }
