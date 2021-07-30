@@ -96,7 +96,7 @@ class TestValidityCheckTests: XCTestCase {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
 
-        XCTAssertEqual(isTestDateValidResult, .notValid)
+        XCTAssertEqual(isTestDateValidResult, .technicalError)
     }
 
 }
