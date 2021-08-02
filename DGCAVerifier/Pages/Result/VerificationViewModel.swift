@@ -31,6 +31,7 @@ enum Status {
     case future
     case notValid
     case invalidQR
+    case notDCC
 }
 
 func validateWithMedicalRules(_ hcert: HCert?) -> Status {
@@ -56,28 +57,44 @@ class VerificationViewModel {
     var hCert: HCert?
         
     init(qrCodeText: String) {
-        let cert = HCert(from: qrCodeText)
+        guard let cert = HCert(from: qrCodeText) else {
+            status = .notDCC
+            return
+        }
         guard isValid(cert) else { return }
         
         hCert = cert
         status = validateWithMedicalRules(cert)
     }
 
-    private func isValid(_ hCert: HCert?) -> Bool {
-        guard let cert = hCert else { return false }
+    private func isValid(_ hCert: HCert) -> Bool {
 //        return cert.isValid // it checks some medical rules too.
-        guard cert.cryptographicallyValid else { return false }
-        guard cert.exp >= HCert.clock else { return false }
-        guard cert.iat <= HCert.clock else { return false }
-        guard cert.statement != nil else { return false }
+        guard hCert.cryptographicallyValid else { return false }
+        guard hCert.exp >= HCert.clock else { return false }
+        guard hCert.iat <= HCert.clock else { return false }
+        guard hCert.statement != nil else { return false }
         return true
     }
 
     var imageName: String {
-        return status == .valid ? "icon_checkmark-filled" : "icon_misuse"
+        switch status {
+        case .valid:
+            return "icon_checkmark-filled"
+        case .notDCC:
+            return "icon_warning"
+        case .expired, .future, .invalidQR, .notValid:
+            return "icon_misuse"
+        }
     }
     var title: String {
-        return status == .valid ? "result.valid.title".localized : "result.invalid.title".localized
+        switch status {
+        case .valid:
+            return "result.valid.title".localized
+        case .notDCC:
+            return "result.notDCC.title".localized
+        case .expired, .future, .invalidQR, .notValid:
+            return "result.invalid.title".localized
+        }
     }
     var description: String {
         switch status {
@@ -91,14 +108,22 @@ class VerificationViewModel {
             return "result.invalidQR.description".localized
         case .notValid:
             return "result.notValid.description".localized
+        case .notDCC:
+            return "result.notDCC.description".localized
         }
+    }
+    var validationDateTime: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm',' dd/MM/yyyy"
+        let date = Date()
+        return "result.validationDateTime".localized + dateFormatter.string(from: date)
     }
     var rescanButtonTitle: String {
         return status == .valid ? "result.nextScan".localized : "result.rescan".localized
     }
     
     var resultItems: [ResultItem]? {
-        if status == .invalidQR {
+        if status == .invalidQR || status == .notDCC {
             return nil
         }
         
