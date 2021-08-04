@@ -41,8 +41,8 @@ struct TestValidityCheck {
     func isTestDateValid(_ hcert: HCert) -> Status {
         let startHours = LocalData.getSetting(from: startHoursKey)
         let endHours = LocalData.getSetting(from: endHoursKey)
-        guard let start = startHours?.intValue else { return .technicalError }
-        guard let end = endHours?.intValue else { return .technicalError }
+        guard let start = startHours?.intValue else { return .notGreenPass }
+        guard let end = endHours?.intValue else { return .notGreenPass }
 
         guard let dateString = hcert.testDate else { return .notValid }
         guard let dateTime = dateString.toTestDate else { return .notValid }

@@ -46,8 +46,8 @@ struct VaccineValidityCheck {
         guard let product = hcert.medicalProduct else { return .notValid }
         guard isValid(for: product) else { return .notValid }
         
-        guard let start = getStartDays(for: product, lastDose) else { return .technicalError }
-        guard let end = getEndDays(for: product, lastDose) else { return .technicalError }
+        guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
+        guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
         
         guard let dateString = hcert.vaccineDate else { return .notValid }
         guard let date = dateString.toVaccineDate else { return .notValid }
