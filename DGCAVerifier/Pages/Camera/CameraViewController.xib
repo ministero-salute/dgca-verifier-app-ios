@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -23,17 +23,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-63-dcr">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fca-1J-Ax2">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="58"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7d-ue-Oep">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2y-GT-Sfg" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="42" width="207" height="58"/>
+                                    <rect key="frame" x="16" y="0.0" width="207" height="58"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="58" id="YCX-r7-uzu"/>
                                     </constraints>
@@ -48,7 +48,7 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="100" id="5op-6b-cOp"/>
+                                <constraint firstAttribute="height" constant="58" id="5op-6b-cOp"/>
                                 <constraint firstAttribute="bottom" secondItem="W2y-GT-Sfg" secondAttribute="bottom" id="WyV-1i-iDY"/>
                                 <constraint firstItem="W2y-GT-Sfg" firstAttribute="width" secondItem="E7d-ue-Oep" secondAttribute="width" multiplier="0.5" id="mgH-2R-a7r"/>
                                 <constraint firstItem="W2y-GT-Sfg" firstAttribute="leading" secondItem="E7d-ue-Oep" secondAttribute="leading" constant="16" id="yuJ-wj-KHz"/>
@@ -59,6 +59,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="E7d-ue-Oep" secondAttribute="trailing" id="185-SM-HMZ"/>
                         <constraint firstAttribute="bottom" secondItem="E7d-ue-Oep" secondAttribute="bottom" id="NjB-tc-NhV"/>
+                        <constraint firstItem="E7d-ue-Oep" firstAttribute="top" secondItem="fca-1J-Ax2" secondAttribute="top" id="pfg-Z1-oNi"/>
                         <constraint firstItem="E7d-ue-Oep" firstAttribute="leading" secondItem="fca-1J-Ax2" secondAttribute="leading" id="rUf-tO-yYm"/>
                     </constraints>
                 </view>
@@ -206,16 +207,15 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="KfD-9R-RDC"/>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Gnb-63-dcr" firstAttribute="top" secondItem="T8R-UI-qcI" secondAttribute="top" id="7By-Qj-1wX"/>
+                <constraint firstItem="Gnb-63-dcr" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="7By-Qj-1wX"/>
                 <constraint firstItem="e6Z-DK-O5Q" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="32" id="8Ud-Y1-2Cn"/>
                 <constraint firstAttribute="bottom" secondItem="Gnb-63-dcr" secondAttribute="bottom" id="Azm-7Z-BYO"/>
-                <constraint firstItem="fca-1J-Ax2" firstAttribute="top" secondItem="T8R-UI-qcI" secondAttribute="top" id="IJ5-Gp-v5u"/>
+                <constraint firstItem="fca-1J-Ax2" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="IJ5-Gp-v5u"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="e6Z-DK-O5Q" secondAttribute="trailing" constant="32" id="PdX-ot-ZY3"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="width" secondItem="T8R-UI-qcI" secondAttribute="width" multiplier="0.676329" id="THz-1F-dwe"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="e6Z-DK-O5Q" secondAttribute="bottom" constant="16" id="Vt5-Br-Nl3"/>
-                <constraint firstItem="E7d-ue-Oep" firstAttribute="top" secondItem="T8R-UI-qcI" secondAttribute="top" id="Xdl-hT-58E"/>
                 <constraint firstItem="Gnb-63-dcr" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" id="fxV-ru-4Uh"/>
                 <constraint firstAttribute="trailing" secondItem="fca-1J-Ax2" secondAttribute="trailing" id="j5X-vR-fek"/>
                 <constraint firstItem="fca-1J-Ax2" firstAttribute="leading" secondItem="T8R-UI-qcI" secondAttribute="leading" id="kBB-ra-vzj"/>
