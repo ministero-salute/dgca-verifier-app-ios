@@ -83,7 +83,7 @@ extension Status {
         case .validPartially:   return [.whatCanBeDone]
         case .notValidYet:      return [.qrValidityRange]
         case .notValid:         return [.whyQrNotValid]
-        case .notGreenPass:     return [.whichQrScan, .scanErrorMeaning, .scanTimesNeeded]
+        case .notGreenPass:     return [.whichQrScan]
         case .technicalError:   return [.whichQrScan, .scanErrorMeaning, .scanTimesNeeded]
         }
     }
