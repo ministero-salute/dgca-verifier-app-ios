@@ -7,15 +7,15 @@
 
 import Foundation
 
-private let FAQ              = "https://www.dgc.gov.it/web/pn.html"
-private let PRIVACY_POLICIES = "https://www.google.com"
-private let HOW_TO           = "https://www.google.com"
-private let WHY_NOT_VALID    = "https://www.google.com"
-private let VALIDITY_RANGE   = "https://www.google.com"
-private let WHICH_QR         = "https://www.google.com"
-private let ERROR_MEANING    = "https://www.google.com"
-private let SCAN_TIMES       = "https://www.google.com"
-private let STORE            = "itms-apps://apple.com/app/id1565800117"
+private let PRIVACY_POLICIES    = "https://www.dgc.gov.it/web/pn.html"
+private let FAQ                 = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let HOW_TO              = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let WHY_NOT_VALID       = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let VALIDITY_RANGE      = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let WHICH_QR            = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let ERROR_MEANING       = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let SCAN_TIMES          = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let STORE               = "itms-apps://apple.com/app/id1565800117"
 
 extension Link {
     
