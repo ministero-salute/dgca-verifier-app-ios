@@ -41,7 +41,7 @@ struct VaccineValidityCheck {
         guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
         guard currentDoses > 0 else { return .notValid }
         guard totalDoses > 0 else { return .notValid }
-        let lastDose = currentDoses == totalDoses
+        let lastDose = currentDoses >= totalDoses
         
         guard let product = hcert.medicalProduct else { return .notValid }
         guard isValid(for: product) else { return .notValid }
@@ -59,7 +59,7 @@ struct VaccineValidityCheck {
         let result = Validator.validate(currentDate, from: validityStart, to: validityEnd)
         
         guard result == .valid else { return result }
-        if currentDoses == 1 && !lastDose { return .validPartially }
+        if !lastDose { return .validPartially }
         return result
         
     }
