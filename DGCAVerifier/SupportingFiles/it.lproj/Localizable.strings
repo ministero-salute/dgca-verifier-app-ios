@@ -32,7 +32,6 @@
 "result.title.not.valid" = "Certificazione non valida";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
-"result.title.technical.error" = "Errore tecnico, non è possibile validare il QRCode, procedere manualmente";
 
 "result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documenti di Identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
@@ -63,5 +62,3 @@
 "links.why.qr.code.not.valid" = "Quali sono i motivi di non validità?";
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
-"links.scan.error.meaning" = "Cosa significa errore di lettura?";
-"links.scan.times.needed" = "Quante volte devo riprovare a scansionare?";

@@ -13,7 +13,6 @@ extension Status {
         switch self {
         case .valid:            return Palette.green
         case .validPartially:   return Palette.blueLight
-        case .technicalError:   return Palette.yellow
         default:                return Palette.red
         }
     }
@@ -25,7 +24,6 @@ extension Status {
         case .notValid:         return "icon_not-valid".image
         case .notValidYet:      return "icon_not-valid-yet".image
         case .notGreenPass:     return "icon_not-green-pass".image
-        case .technicalError:   return "icon_technical-error".image
         }
     }
     
@@ -36,7 +34,6 @@ extension Status {
         case .notValid:         return "result.title.not.valid"
         case .notValidYet:      return "result.title.not.valid.yet"
         case .notGreenPass:     return "result.title.not.green.pass"
-        case .technicalError:   return "result.title.technical.error"
         }
     }
     
@@ -84,7 +81,6 @@ extension Status {
         case .notValidYet:      return [.qrValidityRange]
         case .notValid:         return [.whyQrNotValid]
         case .notGreenPass:     return [.whichQrScan]
-        case .technicalError:   return [.whichQrScan, .scanErrorMeaning, .scanTimesNeeded]
         }
     }
     

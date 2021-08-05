@@ -15,7 +15,5 @@ enum Link {
     case whyQrNotValid
     case qrValidityRange
     case whichQrScan
-    case scanErrorMeaning
-    case scanTimesNeeded
 }
 

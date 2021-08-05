@@ -13,8 +13,6 @@ private let HOW_TO              = "https://www.dgc.gov.it/web/faq.html#verifica1
 private let WHY_NOT_VALID       = "https://www.dgc.gov.it/web/faq.html#verifica19"
 private let VALIDITY_RANGE      = "https://www.dgc.gov.it/web/faq.html#verifica19"
 private let WHICH_QR            = "https://www.dgc.gov.it/web/faq.html#verifica19"
-private let ERROR_MEANING       = "https://www.dgc.gov.it/web/faq.html#verifica19"
-private let SCAN_TIMES          = "https://www.dgc.gov.it/web/faq.html#verifica19"
 private let STORE               = "itms-apps://apple.com/app/id1565800117"
 
 extension Link {
@@ -28,8 +26,6 @@ extension Link {
         case .whyQrNotValid:        return WHY_NOT_VALID
         case .qrValidityRange:      return VALIDITY_RANGE
         case .whichQrScan:          return WHICH_QR
-        case .scanErrorMeaning:     return ERROR_MEANING
-        case .scanTimesNeeded:      return SCAN_TIMES
         }
     }
     
@@ -42,8 +38,6 @@ extension Link {
         case .whyQrNotValid:        return "links.why.qr.code.not.valid"
         case .qrValidityRange:      return "links.qr.code.validity.range"
         case .whichQrScan:          return "links.which.qr.code.scan"
-        case .scanErrorMeaning:     return "links.scan.error.meaning"
-        case .scanTimesNeeded:      return "links.scan.times.needed"
         }
     }
     
