@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Scan vaccination QR codes with your camera.</string>
+	<string>Fornisci accesso alla telecamera per verificare una Certificazione verde COVID-19</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We use the data from the photo library for the image recognition.</string>
 	<key>UIAppFonts</key>
