@@ -52,7 +52,7 @@ struct VaccineValidityCheck {
         guard let dateString = hcert.vaccineDate else { return .notValid }
         guard let date = dateString.toVaccineDate else { return .notValid }
         guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
-        guard let validityEnd = date.add(end, ofType: .day) else { return .notValid }
+        guard let validityEnd = date.add(end, ofType: .day)?.toDateString.toDate else { return .notValid }
 
         guard let currentDate = Date.startOfDay else { return .notValid }
         
