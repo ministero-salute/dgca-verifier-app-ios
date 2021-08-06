@@ -47,7 +47,7 @@ class LocalDataTests: XCTestCase {
     func testAddEncodedPublicKeyForNewKid() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        LocalData.sharedInstance.add(encodedPublicKey: encodedPublicKey)
+        LocalData.sharedInstance.add(kid: "abc", encodedPublicKey: encodedPublicKey)
         XCTAssertEqual(LocalData.sharedInstance.encodedPublicKeys.count, 1)
     }
     
@@ -55,7 +55,7 @@ class LocalDataTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         LocalData.sharedInstance.encodedPublicKeys["+/bbaA9m0j0="] = ["abc"]
-        LocalData.sharedInstance.add(encodedPublicKey: encodedPublicKey)
+        LocalData.sharedInstance.add(kid: "+/bbaA9m0j0=", encodedPublicKey: encodedPublicKey)
         XCTAssertEqual(LocalData.sharedInstance.encodedPublicKeys["+/bbaA9m0j0="]!.count, 2)
     }
 
