@@ -26,48 +26,85 @@ import Foundation
 
 class HomeViewModel {
     
-    var lastUpdateText: Observable<String> = Observable("home.loading".localized)
-    var isLoading: Observable<Bool> = Observable(true)
-    var isScanEnabled: Observable<Bool> = Observable(false)
-    var isVersionOutdated: Observable<Bool> = Observable(true)
-    
-    let connection = GatewayConnection()
-    
-    private func updateLastUpdateDate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy, HH:mm"
-        
-        lastUpdateText.value = "home.lastUpdate".localized + (LocalData.sharedInstance.lastFetch.timeIntervalSince1970 > 0 ? dateFormatter.string(from: LocalData.sharedInstance.lastFetch) : "home.notAvailable".localized)
+    public enum Result {
+        case updateComplete
+        case versionOutdated
+        case error(String)
     }
     
-    private func isCurrentVersionOutdated() -> Bool {
-        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-              let minVersion = LocalData.sharedInstance.settings.first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?.value else {
-            return false
-        }
+    let results: Observable<Result> = Observable(nil)
+    let isLoading: Observable<Bool> = Observable(true)
+    
+    public func startOperations() {
+        isLoading.value = true
+        GatewayConnection.shared.initialize { [weak self] in self?.load() }
+    }
+    
+    public func loadComplete() {
+        results.value = .updateComplete
+        isLoading.value = false
+        print("log.upload.complete")
+    }
+    
+    public func getLastUpdate() -> Date? {
+        let lastFetch = LocalData.sharedInstance.lastFetch
+        return lastFetch.timeIntervalSince1970 > 0 ? lastFetch : nil
+    }
+    
+    private func checkCurrentVersion() {
+        guard !isVersionOutdated() else { return }
+        results.value = .versionOutdated
+    }
+    
+    public func isVersionOutdated() -> Bool {
+        guard let version = currentVersion() else { return false }
+        guard let minVersion = minVersion() else { return false }
         return version.compare(minVersion, options: .numeric) == .orderedAscending
     }
     
-    func loadCertificates() {
-        LocalData.initialize { [weak self] in
-            self?.updateLastUpdateDate()
-            self?.isScanEnabled.value = true
-            self?.isVersionOutdated.value = self?.isCurrentVersionOutdated()
-            
-            
-            self?.connection.start { [weak self] error, isVersionOutdated in
-                self?.isLoading.value = false
-                
-                if let error = error {
-                    print(error)
-                    return
-                }
-                
-                self?.updateLastUpdateDate()
-                
-                self?.isScanEnabled.value = true
-                self?.isVersionOutdated.value = isVersionOutdated
+    public func currentVersion() -> String? {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
+    private func minVersion() -> String? {
+        return SettingDataStorage
+            .sharedInstance
+            .settings
+            .first(where: { $0.name == "ios" && $0.type == "APP_MIN_VERSION" })?
+            .value
+    }
+
+}
+
+extension HomeViewModel {
+    
+    private func load() {
+        let group = DispatchGroup()
+        
+        loadSettings(in: group)
+        loadCertificates(in: group)
+        
+        group.notify(queue: .main) { [weak self] in self?.loadComplete() }
+    }
+    
+    private func loadSettings(in loadingGroup: DispatchGroup) {
+        SettingDataStorage.initialize {
+            GatewayConnection.shared.settings { _ in
+                print("log.settings.done")
+                loadingGroup.leave()
             }
         }
+        loadingGroup.enter()
     }
+    
+    private func loadCertificates(in loadingGroup: DispatchGroup) {
+        LocalData.initialize {
+            GatewayConnection.shared.update { _ in
+                print("log.keys.done")
+                loadingGroup.leave()
+            }
+        }
+        loadingGroup.enter()
+    }
+    
 }

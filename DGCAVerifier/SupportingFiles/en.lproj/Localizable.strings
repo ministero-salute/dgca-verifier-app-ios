@@ -5,49 +5,60 @@
   
 */
 
-"home.title" = "VerificaC19";
-"home.subtitle" = "Verifica una certificazione";
-"home.description" = "Scansiona il QR Code.";
-"home.scan" = "Avvia scansione";
-"home.welcome" = "Benvenuto";
-"home.intro" = "Con la scansione dei QR Code è possibile verificare la validità e l'autenticità della Certificazione verde COVID-19. VerificaC19 permette anche il controllo dell'EU Digital Covid Certificate emesso da altri paesi europei.";
-"home.privacyPolicy" = "Privacy policy";
-"home.loading" = "Caricamento certificati in corso";
-"home.lastUpdate" = "Ultimo aggiornamento: ";
-"home.notAvailable" = "N/A";
-"home.version" = "v. ";
+"home.title" = "Verifica una";
+"home.title.bold" = "Certificazione\nverde COVID-19";
+"home.scan" = "Scansiona il QR Code";
+"home.choose.country" = "Scegli paese di destinazione";
+"home.last.update" = "Ultimo aggiornamento dati e regole:";
+"home.faq" = "Come funziona l'app?\nQuale QR Code scansionare?\n Quali dati vengono letti?";
+"home.or" = "oppure";
+"home.loading" = "Aggiornamento in corso...";
+"home.not.available" = "N/A";
+"home.version" = "Versione";
+"home.update.now" = "Aggiorna ora";
 
-"result.valid.title" = "Certificazione valida";
-"result.valid.description" = "Per completare la verifica è necessario confrontare i dati anagrafici qui sotto riportati con quelli di un valido documento d'identità (es. Carta d'identità).";
-"result.bithdate" = "Data di nascita";
+"camera.back.home" = "Torna all'inizio";
 
-"result.invalid.title" = "Certificazione non valida";
-"result.invalidQR.description" = "Il QR Code o la chiave di firma non sono validi.";
-"result.expired.description" = "La Certificazione è scaduta.";
-"result.future.description" = "La certificazione non è ancora valida.";
-"result.notValid.description" = "La certificazione non è valida o non è stato possibile verificarla.";
+"country.movements" = "Per spostamenti ed eventi in Italia";
+"country.select" = "Scegli paese di destinazione";
 
-"result.notDCC.title" = "Errore di lettura";
-"result.notDCC.description" = "Il QR Code scansionato non corrisponde a una Certificazione verde COVID-19 o non è stato letto in modo corretto, si prega di riprovare.";
+"result.close" = "Chiudi";
+"result.last.fetch" = "Ora e data di validazione:";
+"result.name" = "Nome/Name";
+"result.birthdate" = "Data di nascita/Birth Date";
 
-"result.validationDateTime" = "Ora e data di validazione: ";
+"result.title.valid" = "Certificazione valida in %@ e in Europa";
+"result.title.valid.partially" = "Certificazione valida solo in Italia";
+"result.title.not.valid" = "Certificazione non valida";
+"result.title.not.valid.yet" = "Certificazione non ancora valida";
+"result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
 
-"result.rescan" = "Ripeti scansione";
-"result.nextScan" = "Prossima scansione";
+"result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documenti di Identità valido:";
+"result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
 
-"alert.cameraPermissions.title" = "Autorizzazioni fotocamera";
-"alert.cameraPermissions.message" = "Apri le impostazioni dello smartphone e concedi all'app l'autorizzazione per utilizzare la fotocamera.";
+"server.error.error.with.status" = "Ricevuto errore con status ";
+"server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
+
+"alert.camera.permissions.title" = "Autorizzazioni fotocamera";
+"alert.camera.permissions.message" = "Apri le impostazioni dello smartphone e concedi all'app l'autorizzazione per utilizzare la fotocamera.";
 
 "alert.nocamera.title" = "Fotocamera non rilevata";
 "alert.nocamera.message" = "Sembra ci sia un problema con la fotocamera del tuo dispositivo.";
 
-"alert.barcodeError.title" = "Errore nel QR code";
+"alert.barcode.error.title" = "Errore nel QR code";
 
-"server.error.errorWithStatus" = "Ricevuto errore con status ";
-"server.error.genericError" = "Errore generico nell'utilizzo del servizio";
+"alert.version.outdated.title" = "Aggiornamento richiesto";
+"alert.version.outdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
 
-"alert.versionOutdated.title" = "Aggiornamento richiesto";
-"alert.versionOutdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
+"alert.no.keys.title" = "Impossibile scansionare";
+"alert.no.keys.message" = "L'applicazione deve connettersi alla rete almeno una volta per essere utilizzata";
+"alert.no.countries.title" = "Impossibile accedere ai paesi";
+"alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
-"alert.noKeys.title" = "Impossibile scansionare";
-"alert.noKeys.message" = "L'applicazione deve connettersi alla rete almeno una volta per essere utilizzata";
+
+"links.read.faq" = "Leggi le domande frequenti";
+"links.read.privacy.policy" = "Leggi la Privacy policy";
+"links.what.can.be.done" = "Cosa si può fare con la Certificazione verde COVID-19?";
+"links.why.qr.code.not.valid" = "Quali sono i motivi di non validità?";
+"links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
+"links.which.qr.code.scan" = "Quale QR Code scansionare?";

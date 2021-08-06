@@ -23,12 +23,16 @@
 //
 
 import UIKit
+import SwiftDGC
 
 protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
 
     func start()
+    func dismiss()
+    func dismissToRoot()
+    
 }
 
 class MainCoordinator: Coordinator {
@@ -44,6 +48,15 @@ class MainCoordinator: Coordinator {
         let controller = HomeViewController(coordinator: self, viewModel: HomeViewModel())
         navigationController.pushViewController(controller, animated: true)
     }
+    
+    func dismiss() {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func dismissToRoot() {
+        navigationController.popToRootViewController(animated: true)
+    }
+
 }
 
 extension MainCoordinator: HomeCoordinator {
@@ -51,18 +64,21 @@ extension MainCoordinator: HomeCoordinator {
         let controller = CameraViewController(coordinator: self)
         navigationController.pushViewController(controller, animated: true)
     }
+    
+    func showCountries() {
+    }
 }
 
 extension MainCoordinator: CameraCoordinator {
-    func showVerificationFor(payloadString: String, delegate: CameraDelegate) {
-        let vm = VerificationViewModel(qrCodeText: payloadString)
+    func validate(payload: String, country: CountryModel?, delegate: CameraDelegate) {
+        let vm = VerificationViewModel(payload: payload, country: country)
         let controller = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
         navigationController.present(controller, animated: true)
     }
-    func dismissCamera() {
-        navigationController.popViewController(animated: true)
-    }
 }
+
 
 extension MainCoordinator: VerificationCoordinator {
     func dismissVerification(completion: (()->())?) {

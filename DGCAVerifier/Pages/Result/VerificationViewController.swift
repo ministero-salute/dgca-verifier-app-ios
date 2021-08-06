@@ -34,15 +34,16 @@ class VerificationViewController: UIViewController {
     private var delegate: CameraDelegate?
     private var viewModel: VerificationViewModel
     
+    @IBOutlet weak var resultImageHeight: NSLayoutConstraint!
     @IBOutlet weak var resultImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var validationDateTimeLabel: UILabel!
-    @IBOutlet weak var rescanButton: UIButton!
-    
-    @IBOutlet weak var contentStackView: UIStackView!
-    
-    // MARK: - Init
+
+    @IBOutlet weak var lastFetchLabel: AppLabel!
+    @IBOutlet weak var titleLabel: AppLabel!
+    @IBOutlet weak var descriptionLabel: AppLabel!
+    @IBOutlet weak var closeView: UIView!
+
+    @IBOutlet weak var faqStackView: UIStackView!
+    @IBOutlet weak var personalDataStackView: UIStackView!
     
     init(coordinator: VerificationCoordinator, delegate: CameraDelegate, viewModel: VerificationViewModel) {
         self.coordinator = coordinator
@@ -58,29 +59,104 @@ class VerificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        resultImageView.image = UIImage(named: viewModel.imageName)
-        titleLabel.text = viewModel.title
-        descriptionLabel.text = viewModel.description
-        validationDateTimeLabel.text = viewModel.validationDateTime
-        rescanButton.setTitle(viewModel.rescanButtonTitle, for: .normal)
-        
-        viewModel.resultItems?.forEach {
-            if let resultView = Bundle.main.loadNibNamed("ResultView", owner: nil, options: nil)?.first as? ResultView {
-                resultView.configure(with: $0)
-                contentStackView.addArrangedSubview(resultView)
-            }
+        initializeViews()
+        validate(viewModel.status)
+    }
+    
+    private func validate(_ status: Status) {
+        view.backgroundColor = status.backgroundColor
+        resultImageView.image = status.mainImage
+        titleLabel.text = status.title.localizeWith(getTitleArguments(status))
+        descriptionLabel.text = status.description?.localized
+        lastFetchLabel.isHidden = !status.showLastFetch
+        setFaq(for: status)
+        setPersonalData(for: status)
+    }
+    
+    private func setFaq(for status: Status) {
+        faqStackView.removeAllArrangedSubViews()
+        let faqs = status.faqs
+        guard !faqs.isEmpty else { return }
+        faqs.forEach { faqStackView.addArrangedSubview(getFaq(from: $0)) }
+    }
+    
+    private func setPersonalData(for status: Status) {
+        personalDataStackView.superview?.isHidden = true
+        personalDataStackView.removeAllArrangedSubViews()
+        guard status.showPersonalData else { return }
+        guard let cert = viewModel.hCert else { return }
+        guard !cert.name.isEmpty else { return }
+        guard !cert.birthDate.isEmpty else { return }
+        let name = getResult(cert.name, for: "result.name")
+        let birthDate = getResult(cert.birthDate, for: "result.birthdate")
+        personalDataStackView.addArrangedSubview(name)
+        personalDataStackView.addArrangedSubview(birthDate)
+        personalDataStackView.superview?.isHidden = false
+    }
+
+    private func initializeViews() {
+        setLastFetch()
+        setCard()
+        setCloseView()
+        resultImageHeight.constant *= Font.scaleFactor
+    }
+    
+    private func getResult(_ description: String, for title: String) -> ResultView {
+        let view = ResultView()
+        view.fillView(with: .init(title: title, description: description))
+        return view
+    }
+    
+    private func getFaq(from faq: Link) -> FaqView {
+        let view = FaqView()
+        let tap = UrlTapGesture(target: self, action: #selector(faqDidTap))
+        tap.url = faq.url
+        view.fillView(with: .init(text: faq.title, onTap: tap))
+        return view
+    }
+    
+    private func getTitleArguments(_ status: Status) -> [CVarArg] {
+        guard status.showCountryName else { return [] }
+        return [viewModel.getCountryName()]
+    }
+    
+    @objc func faqDidTap(recognizer: UrlTapGesture) {
+        guard let url = URL(string: recognizer.url ?? "") else { return }
+        UIApplication.shared.open(url)
+    }
+    
+    @objc func dismissVC() {
+        hapticFeedback()
+        coordinator?.dismissVerification(completion: nil)
+        delegate?.startRunning()
+    }
+    
+    private func setLastFetch() {
+        lastFetchLabel.textColor = Palette.white
+        let text = "result.last.fetch".localized + " "
+        let date = Date().toDateTimeReadableString
+        lastFetchLabel.text = text + date
+    }
+    
+    private func setCard() {
+        let cardView = view.subviews.first
+        cardView?.cornerRadius = 4
+        cardView?.addShadow()
+
+    }
+    
+    private func setCloseView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
+        closeView.addGestureRecognizer(tap)
+    }
+    
+    private func hapticFeedback() {
+        DispatchQueue.main.async {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
-    
-    @IBAction func dismiss(_ sender: Any) {
-        delegate?.startRunning()
-        coordinator?.dismissVerification(completion: nil)
-    }
-    
-    @IBAction func goHome(_ sender: Any) {
-        coordinator?.dismissVerification(completion: { [weak self] in
-            self?.coordinator?.navigationController.popViewController(animated: true)
-        })
-    }
+}
+
+class UrlTapGesture: UITapGestureRecognizer {
+    var url: String?
 }

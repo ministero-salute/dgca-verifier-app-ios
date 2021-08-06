@@ -8,28 +8,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
-        </array>
-        <array key="TitilliumWeb-Bold.ttf">
-            <string>TitilliumWeb-Bold</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="VerificaC19" customModuleProvider="target">
             <connections>
-                <outlet property="descriptionLabel" destination="qUS-xt-ZaR" id="0NB-6I-8CE"/>
-                <outlet property="introLabel" destination="Wvf-mj-r7Z" id="5Bc-dt-IVP"/>
-                <outlet property="loadingActivityView" destination="DLF-jL-Tia" id="IOS-E1-fpX"/>
-                <outlet property="pageTitleLabel" destination="5e6-ji-FIq" id="HCC-Fu-YIT"/>
-                <outlet property="privacyPolicyLabel" destination="xaB-yQ-1Eh" id="t15-TH-ynF"/>
-                <outlet property="scanButton" destination="FRi-Zy-fgZ" id="SjG-3i-OAC"/>
-                <outlet property="titleLabel" destination="iXl-gk-RDc" id="LA2-p9-86o"/>
-                <outlet property="updateStatusLabel" destination="Hnt-zz-kdF" id="g09-xd-w80"/>
-                <outlet property="versionLabel" destination="dVq-wA-ym1" id="R7P-Cu-7UW"/>
+                <outlet property="countriesButton" destination="w6r-or-WKE" id="ZOK-Qw-yAB"/>
+                <outlet property="faqLabel" destination="u8T-GU-inN" id="vfH-MP-0VT"/>
+                <outlet property="lastFetchLabel" destination="qed-03-Mb1" id="z4T-Bc-kYd"/>
+                <outlet property="privacyPolicyLabel" destination="yfd-dg-T9K" id="MmA-6n-wER"/>
+                <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
+                <outlet property="updateNowButton" destination="69a-03-GkF" id="5WT-6P-EvP"/>
+                <outlet property="versionLabel" destination="39z-HB-0ZJ" id="SZ9-SZ-D2I"/>
                 <outlet property="view" destination="T8R-UI-qcI" id="8R1-82-1s7"/>
-                <outlet property="welcomeLabel" destination="aJb-4f-FYJ" id="hKu-jC-Y13"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -37,191 +26,275 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRa-PJ-CxI">
-                    <rect key="frame" x="20" y="133" width="374" height="374"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsf-5a-Lh7">
+                    <rect key="frame" x="0.0" y="192.5" width="414" height="703.5"/>
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iKT-oS-23a">
+                    <rect key="frame" x="16" y="44" width="382" height="443"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check ticket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e6-ji-FIq">
-                            <rect key="frame" x="20" y="20" width="334" height="35"/>
-                            <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="23"/>
-                            <color key="textColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRi-Zy-fgZ">
-                            <rect key="frame" x="93.5" y="294" width="187" height="50"/>
-                            <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Gy-cc-akY">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Cmb-gj-RZw">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Cmb-gj-RZw" secondAttribute="height" multiplier="1:1" id="5l9-MP-Rgn"/>
+                                        <constraint firstAttribute="height" constant="32" id="xwS-jT-RCr"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="named" value="AppIcon"/>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="752" text="VerificaC19" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6u-6P-dSq" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="40" y="0.0" width="228.5" height="32"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <bool key="isElement" value="NO"/>
+                                    </accessibility>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                            <real key="value" value="16"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Versione 1.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39z-HB-0ZJ" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="276.5" y="0.0" width="105.5" height="32"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Ut-7p-OYd">
+                                    <rect key="frame" x="382" y="0.0" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="3Ut-7p-OYd" secondAttribute="height" multiplier="1:1" id="06d-pV-S1h"/>
+                                        <constraint firstAttribute="height" constant="32" id="6By-0f-cZg"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="k25-O0-6pE"/>
+                                <constraint firstItem="3Ut-7p-OYd" firstAttribute="width" secondItem="3Ut-7p-OYd" secondAttribute="height" multiplier="1:1" id="gYw-QV-1Ko"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
-                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
-                            <state key="normal" title="Scan QR Code" image="icon_qr-code">
-                                <color key="titleColor" systemColor="labelColor"/>
-                            </state>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6Z-bN-OQY" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="48" width="382" height="201"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cx5-Ij-ji4">
+                                    <rect key="frame" x="24" y="16" width="334" height="169"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ultimo aggiornamento dati e regole:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98k-TR-9MX" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="148.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.last.update"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meno di 4 ore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qed-03-Mb1" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="148.5" width="334" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INV-4q-ygT">
+                                            <rect key="frame" x="0.0" y="169" width="334" height="43"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69a-03-GkF" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="8" width="150.5" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="naY-9D-S4J"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Update Now"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.update.now"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="updateNow:" destination="-1" eventType="touchUpInside" id="Tp4-G6-FlG"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstItem="69a-03-GkF" firstAttribute="top" secondItem="INV-4q-ygT" secondAttribute="top" constant="8" id="6Vb-OI-iue"/>
+                                                <constraint firstItem="69a-03-GkF" firstAttribute="width" secondItem="INV-4q-ygT" secondAttribute="width" multiplier="0.45" id="ee7-nS-MXk"/>
+                                                <constraint firstItem="69a-03-GkF" firstAttribute="leading" secondItem="INV-4q-ygT" secondAttribute="leading" id="uM8-wi-mM4"/>
+                                                <constraint firstAttribute="bottom" secondItem="69a-03-GkF" secondAttribute="bottom" id="vDA-YQ-ShH"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Cx5-Ij-ji4" secondAttribute="trailing" constant="24" id="1dJ-CQ-meg"/>
+                                <constraint firstItem="Cx5-Ij-ji4" firstAttribute="leading" secondItem="I6Z-bN-OQY" secondAttribute="leading" constant="24" id="Pi5-zb-A10"/>
+                                <constraint firstAttribute="bottom" secondItem="Cx5-Ij-ji4" secondAttribute="bottom" constant="16" id="eVO-Fe-n7f"/>
+                                <constraint firstItem="Cx5-Ij-ji4" firstAttribute="top" secondItem="I6Z-bN-OQY" secondAttribute="top" constant="16" id="liG-qO-NNY"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTu-7K-NKS" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="265" width="382" height="81"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TnV-pK-Hlg">
+                                    <rect key="frame" x="24" y="16" width="334" height="49"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leggi le domande frequenti" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8T-GU-inN" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="49"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                    <real key="value" value="13"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="TnV-pK-Hlg" firstAttribute="top" secondItem="kTu-7K-NKS" secondAttribute="top" constant="16" id="Kvx-eh-dbS"/>
+                                <constraint firstAttribute="bottom" secondItem="TnV-pK-Hlg" secondAttribute="bottom" constant="16" id="NTl-kj-hq7"/>
+                                <constraint firstItem="TnV-pK-Hlg" firstAttribute="leading" secondItem="kTu-7K-NKS" secondAttribute="leading" constant="24" id="QZI-bf-n3h"/>
+                                <constraint firstAttribute="trailing" secondItem="TnV-pK-Hlg" secondAttribute="trailing" constant="24" id="hrD-hj-5KO"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-Hq-dha" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="362" width="382" height="81"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="T9Q-W6-3I2">
+                                    <rect key="frame" x="24" y="16" width="334" height="49"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leggi le privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfd-dg-T9K" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="49"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                                    <real key="value" value="13"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="T9Q-W6-3I2" secondAttribute="trailing" constant="24" id="Ae2-Xi-3Xl"/>
+                                <constraint firstAttribute="bottom" secondItem="T9Q-W6-3I2" secondAttribute="bottom" constant="16" id="HBu-gh-TWp"/>
+                                <constraint firstItem="T9Q-W6-3I2" firstAttribute="leading" secondItem="BrB-Hq-dha" secondAttribute="leading" constant="24" id="LUH-Xf-lhJ"/>
+                                <constraint firstItem="T9Q-W6-3I2" firstAttribute="top" secondItem="BrB-Hq-dha" secondAttribute="top" constant="16" id="gwT-Mm-vLC"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="5bx-Gg-eaB">
+                    <rect key="frame" x="32" y="761" width="350" height="85"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cy2-hK-jJT">
+                            <rect key="frame" x="0.0" y="0.0" width="350" height="41"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Verifica una" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uny-g3-Hap" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.title"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                            <real key="value" value="30"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Certificazione verde COVID-19" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyN-YW-0rM" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="20.5" width="350" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.title.bold"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                            <real key="value" value="30"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO1-as-LpM" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="55" width="350" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="250" constant="30" id="Ktm-aY-uux"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                    <real key="value" value="0.59999999999999998"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                    <real key="value" value="6"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.scan"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="scan:" destination="-1" eventType="touchUpInside" id="KnV-oS-zOd"/>
+                                <action selector="scan:" destination="-1" eventType="touchUpInside" id="0aw-jN-JBL"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the QR code of a vaccination ticket" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUS-xt-ZaR">
-                            <rect key="frame" x="20" y="65" width="334" height="18"/>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
-                            <color key="textColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.14509803921568626" green="0.3529411764705882" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="5e6-ji-FIq" secondAttribute="trailing" constant="20" id="0aL-xY-iYJ"/>
-                        <constraint firstItem="FRi-Zy-fgZ" firstAttribute="width" secondItem="hRa-PJ-CxI" secondAttribute="width" multiplier="0.5" id="52b-Hu-Cwo"/>
-                        <constraint firstAttribute="bottom" secondItem="FRi-Zy-fgZ" secondAttribute="bottom" constant="30" id="7fa-9a-Hgn"/>
-                        <constraint firstItem="FRi-Zy-fgZ" firstAttribute="centerX" secondItem="hRa-PJ-CxI" secondAttribute="centerX" id="8U2-G9-clh"/>
-                        <constraint firstAttribute="width" secondItem="hRa-PJ-CxI" secondAttribute="height" multiplier="1:1" priority="250" id="Hst-bH-d9w"/>
-                        <constraint firstItem="qUS-xt-ZaR" firstAttribute="leading" secondItem="hRa-PJ-CxI" secondAttribute="leading" constant="20" id="JEw-NY-ciP"/>
-                        <constraint firstItem="qUS-xt-ZaR" firstAttribute="top" secondItem="5e6-ji-FIq" secondAttribute="bottom" constant="10" id="Ls2-0C-lfI"/>
-                        <constraint firstItem="5e6-ji-FIq" firstAttribute="top" secondItem="hRa-PJ-CxI" secondAttribute="top" constant="20" id="NQY-HH-87T"/>
-                        <constraint firstItem="FRi-Zy-fgZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qUS-xt-ZaR" secondAttribute="bottom" constant="20" id="YKG-FN-YSi"/>
-                        <constraint firstAttribute="trailing" secondItem="qUS-xt-ZaR" secondAttribute="trailing" constant="20" id="aD4-ya-Mu3"/>
-                        <constraint firstItem="5e6-ji-FIq" firstAttribute="leading" secondItem="hRa-PJ-CxI" secondAttribute="leading" constant="20" id="uuN-ru-h3U"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                            <size key="value" width="0.0" height="0.0"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                            <real key="value" value="0.29999999999999999"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                            <real key="value" value="6"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-RK-YeW">
-                    <rect key="frame" x="20" y="527" width="374" height="138.5"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offline availability" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJb-4f-FYJ">
-                            <rect key="frame" x="20" y="10" width="334" height="35"/>
-                            <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="23"/>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="oppure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO5-cr-3N3" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="85" width="350" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.or"/>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect your phone to the internet to update your phone entries." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wvf-mj-r7Z">
-                            <rect key="frame" x="20" y="55" width="334" height="35.5"/>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaB-yQ-1Eh" userLabel="Link Label">
-                            <rect key="frame" x="20" y="106.5" width="334" height="18"/>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
-                            <color key="textColor" systemColor="linkColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6r-or-WKE" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="85" width="350" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="250" constant="30" id="JEg-Ck-llB"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.choose.country"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="chooseCountry:" destination="-1" eventType="touchUpInside" id="LWn-JV-jNK"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="xaB-yQ-1Eh" firstAttribute="leading" secondItem="ZBf-RK-YeW" secondAttribute="leading" constant="20" id="0Ew-pd-CH7"/>
-                        <constraint firstItem="aJb-4f-FYJ" firstAttribute="leading" secondItem="ZBf-RK-YeW" secondAttribute="leading" constant="20" id="1lw-ml-4iE"/>
-                        <constraint firstItem="Wvf-mj-r7Z" firstAttribute="top" secondItem="aJb-4f-FYJ" secondAttribute="bottom" constant="10" id="8cn-PL-zpg"/>
-                        <constraint firstItem="Wvf-mj-r7Z" firstAttribute="leading" secondItem="ZBf-RK-YeW" secondAttribute="leading" constant="20" id="EsP-Cp-lbt"/>
-                        <constraint firstItem="xaB-yQ-1Eh" firstAttribute="top" secondItem="Wvf-mj-r7Z" secondAttribute="bottom" constant="16" id="HRx-Qm-cuR"/>
-                        <constraint firstAttribute="trailing" secondItem="xaB-yQ-1Eh" secondAttribute="trailing" constant="20" id="K2x-3j-lh4"/>
-                        <constraint firstAttribute="trailing" secondItem="aJb-4f-FYJ" secondAttribute="trailing" constant="20" id="cYf-3L-DfV"/>
-                        <constraint firstItem="aJb-4f-FYJ" firstAttribute="top" secondItem="ZBf-RK-YeW" secondAttribute="top" constant="10" id="hVz-2p-Fpq"/>
-                        <constraint firstAttribute="trailing" secondItem="Wvf-mj-r7Z" secondAttribute="trailing" constant="20" id="lH6-j8-weL"/>
-                        <constraint firstAttribute="bottom" secondItem="xaB-yQ-1Eh" secondAttribute="bottom" constant="14" id="yEf-y9-OjC"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                            <size key="value" width="0.0" height="0.0"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                            <real key="value" value="0.29999999999999999"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                            <real key="value" value="6"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scansione Green Pass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXl-gk-RDc">
-                    <rect key="frame" x="20" y="64" width="374" height="49"/>
-                    <fontDescription key="fontDescription" name="TitilliumWeb-Bold" family="Titillium Web" pointSize="32"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading certificates..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-zz-kdF">
-                    <rect key="frame" x="20" y="820" width="374" height="14.5"/>
-                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DLF-jL-Tia">
-                    <rect key="frame" x="197" y="785" width="20" height="20"/>
-                </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVq-wA-ym1">
-                    <rect key="frame" x="20" y="839.5" width="374" height="14.5"/>
-                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="KfD-9R-RDC"/>
             <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="iXl-gk-RDc" secondAttribute="trailing" constant="20" id="3Nj-zS-Qyi"/>
-                <constraint firstItem="hRa-PJ-CxI" firstAttribute="top" secondItem="iXl-gk-RDc" secondAttribute="bottom" constant="20" id="70u-0I-NVH"/>
-                <constraint firstItem="ZBf-RK-YeW" firstAttribute="top" secondItem="hRa-PJ-CxI" secondAttribute="bottom" constant="20" id="74d-9b-x5l"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="Hnt-zz-kdF" secondAttribute="trailing" constant="20" id="9C5-UZ-aN9"/>
-                <constraint firstItem="Hnt-zz-kdF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZBf-RK-YeW" secondAttribute="bottom" constant="12" id="F8D-w4-RPz"/>
-                <constraint firstItem="dVq-wA-ym1" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="FZg-io-JZY"/>
-                <constraint firstItem="iXl-gk-RDc" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="H10-69-WEA"/>
-                <constraint firstItem="Hnt-zz-kdF" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="KT6-DE-thf"/>
-                <constraint firstItem="iXl-gk-RDc" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" constant="20" id="M4n-Wt-Edo"/>
-                <constraint firstItem="DLF-jL-Tia" firstAttribute="centerX" secondItem="T8R-UI-qcI" secondAttribute="centerX" id="MEE-Kf-vMU"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="hRa-PJ-CxI" secondAttribute="trailing" constant="20" id="QXf-GS-yMG"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="ZBf-RK-YeW" secondAttribute="trailing" constant="20" id="SIB-0Q-Fm1"/>
-                <constraint firstItem="Hnt-zz-kdF" firstAttribute="top" secondItem="DLF-jL-Tia" secondAttribute="bottom" constant="15" id="XnZ-Na-IhR"/>
-                <constraint firstItem="dVq-wA-ym1" firstAttribute="top" secondItem="Hnt-zz-kdF" secondAttribute="bottom" constant="5" id="iDR-gX-O6g"/>
-                <constraint firstItem="ZBf-RK-YeW" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="nHi-hf-BJ0"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="dVq-wA-ym1" secondAttribute="trailing" constant="20" id="t6j-fV-4cg"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="dVq-wA-ym1" secondAttribute="bottom" constant="8" id="xfz-RV-GO5"/>
-                <constraint firstItem="hRa-PJ-CxI" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="20" id="y7E-KX-O7r"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="iKT-oS-23a" secondAttribute="trailing" constant="16" id="12u-pd-j2K"/>
+                <constraint firstItem="jsf-5a-Lh7" firstAttribute="trailing" secondItem="KfD-9R-RDC" secondAttribute="trailing" id="1Lu-IC-j4p"/>
+                <constraint firstItem="iKT-oS-23a" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="5QS-yU-Tbe"/>
+                <constraint firstAttribute="bottom" secondItem="jsf-5a-Lh7" secondAttribute="bottom" id="5Tg-z5-Z1S"/>
+                <constraint firstItem="iKT-oS-23a" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="16" id="6g7-xz-GNt"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="5bx-Gg-eaB" secondAttribute="bottom" constant="16" id="9rd-vp-UfB"/>
+                <constraint firstItem="jsf-5a-Lh7" firstAttribute="top" secondItem="I6Z-bN-OQY" secondAttribute="centerY" id="ClQ-Ky-zO7"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="5bx-Gg-eaB" secondAttribute="trailing" constant="32" id="Mdi-j8-osL"/>
+                <constraint firstItem="5bx-Gg-eaB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iKT-oS-23a" secondAttribute="bottom" constant="16" id="dmH-ep-lcn"/>
+                <constraint firstItem="5bx-Gg-eaB" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="32" id="gHZ-4Z-jB1"/>
+                <constraint firstItem="jsf-5a-Lh7" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" id="qUV-TR-vNv"/>
             </constraints>
-            <point key="canvasLocation" x="-1643" y="-1570"/>
+            <point key="canvasLocation" x="-1643.4782608695652" y="-1570.3125"/>
         </view>
     </objects>
     <resources>
-        <image name="icon_qr-code" width="25.5" height="25"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="icon_logo" width="37" height="37"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

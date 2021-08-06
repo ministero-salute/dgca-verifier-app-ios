@@ -28,4 +28,13 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: .main, value: "", comment: "")
     }
+        
+    func localizeWith(_ arguments: CVarArg...) -> String{
+        return String(format: localized, arguments: arguments)
+    }
+    
+    func localizeWith(_ arguments: [CVarArg]) -> String{
+        return String(format: localized, arguments: arguments)
+    }
+
 }

@@ -25,10 +25,10 @@
 import UIKit
 import Vision
 import AVFoundation
+import SwiftDGC
 
 protocol CameraCoordinator: Coordinator {
-    func showVerificationFor(payloadString: String, delegate: CameraDelegate)
-    func dismissCamera()
+    func validate(payload: String, country: CountryModel?, delegate: CameraDelegate)
 }
 
 protocol CameraDelegate {
@@ -40,16 +40,20 @@ let mockQRCode = "<add your mock qr code here>"
 
 class CameraViewController: UIViewController {
     weak var coordinator: CameraCoordinator?
-    private var captureSession = AVCaptureSession()
-
+    private var country: CountryModel?
+    
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var backButton: AppButton!
+    @IBOutlet weak var countryButton: AppButton!
 
+    private var captureSession = AVCaptureSession()
     private let allowedCodes: [VNBarcodeSymbology] = [.Aztec, .QR, .DataMatrix]
     private let scanConfidence: VNConfidence = 0.9
 
     // MARK: - Init
-    init(coordinator: CameraCoordinator) {
+    init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
         self.coordinator = coordinator
+        self.country = country
 
         super.init(nibName: "CameraViewController", bundle: nil)
     }
@@ -61,11 +65,10 @@ class CameraViewController: UIViewController {
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        initializeBackButton()
+        initializeCountryButton()
         #if targetEnvironment(simulator)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.found(payload: mockQRCode)
-        }
+        found(payload: mockQRCode)
         #else
         checkPermissions()
         setupCameraView()
@@ -83,7 +86,11 @@ class CameraViewController: UIViewController {
     }
 
     @IBAction func back(_ sender: Any) {
-        coordinator?.dismissCamera()
+        coordinator?.dismiss()
+    }
+    
+    @IBAction func backToRoot(_ sender: Any) {
+        coordinator?.dismissToRoot()
     }
 
     private func found(payload: String) {
@@ -91,7 +98,19 @@ class CameraViewController: UIViewController {
         guard !(vc is VerificationViewController) else { return }
         stopRunning()
         hapticFeedback()
-        coordinator?.showVerificationFor(payloadString: payload, delegate: self)
+        coordinator?.validate(payload: payload, country: country, delegate: self)
+    }
+    
+    private func initializeBackButton() {
+        backButton.style = .minimal
+        backButton.setLeftImage(named: "icon_back")
+    }
+    
+    private func initializeCountryButton() {
+        countryButton.style = .white
+        countryButton.setRightImage(named: "icon_arrow-right")
+        countryButton.setTitle(country?.name)
+        countryButton.isHidden = country == nil
     }
 
     // MARK: - Permissions
@@ -100,9 +119,8 @@ class CameraViewController: UIViewController {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
-                if !granted {
-                    self?.showPermissionsAlert()
-                }
+                guard !granted else { return }
+                self?.showPermissionsAlert()
             }
         case .denied, .restricted:
             self.showPermissionsAlert()
@@ -110,9 +128,10 @@ class CameraViewController: UIViewController {
             return
         }
     }
+    
     private func showPermissionsAlert() {
-        self.showAlert(withTitle: "alert.cameraPermissions.title".localized,
-                       message: "alert.cameraPermissions.message".localized)
+        self.showAlert(withTitle: "alert.camera.permissions.title".localized,
+                       message: "alert.camera.permissions.message".localized)
     }
 
     // MARK: - Setup
@@ -153,8 +172,12 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController: CameraDelegate {
     func startRunning() {
+        #if targetEnvironment(simulator)
+        back(self)
+        #else
         guard !captureSession.isRunning else { return }
         captureSession.startRunning()
+        #endif
     }
     
     func stopRunning() {
@@ -172,7 +195,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right)
         let detectBarcodeRequest = VNDetectBarcodesRequest { [weak self] request, error in
             guard error == nil else {
-                self?.showAlert(withTitle: "alert.barcodeError.title".localized, message: error?.localizedDescription ?? "error")
+                self?.showAlert(withTitle: "alert.barcode.error.title".localized, message: error?.localizedDescription ?? "error")
                 return
             }
 

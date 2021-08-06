@@ -2,6 +2,3 @@
 baseUrl = https:\/\/testaka4.sogei.it/v1/dgc/
 certificateEvaluator = testaka4.sogei.it
 certificateFilename = testaka4-sogei-it.der
-updateEndpoint = signercertificate/update
-statusEndpoint = signercertificate/status
-settingsEndpoint = settings

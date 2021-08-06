@@ -26,26 +26,23 @@ import UIKit
 
 protocol HomeCoordinator: Coordinator {
     func showCamera()
+    func showCountries()
 }
 
 class HomeViewController: UIViewController {
+    
     weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
 
-    @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var pageTitleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var welcomeLabel: UILabel!
-    @IBOutlet weak var introLabel: UILabel!
-    @IBOutlet weak var privacyPolicyLabel: UILabel!
+    @IBOutlet weak var faqLabel: AppLabelUrl!
+    @IBOutlet weak var privacyPolicyLabel: AppLabelUrl!
+    @IBOutlet weak var versionLabel: AppLabelUrl!
+    @IBOutlet weak var scanButton: AppButton!
+    @IBOutlet weak var countriesButton: AppButton!
+    @IBOutlet weak var updateNowButton: AppButton!
     
-    @IBOutlet weak var scanButton: UIButton!
-
-    @IBOutlet weak var updateStatusLabel: UILabel!
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var loadingActivityView: UIActivityIndicatorView!
-
+    @IBOutlet weak var lastFetchLabel: AppLabel!
+    
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
@@ -59,91 +56,124 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        titleLabel.text = "home.title".localized
-
-        scanButton.setTitle("home.scan".localized, for: .normal)
-
-        pageTitleLabel.text = "home.subtitle".localized
-        descriptionLabel.text = "home.description".localized
-        welcomeLabel.text = "home.welcome".localized
-        introLabel.text = "home.intro".localized
-        privacyPolicyLabel.text = "home.privacyPolicy".localized
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(onPrivacyPolicyLinkTap))
-        privacyPolicyLabel.isUserInteractionEnabled = true
-        privacyPolicyLabel.addGestureRecognizer(tap)
-        
-        updateStatusLabel.text = viewModel.lastUpdateText.value
-        viewModel.lastUpdateText.add(observer: self) { [weak self] text in
-            DispatchQueue.main.async { [weak self] in
-                self?.updateStatusLabel.text = text
-            }
-        }
-        
-        versionLabel.text = "home.version".localized + (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0")
-
-        scanButton.isEnabled = viewModel.isScanEnabled.value ?? true
-        viewModel.isScanEnabled.add(observer: self) { [weak self] isEnabled in
-            DispatchQueue.main.async { [weak self] in
-                self?.scanButton.isEnabled = isEnabled ?? true
-            }
-        }
-
-        loadingActivityView.startAnimating()
-        viewModel.isLoading.add(observer: self) { [weak self] isLoading in
-            DispatchQueue.main.async { [weak self] in
-                (isLoading ?? false) ? self?.loadingActivityView.startAnimating() : self?.loadingActivityView.stopAnimating()
-            }
-        }
-        
-        viewModel.isVersionOutdated.add(observer: self) { [weak self] isVersionOutdated in
-            DispatchQueue.main.async { [weak self] in
-                if isVersionOutdated ?? false {
-                    self?.showOutdatedAlert()
-                }
-            }
-        }
-        
-        viewModel.loadCertificates()
+        initialize()
+        viewModel.startOperations()
+        subscribeEvents()
     }
     
-    @IBAction func onPrivacyPolicyLinkTap(sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://www.dgc.gov.it/web/pn.html") else { return }
+    private func initialize() {
+        setFAQ()
+        setPrivacyPolicy()
+        setVersion()
+        setScanButton()
+        setCountriesButton()
+        updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
+        updateNowButton.contentHorizontalAlignment = .center
+    }
+    
+    private func subscribeEvents() {
+        viewModel.results.add(observer: self, { [weak self] result in
+            DispatchQueue.main.async { [weak self] in
+                self?.manage(result)
+            }
+        })
+        
+        viewModel.isLoading.add(observer: self, { [weak self] isLoading in
+            DispatchQueue.main.async { [weak self] in
+                guard let isLoading = isLoading else { return }
+                self?.updateLastFetch(isLoading: isLoading)
+            }
+        })
+    }
+    
+    private func manage(_ result: HomeViewModel.Result?) {
+        guard let result = result else { return }
+        switch result {
+        case .updateComplete:       updateLastFetch(isLoading: false)
+        case .versionOutdated:      showOutdatedAlert()
+        case .error(_):             lastFetchLabel.text = "error"
+        }
+    }
+    
+    private func setFAQ() {
+        let title = Link.faq.title.localized
+        let tap = UITapGestureRecognizer(target: self, action: #selector(faqDidTap))
+        faqLabel.fillView(with: .init(text: title, onTap: tap))
+    }
+    
+    private func setPrivacyPolicy() {
+        let title = Link.privacyPolicy.title.localized
+        let tap = UITapGestureRecognizer(target: self, action: #selector(privacyPolicyDidTap))
+        privacyPolicyLabel.fillView(with: .init(text: title, onTap: tap))
+    }
+    
+    private func setVersion() {
+        let version = viewModel.currentVersion() ?? "?"
+        versionLabel.text = "home.version".localized + " " + version
+    }
+    
+    private func setScanButton() {
+        scanButton.style = .blue
+        scanButton.setRightImage(named: "icon_qr-code")
+    }
+    
+    private func setCountriesButton() {
+        countriesButton.style = .clear
+        countriesButton.setRightImage(named: "icon_arrow-right")
+    }
+    
+    private func updateLastFetch(isLoading: Bool) {
+        guard !isLoading else { return lastFetchLabel.text = "home.loading".localized }
+        let date = viewModel.getLastUpdate()?.toDateTimeReadableString
+        lastFetchLabel.text = date == nil ? "home.not.available".localized : date
+    }
+
+    @objc func faqDidTap() {
+        guard let url = URL(string: Link.faq.url) else { return }
         UIApplication.shared.open(url)
     }
     
-    private func showOutdatedAlert() {
-        let alertController = UIAlertController(title: "alert.versionOutdated.title".localized, message: "alert.versionOutdated.message".localized, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default)  { _ in
-            if let url = URL(string: "itms-apps://apple.com/app/id1565800117"),
-               UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
-        }
-        alertController.addAction(okAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+    @objc func privacyPolicyDidTap() {
+        guard let url = URL(string: Link.privacyPolicy.url) else { return }
+        UIApplication.shared.open(url)
     }
 
-    private func showNoKeysAlert() {
-        let alertController = UIAlertController(title: "alert.noKeys.title".localized, message: "alert.noKeys.message".localized, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        
+    @objc func goToStore(_ action: UIAlertAction? = nil) {
+//        guard let url = URL(string: Link.store.url) else { return }
+//        guard UIApplication.shared.canOpenURL(url) else { return }
+//        UIApplication.shared.open(url)
+    }
+    
+    private func showOutdatedAlert() {
+        let alert = UIAlertController(title: "alert.version.outdated.title".localized, message: "alert.version.outdated.message".localized, preferredStyle: .alert)
+        alert.addAction(.init(title: "OK", style: .default, handler: goToStore))
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func showAlert(key: String) {
+        let alertController = UIAlertController(
+            title: "alert.\(key).title".localized,
+            message: "alert.\(key).message".localized,
+            preferredStyle: .alert
+        )
+        alertController.addAction(.init(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func scan(_ sender: Any) {
-        if viewModel.isVersionOutdated.value ?? false {
-            showOutdatedAlert()
-        } else if LocalData.sharedInstance.lastFetch.timeIntervalSince1970 == 0 {
-            showNoKeysAlert()
-        }
-        else {
-            coordinator?.showCamera()
-        }
+        guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
+        let lastFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        lastFetch > 0 ? coordinator?.showCamera() : showAlert(key: "no.keys")
     }
+    
+    @IBAction func chooseCountry(_ sender: Any) {
+        guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
+    }
+    
+    @IBAction func updateNow(_ sender: Any) {
+        let isLoading = viewModel.isLoading.value ?? false
+        guard !isLoading else { return }
+        viewModel.startOperations()
+    }
+    
 }
