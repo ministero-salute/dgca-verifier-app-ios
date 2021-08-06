@@ -45,15 +45,13 @@ var lastFetch: Date {
     }
   }
 
-  mutating func add(encodedPublicKey: String) {
-    let kid = KID.from(encodedPublicKey)
-    let kidStr = KID.string(from: kid)
+    mutating func add(kid: String, encodedPublicKey: String) {
 
-    let list = encodedPublicKeys[kidStr] ?? []
+    let list = encodedPublicKeys[kid] ?? []
     if list.contains(encodedPublicKey) {
       return
     }
-    encodedPublicKeys[kidStr] = list + [encodedPublicKey]
+    encodedPublicKeys[kid] = list + [encodedPublicKey]
   }
     
   static func set(resumeToken: String) {

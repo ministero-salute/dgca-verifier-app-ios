@@ -16,24 +16,24 @@ extension GatewayConnection {
     private var certStatusUrl: String { baseUrl + "signercertificate/status" }
 
     func update(completion: ((String?) -> Void)? = nil) {
-        certUpdate(resume: LocalData.sharedInstance.resumeToken) { [weak self] encodedCert, token, error in
+        certUpdate(resume: LocalData.sharedInstance.resumeToken) { [weak self] kid, encodedCert, token, error in
             
             if error != nil {
                 completion?(error)
                 return
             }
             
-            guard let encodedCert = encodedCert else {
+            guard let encodedCert = encodedCert, let kid = kid else {
                 self?.status(completion: completion)
                 return
             }
-            LocalData.sharedInstance.add(encodedPublicKey: encodedCert)
+            LocalData.sharedInstance.add(kid: kid, encodedPublicKey: encodedCert)
             LocalData.sharedInstance.resumeToken = token
             self?.update(completion: completion)
         }
     }
     
-    private func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?) -> Void)?) {
+    private func certUpdate(resume resumeToken: String? = nil, completion: ((String?, String?, String?, String?) -> Void)?) {
         var headers = [String: String]()
         if let token = resumeToken {
             headers["x-resume-token"] = token
@@ -47,18 +47,18 @@ extension GatewayConnection {
                         requestModifier: nil)
             .response {
                 guard let status = $0.response?.statusCode else {
-                    completion?(nil, nil, "server.error.generic.error".localized)
+                    completion?(nil, nil, nil, "server.error.generic.error".localized)
                     return
                 }
                 
                 // Everything ok, all certificates downloaded, no more content
                 if status == 204 {
-                    completion?(nil, nil, nil)
+                    completion?(nil, nil, nil, nil)
                     return
                 }
                 
                 if status > 204 {
-                    completion?(nil, nil, "server.error.error.with.status".localized + "\(status)")
+                    completion?(nil, nil, nil, "server.error.error.with.status".localized + "\(status)")
                     return
                 }
                 
@@ -72,12 +72,7 @@ extension GatewayConnection {
                 else {
                     return
                 }
-                let kid = KID.from(responseStr)
-                let kidStr = KID.string(from: kid)
-                if kidStr != responseKid {
-                    return
-                }
-                completion?(responseStr, newResumeToken, nil)
+                completion?(responseKid, responseStr, newResumeToken, nil)
             }
     }
     
