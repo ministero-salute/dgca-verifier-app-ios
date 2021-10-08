@@ -45,6 +45,8 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var backButton: AppButton!
     @IBOutlet weak var countryButton: AppButton!
+    @IBOutlet weak var flashButton: AppButton!
+    
     @IBOutlet weak var switchButton: UIButton!
 
     private var captureSession = AVCaptureSession()
@@ -78,6 +80,7 @@ class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeBackButton()
+        initializeFlashButton()
         initializeCountryButton()
         initializeCamSwitchButton()
         #if targetEnvironment(simulator)
@@ -102,12 +105,38 @@ class CameraViewController: UIViewController {
         coordinator?.dismiss()
     }
     
+    @IBAction func flashSwitch(_ sender: Any) {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+            return
+        }
+        guard device.hasTorch else {
+            print("Torch isn't available")
+            return
+        }
+        
+        do {
+            try device.lockForConfiguration()
+            if device.torchMode == .off {
+                try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
+                flashButton.setImage(UIImage(named: "icon_no_flash_camera"))
+            }
+            else {
+                device.torchMode = AVCaptureDevice.TorchMode.off
+                flashButton.setImage(UIImage(named: "icon_flash_camera"))
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print("Torch can't be used")
+        }
+    }
+    
     @IBAction func backToRoot(_ sender: Any) {
         coordinator?.dismissToRoot()
     }
 
     @IBAction func switchCamera(_ sender: Any) {
         let camPreference = self.UDCamPreference
+        flashButton.isHidden = !camPreference
         userDefaults.set(!camPreference, forKey: self.UDKeyCamPreference)
         
         captureSession = AVCaptureSession()
@@ -126,6 +155,14 @@ class CameraViewController: UIViewController {
     private func initializeBackButton() {
         backButton.style = .minimal
         backButton.setLeftImage(named: "icon_back")
+    }
+    
+    private func initializeFlashButton() {
+        flashButton.setTitle("")
+        flashButton.backgroundColor = UIColor.darkGray
+        flashButton.cornerRadius = 30.0
+        flashButton.tintColor = UIColor.white
+        flashButton.setImage(UIImage(named: "icon_flash_camera"))
     }
     
     private func initializeCountryButton() {
