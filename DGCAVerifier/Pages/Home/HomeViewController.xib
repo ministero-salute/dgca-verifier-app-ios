@@ -16,8 +16,6 @@
                 <outlet property="lastFetchLabel" destination="qed-03-Mb1" id="z4T-Bc-kYd"/>
                 <outlet property="privacyPolicyLabel" destination="yfd-dg-T9K" id="MmA-6n-wER"/>
                 <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
-                <outlet property="totemLabel" destination="DYP-Mf-n6Y" id="dka-O6-iTG"/>
-                <outlet property="totemSwitch" destination="MFq-Gj-4aa" id="Ywj-4H-goW"/>
                 <outlet property="updateNowButton" destination="69a-03-GkF" id="5WT-6P-EvP"/>
                 <outlet property="versionLabel" destination="39z-HB-0ZJ" id="SZ9-SZ-D2I"/>
                 <outlet property="view" destination="T8R-UI-qcI" id="8R1-82-1s7"/>
@@ -33,7 +31,7 @@
                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iKT-oS-23a">
-                    <rect key="frame" x="16" y="44" width="382" height="522"/>
+                    <rect key="frame" x="16" y="44" width="382" height="443"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Gy-cc-akY">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
@@ -199,34 +197,6 @@
                                 <constraint firstAttribute="bottom" secondItem="T9Q-W6-3I2" secondAttribute="bottom" constant="16" id="HBu-gh-TWp"/>
                                 <constraint firstItem="T9Q-W6-3I2" firstAttribute="leading" secondItem="BrB-Hq-dha" secondAttribute="leading" constant="24" id="LUH-Xf-lhJ"/>
                                 <constraint firstItem="T9Q-W6-3I2" firstAttribute="top" secondItem="BrB-Hq-dha" secondAttribute="top" constant="16" id="gwT-Mm-vLC"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnC-u3-Py2" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="459" width="382" height="63"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Totem mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYP-Mf-n6Y" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="24" y="16" width="95.5" height="31"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MFq-Gj-4aa">
-                                    <rect key="frame" x="309" y="16" width="51" height="31"/>
-                                    <connections>
-                                        <action selector="totemSwitchAction:" destination="-1" eventType="valueChanged" id="m2u-8Q-mhp"/>
-                                    </connections>
-                                </switch>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstItem="DYP-Mf-n6Y" firstAttribute="top" secondItem="tnC-u3-Py2" secondAttribute="top" constant="16" id="85P-Ig-ZTd"/>
-                                <constraint firstAttribute="bottom" secondItem="DYP-Mf-n6Y" secondAttribute="bottom" constant="16" id="BXg-kO-woj"/>
-                                <constraint firstAttribute="trailing" secondItem="MFq-Gj-4aa" secondAttribute="trailing" constant="24" id="LDX-eO-67d"/>
-                                <constraint firstItem="DYP-Mf-n6Y" firstAttribute="leading" secondItem="tnC-u3-Py2" secondAttribute="leading" constant="24" id="Toi-NN-jKg"/>
-                                <constraint firstItem="MFq-Gj-4aa" firstAttribute="top" secondItem="tnC-u3-Py2" secondAttribute="top" constant="16" id="bda-jJ-Lac"/>
-                                <constraint firstItem="DYP-Mf-n6Y" firstAttribute="centerY" secondItem="tnC-u3-Py2" secondAttribute="centerY" id="f54-1L-jy4"/>
-                                <constraint firstAttribute="bottom" secondItem="MFq-Gj-4aa" secondAttribute="bottom" constant="16" id="fzs-9o-NBu"/>
-                                <constraint firstItem="MFq-Gj-4aa" firstAttribute="centerY" secondItem="tnC-u3-Py2" secondAttribute="centerY" id="g32-me-MLF"/>
                             </constraints>
                         </view>
                     </subviews>
