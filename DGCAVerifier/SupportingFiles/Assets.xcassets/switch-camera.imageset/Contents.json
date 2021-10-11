@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "no_caera_Flash@1x.png",
+      "filename" : "switchCamera.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "no_caera_Flash@2x.png",
+      "filename" : "switchCamera-1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "no_caera_Flash@3x.png",
+      "filename" : "switchCamera-2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

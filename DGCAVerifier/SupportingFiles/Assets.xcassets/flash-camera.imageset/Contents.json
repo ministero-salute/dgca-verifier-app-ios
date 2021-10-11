@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "camera_flash@1x.png",
+      "filename" : "flashCamera.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "camera_flash@2x.png",
+      "filename" : "flashCamera-1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "camera_flash@3x.png",
+      "filename" : "flashCamera-2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

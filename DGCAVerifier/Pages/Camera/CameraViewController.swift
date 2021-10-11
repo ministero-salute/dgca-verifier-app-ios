@@ -34,6 +34,7 @@ protocol CameraCoordinator: Coordinator {
 protocol CameraDelegate {
     func startRunning()
     func stopRunning()
+    func setupFlash()
 }
 
 let mockQRCode = "<add your mock qr code here>"
@@ -58,6 +59,13 @@ class CameraViewController: UIViewController {
     let UDKeyCamPreference = "CameraPreference"
     var UDCamPreference: Bool {
         return userDefaults.bool(forKey: UDKeyCamPreference)
+    }
+    
+    // `true`:  flash active.
+    // `false`: flash not active.
+    let UDKeyFlashPreference = "FlashPreference"
+    var UDFlashPreference: Bool {
+        return userDefaults.bool(forKey: UDKeyFlashPreference)
     }
     
     let UDKeyTotemIsActive = "IsTotemModeActive"
@@ -99,6 +107,7 @@ class CameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startRunning()
+        setupFlash()
     }
 
     @IBAction func back(_ sender: Any) {
@@ -118,11 +127,11 @@ class CameraViewController: UIViewController {
             try device.lockForConfiguration()
             if device.torchMode == .off {
                 try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
-                flashButton.setImage(UIImage(named: "icon_no_flash_camera"))
+                userDefaults.set(true, forKey: UDKeyFlashPreference)
             }
             else {
                 device.torchMode = AVCaptureDevice.TorchMode.off
-                flashButton.setImage(UIImage(named: "icon_flash_camera"))
+                userDefaults.set(false, forKey: UDKeyFlashPreference)
             }
             device.unlockForConfiguration()
         } catch {
@@ -158,11 +167,9 @@ class CameraViewController: UIViewController {
     }
     
     private func initializeFlashButton() {
-        flashButton.setTitle("")
-        flashButton.backgroundColor = UIColor.darkGray
         flashButton.cornerRadius = 30.0
-        flashButton.tintColor = UIColor.white
-        flashButton.setImage(UIImage(named: "icon_flash_camera"))
+        flashButton.backgroundColor = .clear
+        flashButton.setImage(UIImage(named: "flash-camera"))
     }
     
     private func initializeCountryButton() {
@@ -173,11 +180,10 @@ class CameraViewController: UIViewController {
     }
     
     private func initializeCamSwitchButton() {
-        switchButton.setTitle("")
-        switchButton.backgroundColor = UIColor.darkGray
         switchButton.cornerRadius = 30.0
+        switchButton.backgroundColor = .clear
         switchButton.tintColor = UIColor.white
-        switchButton.setImage(UIImage(named: "icon_switch-camera"))
+        switchButton.setImage(UIImage(named: "switch-camera"))
     }
 
     // MARK: - Permissions
@@ -249,6 +255,26 @@ extension CameraViewController: CameraDelegate {
     func stopRunning() {
         guard captureSession.isRunning else { return }
         captureSession.stopRunning()
+    }
+    
+    func setupFlash() {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+            return
+        }
+        guard device.hasTorch else {
+            print("Torch isn't available")
+            return
+        }
+        
+        do {
+            try device.lockForConfiguration()
+            if device.torchMode == .off && UDFlashPreference{
+                try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print("Torch can't be used")
+        }
     }
 }
 

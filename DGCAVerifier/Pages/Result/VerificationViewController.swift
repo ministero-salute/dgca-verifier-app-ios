@@ -139,6 +139,7 @@ class VerificationViewController: UIViewController {
         timer?.invalidate()
         coordinator?.dismissVerification(completion: nil)
         delegate?.startRunning()
+        delegate?.setupFlash()
     }
     
     private func setLastFetch() {
