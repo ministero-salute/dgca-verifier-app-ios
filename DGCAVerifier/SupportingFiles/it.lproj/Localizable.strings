@@ -62,3 +62,16 @@
 "links.why.qr.code.not.valid" = "Quali sono i motivi di non validità?";
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
+
+
+"settings.title" = "IMPOSTAZIONI";
+"settings.preferences" = "Preferenze";
+"settings.mode" = "MODALITÀ";
+"settings.mode.automatic" = "Automatica";
+"settings.mode.manual" = "Manuale";
+
+"settings.informations" = "Informazioni";
+"settings.faq" = "DOMANDE FREQUENTI";
+"settings.privacy" = "RISPETTO DELLA PRIVACY";
+
+

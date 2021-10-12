@@ -46,8 +46,7 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var backButton: AppButton!
     @IBOutlet weak var countryButton: AppButton!
-    @IBOutlet weak var flashButton: AppButton!
-    
+    @IBOutlet weak var flashButton: AppButton!  
     @IBOutlet weak var switchButton: UIButton!
 
     private var captureSession = AVCaptureSession()
@@ -90,7 +89,6 @@ class CameraViewController: UIViewController {
         initializeBackButton()
         initializeFlashButton()
         initializeCountryButton()
-        initializeCamSwitchButton()
         #if targetEnvironment(simulator)
         found(payload: mockQRCode)
         #else

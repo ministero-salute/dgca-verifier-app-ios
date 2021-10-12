@@ -36,6 +36,8 @@ struct VaccineValidityCheck {
     private let completeStartDays = "vaccine_start_day_complete"
     private let completeEndDays = "vaccine_end_day_complete"
     
+    private let JeJVacineCode = "EU/1/20/1525"
+    
     func isVaccineDateValid(_ hcert: HCert) -> Status {
         guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
         guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
@@ -56,7 +58,14 @@ struct VaccineValidityCheck {
 
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        let result = Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        let result: Status
+        
+        if hcert.medicalProduct == JeJVacineCode && currentDoses > totalDoses{
+            result = Validator.validate(currentDate, from: date, to: validityEnd)
+        }
+        else{
+            result = Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        }
         
         guard result == .valid else { return result }
         if !lastDose { return .validPartially }

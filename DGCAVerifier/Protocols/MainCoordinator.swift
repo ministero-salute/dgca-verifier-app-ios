@@ -67,6 +67,14 @@ extension MainCoordinator: HomeCoordinator {
     
     func showCountries() {
     }
+    
+    func openSettings() {
+        let vm = SettingsViewModel()
+        let controller = SettingsViewController(coordinator: self, viewModel: vm)
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 extension MainCoordinator: CameraCoordinator {
@@ -83,5 +91,11 @@ extension MainCoordinator: CameraCoordinator {
 extension MainCoordinator: VerificationCoordinator {
     func dismissVerification(completion: (()->())?) {
         navigationController.dismiss(animated: true, completion: completion)
+    }
+}
+
+extension MainCoordinator: SettingsCoordinator {
+    func dismissSettings(completion: (() -> ())?) {
+        navigationController.popViewController(animated: true)
     }
 }
