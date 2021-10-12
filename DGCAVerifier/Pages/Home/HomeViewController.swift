@@ -43,6 +43,15 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var lastFetchLabel: AppLabel!
     
+    let userDefaults = UserDefaults.standard
+
+    // `true`:  flash active.
+    // `false`: flash not active.
+    let UDKeyFlashPreference = "FlashPreference"
+    var UDFlashPreference: Bool {
+        return userDefaults.bool(forKey: UDKeyFlashPreference)
+    }
+    
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
@@ -59,6 +68,11 @@ class HomeViewController: UIViewController {
         initialize()
         viewModel.startOperations()
         subscribeEvents()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userDefaults.set(false, forKey: UDKeyFlashPreference)
     }
     
     private func initialize() {
