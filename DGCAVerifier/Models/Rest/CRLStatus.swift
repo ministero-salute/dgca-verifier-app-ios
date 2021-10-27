@@ -11,8 +11,9 @@ struct CRLStatus: Codable {
     var id: String?
     var fromVersion: Int?
     var version: Int?
-    var chunkSize: Int?
-    var lastChunk: Int?
-    var responseSize: Double?
+    var chunk: Int?
+    var totalSizeInByte: Int?
+    var sizeSingleChunkInByte: Int?
+    var totalChunk: Int?
     var totalNumberUCVI: Int?
 }

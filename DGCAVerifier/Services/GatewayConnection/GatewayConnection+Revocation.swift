@@ -80,19 +80,25 @@ extension GatewayConnection {
     }
 
     private func getCRLMock(from crl: CRL) -> CRL {
-        var crl = crl
-        crl.version = getCRLStatusMock().version
-        return crl
+        var newCrl = crl
+        let mockStatus = getCRLStatusMock()
+        newCrl.version = mockStatus.version
+        newCrl.chunk = mockStatus.chunk
+        newCrl.lastChunk = mockStatus.totalChunk
+        newCrl.sizeSingleChunkInByte = mockStatus.sizeSingleChunkInByte
+        newCrl.totalNumberUCVI = mockStatus.totalNumberUCVI
+        return newCrl
     }
     
     private func getCRLStatusMock() -> CRLStatus {
         var status = CRLStatus()
         status.fromVersion = 47
         status.version = 58
-        status.lastChunk = 10
-        status.chunkSize = 10000
-        status.totalNumberUCVI = 1000000
-        status.responseSize = (status.lastChunk?.doubleValue ?? 0.0) * 740 * 1024
+        status.chunk = 1
+        status.totalSizeInByte = 8388600
+        status.sizeSingleChunkInByte = 838860
+        status.totalChunk = 10
+        status.totalNumberUCVI = 10000
         return status
     }
     

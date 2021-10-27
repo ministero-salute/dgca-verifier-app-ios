@@ -125,7 +125,7 @@ class CRLSynchronizationManager {
         guard isConsistent(crl) else { return cleanAndRetry() }
         log("managing response")
         CRLDataStorage.store(crl: crl)
-        updateProgress(with: crl.responseSize)
+        updateProgress(with: crl.sizeSingleChunkInByte)
         download()
     }
     
@@ -134,11 +134,11 @@ class CRLSynchronizationManager {
         delegate?.statusDidChange(with: .error)
     }
         
-    private func updateProgress(with size: Double?) {
+    private func updateProgress(with size: Int?) {
         let current = progress.currentChunk ?? CRLProgress.FIRST_CHUNK
         let downloadedSize = progress.downloadedSize ?? 0
         _progress.currentChunk = current + 1
-        _progress.downloadedSize = downloadedSize + (size ?? 0)
+        _progress.downloadedSize = downloadedSize + (size?.doubleValue ?? 0)
     }
     
     private func completeProgress() {
@@ -180,7 +180,7 @@ extension CRLSynchronizationManager {
     
     private var noMoreChunks: Bool {
         guard let lastChunkDownloaded = _progress.currentChunk else { return false }
-        guard let allChunks = _serverStatus?.lastChunk else { return false }
+        guard let allChunks = _serverStatus?.totalChunk else { return false }
         return lastChunkDownloaded > allChunks
     }
     
@@ -190,14 +190,14 @@ extension CRLSynchronizationManager {
     }
 
     private var sameChunkSize: Bool {
-        guard let localChunkSize = _progress.chunkSize else { return false }
-        guard let serverChunkSize = _serverStatus?.chunkSize else { return false }
+        guard let localChunkSize = _progress.sizeSingleChunkInByte else { return false }
+        guard let serverChunkSize = _serverStatus?.sizeSingleChunkInByte else { return false }
         return localChunkSize == serverChunkSize
     }
     
     private var requireUserInteraction: Bool {
-        guard let size = _serverStatus?.responseSize else { return false }
-        return size > AUTOMATIC_MAX_SIZE
+        guard let size = _serverStatus?.totalSizeInByte else { return false }
+        return size.doubleValue > AUTOMATIC_MAX_SIZE
     }
 
     private func isConsistent(_ crl: CRL) -> Bool {
@@ -218,7 +218,7 @@ extension CRLSynchronizationManager {
         let from = progress.currentVersion
         let to = progress.requestedVersion
         let chunk = progress.currentChunk ?? CRLProgress.FIRST_CHUNK
-        let chunks = progress.totalChunks ?? CRLProgress.FIRST_CHUNK
+        let chunks = progress.totalChunk ?? CRLProgress.FIRST_CHUNK
         log("downloading [\(from)->\(to)] \(chunk)/\(chunks)")
     }
 }
