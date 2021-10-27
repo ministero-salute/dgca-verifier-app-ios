@@ -91,6 +91,7 @@ extension GatewayConnection {
         status.version = 58
         status.lastChunk = 10
         status.chunkSize = 10000
+        status.totalNumberUCVI = 1000000
         status.responseSize = (status.lastChunk?.doubleValue ?? 0.0) * 740 * 1024
         return status
     }

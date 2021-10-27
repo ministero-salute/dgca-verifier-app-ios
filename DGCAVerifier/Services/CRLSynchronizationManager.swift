@@ -206,7 +206,8 @@ extension CRLSynchronizationManager {
     }
     
     var sameDatabaseSize: Bool {
-        progress.totalNumberUCVI == CRLDataStorage.crlTotalNumber()
+        guard let serverStatus = _serverStatus, let serverTotalNumberUCVI = serverStatus.totalNumberUCVI else {return false}
+        return serverTotalNumberUCVI == CRLDataStorage.crlTotalNumber()
     }
     
     private func log(_ message: String) {

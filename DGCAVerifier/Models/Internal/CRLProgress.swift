@@ -15,7 +15,6 @@ struct CRLProgress: Codable {
     var chunkSize: Int?
     var responseSize: Double?
     var downloadedSize: Double?
-    var totalNumberUCVI: Int?
     
     static let FIRST_VERSION: Int = 0
     static let FIRST_CHUNK: Int = 1
@@ -32,8 +31,7 @@ struct CRLProgress: Codable {
             currentChunk: CRLProgress.FIRST_CHUNK,
             totalChunks: serverStatus?.lastChunk,
             chunkSize: serverStatus?.chunkSize,
-            responseSize: serverStatus?.responseSize,
-            totalNumberUCVI: serverStatus?.totalNumberUCVI
+            responseSize: serverStatus?.responseSize
         )
     }
     
@@ -44,8 +42,7 @@ struct CRLProgress: Codable {
         totalChunks: Int? = nil,
         chunkSize: Int? = nil,
         responseSize: Double? = nil,
-        downloadedSize: Double? = nil,
-        totalNumberUCVI: Int? = nil
+        downloadedSize: Double? = nil
     ) {
         self.currentVersion = currentVersion ?? CRLProgress.FIRST_VERSION
         self.requestedVersion = requestedVersion ?? CRLProgress.FIRST_VERSION
@@ -54,7 +51,6 @@ struct CRLProgress: Codable {
         self.chunkSize = chunkSize
         self.responseSize = responseSize
         self.downloadedSize = downloadedSize ?? 0
-        self.totalNumberUCVI = totalNumberUCVI
     }
     
     var remainingSize: String {
