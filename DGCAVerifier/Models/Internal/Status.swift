@@ -31,4 +31,5 @@ enum Status {
     case notValid
     case notValidYet
     case notGreenPass
+    case revokedGreenPass
 }

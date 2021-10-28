@@ -32,9 +32,11 @@
 "result.title.not.valid" = "Certificazione non valida";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
+"result.title.revoked.green.pass" = "Certificazione revocata";
 
 "result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documenti di Identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
+"result.description.revoked" = "La certificazione risulta essere revocata";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";

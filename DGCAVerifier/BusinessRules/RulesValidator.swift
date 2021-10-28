@@ -36,7 +36,13 @@ struct RulesValidator: Validator {
     private static let currentValidationType: ValidationType = .internal
     
     static func getStatus(from hCert: HCert) -> Status {
-        guard isRevoked(hCert) else { return .notValid }
+        guard isRevoked(hCert) else {
+            #if DEBUG
+                return .revokedGreenPass
+            #else
+                return .notValid
+            #endif
+        }
         switch currentValidationType {
         case .internal:     return MedicalRulesValidator.getStatus(from: hCert)
         case .european:     return CertLogicValidator.getStatus(from:hCert)

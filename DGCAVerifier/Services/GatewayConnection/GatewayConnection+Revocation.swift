@@ -31,7 +31,7 @@ extension GatewayConnection {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
         
-        getCRLDeltaMOCK(version: version, chunk: chunk) { crl in
+        getCRL(version: version, chunk: chunk) { crl in
             
             guard let crl = crl else {
                 completion?(nil, "server.error.generic.error".localized)
@@ -111,24 +111,29 @@ extension GatewayConnection {
             }
             
             //MOCK
-            if version == 0{
-                completion?(self.getCRLStatusMock())
-            }
-            else if version == 1 {
-                completion?(self.getCRLStatusDeltaMock())
-            }
-            else {
-                completion?(status)
-            }
+//            if version == 0{
+//                completion?(self.getCRLStatusMock())
+//            }
+//            else if version == 1 {
+//                completion?(self.getCRLStatusDeltaMock())
+//            }
+//            else {
+//                completion?(status)
+//            }
+            
+            completion?(self.getCRLStatusMock())
         }
     }
 
     private func getCRLMock(from crl: CRL) -> CRL {
         var newCrl = crl
         var mockStatus = getCRLStatusMock()
-        if crl.version == 2 {
-            mockStatus = getCRLStatusDeltaMock()
-        }
+        
+//        MOCK
+//        if crl.version == 2 {
+//            mockStatus = getCRLStatusDeltaMock()
+//        }
+        
         newCrl.version = mockStatus.version
         newCrl.chunk = mockStatus.chunk
         newCrl.lastChunk = mockStatus.totalChunk
