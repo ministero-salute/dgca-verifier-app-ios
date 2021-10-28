@@ -62,9 +62,9 @@ extension CRLDataStorage {
     
     public static func removeAll(hashes: [String]?) {
         let storage = realm
-        let dcc = hashes?.map { RevokedDCC(hash: $0) } ?? []
-        guard !dcc.isEmpty else { return }
-        try! storage.write { storage.delete(dcc) }
+        guard let hashes = hashes else {return}
+        let objectsToDelete = storage.objects(RevokedDCC.self).filter("hashedUVCI IN %@", hashes)
+        try! storage.write { storage.delete(objectsToDelete) }
     }
     
     public static func contains(hash: String) -> Bool {
