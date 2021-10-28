@@ -15,7 +15,7 @@ struct StatementValidityCheck {
 
     func isStatementBlacklisted(_ hCert: HCert) -> Bool {
         guard let blacklist = getBlacklist() else { return true }
-        return blacklist.split(separator: ";").contains("\(hCert.uvci);")
+        return blacklist.split(separator: ";").contains("\(hCert.uvci)")
         
     }
 
