@@ -27,6 +27,7 @@ import UIKit
 
 protocol SettingsCoordinator: Coordinator {
     func dismissSettings(completion: (()->())?)
+    func openWebURL(url: URL)
 }
 
 protocol SettingsDelegate {
@@ -98,12 +99,12 @@ class SettingsViewController: UIViewController {
     
     func faqDidTap() {
         guard let url = URL(string: Link.faq.url) else { return }
-        UIApplication.shared.open(url)
+        coordinator?.openWebURL(url: url)
     }
     
     func privacyPolicyDidTap() {
         guard let url = URL(string: Link.privacyPolicy.url) else { return }
-        UIApplication.shared.open(url)
+        coordinator?.openWebURL(url: url)
     }
     
     private func didTapDone(vc: PickerViewController) {

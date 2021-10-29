@@ -30,11 +30,6 @@ struct TestValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
-    private let rapidStartHoursKey = "rapid_test_start_hours"
-    private let rapidEndHoursKey = "rapid_test_end_hours"
-    private let molecularStartHoursKey = "molecular_test_start_hours"
-    private let molecularEndHoursKey = "molecular_test_end_hours"
-    
     func isTestDateValid(_ hcert: HCert) -> Status {
         guard hcert.isKnownTestType else { return .notValid }
         
@@ -78,9 +73,9 @@ struct TestValidityCheck {
         LocalData.getSetting(from: key)
     }
     
-    var molecularStartHours: String? { getValue(from: molecularStartHoursKey) }
-    var molecularEndHours: String? { getValue(from: molecularEndHoursKey) }
-    var rapidStartHours: String? { getValue(from: rapidStartHoursKey) }
-    var rapidEndHours: String? { getValue(from: rapidEndHoursKey) }
+    var molecularStartHours: String? { getValue(from: Constants.molecularStartHoursKey) }
+    var molecularEndHours: String? { getValue(from: Constants.molecularEndHoursKey) }
+    var rapidStartHours: String? { getValue(from: Constants.rapidStartHoursKey) }
+    var rapidEndHours: String? { getValue(from: Constants.rapidEndHoursKey) }
    
 }
