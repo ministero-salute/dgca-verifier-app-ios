@@ -36,7 +36,7 @@ struct RulesValidator: Validator {
     private static let currentValidationType: ValidationType = .internal
     
     static func getStatus(from hCert: HCert) -> Status {
-        guard isRevoked(hCert) else {
+        guard !isRevoked(hCert) else {
             #if DEBUG
                 return .revokedGreenPass
             #else
@@ -51,7 +51,7 @@ struct RulesValidator: Validator {
         
     private static func isRevoked(_ hCert: HCert) -> Bool {
         guard CRLSynchronizationManager.shared.isSyncEnabled else { return false }
-        let hash = hCert.certHash
+        let hash = hCert.uvci.sha256()
         guard !hash.isEmpty else { return false }
         return CRLDataStorage.contains(hash: hash)
     }
