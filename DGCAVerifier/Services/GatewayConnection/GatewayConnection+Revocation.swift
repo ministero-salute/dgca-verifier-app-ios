@@ -9,9 +9,9 @@ import SwiftDGC
 
 extension GatewayConnection {
 
-    private var revocationUrl: String { "https://storage.googleapis.com/dgc-greenpass/10K.json" }
+    private var revocationUrl: String { "https://testaka4.sogei.it/v1/dgc/drl" }
     
-    private var statusUrl: String { "https://storage.googleapis.com/dgc-greenpass/10K.json" }
+    private var statusUrl: String { "https://testaka4.sogei.it/v1/dgc/drl/check" }
     
     func revocationStatus(_ progress: CRLProgress?, completion: ((CRLStatus?, String?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -38,13 +38,15 @@ extension GatewayConnection {
                 return
             }
             
-            completion?(self.getCRLMock(from: crl), nil)
+            completion?(crl, nil)
         }
     }
 
     private func getCRL(version: Int?, chunk: Int?, completion: ((CRL?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL] [REST]")
-        session.request(revocationUrl).response {
+        let version = version ?? 0
+        let chunk = chunk ?? 1
+        session.request("\(revocationUrl)?version=\(version)&chunk=\(chunk)").response {
             Log.end(key: "[CRL] [REST]", startTime: restStartTime)
             
             let jsonStartTime = Log.start(key: "[CRL] [JSON]")
@@ -60,44 +62,12 @@ extension GatewayConnection {
             completion?(crl)
         }
     }
-    
-    private func getCRLDeltaMOCK(version: Int?, chunk: Int?, completion: ((CRL?) -> Void)?) {
-        let restStartTime = Log.start(key: "[CRL] [REST]")
         
-        var revocationUrl = revocationUrl
-        //MOCK
-        if version == 1 {
-            if chunk == 1 {
-                revocationUrl = "https://run.mocky.io/v3/7d71ba28-6ee0-4e5a-a815-93f3a33e7ec4"
-            }
-            else if chunk == 2 {
-                revocationUrl = "https://run.mocky.io/v3/bf32eb99-1993-4272-b9cc-6522a04be009"
-            }
-            else if chunk == 3{
-                revocationUrl = "https://run.mocky.io/v3/ec6c4335-1e2c-4917-993c-99ea992c0f4e"
-            }
-        }
-        
-        session.request(revocationUrl).response {
-            Log.end(key: "[CRL] [REST]", startTime: restStartTime)
-            
-            let jsonStartTime = Log.start(key: "[CRL] [JSON]")
-            let decoder = JSONDecoder()
-            var data = try? decoder.decode(CRL.self, from: $0.data ?? .init())
-            data?.responseSize = $0.data?.count.doubleValue
-            Log.end(key: "[CRL] [JSON]", startTime: jsonStartTime)
-            
-            guard let crl = data else {
-                completion?(nil)
-                return
-            }
-            completion?(crl)
-        }
-    }
-    
     private func status(version: Int?, chunk: Int?, completion: ((CRLStatus?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL STATUS] [REST]")
-        session.request(statusUrl).response {
+        let version = version ?? 0
+        let chunk = chunk ?? 1
+        session.request("\(statusUrl)?version=\(version)&chunk=\(chunk)").response {
             Log.end(key: "[CRL STATUS] [REST]", startTime: restStartTime)
             
             let jsonStartTime = Log.start(key: "[CRL STATUS] [JSON]")
@@ -109,31 +79,13 @@ extension GatewayConnection {
                 completion?(nil)
                 return
             }
-            
-            //MOCK
-//            if version == 0{
-//                completion?(self.getCRLStatusMock())
-//            }
-//            else if version == 1 {
-//                completion?(self.getCRLStatusDeltaMock())
-//            }
-//            else {
-//                completion?(status)
-//            }
-            
-            completion?(self.getCRLStatusMock())
+            completion?(status)
         }
     }
 
     private func getCRLMock(from crl: CRL) -> CRL {
         var newCrl = crl
-        var mockStatus = getCRLStatusMock()
-        
-//        MOCK
-//        if crl.version == 2 {
-//            mockStatus = getCRLStatusDeltaMock()
-//        }
-        
+        let mockStatus = getCRLStatusMock()
         newCrl.version = mockStatus.version
         newCrl.chunk = mockStatus.chunk
         newCrl.lastChunk = mockStatus.totalChunk

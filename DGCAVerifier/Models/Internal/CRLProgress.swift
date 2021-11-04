@@ -19,9 +19,11 @@ struct CRLProgress: Codable {
     static let FIRST_VERSION: Int = 0
     static let FIRST_CHUNK: Int = 1
     
-    public init(version: Int? = nil) {
+    public init(version: Int? = nil, chunk: Int? = nil) {
         currentVersion = version ?? CRLProgress.FIRST_VERSION
         requestedVersion = version ?? CRLProgress.FIRST_VERSION
+        currentChunk = chunk ?? CRLProgress.FIRST_CHUNK
+        totalChunk = chunk ?? CRLProgress.FIRST_CHUNK
     }
     
     init(serverStatus: CRLStatus?) {

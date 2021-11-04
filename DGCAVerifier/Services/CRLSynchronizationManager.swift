@@ -143,7 +143,8 @@ class CRLSynchronizationManager {
     
     private func completeProgress() {
         let completedVersion = progress.requestedVersion
-        _progress = .init(version: completedVersion)
+        let completedChunk = progress.totalChunk
+        _progress = .init(version: completedVersion, chunk: completedChunk)
     }
     
     public func showAlert() {
