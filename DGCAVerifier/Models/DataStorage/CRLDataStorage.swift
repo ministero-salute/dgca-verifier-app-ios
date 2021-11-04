@@ -22,7 +22,7 @@ struct CRLDataStorage: Codable {
         if let currentVersion = progress?.currentVersion, let requestedVersion = progress?.requestedVersion, let currentChunk = progress?.currentChunk, let totalChunk = progress?.totalChunk {
             return currentVersion == requestedVersion && currentChunk == totalChunk
         }
-        return false
+        return true
     }
     
     var lastFetch: Date

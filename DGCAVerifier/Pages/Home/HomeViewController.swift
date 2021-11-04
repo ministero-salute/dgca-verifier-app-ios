@@ -210,20 +210,23 @@ class HomeViewController: UIViewController {
     @IBAction func scan(_ sender: Any) {
         guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
         
-        let certFetch = LocalData.sharedInstance.lastFetch.timeIntervalSinceNow
-        let certFetchOutdated = certFetch < -24 * 60 * 60
+        let certFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        let certFetchUpdated = certFetch > 0
+        
         let crlFetchOutdated = CRLSynchronizationManager.shared.isFetchOutdated
-        let isCertOrCRLOutdated = (certFetchOutdated || crlFetchOutdated)
         
         let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
         let isCRLAllowed = LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
         
-        let isCRLAlloewdAndCompleted = isCRLDownloadCompleted && isCRLAllowed
+        let isCRLAllowedAndCompleted = isCRLDownloadCompleted && isCRLAllowed
         
-        if isCertOrCRLOutdated {
+        if !certFetchUpdated {
             showAlert(key: "no.keys")
         }
-        else if !isCRLAlloewdAndCompleted{
+        else if crlFetchOutdated {
+            showAlert(key: "crl.outdated")
+        }
+        else if !isCRLAllowedAndCompleted{
             showAlert(key: "no.crl.download")
         }
         else {
