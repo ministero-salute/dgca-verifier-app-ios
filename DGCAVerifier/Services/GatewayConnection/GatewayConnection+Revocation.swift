@@ -9,9 +9,9 @@ import SwiftDGC
 
 extension GatewayConnection {
 
-    private var revocationUrl: String { "https://storage.googleapis.com/dgc-greenpass/10K.json" }
+    private var revocationUrl: String { "https://testaka4.sogei.it/v1/dgc/drl?version=0&chunk=1" }
     
-    private var statusUrl: String { "https://storage.googleapis.com/dgc-greenpass/10K.json" }
+    private var statusUrl: String { "https://testaka4.sogei.it/v1/dgc/drl/check?version=0" }
     
     func revocationStatus(_ progress: CRLProgress?, completion: ((CRLStatus?, String?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -38,46 +38,12 @@ extension GatewayConnection {
                 return
             }
             
-            completion?(self.getCRLMock(from: crl), nil)
+            completion?(crl, nil)
         }
     }
 
     private func getCRL(version: Int?, chunk: Int?, completion: ((CRL?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL] [REST]")
-        session.request(revocationUrl).response {
-            Log.end(key: "[CRL] [REST]", startTime: restStartTime)
-            
-            let jsonStartTime = Log.start(key: "[CRL] [JSON]")
-            let decoder = JSONDecoder()
-            var data = try? decoder.decode(CRL.self, from: $0.data ?? .init())
-            data?.responseSize = $0.data?.count.doubleValue
-            Log.end(key: "[CRL] [JSON]", startTime: jsonStartTime)
-            
-            guard let crl = data else {
-                completion?(nil)
-                return
-            }
-            completion?(crl)
-        }
-    }
-    
-    private func getCRLDeltaMOCK(version: Int?, chunk: Int?, completion: ((CRL?) -> Void)?) {
-        let restStartTime = Log.start(key: "[CRL] [REST]")
-        
-        var revocationUrl = revocationUrl
-        //MOCK
-        if version == 1 {
-            if chunk == 1 {
-                revocationUrl = "https://run.mocky.io/v3/7d71ba28-6ee0-4e5a-a815-93f3a33e7ec4"
-            }
-            else if chunk == 2 {
-                revocationUrl = "https://run.mocky.io/v3/bf32eb99-1993-4272-b9cc-6522a04be009"
-            }
-            else if chunk == 3{
-                revocationUrl = "https://run.mocky.io/v3/ec6c4335-1e2c-4917-993c-99ea992c0f4e"
-            }
-        }
-        
         session.request(revocationUrl).response {
             Log.end(key: "[CRL] [REST]", startTime: restStartTime)
             
@@ -110,60 +76,7 @@ extension GatewayConnection {
                 return
             }
             
-            //MOCK
-//            if version == 0{
-//                completion?(self.getCRLStatusMock())
-//            }
-//            else if version == 1 {
-//                completion?(self.getCRLStatusDeltaMock())
-//            }
-//            else {
-//                completion?(status)
-//            }
-            
-            completion?(self.getCRLStatusMock())
+            completion?(status)
         }
     }
-
-    private func getCRLMock(from crl: CRL) -> CRL {
-        var newCrl = crl
-        var mockStatus = getCRLStatusMock()
-        
-//        MOCK
-//        if crl.version == 2 {
-//            mockStatus = getCRLStatusDeltaMock()
-//        }
-        
-        newCrl.version = mockStatus.version
-        newCrl.chunk = mockStatus.chunk
-        newCrl.lastChunk = mockStatus.totalChunk
-        newCrl.sizeSingleChunkInByte = mockStatus.sizeSingleChunkInByte
-        newCrl.totalNumberUCVI = mockStatus.totalNumberUCVI
-        return newCrl
-    }
-    
-    private func getCRLStatusMock() -> CRLStatus {
-        var status = CRLStatus()
-        status.fromVersion = 0
-        status.version = 1
-        status.chunk = 1
-        status.totalSizeInByte = 8388600
-        status.sizeSingleChunkInByte = 838860
-        status.totalChunk = 1
-        status.totalNumberUCVI = 10000
-        return status
-    }
-    
-    private func getCRLStatusDeltaMock() -> CRLStatus {
-        var status = CRLStatus()
-        status.fromVersion = 1
-        status.version = 2
-        status.chunk = 1
-        status.totalSizeInByte = 8388600
-        status.sizeSingleChunkInByte = 838860
-        status.totalChunk = 3
-        status.totalNumberUCVI = 10015
-        return status
-    }
-    
 }
