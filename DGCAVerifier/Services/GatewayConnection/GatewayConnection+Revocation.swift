@@ -62,7 +62,7 @@ extension GatewayConnection {
             completion?(crl)
         }
     }
-        
+    
     private func status(version: Int?, chunk: Int?, completion: ((CRLStatus?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL STATUS] [REST]")
         let version = version ?? 0
@@ -79,43 +79,8 @@ extension GatewayConnection {
                 completion?(nil)
                 return
             }
+            
             completion?(status)
         }
     }
-
-    private func getCRLMock(from crl: CRL) -> CRL {
-        var newCrl = crl
-        let mockStatus = getCRLStatusMock()
-        newCrl.version = mockStatus.version
-        newCrl.chunk = mockStatus.chunk
-        newCrl.lastChunk = mockStatus.totalChunk
-        newCrl.sizeSingleChunkInByte = mockStatus.sizeSingleChunkInByte
-        newCrl.totalNumberUCVI = mockStatus.totalNumberUCVI
-        return newCrl
-    }
-    
-    private func getCRLStatusMock() -> CRLStatus {
-        var status = CRLStatus()
-        status.fromVersion = 0
-        status.version = 1
-        status.chunk = 1
-        status.totalSizeInByte = 8388600
-        status.sizeSingleChunkInByte = 838860
-        status.totalChunk = 1
-        status.totalNumberUCVI = 10000
-        return status
-    }
-    
-    private func getCRLStatusDeltaMock() -> CRLStatus {
-        var status = CRLStatus()
-        status.fromVersion = 1
-        status.version = 2
-        status.chunk = 1
-        status.totalSizeInByte = 8388600
-        status.sizeSingleChunkInByte = 838860
-        status.totalChunk = 3
-        status.totalNumberUCVI = 10015
-        return status
-    }
-    
 }
