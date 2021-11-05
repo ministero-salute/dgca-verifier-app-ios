@@ -59,7 +59,6 @@ extension GatewayConnection {
                 completion?(nil)
                 return
             }
-            print ("[DEBUG] - first DRL: ", crl.revokedUcvi?.first)
             completion?(crl)
         }
     }
