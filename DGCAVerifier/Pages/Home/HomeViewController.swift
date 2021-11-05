@@ -264,7 +264,7 @@ class HomeViewController: UIViewController {
     }
     
     private func downloadError() {
-        progressView.error()
+        progressView.error(with: sync.progress)
         showCRL(true)
     }
     
