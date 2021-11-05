@@ -9,9 +9,9 @@ import SwiftDGC
 
 extension GatewayConnection {
 
-    private var revocationUrl: String { "https://testaka4.sogei.it/v1/dgc/drl?version=0&chunk=1" }
+    private var revocationUrl: String { "https://testaka4.sogei.it/v1/dgc/drl" }
     
-    private var statusUrl: String { "https://testaka4.sogei.it/v1/dgc/drl/check?version=0" }
+    private var statusUrl: String { "https://testaka4.sogei.it/v1/dgc/drl/check" }
     
     func revocationStatus(_ progress: CRLProgress?, completion: ((CRLStatus?, String?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -44,7 +44,9 @@ extension GatewayConnection {
 
     private func getCRL(version: Int?, chunk: Int?, completion: ((CRL?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL] [REST]")
-        session.request(revocationUrl).response {
+        let version = version ?? 0
+        let chunk = chunk ?? 1
+        session.request("\(revocationUrl)?version=\(version)&chunk=\(chunk)").response {
             Log.end(key: "[CRL] [REST]", startTime: restStartTime)
             
             let jsonStartTime = Log.start(key: "[CRL] [JSON]")
@@ -57,13 +59,16 @@ extension GatewayConnection {
                 completion?(nil)
                 return
             }
+            print ("[DEBUG] - first DRL: ", crl.revokedUcvi?.first)
             completion?(crl)
         }
     }
     
     private func status(version: Int?, chunk: Int?, completion: ((CRLStatus?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL STATUS] [REST]")
-        session.request(statusUrl).response {
+        let version = version ?? 0
+        let chunk = chunk ?? 1
+        session.request("\(statusUrl)?version=\(version)&chunk=\(chunk)").response {
             Log.end(key: "[CRL STATUS] [REST]", startTime: restStartTime)
             
             let jsonStartTime = Log.start(key: "[CRL STATUS] [JSON]")
