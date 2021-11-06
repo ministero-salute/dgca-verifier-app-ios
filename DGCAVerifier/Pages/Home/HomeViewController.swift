@@ -220,18 +220,19 @@ class HomeViewController: UIViewController {
         
         let isCRLAllowedAndCompleted = isCRLDownloadCompleted && isCRLAllowed
         
-        if !certFetchUpdated {
+        guard certFetchUpdated else {
             showAlert(key: "no.keys")
+            return
         }
-        else if crlFetchOutdated {
+        guard !(crlFetchOutdated && isCRLAllowed) else {
             showAlert(key: "crl.outdated")
+            return
         }
-        else if !isCRLAllowedAndCompleted{
+        guard isCRLAllowedAndCompleted else {
             showAlert(key: "no.crl.download")
+            return
         }
-        else {
-            coordinator?.showCamera()
-        }
+        coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
