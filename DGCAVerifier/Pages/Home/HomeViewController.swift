@@ -209,12 +209,30 @@ class HomeViewController: UIViewController {
     
     @IBAction func scan(_ sender: Any) {
         guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
+        
         let certFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        let certFetchOutdated = certFetch > 0
-
+        let certFetchUpdated = certFetch > 0
+        
         let crlFetchOutdated = CRLSynchronizationManager.shared.isFetchOutdated
-        let canProceed = certFetchOutdated || crlFetchOutdated
-        canProceed ? coordinator?.showCamera() : showAlert(key: "no.keys")
+        
+        let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed = LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
+        
+        let isCRLAllowedAndCompleted = isCRLDownloadCompleted && isCRLAllowed
+        
+        guard certFetchUpdated else {
+            showAlert(key: "no.keys")
+            return
+        }
+        guard !(crlFetchOutdated && isCRLAllowed) else {
+            showAlert(key: "crl.outdated")
+            return
+        }
+        guard isCRLAllowedAndCompleted else {
+            showAlert(key: "no.crl.download")
+            return
+        }
+        coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
@@ -247,7 +265,7 @@ class HomeViewController: UIViewController {
     }
     
     private func downloadError() {
-        progressView.error()
+        progressView.error(with: sync.progress)
         showCRL(true)
     }
     

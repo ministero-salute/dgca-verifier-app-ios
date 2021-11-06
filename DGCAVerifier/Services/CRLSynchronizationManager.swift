@@ -26,6 +26,10 @@ class CRLSynchronizationManager {
     
     static let shared = CRLSynchronizationManager()
     var firstRun: Bool = true
+    var failCounter: Int {
+        get {return _failCounter }
+        set {_failCounter = newValue}
+    }
     
     var progress: CRLProgress { _progress }
     var gateway: GatewayConnection { GatewayConnection.shared }
@@ -39,12 +43,16 @@ class CRLSynchronizationManager {
         get { CRLDataStorage.shared.progress ?? .init() }
         set { CRLDataStorage.shared.saveProgress(newValue) }
     }
+    private var _failCounter: Int = 1
     
     func initialize(delegate: CRLSynchronizationDelegate?) {
         guard isSyncEnabled else { return }
         log("initialize")
         self.delegate = delegate
         setTimer() { self.start() }
+        //TODO: Update setting name -> DRL_Fail_Counter
+        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
+        //
     }
     
     func start() {
@@ -93,9 +101,19 @@ class CRLSynchronizationManager {
     
     func downloadCompleted() {
         log("download completed")
-        guard sameDatabaseSize else { return cleanAndRetry() }
+        guard sameDatabaseSize else {
+            CRLSynchronizationManager.shared.failCounter -= 1
+            if CRLSynchronizationManager.shared.failCounter <= 0 {
+                delegate?.statusDidChange(with: .error)
+                return
+            }
+            else {
+                return cleanAndRetry()
+            }
+        }
         completeProgress()
         _serverStatus = nil
+        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 0
         CRLDataStorage.shared.lastFetch = Date()
         delegate?.statusDidChange(with: .completed)
     }
@@ -109,8 +127,6 @@ class CRLSynchronizationManager {
     }
     
     func download() {
-//        quando sarà tolto mock
-//        guard chunksNotYetCompleted else { return start() }
         guard chunksNotYetCompleted else { return downloadCompleted() }
         log(progress)
         delegate?.statusDidChange(with: .downloading)

@@ -18,6 +18,13 @@ struct CRLDataStorage: Codable {
     var progress: CRLProgress?
     var lastFetchRaw: Date?
     
+    var isCRLDownloadCompleted: Bool {
+        if let currentVersion = progress?.currentVersion, let requestedVersion = progress?.requestedVersion, let currentChunk = progress?.currentChunk, let totalChunk = progress?.totalChunk {
+            return currentVersion == requestedVersion && currentChunk == totalChunk
+        }
+        return true
+    }
+    
     var lastFetch: Date
     {
         get { lastFetchRaw ?? .init(timeIntervalSince1970: 0) }

@@ -41,9 +41,15 @@ class ProgressView: AppView {
         messageLabel.text = "crl.update.resume.title".localized
     }
     
-    func error() {
-        resumeButton.isHidden = false
-        messageLabel.text = "ERROR -> TO MANAGE".localized
+    func error(with progress: CRLProgress) {
+        downloading(with: progress)
+        stop()
+        
+        messageLabel.isHidden = false
+        showMoreLabel.isHidden = false
+        confirmButton.isHidden = false
+            
+        messageLabel.text = "crl.update.title".localizeWith(progress.remainingSize)
     }
     
     private func start() {
