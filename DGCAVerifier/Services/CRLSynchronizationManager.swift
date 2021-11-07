@@ -103,7 +103,7 @@ class CRLSynchronizationManager {
         log("download completed")
         guard sameDatabaseSize else {
             CRLSynchronizationManager.shared.failCounter -= 1
-            if CRLSynchronizationManager.shared.failCounter <= 0 {
+            if CRLSynchronizationManager.shared.failCounter < 0 {
                 delegate?.statusDidChange(with: .error)
                 return
             }
@@ -113,7 +113,7 @@ class CRLSynchronizationManager {
         }
         completeProgress()
         _serverStatus = nil
-        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 0
+        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
         CRLDataStorage.shared.lastFetch = Date()
         delegate?.statusDidChange(with: .completed)
     }
@@ -251,7 +251,7 @@ extension CRLSynchronizationManager {
     }
     
     func trigger(completion: (()->())? = nil) {
-        guard isFetchOutdated || firstRun else { return }
+        guard (isFetchOutdated || firstRun) && noPendingDownload else { return }
         firstRun = false
         completion?()
     }
