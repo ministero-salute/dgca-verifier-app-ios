@@ -37,6 +37,8 @@ class CRLSynchronizationManager {
     private var delegate: CRLSynchronizationDelegate?
     private var timer: Timer?
     
+    private var isDownloadingCRL: Bool = false
+    
     private var _serverStatus: CRLStatus?
     private var _progress: CRLProgress
     {
@@ -72,12 +74,17 @@ class CRLSynchronizationManager {
         log("start synchronization")
         guard outdatedVersion else { return downloadCompleted() }
         guard noPendingDownload else { return resumeDownload() }
-        startDownload()
+        checkDownload()
     }
         
-    func startDownload() {
+    func checkDownload() {
         _progress = CRLProgress(serverStatus: _serverStatus)
         guard !requireUserInteraction else { return showAlert() }
+        startDownload()
+    }
+    
+    func startDownload(){
+        isDownloadingCRL = true
         download()
     }
     
@@ -115,6 +122,7 @@ class CRLSynchronizationManager {
         _serverStatus = nil
         failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
         CRLDataStorage.shared.lastFetch = Date()
+        isDownloadingCRL = false
         delegate?.statusDidChange(with: .completed)
     }
     
@@ -122,6 +130,7 @@ class CRLSynchronizationManager {
         log("clean needed, retry")
         _progress = .init()
         _serverStatus = nil
+        isDownloadingCRL = false
         CRLDataStorage.clear()
         start()
     }
@@ -142,11 +151,12 @@ class CRLSynchronizationManager {
         log("managing response")
         CRLDataStorage.store(crl: crl)
         updateProgress(with: crl.sizeSingleChunkInByte)
-        download()
+        startDownload()
     }
     
     private func errorFlow() {
         _serverStatus = nil
+        self.isDownloadingCRL = false
         delegate?.statusDidChange(with: .error)
     }
         
@@ -166,7 +176,7 @@ class CRLSynchronizationManager {
         let content: AlertContent = .init(
             title: "crl.update.title".localizeWith(progress.remainingSize),
             message: "crl.update.message",
-            confirmAction: { self.download() },
+            confirmAction: { self.startDownload() },
             confirmActionTitle: "crl.update.download.now",
             cancelAction: { self.readyToDownload() },
             cancelActionTitle: "crl.update.try.later"
@@ -251,7 +261,7 @@ extension CRLSynchronizationManager {
     }
     
     func trigger(completion: (()->())? = nil) {
-        guard (isFetchOutdated || firstRun) && noPendingDownload else { return }
+        guard (isFetchOutdated || firstRun) && !isDownloadingCRL else { return }
         firstRun = false
         completion?()
     }
