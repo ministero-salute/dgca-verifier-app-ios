@@ -58,6 +58,11 @@
 "alert.no.countries.title" = "Impossibile accedere ai paesi";
 "alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
+"alert.crl.outdated.title" = "Impossibile scansionare";
+"alert.crl.outdated.message" = "L'applicazione deve aggiornare le Revoche per procedere con le scansioni.";
+
+"alert.no.crl.download.title" = "Impossibile scansionare";
+"alert.no.crl.download.message" = "L'applicazione deve terminare il download delle Revoche per procedere con le scansioni.";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
