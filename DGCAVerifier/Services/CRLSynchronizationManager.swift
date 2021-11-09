@@ -59,7 +59,8 @@ class CRLSynchronizationManager {
     
     func start() {
         log("check status")
-        gateway.revocationStatus(progress) { (serverStatus, error) in
+        gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
+            // TODO: Handle HTTP error codes?
             guard error == nil else { return }
             self._serverStatus = serverStatus
             self.synchronize()
@@ -139,7 +140,8 @@ class CRLSynchronizationManager {
         guard chunksNotYetCompleted else { return downloadCompleted() }
         log(progress)
         delegate?.statusDidChange(with: .downloading)
-        gateway.updateRevocationList(progress) { crl, error in
+        gateway.updateRevocationList(progress) { crl, error, statusCode in
+            guard statusCode == 200 else { return self.handleDRLHTTPError(statusCode: statusCode) }
             guard error == nil else { return self.errorFlow() }
             guard let crl = crl else { return self.errorFlow() }
             self.manageResponse(with: crl)
@@ -152,6 +154,23 @@ class CRLSynchronizationManager {
         CRLDataStorage.store(crl: crl)
         updateProgress(with: crl.sizeSingleChunkInByte)
         startDownload()
+    }
+    
+    private func handleDRLHTTPError(statusCode: Int?) {
+        guard let statusCode = statusCode else {
+            return self.cleanAndRetry()
+        }
+
+        switch statusCode {
+        case 400...407:
+            self.cleanAndRetry()
+        case 408:
+            // 408 - Timeout: resume downloading from the last persisted chunk.
+            self.readyToResume()
+        default:
+            self.errorFlow()
+            log("there was an unexpected HTTP error, code: \(statusCode)")
+        }
     }
     
     private func errorFlow() {
