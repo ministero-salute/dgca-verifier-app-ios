@@ -63,6 +63,9 @@
 "alert.no.crl.download.title" = "Impossibile scansionare";
 "alert.no.crl.download.message" = "L'applicazione deve terminare il download delle Revoche per procedere con le scansioni.";
 
+"alert.no.connection.title" = "Nessun accesso alla rete internet";
+"alert.no.connection.message" = "L'applicazione per funzionare correttamente deve avere l'accesso ad internet";
+
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
 "links.what.can.be.done" = "Cosa si può fare con la Certificazione verde COVID-19?";

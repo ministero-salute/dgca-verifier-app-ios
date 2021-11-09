@@ -188,6 +188,10 @@ class HomeViewController: UIViewController {
     }
     
     @objc func startSync() {
+        guard Connectivity.isConnectedToInternet else {
+            showAlert(key: "no.connection")
+            return
+        }
         sync.download()
     }
     
