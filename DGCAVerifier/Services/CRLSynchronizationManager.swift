@@ -80,11 +80,16 @@ class CRLSynchronizationManager {
         
     func checkDownload() {
         _progress = CRLProgress(serverStatus: _serverStatus)
-        guard !requireUserInteraction else { return showAlert() }
+        guard !requireUserInteraction else { return showCRLUpdateAlert() }
         startDownload()
     }
     
-    func startDownload(){
+    func startDownload() {
+        guard Connectivity.isConnectedToInternet else {
+            self.showNoConnectionAlert()
+            return
+        }
+        
         isDownloadingCRL = true
         download()
     }
@@ -191,7 +196,7 @@ class CRLSynchronizationManager {
         _progress = .init(version: completedVersion)
     }
     
-    public func showAlert() {
+    public func showCRLUpdateAlert() {
         let content: AlertContent = .init(
             title: "crl.update.title".localizeWith(progress.remainingSize),
             message: "crl.update.message",
@@ -200,9 +205,26 @@ class CRLSynchronizationManager {
             cancelAction: { self.readyToDownload() },
             cancelActionTitle: "crl.update.try.later"
         )
+
+        UIApplication.showAppAlert(content: content)
+    }
+    
+    public func showNoConnectionAlert() {
+        let content: AlertContent = .init(
+            title: "alert.no.connection.title".localizeWith(progress.remainingSize),
+            message: "alert.no.connection.message",
+            confirmAction: nil,
+            confirmActionTitle: "alert.default.action",
+            cancelAction: nil,
+            cancelActionTitle: nil
+        )
         
-        guard let topVC = UIApplication.topViewController() else { return }
-        AppAlertViewController.present(for: topVC, with: content)
+        //  Timeout is necessary due to the AppAlertViewController dismissing all weak instances at any given time.
+        //  This alert is presented immediately after `showCRLUpdateAfter`, and two instances would be able to dimissed
+        //  at once by AppAlertViewController. 0.41s are 10ms longer than the dismissal animation duration.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.41) {
+            UIApplication.showAppAlert(content: content)
+        }
     }
 
 }

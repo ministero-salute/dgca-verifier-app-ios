@@ -27,4 +27,9 @@ public extension UIApplication {
         return base
     }
     
+    static func showAppAlert(content: AlertContent) -> Void {
+        guard let topVC = UIApplication.topViewController() else { return }
+        AppAlertViewController.present(for: topVC, with: content)
+    }
+    
 }

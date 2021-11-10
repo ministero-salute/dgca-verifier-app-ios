@@ -184,7 +184,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func crlShowMore() {
-        sync.showAlert()
+        sync.showCRLUpdateAlert()
     }
     
     @objc func startSync() {
