@@ -30,7 +30,7 @@ extension Status {
     var backgroundColor: UIColor {
         switch self {
         case .valid:            return Palette.green
-        case .validPartially:   return Palette.blueLight
+        case .validPartially:   return Palette.green
         default:                return Palette.red
         }
     }
@@ -38,7 +38,7 @@ extension Status {
     var mainImage: UIImage? {
         switch self {
         case .valid:            return "icon_valid".image
-        case .validPartially:   return "icon_valid-partially".image
+        case .validPartially:   return "icon_valid".image
         case .notValid:         return "icon_not-valid".image
         case .notValidYet:      return "icon_not-valid-yet".image
         case .notGreenPass:     return "icon_not-green-pass".image

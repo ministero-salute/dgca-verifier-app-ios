@@ -35,7 +35,7 @@
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
 "result.title.revoked.green.pass" = "Certificazione revocata";
 
-"result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documenti di Identità valido:";
+"result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
 "result.description.revoked" = "La certificazione risulta essere revocata";
 
@@ -85,3 +85,13 @@
 "crl.update.resume" = "Riprendi";
 "crl.update.progress" = "Pacchetto %d di %d";
 "crl.update.progress.mb" = "%@MB di %@MB";
+
+"settings.title" = "IMPOSTAZIONI";
+"settings.preferences" = "Preferenze";
+"settings.mode" = "MODALITÀ";
+"settings.mode.automatic" = "Automatica";
+"settings.mode.manual" = "Manuale";
+
+"settings.informations" = "Informazioni";
+"settings.faq" = "DOMANDE FREQUENTI";
+"settings.privacy" = "RISPETTO DELLA PRIVACY";

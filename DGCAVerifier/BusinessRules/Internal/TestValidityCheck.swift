@@ -30,8 +30,10 @@ struct TestValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
-    private let startHoursKey = "rapid_test_start_hours"
-    private let endHoursKey = "rapid_test_end_hours"
+    private let rapidStartHoursKey = "rapid_test_start_hours"
+    private let rapidEndHoursKey = "rapid_test_end_hours"
+    private let molecularStartHoursKey = "molecular_test_start_hours"
+    private let molecularEndHoursKey = "molecular_test_end_hours"
     
     func isTestNegative(_ hcert: HCert) -> Status {
         guard let isNegative = hcert.testNegative else { return .notValid }
@@ -39,8 +41,21 @@ struct TestValidityCheck {
     }
     
     func isTestDateValid(_ hcert: HCert) -> Status {
-        let startHours = LocalData.getSetting(from: startHoursKey)
-        let endHours = LocalData.getSetting(from: endHoursKey)
+        guard let isMolecularTest = hcert.isMolecularTest,
+              let isRapidTest = hcert.isRapidTest else { return.notValid }
+        let startHours: String?
+        let endHours: String?
+        if isMolecularTest {
+            startHours = LocalData.getSetting(from: molecularStartHoursKey)
+            endHours = LocalData.getSetting(from: molecularEndHoursKey)
+        }
+        else if isRapidTest {
+            startHours = LocalData.getSetting(from: rapidStartHoursKey)
+            endHours = LocalData.getSetting(from: rapidEndHoursKey)
+        }
+        else {
+            return .notValid
+        }
         guard let start = startHours?.intValue else { return .notGreenPass }
         guard let end = endHours?.intValue else { return .notGreenPass }
 

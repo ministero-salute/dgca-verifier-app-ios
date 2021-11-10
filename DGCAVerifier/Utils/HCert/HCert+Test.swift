@@ -31,6 +31,9 @@ extension HCert {
     private var resultKey     : String { "tr" }
     private var detected      : String { "260373001" }
     private var notDetected   : String { "260415000" }
+    private var testTypeKey   : String { "tt" }
+    private var rapidTest     : String { "LP217198-3" }
+    private var molecularTest : String { "LP6464-4" }
     
     var testDate: String? {
         body["t"].array?.map{ $0[dateKey] }.first?.string
@@ -42,6 +45,18 @@ extension HCert {
     
     var testResult: String? {
         body["t"].array?.map{ $0[resultKey] }.first?.string
+    }
+    
+    var testType: String? {
+        body["t"].array?.map{ $0[testTypeKey] }.first?.string
+    }
+    
+    var isMolecularTest: Bool? {
+        testType == molecularTest
+    }
+    
+    var isRapidTest: Bool? {
+        testType == rapidTest
     }
     
 }

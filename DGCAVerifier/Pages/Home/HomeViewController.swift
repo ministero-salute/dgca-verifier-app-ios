@@ -30,13 +30,14 @@ typealias Tap = UITapGestureRecognizer
 protocol HomeCoordinator: Coordinator {
     func showCamera()
     func showCountries()
+    func openSettings()
 }
 
 class HomeViewController: UIViewController {
         
     weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
-
+    
     @IBOutlet weak var faqLabel: AppLabelUrl!
     @IBOutlet weak var privacyPolicyLabel: AppLabelUrl!
     @IBOutlet weak var versionLabel: AppLabelUrl!
@@ -51,18 +52,28 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     
     var sync: CRLSynchronizationManager { CRLSynchronizationManager.shared }
+    let userDefaults = UserDefaults.standard
+
+    // `true`:  flash active.
+    // `false`: flash not active.
+    let UDKeyFlashPreference = "FlashPreference"
+    var UDFlashPreference: Bool {
+        return userDefaults.bool(forKey: UDKeyFlashPreference)
+    }
+
+    @IBOutlet weak var settingsView: UIView!
     
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
-
+        
         super.init(nibName: "HomeViewController", bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
@@ -70,7 +81,13 @@ class HomeViewController: UIViewController {
         subscribeEvents()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userDefaults.set(false, forKey: UDKeyFlashPreference)
+    }
+    
     private func initialize() {
+        setUpSettingsAction()
         setFAQ()
         setPrivacyPolicy()
         setVersion()
@@ -78,6 +95,11 @@ class HomeViewController: UIViewController {
         setCountriesButton()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
+    }
+    
+    private func setUpSettingsAction() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(settingsImageDidTap))
+        settingsView.addGestureRecognizer(tap)
     }
     
     private func subscribeEvents() {
@@ -166,7 +188,7 @@ class HomeViewController: UIViewController {
         let date = viewModel.getLastUpdate()?.toDateTimeReadableString
         lastFetchLabel.text = date == nil ? "home.not.available".localized : date
     }
-
+    
     @objc func faqDidTap() {
         guard let url = URL(string: Link.faq.url) else { return }
         UIApplication.shared.open(url)
@@ -176,7 +198,11 @@ class HomeViewController: UIViewController {
         guard let url = URL(string: Link.privacyPolicy.url) else { return }
         UIApplication.shared.open(url)
     }
-
+    
+    @objc func settingsImageDidTap() {
+        coordinator?.openSettings()
+    }
+    
     @objc func goToStore(_ action: UIAlertAction? = nil) {
         guard let url = URL(string: Link.store.url) else { return }
         guard UIApplication.shared.canOpenURL(url) else { return }
@@ -200,7 +226,7 @@ class HomeViewController: UIViewController {
         alert.addAction(.init(title: "OK", style: .default, handler: goToStore))
         present(alert, animated: true, completion: nil)
     }
-
+    
     private func showAlert(key: String) {
         let alertController = UIAlertController(
             title: "alert.\(key).title".localized,

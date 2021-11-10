@@ -46,6 +46,10 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var faqStackView: UIStackView!
     @IBOutlet weak var personalDataStackView: UIStackView!
     
+    var timer: Timer?
+    let UDKeyTotemIsActive = "IsTotemModeActive"
+    let userDefaults = UserDefaults.standard
+    
     init(coordinator: VerificationCoordinator, delegate: CameraDelegate, viewModel: VerificationViewModel) {
         self.coordinator = coordinator
         self.delegate = delegate
@@ -72,6 +76,11 @@ class VerificationViewController: UIViewController {
         lastFetchLabel.isHidden = !status.showLastFetch
         setFaq(for: status)
         setPersonalData(for: status)
+        
+        let isTotemModeActive = userDefaults.bool(forKey: UDKeyTotemIsActive)
+        if isTotemModeActive && (status == .valid || status == .validPartially) {
+            timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(dismissVC), userInfo: nil, repeats: false)
+        }
     }
     
     private func setFaq(for status: Status) {
@@ -128,8 +137,10 @@ class VerificationViewController: UIViewController {
     
     @objc func dismissVC() {
         hapticFeedback()
+        timer?.invalidate()
         coordinator?.dismissVerification(completion: nil)
         delegate?.startRunning()
+        delegate?.setupFlash()
     }
     
     private func setLastFetch() {

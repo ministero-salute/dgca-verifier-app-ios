@@ -29,7 +29,7 @@ jobs:
     - name: xcode version
       run: |-
         ls /Applications | grep Xcode
-        sudo xcode-select -switch /Applications/Xcode_12.5.app
+        sudo xcode-select -switch /Applications/Xcode_13.0.app
         /usr/bin/xcodebuild -version
     - name: xcode test
       run: |-
@@ -38,7 +38,7 @@ jobs:
         -scheme VerificaC19 \
         -project Verifier.xcodeproj \
         -resultBundlePath ../TestResults \
-        -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5' | xcpretty && exit ${PIPESTATUS[0]}
+        -destination 'platform=iOS Simulator,name=iPhone 12,OS=15.0' | xcpretty && exit ${PIPESTATUS[0]}
     #- uses: tbartelmess/analyze-xcoderesults-action@0.1.1
     #  with:
     #    results: TestResults.xcresult

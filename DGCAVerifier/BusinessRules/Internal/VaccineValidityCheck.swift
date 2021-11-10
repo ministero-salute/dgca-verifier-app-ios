@@ -36,6 +36,14 @@ struct VaccineValidityCheck {
     private let completeStartDays = "vaccine_start_day_complete"
     private let completeEndDays = "vaccine_end_day_complete"
     
+    private let JeJVacineCode = "EU/1/20/1525"
+    private let SputnikVacineCode = "Sputnik-V"
+    private let sanMarinoCode = "SM"
+    
+    private var allowedVaccinationInCountry: [String: [String]] {
+        [SputnikVacineCode: [sanMarinoCode]]
+    }
+    
     func isVaccineDateValid(_ hcert: HCert) -> Status {
         guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
         guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
@@ -45,6 +53,8 @@ struct VaccineValidityCheck {
         
         guard let product = hcert.medicalProduct else { return .notValid }
         guard isValid(for: product) else { return .notValid }
+        guard let countryCode = hcert.countryCode else { return .notValid }
+        guard isAllowedVaccination(for: product, fromCountryWithCode: countryCode) else { return .notValid }
         
         guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
         guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
@@ -56,12 +66,26 @@ struct VaccineValidityCheck {
 
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        let result = Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        let result: Status
+        
+        if hcert.medicalProduct == JeJVacineCode && currentDoses > totalDoses{
+            result = Validator.validate(currentDate, from: date, to: validityEnd)
+        }
+        else{
+            result = Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        }
         
         guard result == .valid else { return result }
         if !lastDose { return .validPartially }
         return result
         
+    }
+    
+    private func isAllowedVaccination(for medicalProduct: String, fromCountryWithCode countryCode: String) -> Bool {
+        if let allowedCountries = allowedVaccinationInCountry[medicalProduct] {
+            return allowedCountries.contains(countryCode)
+        }
+        return true
     }
     
     private func isValid(for medicalProduct: String) -> Bool {

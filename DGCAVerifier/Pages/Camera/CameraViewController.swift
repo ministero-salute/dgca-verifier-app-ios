@@ -17,7 +17,7 @@
 */
 
 //
-//  HomeViewController.swift
+//  CameraViewController.swift
 //  dgp-whitelabel-ios
 //
 //
@@ -34,6 +34,7 @@ protocol CameraCoordinator: Coordinator {
 protocol CameraDelegate {
     func startRunning()
     func stopRunning()
+    func setupFlash()
 }
 
 let mockQRCode = "<add your mock qr code here>"
@@ -45,10 +46,30 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var backButton: AppButton!
     @IBOutlet weak var countryButton: AppButton!
+    @IBOutlet weak var flashButton: AppButton!
+    @IBOutlet weak var switchButton: UIButton!
 
     private var captureSession = AVCaptureSession()
     private let allowedCodes: [VNBarcodeSymbology] = [.qr, .aztec]
     private let scanConfidence: VNConfidence = 0.9
+    
+    // `true`:  use front camera.
+    // `false`: use back camera.
+    let UDKeyCamPreference = "CameraPreference"
+    var UDCamPreference: Bool {
+        return userDefaults.bool(forKey: UDKeyCamPreference)
+    }
+    
+    // `true`:  flash active.
+    // `false`: flash not active.
+    let UDKeyFlashPreference = "FlashPreference"
+    var UDFlashPreference: Bool {
+        return userDefaults.bool(forKey: UDKeyFlashPreference)
+    }
+    
+    let UDKeyTotemIsActive = "IsTotemModeActive"
+    let userDefaults = UserDefaults.standard
+    
 
     // MARK: - Init
     init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
@@ -66,6 +87,7 @@ class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeBackButton()
+        initializeFlashButton()
         initializeCountryButton()
         #if targetEnvironment(simulator)
         found(payload: mockQRCode)
@@ -83,16 +105,32 @@ class CameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startRunning()
+        setupFlash()
     }
 
     @IBAction func back(_ sender: Any) {
         coordinator?.dismiss()
     }
     
+    @IBAction func flashSwitch(_ sender: Any) {
+        AVCaptureDevice.switchTorch()
+        userDefaults.set(AVCaptureDevice.isTorchActive, forKey: UDKeyFlashPreference)
+    }
+    
     @IBAction func backToRoot(_ sender: Any) {
         coordinator?.dismissToRoot()
     }
 
+    @IBAction func switchCamera(_ sender: Any) {
+        let camPreference = self.UDCamPreference
+        flashButton.isHidden = !camPreference
+        userDefaults.set(!camPreference, forKey: self.UDKeyCamPreference)
+        
+        setupCameraView()
+        startRunning()
+        setupFlash()
+    }
+    
     private func found(payload: String) {
         let vc = coordinator?.navigationController.visibleViewController
         guard !(vc is VerificationViewController) else { return }
@@ -112,11 +150,25 @@ class CameraViewController: UIViewController {
         backButton.setLeftImage(named: "icon_back")
     }
     
+    private func initializeFlashButton() {
+        flashButton.cornerRadius = 30.0
+        flashButton.backgroundColor = .clear
+        flashButton.setImage(UIImage(named: "flash-camera"))
+        flashButton.isHidden = self.UDCamPreference
+    }
+    
     private func initializeCountryButton() {
         countryButton.style = .white
         countryButton.setRightImage(named: "icon_arrow-right")
         countryButton.setTitle(country?.name)
         countryButton.isHidden = country == nil
+    }
+    
+    private func initializeCamSwitchButton() {
+        switchButton.cornerRadius = 30.0
+        switchButton.backgroundColor = .clear
+        switchButton.tintColor = UIColor.white
+        switchButton.setImage(UIImage(named: "switch-camera"))
     }
 
     // MARK: - Permissions
@@ -139,36 +191,63 @@ class CameraViewController: UIViewController {
         self.showAlert(withTitle: "alert.camera.permissions.title".localized,
                        message: "alert.camera.permissions.message".localized)
     }
-
-    // MARK: - Setup
-
+    
+        // MARK: - Setup
     private func setupCameraView() {
+        cameraView.layer.backgroundColor = Palette.grayDark.cgColor
+        cleanSession()
+        let isFrontCamera = UDCamPreference
+        let cameraMode: AVCaptureDevice.Position = isFrontCamera ? .front : .back
+        
+        let input = getCameraInput(mode: cameraMode, for: captureSession)
+        let output = getCaptureOutput()
+        let layer = getCameraPreviewLayer(for: captureSession)
+        
+        guard let cameraInput = input else { return noCameraError() }
         captureSession.sessionPreset = .hd1280x720
-
-        let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-
-        guard let device = videoDevice, let videoDeviceInput = try? AVCaptureDeviceInput(device: device),
-              captureSession.canAddInput(videoDeviceInput) else {
-            self.showAlert(withTitle: "alert.nocamera.title".localized, message: "alert.nocamera.message".localized)
-            return
-        }
-
-        captureSession.addInput(videoDeviceInput)
-
-        // Camera output.
+        captureSession.addInput(cameraInput)
+        captureSession.addOutput(output)
+        cameraView.layer.insertSublayer(layer, at: 0)
+    }
+    
+    private func cleanSession() {
+        stopRunning()
+        cameraView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        captureSession.inputs.forEach { captureSession.removeInput($0) }
+        captureSession.outputs.forEach { captureSession.removeOutput($0) }
+    }
+    
+    private func getCameraInput(mode: AVCaptureDevice.Position, for session: AVCaptureSession) -> AVCaptureDeviceInput? {
+        let type: AVCaptureDevice.DeviceType = .builtInWideAngleCamera
+        let videoDevice = AVCaptureDevice.default(type, for: .video, position: mode)
+        guard let device = videoDevice else { return nil }
+        let deviceInput = try? AVCaptureDeviceInput(device: device)
+        guard let input = deviceInput else { return nil }
+        guard session.canAddInput(input) else { return nil }
+        return input
+    }
+    
+    private func getCaptureOutput() -> AVCaptureVideoDataOutput {
+        let key = kCVPixelBufferPixelFormatTypeKey as String
+        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.default)
         let captureOutput = AVCaptureVideoDataOutput()
-        captureOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
-        captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.default))
-        captureSession.addOutput(captureOutput)
-
-        // Camera preview layer
-        let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        captureOutput.videoSettings = [key: Int(kCVPixelFormatType_32BGRA)]
+        captureOutput.setSampleBufferDelegate(self, queue: queue)
+        return captureOutput
+    }
+    
+    private func getCameraPreviewLayer(for session: AVCaptureSession) -> AVCaptureVideoPreviewLayer {
+        let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
         cameraPreviewLayer.videoGravity = .resizeAspectFill
         cameraPreviewLayer.connection?.videoOrientation = .portrait
         cameraPreviewLayer.frame = view.frame
-        cameraView.layer.insertSublayer(cameraPreviewLayer, at: 0)
+        return cameraPreviewLayer
     }
     
+    private func noCameraError() {
+        showAlert(withTitle: "alert.nocamera.title".localized, message: "alert.nocamera.message".localized)
+    }
+
     private func hapticFeedback() {
         DispatchQueue.main.async {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -202,6 +281,13 @@ extension CameraViewController: CameraDelegate {
     func stopRunning() {
         guard captureSession.isRunning else { return }
         captureSession.stopRunning()
+    }
+    
+    func setupFlash() {
+        let torchActive = UDFlashPreference
+        let frontCamera = UDCamPreference
+        let enable = torchActive && !frontCamera
+        AVCaptureDevice.enableTorch(enable)
     }
 }
 

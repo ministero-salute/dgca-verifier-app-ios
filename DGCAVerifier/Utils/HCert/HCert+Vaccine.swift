@@ -31,6 +31,7 @@ extension HCert {
     private var totalDosesNumberKey         : String { "sd" }
     private var medicalProductKey           : String { "mp" }
     private var dateKey                     : String { "dt" }
+    private var countryCodeKey              : String { "co" }
     
     var currentDosesNumber: Int? {
         body["v"].array?.map{ $0[currentDosesNumberKey] }.first?.int
@@ -46,6 +47,10 @@ extension HCert {
     
     var vaccineDate: String? {
         body["v"].array?.map{ $0[dateKey] }.first?.string
+    }
+    
+    var countryCode: String? {
+        body["v"].array?.map{ $0[countryCodeKey] }.first?.string
     }
 
 }

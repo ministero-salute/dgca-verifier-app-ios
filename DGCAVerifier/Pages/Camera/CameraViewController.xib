@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +14,8 @@
                 <outlet property="backButton" destination="W2y-GT-Sfg" id="KdC-8J-HFh"/>
                 <outlet property="cameraView" destination="Gnb-63-dcr" id="cmy-Nj-k2x"/>
                 <outlet property="countryButton" destination="e6Z-DK-O5Q" id="3sa-Dj-gPG"/>
+                <outlet property="flashButton" destination="Z4X-gI-uAJ" id="7Ov-na-RF8"/>
+                <outlet property="switchButton" destination="9Ww-sm-p8Q" id="swH-1l-bwo"/>
                 <outlet property="view" destination="T8R-UI-qcI" id="8R1-82-1s7"/>
             </connections>
         </placeholder>
@@ -32,6 +34,18 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7d-ue-Oep">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ww-sm-p8Q" userLabel="SwitchCameraButton">
+                                    <rect key="frame" x="282" y="0.0" width="58" height="58"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="58" id="pWv-hb-qBa"/>
+                                        <constraint firstAttribute="width" constant="58" id="tlF-Ik-6ED"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="switch-camera"/>
+                                    <connections>
+                                        <action selector="switchCamera:" destination="-1" eventType="touchUpInside" id="vs3-bR-Inz"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2y-GT-Sfg" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="16" y="0.0" width="207" height="58"/>
                                     <constraints>
@@ -45,12 +59,29 @@
                                         <action selector="backToRoot:" destination="-1" eventType="touchUpInside" id="JHP-C8-uar"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4X-gI-uAJ" userLabel="FlashButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="348" y="0.0" width="58" height="58"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="58" id="FE9-FD-B7h"/>
+                                        <constraint firstAttribute="height" constant="58" id="pp7-Pv-zlr"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="flash-camera"/>
+                                    <connections>
+                                        <action selector="flashSwitch:" destination="-1" eventType="touchUpInside" id="f5j-bc-vdU"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="58" id="5op-6b-cOp"/>
+                                <constraint firstItem="Z4X-gI-uAJ" firstAttribute="leading" secondItem="9Ww-sm-p8Q" secondAttribute="trailing" constant="8" id="VJB-pF-WVl"/>
                                 <constraint firstAttribute="bottom" secondItem="W2y-GT-Sfg" secondAttribute="bottom" id="WyV-1i-iDY"/>
                                 <constraint firstItem="W2y-GT-Sfg" firstAttribute="width" secondItem="E7d-ue-Oep" secondAttribute="width" multiplier="0.5" id="mgH-2R-a7r"/>
+                                <constraint firstAttribute="trailing" secondItem="Z4X-gI-uAJ" secondAttribute="trailing" constant="8" id="n6x-8S-lUZ"/>
+                                <constraint firstAttribute="bottom" secondItem="9Ww-sm-p8Q" secondAttribute="bottom" id="rEF-pp-AYY"/>
+                                <constraint firstItem="9Ww-sm-p8Q" firstAttribute="top" secondItem="E7d-ue-Oep" secondAttribute="top" id="rw0-ob-G2F"/>
+                                <constraint firstItem="Z4X-gI-uAJ" firstAttribute="centerY" secondItem="E7d-ue-Oep" secondAttribute="centerY" id="x9O-W6-PNO"/>
                                 <constraint firstItem="W2y-GT-Sfg" firstAttribute="leading" secondItem="E7d-ue-Oep" secondAttribute="leading" constant="16" id="yuJ-wj-KHz"/>
                             </constraints>
                         </view>
@@ -227,6 +258,8 @@
         </view>
     </objects>
     <resources>
+        <image name="flash-camera" width="24" height="24"/>
+        <image name="switch-camera" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
