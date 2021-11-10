@@ -67,21 +67,21 @@ public class AppAlertViewController: UIViewController {
     }
 
     @IBAction func confirmDidTap() {
-        dismissAlert()
-        content.confirmAction?()
-//        dismissAlert { [weak self] in
-//            guard let `self` = self else { return }
-//            self.content.confirmAction?()
-//        }
+//        dismissAlert()
+//        content.confirmAction?()
+        dismissAlert { [weak self] in
+            guard let `self` = self else { return }
+            self.content.confirmAction?()
+        }
     }
     
     @objc func cancelDidTap() {
-        dismissAlert()
-        content.cancelAction?()
-//        dismissAlert { [weak self] in
-//            guard let `self` = self else { return }
-//            self.content.cancelAction?()
-//        }
+//        dismissAlert()
+//        content.cancelAction?()
+        dismissAlert { [weak self] in
+            guard let `self` = self else { return }
+            self.content.cancelAction?()
+        }
     }
 }
 

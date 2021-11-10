@@ -85,7 +85,7 @@ class CRLSynchronizationManager {
     }
     
     func startDownload() {
-        guard Connectivity.isConnectedToInternet else {
+        guard Connectivity.isOnline else {
             self.showNoConnectionAlert()
             return
         }
@@ -171,7 +171,7 @@ class CRLSynchronizationManager {
             self.cleanAndRetry()
         case 408:
             // 408 - Timeout: resume downloading from the last persisted chunk.
-            self.readyToResume()
+            Connectivity.isOnline ? readyToResume() : showNoConnectionAlert()
         default:
             self.errorFlow()
             log("there was an unexpected HTTP error, code: \(statusCode)")
@@ -219,12 +219,7 @@ class CRLSynchronizationManager {
             cancelActionTitle: nil
         )
         
-        //  Timeout is necessary due to the AppAlertViewController dismissing all weak instances at any given time.
-        //  This alert is presented immediately after `showCRLUpdateAfter`, and two instances would be able to dimissed
-        //  at once by AppAlertViewController. 0.41s are 10ms longer than the dismissal animation duration.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.41) {
-            UIApplication.showAppAlert(content: content)
-        }
+        UIApplication.showAppAlert(content: content)
     }
 
 }

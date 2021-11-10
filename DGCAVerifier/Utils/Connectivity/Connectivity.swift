@@ -9,8 +9,8 @@ import Foundation
 import Alamofire
 
 class Connectivity {
-    class var isConnectedToInternet:Bool {
-        return NetworkReachabilityManager()!.isReachable
+    class var isOnline:Bool {
+        NetworkReachabilityManager()?.isReachable ?? false
     }
 }
 

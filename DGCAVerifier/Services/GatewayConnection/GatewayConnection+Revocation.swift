@@ -9,9 +9,9 @@ import SwiftDGC
 
 extension GatewayConnection {
     
-    private var revocationUrl: String { "https://testaka4.sogei.it/v1/dgc/drl" }
+    private var revocationUrl: String { baseUrl + "drl" }
     
-    private var statusUrl: String { "https://testaka4.sogei.it/v1/dgc/drl/check" }
+    private var statusUrl: String { baseUrl + "drl/check" }
     
     func revocationStatus(_ progress: CRLProgress?, completion: ((CRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -50,12 +50,12 @@ extension GatewayConnection {
         session.request("\(revocationUrl)?version=\(version)&chunk=\(chunk)").response {
             //  Were the response to be `nil` (AFRequest failed, see $0.result),
             //  it'd be okay for it to be handled just like a statusCode 408.
-            let responseStatusCode: Int? = $0.response?.statusCode ?? 408
+            let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
                 Log.end(key: "[CRL] [REST]", startTime: restStartTime)
                 let jsonStartTime = Log.start(key: "[CRL STATUS] [ERROR]")
-                Log.end(key: "[CRL] [ERROR \(responseStatusCode?.stringValue ?? "nil")]", startTime: jsonStartTime)
+                Log.end(key: "[CRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
@@ -84,12 +84,12 @@ extension GatewayConnection {
         
         session.request("\(statusUrl)?version=\(version)&chunk=\(chunk)").response {
             // Were the response to be `nil`, it'd okay for it to be handled just like a statusCode 400.
-            let responseStatusCode: Int? = $0.response?.statusCode
+            let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
                 Log.end(key: "[CRL] [REST]", startTime: restStartTime)
                 let jsonStartTime = Log.start(key: "[CRL STATUS] [ERROR]")
-                Log.end(key: "[CRL] [ERROR \(responseStatusCode?.stringValue ?? "nil")]", startTime: jsonStartTime)
+                Log.end(key: "[CRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }

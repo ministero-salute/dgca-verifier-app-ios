@@ -214,7 +214,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func startSync() {
-        guard Connectivity.isConnectedToInternet else {
+        guard Connectivity.isOnline else {
             showAlert(key: "no.connection")
             return
         }
