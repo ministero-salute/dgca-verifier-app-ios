@@ -954,16 +954,18 @@
 				90A3E612273AFC3700D161BD /* Connectivity.swift */,
 			);
 			path = Connectivity;
-		9037A0A4270EFC910067DCF8 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */,
-				9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */,
-				9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
+        9037A0A4270EFC910067DCF8 /* Settings */ = {
+            isa = PBXGroup;
+            children = (
+                9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */,
+                9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */,
+                9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */,
+            );
+            path = Settings;
+            sourceTree = "<group>";
+        };
 		9F2AF7EE2653D27F00619B9C /* DGCAVerifier */ = {
 			isa = PBXGroup;
 			children = (
