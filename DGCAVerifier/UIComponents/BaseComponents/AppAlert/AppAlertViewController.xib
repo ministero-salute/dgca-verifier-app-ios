@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppAlertViewController" customModule="VerificaC19" customModuleProvider="target">
+            <connections>
+                <outlet property="alertView" destination="YIM-Fs-0ZT" id="Y4l-2g-Jug"/>
+                <outlet property="cancelButton" destination="Xtc-3X-ldM" id="ZOW-iX-Atx"/>
+                <outlet property="confirmButton" destination="LyC-d4-NRu" id="dVd-Oe-KJA"/>
+                <outlet property="messageLabel" destination="4DA-XF-bYZ" id="R99-Dl-5Fg"/>
+                <outlet property="titleLabel" destination="JiI-5C-sGj" id="1e5-Xf-J7t"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YIM-Fs-0ZT" userLabel="Alert View">
+                    <rect key="frame" x="41.5" y="383" width="331" height="140"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-e4-2IM">
+                            <rect key="frame" x="24" y="16" width="283" height="57"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1er-V4-JGH">
+                                    <rect key="frame" x="0.0" y="0.0" width="283" height="57"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiI-5C-sGj" userLabel="Title Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="283" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="36.5" width="283" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="1er-V4-JGH" firstAttribute="leading" secondItem="5hc-e4-2IM" secondAttribute="leading" id="Lsc-GY-dGZ"/>
+                                <constraint firstItem="1er-V4-JGH" firstAttribute="width" secondItem="5hc-e4-2IM" secondAttribute="width" id="NV6-2x-Ira"/>
+                                <constraint firstAttribute="bottom" secondItem="1er-V4-JGH" secondAttribute="bottom" id="PYd-2I-7Oh"/>
+                                <constraint firstAttribute="trailing" secondItem="1er-V4-JGH" secondAttribute="trailing" id="UvS-oQ-Lx3"/>
+                                <constraint firstItem="1er-V4-JGH" firstAttribute="top" secondItem="5hc-e4-2IM" secondAttribute="top" id="gee-MS-tGN"/>
+                                <constraint firstItem="1er-V4-JGH" firstAttribute="height" relation="greaterThanOrEqual" secondItem="5hc-e4-2IM" secondAttribute="height" priority="750" id="z76-EG-m72"/>
+                            </constraints>
+                        </scrollView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="p5M-re-Ueq">
+                            <rect key="frame" x="24" y="89" width="283" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Più tardi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtc-3X-ldM" userLabel="Cancel Button" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gm2-W4-W2I">
+                                    <rect key="frame" x="16" y="0.0" width="240" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyC-d4-NRu" userLabel="Confirm Button" customClass="AppButton" customModule="AppUIComponents" customModuleProvider="target">
+                                    <rect key="frame" x="272" y="0.0" width="11" height="35"/>
+                                    <state key="normal" title="Conferma"/>
+                                    <connections>
+                                        <action selector="confirmDidTap" destination="-1" eventType="touchUpInside" id="jtZ-K7-MNR"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="xzE-nj-nsC"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="p5M-re-Ueq" firstAttribute="top" secondItem="5hc-e4-2IM" secondAttribute="bottom" constant="16" id="1qF-S7-gR3"/>
+                        <constraint firstItem="p5M-re-Ueq" firstAttribute="leading" secondItem="5hc-e4-2IM" secondAttribute="leading" id="BmC-C7-ard"/>
+                        <constraint firstAttribute="bottom" secondItem="p5M-re-Ueq" secondAttribute="bottom" constant="16" id="Epl-JB-Pj3"/>
+                        <constraint firstItem="5hc-e4-2IM" firstAttribute="leading" secondItem="YIM-Fs-0ZT" secondAttribute="leading" constant="24" id="MJn-0o-qZQ"/>
+                        <constraint firstItem="5hc-e4-2IM" firstAttribute="trailing" secondItem="p5M-re-Ueq" secondAttribute="trailing" id="Mhg-od-DUt"/>
+                        <constraint firstItem="5hc-e4-2IM" firstAttribute="height" secondItem="YIM-Fs-0ZT" secondAttribute="height" multiplier="0.8" priority="250" id="lGQ-Gp-O63"/>
+                        <constraint firstAttribute="trailing" secondItem="5hc-e4-2IM" secondAttribute="trailing" constant="24" id="tH9-EO-ES3"/>
+                        <constraint firstItem="5hc-e4-2IM" firstAttribute="top" secondItem="YIM-Fs-0ZT" secondAttribute="top" constant="16" id="vxr-Us-3dE"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="YIM-Fs-0ZT" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="UbT-0X-Gky"/>
+                <constraint firstItem="YIM-Fs-0ZT" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="bVC-Xe-8xS"/>
+                <constraint firstItem="YIM-Fs-0ZT" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="bhb-LB-JKK"/>
+            </constraints>
+            <point key="canvasLocation" x="117" y="129"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

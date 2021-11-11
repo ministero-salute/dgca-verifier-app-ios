@@ -30,58 +30,58 @@ import SwiftDGC
 import SwiftyJSON
 
 struct LocalData: Codable {
-  static var sharedInstance = LocalData()
-
-  var encodedPublicKeys = [String: [String]]()
-  var resumeToken: String?
-  var lastFetchRaw: Date?
-
-var lastFetch: Date {
-    get {
-      lastFetchRaw ?? .init(timeIntervalSince1970: 0)
-    }
-    set(value) {
-      lastFetchRaw = value
-    }
-  }
-
-    mutating func add(kid: String, encodedPublicKey: String) {
-
-    let list = encodedPublicKeys[kid] ?? []
-    if list.contains(encodedPublicKey) {
-      return
-    }
-    encodedPublicKeys[kid] = list + [encodedPublicKey]
-  }
+    static var sharedInstance = LocalData()
     
-  static func set(resumeToken: String) {
-    sharedInstance.resumeToken = resumeToken
-  }
-
-  public func save() {
-    Self.storage.save(self)
-  }
-
-  static let storage = SecureStorage<LocalData>(fileName: "secure")
-
-  static func initialize(completion: @escaping () -> Void) {
-    storage.loadOverride(fallback: LocalData.sharedInstance) { success in
-      guard let result = success else {
-        return
-      }
-      let format = l10n("log.keys")
-      print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
-      LocalData.sharedInstance = result
-      completion()
+    var encodedPublicKeys = [String: [String]]()
+    var resumeToken: String?
+    var lastFetchRaw: Date?
+    
+    var lastFetch: Date {
+        get {
+            lastFetchRaw ?? .init(timeIntervalSince1970: 0)
+        }
+        set(value) {
+            lastFetchRaw = value
+        }
     }
-    HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
-  }
+    
+    mutating func add(kid: String, encodedPublicKey: String) {
+        
+        let list = encodedPublicKeys[kid] ?? []
+        if list.contains(encodedPublicKey) {
+            return
+        }
+        encodedPublicKeys[kid] = list + [encodedPublicKey]
+    }
+    
+    static func set(resumeToken: String) {
+        sharedInstance.resumeToken = resumeToken
+    }
+    
+    public func save() {
+        Self.storage.save(self)
+    }
+    
+    static let storage = SecureStorage<LocalData>(fileName: "secure")
+    
+    static func initialize(completion: @escaping () -> Void) {
+        storage.loadOverride(fallback: LocalData.sharedInstance) { success in
+            guard let result = success else {
+                return
+            }
+            let format = l10n("log.keys")
+            print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+            LocalData.sharedInstance = result
+            completion()
+        }
+        HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+    }
 }
 
 class LocalDataDelegate: PublicKeyStorageDelegate {
-  func getEncodedPublicKeys(for kidStr: String) -> [String] {
-    LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
-  }
-
-  static var instance = LocalDataDelegate()
+    func getEncodedPublicKeys(for kidStr: String) -> [String] {
+        LocalData.sharedInstance.encodedPublicKeys[kidStr] ?? []
+    }
+    
+    static var instance = LocalDataDelegate()
 }

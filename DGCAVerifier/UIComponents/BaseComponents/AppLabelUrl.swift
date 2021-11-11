@@ -41,11 +41,14 @@ class AppLabelUrl: AppLabel {
     public func fillView(with content: Content) {
         initialize()
         text = content.text.localized
-        if let tap = content.onTap {
-            self.addGestureRecognizer(tap)
-        }
+        add(content.onTap)
     }
     
+    public func add(_ tap: UITapGestureRecognizer?) {
+        guard let tap = tap else { return }
+        self.addGestureRecognizer(tap)
+    }
+
     override func initialize() {
         super.initialize()
         font = Font.getFont(size: size, style: .semiBold)

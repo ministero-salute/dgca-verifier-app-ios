@@ -50,5 +50,11 @@ extension Date {
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: self)
     }
-    
+
+    var toTimeReadableString: String {
+        let df = DateFormatter.getDefault(utc: false)
+        df.dateFormat = "HH:mm:ss"
+        return df.string(from: self)
+    }
+
 }

@@ -59,7 +59,6 @@ class GatewayConnection {
                     
         // Init session
         let evaluators = [certificateEvaluator: PinnedCertificatesTrustEvaluator(certificates: [certificate])]
-//        session = AF
         session = Session(serverTrustManager: ServerTrustManager(evaluators: evaluators))
     }
     

@@ -27,6 +27,7 @@ import Foundation
 class HomeViewModel {
     
     public enum Result {
+        case initializeSync
         case updateComplete
         case versionOutdated
         case error(String)
@@ -43,6 +44,7 @@ class HomeViewModel {
     public func loadComplete() {
         results.value = .updateComplete
         isLoading.value = false
+        results.value = .initializeSync
         print("log.upload.complete")
     }
     
@@ -83,6 +85,7 @@ extension HomeViewModel {
         
         loadSettings(in: group)
         loadCertificates(in: group)
+        loadRevocationList(in: group)
         
         group.notify(queue: .main) { [weak self] in self?.loadComplete() }
     }
@@ -106,5 +109,13 @@ extension HomeViewModel {
         }
         loadingGroup.enter()
     }
-    
+
+    private func loadRevocationList(in loadingGroup: DispatchGroup) {
+        CRLDataStorage.initialize {
+            print("log.crl.done")
+            loadingGroup.leave()
+        }
+        loadingGroup.enter()
+    }
+
 }

@@ -42,6 +42,7 @@ extension Status {
         case .notValid:         return "icon_not-valid".image
         case .notValidYet:      return "icon_not-valid-yet".image
         case .notGreenPass:     return "icon_not-green-pass".image
+        case .revokedGreenPass: return "icon_not-green-pass".image
         }
     }
     
@@ -52,6 +53,8 @@ extension Status {
         case .notValid:         return "result.title.not.valid"
         case .notValidYet:      return "result.title.not.valid.yet"
         case .notGreenPass:     return "result.title.not.green.pass"
+        case .revokedGreenPass: return "result.title.revoked.green.pass"
+
         }
     }
     
@@ -61,6 +64,7 @@ extension Status {
         case .validPartially:   return "result.description.valid"
         case .notValidYet:      return "result.description.not.valid"
         case .notValid:         return "result.description.not.valid"
+        case .revokedGreenPass: return "result.description.revoked"
         default:                return nil
         }
     }
@@ -71,6 +75,7 @@ extension Status {
         case .validPartially:   return true
         case .notValidYet:      return true
         case .notValid:         return true
+        case .revokedGreenPass: return true
         default:                return false
         }
     }
@@ -81,6 +86,7 @@ extension Status {
         case .validPartially:   return true
         case .notValidYet:      return true
         case .notValid:         return true
+        case .revokedGreenPass: return true
         default:                return false
         }
     }
@@ -99,6 +105,7 @@ extension Status {
         case .notValidYet:      return [.qrValidityRange]
         case .notValid:         return [.whyQrNotValid]
         case .notGreenPass:     return [.whichQrScan]
+        case .revokedGreenPass: return []
         }
     }
     

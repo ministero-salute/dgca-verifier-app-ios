@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProgressView" customModule="VerificaC19" customModuleProvider="target">
+            <connections>
+                <outlet property="confirmButton" destination="eQA-Mg-S4N" id="2NP-Vm-3YR"/>
+                <outlet property="downloadView" destination="Jxk-qm-qf8" id="JRC-Qo-wj1"/>
+                <outlet property="idleView" destination="ndZ-AT-iKb" id="uhN-GH-K7G"/>
+                <outlet property="messageLabel" destination="LmG-Br-4kw" id="4lK-SB-vAQ"/>
+                <outlet property="progressInfoLabel" destination="FZR-yV-zQI" id="RzP-w0-4It"/>
+                <outlet property="progressInfoSubLabel" destination="xiu-vJ-VOi" id="tEm-ME-tu2"/>
+                <outlet property="progressView" destination="ek7-oR-oj8" id="weH-xl-SgM"/>
+                <outlet property="resumeButton" destination="w30-dj-Uyx" id="0Ya-5n-cWk"/>
+                <outlet property="showMoreLabel" destination="RKw-4q-dIL" id="9BH-nb-HP4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="399" height="357"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="zQI-l8-7oE">
+                    <rect key="frame" x="24" y="60" width="351" height="267.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmG-Br-4kw" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="351" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.last.update"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ndZ-AT-iKb">
+                            <rect key="frame" x="0.0" y="40.5" width="351" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leggi di più" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKw-4q-dIL" userLabel="Cancel Button" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iDb-4T-Jsu">
+                                    <rect key="frame" x="16" y="0.0" width="254" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQA-Mg-S4N" userLabel="Confirm Button" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="286" y="0.0" width="65" height="35"/>
+                                    <state key="normal" title="Scarica ora"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="crl.update.download.now"/>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="Jsb-e8-7ET"/>
+                            </constraints>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jxk-qm-qf8">
+                            <rect key="frame" x="0.0" y="95.5" width="351" height="172"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pfd-5i-CtP">
+                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="172"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZR-yV-zQI" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="41.5" height="151.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiu-vJ-VOi" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="151.5" width="41.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w30-dj-Uyx" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="305" y="68.5" width="46" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="Nu1-4T-w8d"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="crl.update.resume"/>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="pfd-5i-CtP" secondAttribute="bottom" id="3D9-96-Ifg"/>
+                                <constraint firstItem="pfd-5i-CtP" firstAttribute="top" secondItem="Jxk-qm-qf8" secondAttribute="top" id="9N2-2V-JLd"/>
+                                <constraint firstAttribute="trailing" secondItem="w30-dj-Uyx" secondAttribute="trailing" id="Ttv-Va-WIh"/>
+                                <constraint firstItem="w30-dj-Uyx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pfd-5i-CtP" secondAttribute="trailing" id="gby-sj-xlI"/>
+                                <constraint firstItem="pfd-5i-CtP" firstAttribute="leading" secondItem="Jxk-qm-qf8" secondAttribute="leading" id="jsO-sh-7Rl"/>
+                                <constraint firstItem="w30-dj-Uyx" firstAttribute="centerY" secondItem="pfd-5i-CtP" secondAttribute="centerY" id="tLW-X5-fNS"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+                <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ek7-oR-oj8">
+                    <rect key="frame" x="0.0" y="355" width="399" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="4J6-rY-23F"/>
+                    </constraints>
+                    <color key="progressTintColor" red="0.22322371599999999" green="0.3370990753" blue="0.5176677704" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                </progressView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zQI-l8-7oE" secondAttribute="trailing" constant="24" id="IgD-rE-olc"/>
+                <constraint firstItem="zQI-l8-7oE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="L2n-To-Ead"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ek7-oR-oj8" secondAttribute="bottom" id="MpZ-JP-vOO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ek7-oR-oj8" secondAttribute="trailing" id="Svl-oO-rkf"/>
+                <constraint firstItem="ek7-oR-oj8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zQI-l8-7oE" secondAttribute="bottom" constant="24" id="UXK-vn-3oM"/>
+                <constraint firstItem="ek7-oR-oj8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VgW-TV-q9L"/>
+                <constraint firstItem="zQI-l8-7oE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="czv-iw-eO1"/>
+                <constraint firstItem="ek7-oR-oj8" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="tpu-ee-fqu"/>
+                <constraint firstItem="ek7-oR-oj8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="v3E-GD-sUu"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="126.81159420289856" y="-45.870535714285715"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

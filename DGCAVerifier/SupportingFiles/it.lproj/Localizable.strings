@@ -16,6 +16,7 @@
 "home.not.available" = "N/A";
 "home.version" = "Versione";
 "home.update.now" = "Aggiorna ora";
+"home.show.more" = "Leggi di più";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -32,9 +33,11 @@
 "result.title.not.valid" = "Certificazione non valida";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
+"result.title.revoked.green.pass" = "Certificazione revocata";
 
 "result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
+"result.description.revoked" = "La certificazione risulta essere revocata";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
@@ -55,6 +58,16 @@
 "alert.no.countries.title" = "Impossibile accedere ai paesi";
 "alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
+"alert.crl.outdated.title" = "Impossibile scansionare";
+"alert.crl.outdated.message" = "L'applicazione deve aggiornare le Revoche per procedere con le scansioni.";
+
+"alert.no.crl.download.title" = "Impossibile scansionare";
+"alert.no.crl.download.message" = "L'applicazione deve terminare il download delle Revoche per procedere con le scansioni.";
+
+"alert.no.connection.title" = "Nessun accesso alla rete internet";
+"alert.no.connection.message" = "Devi essere connesso alla rete per scaricare la lista delle revoche";
+
+"alert.default.action" = "OK";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
@@ -63,6 +76,15 @@
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 
+"crl.update.loading.title" = "Aggiornamento lista dei certificati revocati in corso...";
+"crl.update.resume.title" = "L'aggiornamento della lista dei certificati revocati non è terminato. Assicurati di essere connesso a internet e clicca per continuare.";
+"crl.update.title" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati, scaricando ed elaborando pacchetti dati per un totale di %@ MB.";
+"crl.update.message" = "Controlla il piano dati della tua connessione oppure connetti una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.\n\nLa lista verrà aggiornata ogni 24 ore con pacchetti di aggiornamento dati che di solito non supereranno i pochi KB. In caso un prossimo aggiornamento supererà i 5MB si visualizzerà un nuovo messaggio come il presente";
+"crl.update.download.now" = "Scarica ora";
+"crl.update.try.later" = "Più tardi";
+"crl.update.resume" = "Riprendi";
+"crl.update.progress" = "Pacchetto %d di %d";
+"crl.update.progress.mb" = "%@MB di %@MB";
 
 "settings.title" = "IMPOSTAZIONI";
 "settings.preferences" = "Preferenze";
@@ -73,5 +95,3 @@
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";
 "settings.privacy" = "RISPETTO DELLA PRIVACY";
-
-
