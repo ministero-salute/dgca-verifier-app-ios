@@ -299,6 +299,11 @@ class HomeViewController: UIViewController {
         showCRL(true)
     }
     
+    private func networkStatusError() {
+        progressView.error(with: sync.progress, noSize: true)
+        showCRL(true)
+    }
+    
     private func showCRL(_ value: Bool) {
         lastFetchContainer.isHidden = value
         progressContainer.isHidden = !value
@@ -310,11 +315,12 @@ extension HomeViewController: CRLSynchronizationDelegate {
     
     func statusDidChange(with result: CRLSynchronizationManager.Result) {
         switch result {
-        case .downloadReady:    crlDownloadNeeded()
-        case .downloading:      showDownloadingProgress()
-        case .completed:        downloadCompleted()
-        case .paused:           downloadPaused()
-        case .error:            downloadError()
+        case .downloadReady:        crlDownloadNeeded()
+        case .downloading:          showDownloadingProgress()
+        case .completed:            downloadCompleted()
+        case .paused:               downloadPaused()
+        case .error:                downloadError()
+        case .statusNetworkError:   networkStatusError()
         }
     }
 }

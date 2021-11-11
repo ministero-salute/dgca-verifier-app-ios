@@ -22,6 +22,7 @@ class CRLSynchronizationManager {
         case completed
         case paused
         case error
+        case statusNetworkError
     }
     
     static let shared = CRLSynchronizationManager()
@@ -60,8 +61,19 @@ class CRLSynchronizationManager {
     func start() {
         log("check status")
         gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
-            // TODO: Handle HTTP error codes?
-            guard error == nil else { return }
+            guard error == nil, responseCode == 200 else {
+                self.failCounter -= 1
+                
+                if self.failCounter < 0 {
+                    self.delegate?.statusDidChange(with: .statusNetworkError)
+                }
+                else {
+                    self.cleanAndRetry()
+                }
+                
+                return
+            }
+            
             self._serverStatus = serverStatus
             self.synchronize()
         }

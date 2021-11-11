@@ -41,15 +41,15 @@ class ProgressView: AppView {
         messageLabel.text = "crl.update.resume.title".localized
     }
     
-    func error(with progress: CRLProgress) {
+    func error(with progress: CRLProgress, noSize: Bool = false) {
         downloading(with: progress)
         stop()
         
         messageLabel.isHidden = false
-        showMoreLabel.isHidden = false
+        showMoreLabel.isHidden = noSize
         confirmButton.isHidden = false
             
-        messageLabel.text = "crl.update.title".localizeWith(progress.remainingSize)
+        messageLabel.text = (noSize ? "crl.update.title.no.size" : "crl.update.title").localizeWith(progress.remainingSize)
     }
     
     private func start() {
