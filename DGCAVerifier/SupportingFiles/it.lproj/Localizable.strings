@@ -79,6 +79,7 @@
 "crl.update.loading.title" = "Aggiornamento lista dei certificati revocati in corso...";
 "crl.update.resume.title" = "L'aggiornamento della lista dei certificati revocati non è terminato. Assicurati di essere connesso a internet e clicca per continuare.";
 "crl.update.title" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati, scaricando ed elaborando pacchetti dati per un totale di %@ MB.";
+"crl.update.title.no.size" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati.";
 "crl.update.message" = "Controlla il piano dati della tua connessione oppure connetti una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.\n\nLa lista verrà aggiornata ogni 24 ore con pacchetti di aggiornamento dati che di solito non supereranno i pochi KB. In caso un prossimo aggiornamento supererà i 5MB si visualizzerà un nuovo messaggio come il presente";
 "crl.update.download.now" = "Scarica ora";
 "crl.update.try.later" = "Più tardi";
