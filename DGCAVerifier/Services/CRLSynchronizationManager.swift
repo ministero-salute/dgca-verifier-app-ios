@@ -80,6 +80,7 @@ class CRLSynchronizationManager {
     }
     
     var isSyncEnabled: Bool {
+        return true
         LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
     }
     
@@ -309,12 +310,16 @@ extension CRLSynchronizationManager {
     }
     
     func trigger(completion: (()->())? = nil) {
-        guard (isFetchOutdated || firstRun) && !isDownloadingCRL else { return }
+        guard (isFetchOutdatedAndAllowed || firstRun) && !isDownloadingCRL else { return }
         firstRun = false
         completion?()
     }
     
     var isFetchOutdated: Bool {
+        CRLDataStorage.shared.lastFetch.timeIntervalSinceNow < -24 * 60 * 60
+    }
+    
+    var isFetchOutdatedAndAllowed: Bool {
         isSyncEnabled && CRLDataStorage.shared.lastFetch.timeIntervalSinceNow < -24 * 60 * 60
     }
 
