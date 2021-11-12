@@ -254,7 +254,7 @@ class HomeViewController: UIViewController {
         }
         
         if isCRLAllowed {
-            guard crlFetchOutdated else {
+            guard !crlFetchOutdated else {
                 showAlert(key: "crl.outdated")
                 return
             }
