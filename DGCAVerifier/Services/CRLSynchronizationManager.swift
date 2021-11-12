@@ -80,7 +80,6 @@ class CRLSynchronizationManager {
     }
     
     var isSyncEnabled: Bool {
-        return true
         LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
     }
     
