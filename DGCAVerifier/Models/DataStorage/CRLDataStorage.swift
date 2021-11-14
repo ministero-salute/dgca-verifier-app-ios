@@ -64,7 +64,7 @@ extension CRLDataStorage {
         let storage = realm
         let dcc = hashes?.map { RevokedDCC(hash: $0) } ?? []
         guard !dcc.isEmpty else { return }
-        try! storage.write { storage.add(dcc) }
+        try! storage.write { storage.add(dcc, update: .all) }
     }
     
     public static func removeAll(hashes: [String]?) {

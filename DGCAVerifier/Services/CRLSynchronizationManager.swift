@@ -127,16 +127,20 @@ class CRLSynchronizationManager {
     func downloadCompleted() {
         log("download completed")
         guard sameDatabaseSize else {
+            log("inconsistent number of UCVI, clean needed")
             CRLSynchronizationManager.shared.failCounter -= 1
             if CRLSynchronizationManager.shared.failCounter < 0 {
-                if CRLDataStorage.crlTotalNumber() > _serverStatus?.totalNumberUCVI ?? 0 {
+                log("failed too many times")
+                if progress.remainingSize == "0.00" || progress.remainingSize == "" {
                     delegate?.statusDidChange(with: .statusNetworkError)
                 } else {
                     delegate?.statusDidChange(with: .error)
                 }
+                clean()
                 return
             }
             else {
+                log("retrying...")
                 return cleanAndRetry()
             }
         }
@@ -148,12 +152,17 @@ class CRLSynchronizationManager {
         delegate?.statusDidChange(with: .completed)
     }
     
-    func cleanAndRetry() {
-        log("clean needed, retry")
+    func clean() {
         _progress = .init()
         _serverStatus = nil
         isDownloadingCRL = false
         CRLDataStorage.clear()
+        log("cleaned")
+    }
+    
+    func cleanAndRetry() {
+        log("clean needed, retry")
+        clean()
         start()
     }
     

@@ -240,7 +240,7 @@ class CameraViewController: UIViewController {
         let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
         cameraPreviewLayer.videoGravity = .resizeAspectFill
         cameraPreviewLayer.connection?.videoOrientation = .portrait
-        cameraPreviewLayer.frame = view.frame
+        cameraPreviewLayer.frame = view.bounds
         return cameraPreviewLayer
     }
     
