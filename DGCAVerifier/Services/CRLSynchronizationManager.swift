@@ -129,7 +129,11 @@ class CRLSynchronizationManager {
         guard sameDatabaseSize else {
             CRLSynchronizationManager.shared.failCounter -= 1
             if CRLSynchronizationManager.shared.failCounter < 0 {
-                delegate?.statusDidChange(with: .error)
+                if CRLDataStorage.crlTotalNumber() > _serverStatus?.totalNumberUCVI ?? 0 {
+                    delegate?.statusDidChange(with: .statusNetworkError)
+                } else {
+                    delegate?.statusDidChange(with: .error)
+                }
                 return
             }
             else {
