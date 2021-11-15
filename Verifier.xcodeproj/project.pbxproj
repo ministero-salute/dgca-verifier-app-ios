@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		65021B3926AEB21F004C3D14 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3826AEB21F004C3D14 /* AppButton.swift */; };
 		65021B3B26AEB291004C3D14 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3A26AEB291004C3D14 /* ButtonStyle.swift */; };
 		65021B3D26AEB33F004C3D14 /* UIButton+Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3C26AEB33F004C3D14 /* UIButton+Set.swift */; };
@@ -306,6 +307,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
 		65021B3826AEB21F004C3D14 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		65021B3A26AEB291004C3D14 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		65021B3C26AEB33F004C3D14 /* UIButton+Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Set.swift"; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 			children = (
 				6BA8B9DF266EB8E80060D767 /* VaccineValidityCheckTests.swift */,
 				6BA8B9E1266F7E4C0060D767 /* RecoveryValidityCheckTests.swift */,
+				149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */,
 				6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */,
 				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
 				65B281352697122300A9A533 /* Info.plist */,
@@ -1564,6 +1567,7 @@
 			files = (
 				65B28144269712BE00A9A533 /* TestValidityCheckTests.swift in Sources */,
 				65B28140269712BE00A9A533 /* VaccineValidityCheckTests.swift in Sources */,
+				149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */,
 				65B28143269712BE00A9A533 /* RecoveryValidityCheckTests.swift in Sources */,
 				65B2813F269712BE00A9A533 /* LocalDataTests.swift in Sources */,
 			);
