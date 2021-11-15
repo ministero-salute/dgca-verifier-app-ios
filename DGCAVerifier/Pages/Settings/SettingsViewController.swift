@@ -88,8 +88,8 @@ class SettingsViewController: UIViewController {
     
     func modeViewDidTap() {
         PickerViewController.present(for: self, with: .init(
-            doneButtonTitle: "Done",
-            cancelButtonTitle: "Cancel",
+            doneButtonTitle: "label.done".localized,
+            cancelButtonTitle: "label.cancel".localized,
             pickerOptions: self.pickerOptions,
             selectedOption: Store.get(key: .isTotemModeActive) == "0" ? 1 : 0,
             doneCallback: self.didTapDone,
