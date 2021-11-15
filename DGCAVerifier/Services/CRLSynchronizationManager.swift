@@ -223,8 +223,8 @@ class CRLSynchronizationManager {
     
     public func showCRLUpdateAlert() {
         let content: AlertContent = .init(
-            title: "crl.update.title".localizeWith(progress.remainingSize),
-            message: "crl.update.message",
+            title: "crl.update.alert.title".localizeWith(progress.remainingSize),
+            message: "crl.update.message".localizeWith(progress.remainingSize),
             confirmAction: { self.startDownload() },
             confirmActionTitle: "crl.update.download.now",
             cancelAction: { self.readyToDownload() },
@@ -236,7 +236,7 @@ class CRLSynchronizationManager {
     
     public func showNoConnectionAlert() {
         let content: AlertContent = .init(
-            title: "alert.no.connection.title".localizeWith(progress.remainingSize),
+            title: "alert.no.connection.title",
             message: "alert.no.connection.message",
             confirmAction: nil,
             confirmActionTitle: "alert.default.action",
