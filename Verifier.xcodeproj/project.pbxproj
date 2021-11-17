@@ -247,7 +247,6 @@
 		6B9D9B32272AD81A00B1D4C1 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9D9B30272AD81A00B1D4C1 /* StatementValidityCheck.swift */; };
 		6BA8B9E5266FAC150060D767 /* GatewayConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */; };
 		9020C5E12721600D00F45CA7 /* String+Char.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F929126B00F9C000BE8F5 /* String+Char.swift */; };
-		9020C5E22721600D00F45CA7 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		9020C5E32721600D00F45CA7 /* UILabel+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3F26AEC142004C3D14 /* UILabel+Inspectable.swift */; };
 		9020C5E42721600D00F45CA7 /* UIImageView+Inspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B5826AECF59004C3D14 /* UIImageView+Inspectable.swift */; };
 		9020C5E52721600D00F45CA7 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F928126B00264000BE8F5 /* UITableView+Dequeue.swift */; };
@@ -1666,7 +1665,6 @@
 				6B797DDD26D052B800EB2873 /* Data+SHA256.swift in Sources */,
 				659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
 				65EFB63326B183CF0081682B /* Link+Values.swift in Sources */,
-				65E3C1E1271703CC004B2E98 /* AVCaptureDevice+Torch.swift in Sources */,
 				65E2819F269721ED00377913 /* Date+Utils.swift in Sources */,
 				659DE89126B2D75B0026A39A /* Font.swift in Sources */,
 				653F929226B00F9C000BE8F5 /* String+Char.swift in Sources */,
@@ -1731,7 +1729,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BJFR84ZR6R;
+				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = "DGCAVerifier/SupportingFiles/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1755,7 +1753,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BJFR84ZR6R;
+				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = "DGCAVerifier/SupportingFiles/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1866,7 +1864,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BJFR84ZR6R;
+				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = "DGCAVerifier/SupportingFiles/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2021,7 +2019,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BJFR84ZR6R;
+				DEVELOPMENT_TEAM = NFBYJRA8B5;
 				INFOPLIST_FILE = "DGCAVerifier/SupportingFiles/Plists/Info-Dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
