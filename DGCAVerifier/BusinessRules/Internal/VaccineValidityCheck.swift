@@ -72,6 +72,13 @@ struct VaccineValidityCheck {
         return true
     }
     
+    private func isAllowedVaccination(for medicalProduct: String, fromCountryWithCode countryCode: String) -> Bool {
+        if let allowedCountries = allowedVaccinationInCountry[medicalProduct] {
+            return allowedCountries.contains(countryCode)
+        }
+        return true
+    }
+    
     private func isValid(for medicalProduct: String) -> Bool {
         // Vaccine code not included in settings -> not a valid vaccine for Italy
         let name = Constants.vaccineCompleteEndDays

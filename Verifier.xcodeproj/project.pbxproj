@@ -1459,7 +1459,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9020C5E12721600D00F45CA7 /* String+Char.swift in Sources */,
-				9020C5E22721600D00F45CA7 /* (null) in Sources */,
 				9020C5E32721600D00F45CA7 /* UILabel+Inspectable.swift in Sources */,
 				9020C5E42721600D00F45CA7 /* UIImageView+Inspectable.swift in Sources */,
 				9020C5E52721600D00F45CA7 /* UITableView+Dequeue.swift in Sources */,
@@ -1667,6 +1666,7 @@
 				6B797DDD26D052B800EB2873 /* Data+SHA256.swift in Sources */,
 				659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
 				65EFB63326B183CF0081682B /* Link+Values.swift in Sources */,
+				65E3C1E1271703CC004B2E98 /* AVCaptureDevice+Torch.swift in Sources */,
 				65E2819F269721ED00377913 /* Date+Utils.swift in Sources */,
 				659DE89126B2D75B0026A39A /* Font.swift in Sources */,
 				653F929226B00F9C000BE8F5 /* String+Char.swift in Sources */,
@@ -1739,7 +1739,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.6;
-				PRODUCT_BUNDLE_IDENTIFIER = it.johnnybueti.ibm.VerificaC19;
+				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1763,7 +1763,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.6;
-				PRODUCT_BUNDLE_IDENTIFIER = it.johnnybueti.ibm.VerificaC19;
+				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1874,7 +1874,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.6;
-				PRODUCT_BUNDLE_IDENTIFIER = it.johnnybueti.ibm.VerificaC19;
+				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2029,7 +2029,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.6;
-				PRODUCT_BUNDLE_IDENTIFIER = it.johnnybueti.ibm.VerificaC19;
+				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
