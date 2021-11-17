@@ -30,15 +30,38 @@ struct RecoveryValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
+    private let recoveryStartDays = "recovery_cert_start_day"
+    private let recoveryEndDays = "recovery_cert_end_day"
+    
     func isRecoveryValid(_ hcert: HCert) -> Status {
         guard let validFrom = hcert.recoveryDateFrom else { return .notValid }
         guard let validUntil = hcert.recoveryDateUntil else { return .notValid }
         
-        guard let validityStart = validFrom.toRecoveryDate else { return .notValid }
-        guard let validityEnd = validUntil.toRecoveryDate else { return .notValid }
-    
+        guard let recoveryValidFromDate = validFrom.toRecoveryDate else { return .notValid }
+        guard let recoveryValidUntilDate = validUntil.toRecoveryDate else { return .notValid }
+        
+        guard let recoveryStartDays = getStartDays() else { return .notGreenPass }
+        guard let recoveryEndDays = getEndDays() else { return .notGreenPass }
+        
+        guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
+        let validityEnd = recoveryValidUntilDate
+        guard let validityExtension = recoveryValidFromDate.add(recoveryEndDays, ofType: .day) else { return .notValid }
+
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        return Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        return Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
+    }
+    
+    private func getStartDays() -> Int? {
+        return getValue(for: recoveryStartDays)?.intValue
+    }
+    
+    private func getEndDays() -> Int? {
+        return getValue(for: recoveryEndDays)?.intValue
+    }
+    
+    
+    private func getValue(for name: String) -> String? {
+        return LocalData.getSetting(from: name)
     }
 }

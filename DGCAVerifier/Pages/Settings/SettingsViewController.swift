@@ -64,7 +64,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         initializeBackButton()
         initializeTaleView()
-
     }
     
     private func initializeTaleView(){
@@ -109,7 +108,6 @@ class SettingsViewController: UIViewController {
     
     private func didTapDone(vc: PickerViewController) {
         let selectedRow: Int = vc.selectedRow()
-        
         vc.selectRow(selectedRow, animated: false)
         Store.set(selectedRow == 0, for: .isTotemModeActive)
         tableView.reloadData()

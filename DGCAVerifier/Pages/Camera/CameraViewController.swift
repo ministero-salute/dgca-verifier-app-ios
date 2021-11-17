@@ -112,6 +112,12 @@ class CameraViewController: UIViewController {
         guard !(vc is VerificationViewController) else { return }
         stopRunning()
         hapticFeedback()
+        let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed = SettingDataStorage.sharedInstance.getFirstSetting(withName: "DRL_SYNC_ACTIVE")?.boolValue ?? true
+        if !isCRLDownloadCompleted && isCRLAllowed {
+            showAlert(key: "no.crl.download")
+            return
+        }
         coordinator?.validate(payload: payload, country: country, delegate: self)
     }
     
@@ -169,12 +175,28 @@ class CameraViewController: UIViewController {
         return isFrontCamera ? .front : .back
     }
     
+    private func noCameraError() {
+        showAlert(withTitle: "alert.nocamera.title".localized, message: "alert.nocamera.message".localized)
+    }
+
     private func hapticFeedback() {
         DispatchQueue.main.async {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
     
+    private func showAlert(key: String) {
+        let alertController = UIAlertController(
+            title: "alert.\(key).title".localized,
+            message: "alert.\(key).message".localized,
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.coordinator?.dismiss()
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension CameraViewController: CameraDelegate {
@@ -196,7 +218,6 @@ extension CameraViewController: CameraDelegate {
 }
 
 extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let handler = getHandler(sampleBuffer)
         try? handler?.perform([getBarcodeDetectorHandler()])

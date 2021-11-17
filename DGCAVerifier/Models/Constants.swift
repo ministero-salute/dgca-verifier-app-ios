@@ -21,5 +21,7 @@ struct Constants {
     static let vaccineCompleteStartDays = "vaccine_start_day_complete"
     static let vaccineCompleteEndDays = "vaccine_end_day_complete"
     static let JeJVacineCode = "EU/1/20/1525"
+    static let SputnikVacineCode = "Sputnik-V"
+    static let sanMarinoCode = "SM"
     
 }
