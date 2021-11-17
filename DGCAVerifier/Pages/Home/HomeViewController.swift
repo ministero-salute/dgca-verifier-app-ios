@@ -54,13 +54,6 @@ class HomeViewController: UIViewController {
     var sync: CRLSynchronizationManager { CRLSynchronizationManager.shared }
     let userDefaults = UserDefaults.standard
 
-    // `true`:  flash active.
-    // `false`: flash not active.
-    let UDKeyFlashPreference = "FlashPreference"
-    var UDFlashPreference: Bool {
-        return userDefaults.bool(forKey: UDKeyFlashPreference)
-    }
-
     @IBOutlet weak var settingsView: UIView!
     
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
@@ -83,7 +76,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userDefaults.set(false, forKey: UDKeyFlashPreference)
+        Store.set(false, for: .isTorchActive)
     }
     
     private func initialize() {

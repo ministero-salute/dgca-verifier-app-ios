@@ -98,4 +98,8 @@ extension MainCoordinator: SettingsCoordinator {
     func dismissSettings(completion: (() -> ())?) {
         navigationController.popViewController(animated: true)
     }
+    
+    func openWebURL(url: URL){
+        UIApplication.shared.open(url)
+    }
 }

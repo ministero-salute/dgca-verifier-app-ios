@@ -51,11 +51,15 @@ extension HCert {
         body["t"].array?.map{ $0[testTypeKey] }.first?.string
     }
     
-    var isMolecularTest: Bool? {
+    var isKnownTestType: Bool {
+        isMolecularTest || isRapidTest
+    }
+    
+    var isMolecularTest: Bool {
         testType == molecularTest
     }
     
-    var isRapidTest: Bool? {
+    var isRapidTest: Bool {
         testType == rapidTest
     }
     
