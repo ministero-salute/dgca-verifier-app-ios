@@ -53,9 +53,7 @@ class CRLSynchronizationManager {
         log("initialize")
         self.delegate = delegate
         setTimer() { self.start() }
-        //TODO: Update setting name -> DRL_Fail_Counter
-        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
-        //
+        failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
     
     func start() {
@@ -74,7 +72,7 @@ class CRLSynchronizationManager {
                 return
             }
             
-            self.failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
+            self.failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
             self._serverStatus = serverStatus
             self.synchronize()
         }
@@ -147,7 +145,7 @@ class CRLSynchronizationManager {
         }
         completeProgress()
         _serverStatus = nil
-        failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
+        failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
         CRLDataStorage.shared.lastFetch = Date()
         isDownloadingCRL = false
         delegate?.statusDidChange(with: .completed)
