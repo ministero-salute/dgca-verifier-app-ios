@@ -87,6 +87,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="3Ut-7p-OYd" firstAttribute="leading" secondItem="fLh-X8-Yfz" secondAttribute="leading" constant="8" id="XcY-uo-8LL"/>
                                         <constraint firstAttribute="trailing" secondItem="3Ut-7p-OYd" secondAttribute="trailing" constant="8" id="seR-LI-lHZ"/>

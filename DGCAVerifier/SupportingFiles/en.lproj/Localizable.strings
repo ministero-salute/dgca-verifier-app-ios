@@ -97,3 +97,6 @@
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";
 "settings.privacy" = "RISPETTO DELLA PRIVACY";
+
+"label.done" = "Done";
+"label.cancel" = "Cancel";

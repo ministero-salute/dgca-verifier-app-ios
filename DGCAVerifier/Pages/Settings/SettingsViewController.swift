@@ -1,14 +1,14 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,6 +27,7 @@ import UIKit
 
 protocol SettingsCoordinator: Coordinator {
     func dismissSettings(completion: (()->())?)
+    func openWebURL(url: URL)
 }
 
 protocol SettingsDelegate {
@@ -37,31 +38,17 @@ protocol SettingsDelegate {
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var backButton: AppButton!
-    @IBOutlet weak var titleLabel: AppLabel!
-    @IBOutlet weak var preferencesLabel: AppLabel!
-    @IBOutlet weak var informationsLabel: AppLabel!
-    @IBOutlet weak var modeView: AppShadowView!
-    @IBOutlet weak var modeLabel: AppLabel!
-    @IBOutlet weak var modeValueLabel: AppLabel!
-    @IBOutlet weak var faqView: AppShadowView!
-    @IBOutlet weak var faqLabel: AppLabel!
-    @IBOutlet weak var privacyView: AppShadowView!
-    @IBOutlet weak var privacyLabel: AppLabel!
+    @IBOutlet weak var tableView: UITableView!
     
     weak var coordinator: SettingsCoordinator?
     private var viewModel: SettingsViewModel
     
-    private var pickerViewOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
+    private var pickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
     private var pickerView = UIPickerView()
     private var pickerToolBar = UIToolbar()
     
-    let UDKeyTotemIsActive = "IsTotemModeActive"
-    let userDefaults = UserDefaults.standard
-    
-    var UDIsTotemModeActive: Bool {
-        return userDefaults.bool(forKey: UDKeyTotemIsActive)
-    }
-    
+    private let informationsSettings = ["settings.faq".localized, "settings.privacy".localized]
+
     init(coordinator: SettingsCoordinator, viewModel: SettingsViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
@@ -75,13 +62,18 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         initializeBackButton()
-        setUpTitle()
-        setUpModeView()
-        setUpFAQView()
-        setUpPrivacyView()
-        setUpViewActions()
+        initializeTaleView()
+    }
+    
+    private func initializeTaleView(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorColor = .clear
+        tableView.backgroundView?.backgroundColor = .white
+        
+        tableView.registerNibCell(ofType: SettingsCell.self, with: "SettingsCell")
+        tableView.registerNibCell(ofType: SettingsHeaderCell.self, with: "SettingsHeaderCell")
     }
     
     private func initializeBackButton() {
@@ -89,149 +81,115 @@ class SettingsViewController: UIViewController {
         backButton.setLeftImage(named: "icon_back")
     }
     
-    private func setUpTitle(){
-        titleLabel.text = "settings.title".localized
-        titleLabel.font = .boldSystemFont(ofSize: 15)
-        preferencesLabel.text = "settings.preferences".localized
-        informationsLabel.text = "settings.informations".localized
-    }
-    
-    private func setUpModeView(){
-        modeLabel.text = "settings.mode".localized
-        modeValueLabel.text = (self.UDIsTotemModeActive == true) ? "settings.mode.automatic".localized : "settings.mode.manual".localized
-        modeLabel.font = .boldSystemFont(ofSize: 15)
-    }
-    
-    private func setUpFAQView(){
-        faqLabel.text = "settings.faq".localized
-        faqLabel.font = .boldSystemFont(ofSize: 15)
-    }
-    
-    private func setUpPrivacyView(){
-        privacyLabel.text = "settings.privacy".localized
-        privacyLabel.font = .boldSystemFont(ofSize: 15)
-    }
-    
-    private func setUpViewActions(){
-        let faqTapGesture = UITapGestureRecognizer(target: self, action: #selector(faqDidTap))
-        faqView.addGestureRecognizer(faqTapGesture)
-        let privacyTapGesture = UITapGestureRecognizer(target: self, action: #selector(privacyPolicyDidTap))
-        privacyView.addGestureRecognizer(privacyTapGesture)
-        let pickerModeTapGesture = UITapGestureRecognizer(target: self, action: #selector(modeViewDidTap))
-        modeView.addGestureRecognizer(pickerModeTapGesture)
-    }
-    
     @IBAction func goBack(_ sender: Any) {
         coordinator?.dismissSettings(completion: nil)
     }
     
-    @objc func faqDidTap(_ sender: UITapGestureRecognizer) {
+    func modeViewDidTap() {
+        PickerViewController.present(for: self, with: .init(
+            doneButtonTitle: "label.done".localized,
+            cancelButtonTitle: "label.cancel".localized,
+            pickerOptions: self.pickerOptions,
+            selectedOption: Store.get(key: .isTotemModeActive) == "0" ? 1 : 0,
+            doneCallback: self.didTapDone,
+            cancelCallback: nil
+        ))
+    }
+    
+    func faqDidTap() {
         guard let url = URL(string: Link.faq.url) else { return }
-        UIApplication.shared.open(url)
+        coordinator?.openWebURL(url: url)
     }
     
-    @objc func privacyPolicyDidTap(_ sender: UITapGestureRecognizer) {
+    func privacyPolicyDidTap() {
         guard let url = URL(string: Link.privacyPolicy.url) else { return }
-        UIApplication.shared.open(url)
+        coordinator?.openWebURL(url: url)
     }
     
-    @objc func modeViewDidTap(_ sender: UITapGestureRecognizer) {
-        
-        pickerView = UIPickerView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 300))
-        pickerView.backgroundColor = .white
-
-        pickerView.showsSelectionIndicator = true
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let automatic = userDefaults.bool(forKey: UDKeyTotemIsActive)
-        pickerView.selectRow(automatic ? 0 : 1, inComponent: 0, animated: false)
-        self.view.addSubview(pickerView)
-        
-        pickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        pickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        pickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        pickerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        
-        pickerToolBar = UIToolbar(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 100))
-        pickerToolBar.barStyle = UIBarStyle.default
-        pickerToolBar.isTranslucent = true
-        pickerToolBar.tintColor = .black
-
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.didTapDone))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.didTapCancel))
-
-        pickerToolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        pickerToolBar.isUserInteractionEnabled = true
-        
-        self.view.addSubview(pickerToolBar)
-
-        pickerToolBar.translatesAutoresizingMaskIntoConstraints = false
-        pickerToolBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        pickerToolBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        pickerToolBar.bottomAnchor.constraint(equalTo: pickerView.topAnchor).isActive = true
-        pickerToolBar.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    }
-    
-    @objc func didTapDone() {
-        let row = self.pickerView.selectedRow(inComponent: 0)
-        self.pickerView.selectRow(row, inComponent: 0, animated: false)
-        self.modeValueLabel.text = self.pickerViewOptions[row]
-        if row == 0 {
-            userDefaults.set(true, forKey: UDKeyTotemIsActive)
-        }
-        else if row == 1{
-            userDefaults.set(false, forKey: UDKeyTotemIsActive)
-        }
-        removePicker()
-    }
-
-    @objc func didTapCancel() {
-        removePicker()
-    }
-    
-    private func removePicker(){
-        pickerToolBar.removeFromSuperview()
-        pickerView.removeFromSuperview()
+    private func didTapDone(vc: PickerViewController) {
+        let selectedRow: Int = vc.selectedRow()
+        vc.selectRow(selectedRow, animated: false)
+        Store.set(selectedRow == 0, for: .isTotemModeActive)
+        tableView.reloadData()
     }
     
 }
 
-extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return pickerViewOptions.count
-        } else {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section{
+            
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            return 1
+        case 3:
+            return 1
+        case 4:
+            return 2
+        default:
             return 0
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerViewOptions[row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else {return UITableViewCell()}
+                
+        guard let headerCell = tableView.dequeueReusableCell(withIdentifier: "SettingsHeaderCell", for: indexPath) as? SettingsHeaderCell else {return UITableViewCell()}
+                
+        switch indexPath.section{
+        case 0 :
+            headerCell.fillCell(title: "settings.title".localized, isSeparatorHidden: false)
+            return headerCell
+        case 1:
+            headerCell.fillCell(title: "settings.preferences".localized, fontSize: 13)
+            return headerCell
+        case 2:
+            let value = Store.getBool(key: .isTotemModeActive)
+            let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
+            cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
+            return cell
+        case 3:
+            headerCell.fillCell(title: "settings.informations".localized, fontSize: 13)
+            return headerCell
+        case 4:
+            cell.fillCell(title: informationsSettings[indexPath.row], icon: "icon_arrow-right", value: nil)
+            return cell
+        default:
+            break
+        }
+        return UITableViewCell()
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
-            switch row {
-            case 0: //Automatic
-                self.modeValueLabel.text = self.pickerViewOptions[row]
-                userDefaults.set(true, forKey: UDKeyTotemIsActive)
-                return
-            case 1: //Manual
-                self.modeValueLabel.text = self.pickerViewOptions[row]
-                userDefaults.set(false, forKey: UDKeyTotemIsActive)
-                return
+        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section{
+        case 2:
+            switch indexPath.row{
+            case 0:
+                modeViewDidTap()
             default:
-                return
+                break
             }
-        } else {
-            return
+        case 4:
+            switch indexPath.row{
+            case 0:
+                faqDidTap()
+            case 1:
+                privacyPolicyDidTap()
+            default:
+                break
+            }
+        default:
+            break
         }
     }
+    
 }

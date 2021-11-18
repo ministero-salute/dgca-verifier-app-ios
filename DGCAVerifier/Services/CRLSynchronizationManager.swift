@@ -74,6 +74,7 @@ class CRLSynchronizationManager {
                 return
             }
             
+            self.failCounter = LocalData.getSetting(from: "DRL_Fail_Counter")?.intValue ?? 1
             self._serverStatus = serverStatus
             self.synchronize()
         }

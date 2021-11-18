@@ -30,35 +30,15 @@ struct TestValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
-    private let rapidStartHoursKey = "rapid_test_start_hours"
-    private let rapidEndHoursKey = "rapid_test_end_hours"
-    private let molecularStartHoursKey = "molecular_test_start_hours"
-    private let molecularEndHoursKey = "molecular_test_end_hours"
-    
-    func isTestNegative(_ hcert: HCert) -> Status {
-        guard let isNegative = hcert.testNegative else { return .notValid }
-        return isNegative ? .valid : .notValid
-    }
-    
     func isTestDateValid(_ hcert: HCert) -> Status {
-        guard let isMolecularTest = hcert.isMolecularTest,
-              let isRapidTest = hcert.isRapidTest else { return.notValid }
-        let startHours: String?
-        let endHours: String?
-        if isMolecularTest {
-            startHours = LocalData.getSetting(from: molecularStartHoursKey)
-            endHours = LocalData.getSetting(from: molecularEndHoursKey)
-        }
-        else if isRapidTest {
-            startHours = LocalData.getSetting(from: rapidStartHoursKey)
-            endHours = LocalData.getSetting(from: rapidEndHoursKey)
-        }
-        else {
-            return .notValid
-        }
+        guard hcert.isKnownTestType else { return .notValid }
+        
+        let startHours = getStartHours(for: hcert)
+        let endHours = getEndHours(for: hcert)
+        
         guard let start = startHours?.intValue else { return .notGreenPass }
         guard let end = endHours?.intValue else { return .notGreenPass }
-
+        
         guard let dateString = hcert.testDate else { return .notValid }
         guard let dateTime = dateString.toTestDate else { return .notValid }
         guard let validityStart = dateTime.add(start, ofType: .hour) else { return .notValid }
@@ -67,9 +47,35 @@ struct TestValidityCheck {
         return Validator.validate(Date(), from: validityStart, to: validityEnd)
     }
     
+    func isTestNegative(_ hcert: HCert) -> Status {
+        guard let isNegative = hcert.testNegative else { return .notValid }
+        return isNegative ? .valid : .notValid
+    }
+    
     func isTestValid(_ hcert: HCert) -> Status {
         let testValidityResults = [isTestNegative(hcert), isTestDateValid(hcert)]
         return testValidityResults.first(where: {$0 != .valid}) ?? .valid
     }
     
+    func getStartHours(for hcert: HCert) -> String? {
+        if (hcert.isMolecularTest) { return molecularStartHours }
+        if (hcert.isRapidTest) { return rapidStartHours }
+        return nil
+    }
+    
+    func getEndHours(for hcert: HCert) -> String? {
+        if (hcert.isMolecularTest) { return molecularEndHours }
+        if (hcert.isRapidTest) { return rapidEndHours }
+        return nil
+    }
+   
+    func getValue(from key: String) -> String? {
+        LocalData.getSetting(from: key)
+    }
+    
+    var molecularStartHours: String? { getValue(from: Constants.molecularStartHoursKey) }
+    var molecularEndHours: String? { getValue(from: Constants.molecularEndHoursKey) }
+    var rapidStartHours: String? { getValue(from: Constants.rapidStartHoursKey) }
+    var rapidEndHours: String? { getValue(from: Constants.rapidEndHoursKey) }
+   
 }

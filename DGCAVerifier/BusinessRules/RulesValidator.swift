@@ -49,7 +49,7 @@ struct RulesValidator: Validator {
         }
     }
         
-    private static func isRevoked(_ hCert: HCert) -> Bool {
+    public static func isRevoked(_ hCert: HCert) -> Bool {
         guard CRLSynchronizationManager.shared.isSyncEnabled else { return false }
         let hash = hCert.uvci.sha256()
         guard !hash.isEmpty else { return false }
