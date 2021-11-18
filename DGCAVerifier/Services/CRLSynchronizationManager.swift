@@ -64,7 +64,7 @@ class CRLSynchronizationManager {
             guard error == nil, responseCode == 200 else {
                 self.failCounter -= 1
                 
-                if self.failCounter < 0 {
+                if self.failCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
                     self.delegate?.statusDidChange(with: .statusNetworkError)
                 }
                 else {
