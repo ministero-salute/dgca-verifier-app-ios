@@ -139,7 +139,7 @@ class HomeViewController: UIViewController {
      
     func bindResumeButton() {
         progressView.resumeButton
-            .addTarget(self, action: #selector(startSync), for: .touchUpInside)
+            .addTarget(self, action: #selector(resumeSync), for: .touchUpInside)
     }
     
     private func manage(_ result: HomeViewModel.Result?) {
@@ -214,6 +214,14 @@ class HomeViewController: UIViewController {
     }
     
     @objc func startSync() {
+        guard Connectivity.isOnline else {
+            showAlert(key: "no.connection")
+            return
+        }
+        sync.start()
+    }
+    
+    @objc func resumeSync() {
         guard Connectivity.isOnline else {
             showAlert(key: "no.connection")
             return
