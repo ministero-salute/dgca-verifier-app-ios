@@ -27,9 +27,13 @@ class CRLSynchronizationManager {
     
     static let shared = CRLSynchronizationManager()
     var firstRun: Bool = true
-    var failCounter: Int {
-        get {return _failCounter }
-        set {_failCounter = newValue}
+    var crlStatusFailCounter: Int {
+        get {return _crlStatusFailCounter }
+        set {_crlStatusFailCounter = newValue}
+    }
+    var crlFailCounter: Int {
+        get {return _crlFailCounter }
+        set {_crlFailCounter = newValue}
     }
     
     var progress: CRLProgress { _progress }
@@ -46,23 +50,24 @@ class CRLSynchronizationManager {
         get { CRLDataStorage.shared.progress ?? .init() }
         set { CRLDataStorage.shared.saveProgress(newValue) }
     }
-    private var _failCounter: Int = 1
+    private var _crlStatusFailCounter: Int = 1
+    private var _crlFailCounter: Int = 1
     
     func initialize(delegate: CRLSynchronizationDelegate?) {
         guard isSyncEnabled else { return }
         log("initialize")
         self.delegate = delegate
         setTimer() { self.start() }
-        failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+        crlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
     
     func start() {
         log("check status")
         gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
             guard error == nil, responseCode == 200 else {
-                self.failCounter -= 1
+                self.crlStatusFailCounter -= 1
                 
-                if self.failCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
+                if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
                     self.delegate?.statusDidChange(with: .statusNetworkError)
                 }
                 else {
@@ -72,7 +77,7 @@ class CRLSynchronizationManager {
                 return
             }
             
-            self.failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+            self.crlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
             self._serverStatus = serverStatus
             self.synchronize()
         }
@@ -127,8 +132,8 @@ class CRLSynchronizationManager {
         log("download completed")
         guard sameDatabaseSize else {
             log("inconsistent number of UCVI, clean needed")
-            CRLSynchronizationManager.shared.failCounter -= 1
-            if CRLSynchronizationManager.shared.failCounter < 0 {
+            CRLSynchronizationManager.shared.crlFailCounter -= 1
+            if CRLSynchronizationManager.shared.crlFailCounter < 0 {
                 log("failed too many times")
                 if progress.remainingSize == "0.00" || progress.remainingSize == "" {
                     delegate?.statusDidChange(with: .statusNetworkError)
@@ -145,7 +150,7 @@ class CRLSynchronizationManager {
         }
         completeProgress()
         _serverStatus = nil
-        failCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+        crlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
         CRLDataStorage.shared.lastFetch = Date()
         isDownloadingCRL = false
         delegate?.statusDidChange(with: .completed)
@@ -249,8 +254,12 @@ class CRLSynchronizationManager {
 }
 
 extension CRLSynchronizationManager {
+    
+    public var needsServerStatusUpdate: Bool {
+        _serverStatus == nil
+    }
         
-    private var noPendingDownload: Bool {
+    public var noPendingDownload: Bool {
         progress.currentVersion == progress.requestedVersion
     }
     

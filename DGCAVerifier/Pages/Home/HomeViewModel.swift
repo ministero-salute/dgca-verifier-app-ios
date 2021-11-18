@@ -33,18 +33,25 @@ class HomeViewModel {
         case error(String)
     }
     
-    let results: Observable<Result> = Observable(nil)
-    let isLoading: Observable<Bool> = Observable(true)
+    let results: Observable<Result>     = Observable(nil)
+    let isLoading: Observable<Bool>     = Observable(true)
+    var dispatchGroupErrors: [String]   = .init()
     
     public func startOperations() {
         isLoading.value = true
         GatewayConnection.shared.initialize { [weak self] in self?.load() }
     }
     
-    public func loadComplete() {
+    public func loadComplete(updateLastFetch: Bool) {
         results.value = .updateComplete
         isLoading.value = false
         results.value = .initializeSync
+        
+        if updateLastFetch {
+            LocalData.sharedInstance.lastFetch = Date()
+            LocalData.sharedInstance.save()
+        }
+        
         print("log.upload.complete")
     }
     
@@ -87,13 +94,25 @@ extension HomeViewModel {
         loadCertificates(in: group)
         loadRevocationList(in: group)
         
-        group.notify(queue: .main) { [weak self] in self?.loadComplete() }
+        group.notify(queue: .main) { [weak self] in
+            if self?.dispatchGroupErrors.count == 0 {
+                self?.loadComplete(updateLastFetch: true)
+            } else {
+                self?.loadComplete(updateLastFetch: false)
+            }
+        }
     }
     
     private func loadSettings(in loadingGroup: DispatchGroup) {
         SettingDataStorage.initialize {
-            GatewayConnection.shared.settings { _ in
-                print("log.settings.done")
+            GatewayConnection.shared.settings { [weak self] error in
+                if error == nil {
+                    print("log.settings.done")
+                } else {
+                    self?.dispatchGroupErrors.append(error!)
+                    print("log.settings.error")
+                }
+                
                 loadingGroup.leave()
             }
         }
@@ -102,8 +121,14 @@ extension HomeViewModel {
     
     private func loadCertificates(in loadingGroup: DispatchGroup) {
         LocalData.initialize {
-            GatewayConnection.shared.update { _ in
-                print("log.keys.done")
+            GatewayConnection.shared.update { [weak self] error in
+                if error == nil {
+                    print("log.keys.done")
+                } else {
+                    self?.dispatchGroupErrors.append(error!)
+                    print("log.keys.error")
+                }
+                
                 loadingGroup.leave()
             }
         }

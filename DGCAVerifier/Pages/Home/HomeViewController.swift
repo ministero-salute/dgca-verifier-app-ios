@@ -211,7 +211,12 @@ class HomeViewController: UIViewController {
             showAlert(key: "no.connection")
             return
         }
-        sync.start()
+        
+        if sync.noPendingDownload || sync.needsServerStatusUpdate {
+            sync.start()
+        } else {
+            sync.download()
+        }
     }
     
     @objc func resumeSync() {
@@ -278,6 +283,10 @@ class HomeViewController: UIViewController {
         viewModel.startOperations()
     }
     
+    private func showNotAvailable() {
+        lastFetchLabel.text = "home.not.available".localized
+    }
+    
     private func crlDownloadNeeded() {
         progressView.fillView(with: sync.progress)
         showCRL(true)
@@ -300,11 +309,13 @@ class HomeViewController: UIViewController {
     }
     
     private func downloadError() {
+        self.scanButton.isEnabled = true
         progressView.error(with: sync.progress)
         showCRL(true)
     }
     
     private func networkStatusError() {
+        self.scanButton.isEnabled = true
         progressView.error(with: sync.progress, noSize: true)
         showCRL(true)
     }
