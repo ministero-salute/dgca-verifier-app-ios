@@ -132,7 +132,7 @@ class HomeViewController: UIViewController {
      
     func bindResumeButton() {
         progressView.resumeButton
-            .addTarget(self, action: #selector(startSync), for: .touchUpInside)
+            .addTarget(self, action: #selector(resumeSync), for: .touchUpInside)
     }
     
     private func manage(_ result: HomeViewModel.Result?) {
@@ -211,6 +211,14 @@ class HomeViewController: UIViewController {
             showAlert(key: "no.connection")
             return
         }
+        sync.start()
+    }
+    
+    @objc func resumeSync() {
+        guard Connectivity.isOnline else {
+            showAlert(key: "no.connection")
+            return
+        }
         sync.download()
     }
     
@@ -233,28 +241,30 @@ class HomeViewController: UIViewController {
     @IBAction func scan(_ sender: Any) {
         guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
         
-        let certFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        let certFetchUpdated = certFetch > 0
+        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        let certFetchUpdated            = certFetch > 0
         
-        let crlFetchOutdated = CRLSynchronizationManager.shared.isFetchOutdated
+        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
         
-        let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed = LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
-        
-        let isCRLAllowedAndCompleted = isCRLDownloadCompleted && isCRLAllowed
+        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
         
         guard certFetchUpdated else {
             showAlert(key: "no.keys")
             return
         }
-        guard !(crlFetchOutdated && isCRLAllowed) else {
-            showAlert(key: "crl.outdated")
-            return
+        
+        if isCRLAllowed {
+            guard !crlFetchOutdated else {
+                showAlert(key: "crl.outdated")
+                return
+            }
+            guard isCRLDownloadCompleted else {
+                showAlert(key: "no.crl.download")
+                return
+            }
         }
-        guard isCRLAllowedAndCompleted else {
-            showAlert(key: "no.crl.download")
-            return
-        }
+        
         coordinator?.showCamera()
     }
     
@@ -274,11 +284,13 @@ class HomeViewController: UIViewController {
     }
     
     private func showDownloadingProgress() {
+        self.scanButton.isEnabled = false
         progressView.downloading(with: sync.progress)
         showCRL(true)
     }
     
     private func downloadCompleted() {
+        self.scanButton.isEnabled = true
         showCRL(false)
     }
     

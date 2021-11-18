@@ -64,7 +64,7 @@ class CRLSynchronizationManager {
             guard error == nil, responseCode == 200 else {
                 self.failCounter -= 1
                 
-                if self.failCounter < 0 {
+                if self.failCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
                     self.delegate?.statusDidChange(with: .statusNetworkError)
                 }
                 else {
@@ -128,12 +128,20 @@ class CRLSynchronizationManager {
     func downloadCompleted() {
         log("download completed")
         guard sameDatabaseSize else {
+            log("inconsistent number of UCVI, clean needed")
             CRLSynchronizationManager.shared.failCounter -= 1
             if CRLSynchronizationManager.shared.failCounter < 0 {
-                delegate?.statusDidChange(with: .error)
+                log("failed too many times")
+                if progress.remainingSize == "0.00" || progress.remainingSize == "" {
+                    delegate?.statusDidChange(with: .statusNetworkError)
+                } else {
+                    delegate?.statusDidChange(with: .error)
+                }
+                clean()
                 return
             }
             else {
+                log("retrying...")
                 return cleanAndRetry()
             }
         }
@@ -145,12 +153,17 @@ class CRLSynchronizationManager {
         delegate?.statusDidChange(with: .completed)
     }
     
-    func cleanAndRetry() {
-        log("clean needed, retry")
+    func clean() {
         _progress = .init()
         _serverStatus = nil
         isDownloadingCRL = false
         CRLDataStorage.clear()
+        log("cleaned")
+    }
+    
+    func cleanAndRetry() {
+        log("clean needed, retry")
+        clean()
         start()
     }
     
@@ -211,8 +224,8 @@ class CRLSynchronizationManager {
     
     public func showCRLUpdateAlert() {
         let content: AlertContent = .init(
-            title: "crl.update.title".localizeWith(progress.remainingSize),
-            message: "crl.update.message",
+            title: "crl.update.alert.title".localizeWith(progress.remainingSize),
+            message: "crl.update.message".localizeWith(progress.remainingSize),
             confirmAction: { self.startDownload() },
             confirmActionTitle: "crl.update.download.now",
             cancelAction: { self.readyToDownload() },
@@ -224,7 +237,7 @@ class CRLSynchronizationManager {
     
     public func showNoConnectionAlert() {
         let content: AlertContent = .init(
-            title: "alert.no.connection.title".localizeWith(progress.remainingSize),
+            title: "alert.no.connection.title",
             message: "alert.no.connection.message",
             confirmAction: nil,
             confirmActionTitle: "alert.default.action",
@@ -310,12 +323,16 @@ extension CRLSynchronizationManager {
     }
     
     func trigger(completion: (()->())? = nil) {
-        guard (isFetchOutdated || firstRun) && !isDownloadingCRL else { return }
+        guard (isFetchOutdatedAndAllowed || firstRun) && !isDownloadingCRL else { return }
         firstRun = false
         completion?()
     }
     
     var isFetchOutdated: Bool {
+        CRLDataStorage.shared.lastFetch.timeIntervalSinceNow < -24 * 60 * 60
+    }
+    
+    var isFetchOutdatedAndAllowed: Bool {
         isSyncEnabled && CRLDataStorage.shared.lastFetch.timeIntervalSinceNow < -24 * 60 * 60
     }
 

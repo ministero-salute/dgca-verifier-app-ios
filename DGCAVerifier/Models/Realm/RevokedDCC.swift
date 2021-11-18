@@ -15,4 +15,8 @@ class RevokedDCC: Object {
         self.init()
         hashedUVCI = hash
     }
+    
+    override class func primaryKey() -> String? {
+        return "hashedUVCI"
+    }
 }

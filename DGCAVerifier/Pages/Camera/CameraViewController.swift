@@ -169,7 +169,7 @@ class CameraViewController: UIViewController {
         let enable = torchActive && !frontCamera
         AVCaptureDevice.enableTorch(enable)
     }
-    
+  
     private var currentCameraMode: AVCaptureDevice.Position {
         let isFrontCamera = Store.getBool(key: .isFrontCameraActive)
         return isFrontCamera ? .front : .back

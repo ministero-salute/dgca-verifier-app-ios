@@ -34,6 +34,22 @@ extension HCert {
     
     var lastName: String { body["nam"]["fn"].string ?? "" }
     
-    var birthDate: String { body["dob"].string?.toDate?.toDateReadableString ?? "" }
+    var birthDate: String {
+        //  TODO: use date formats to be placed inside Constants
+        let dob: String = body["dob"].string ?? ""
+        
+        //  Date of Birth (dob) can be returned in either of the formats below.
+        if dob.count == 4 {
+            //  yyyy
+            return dob
+        } else if dob.count == 7 {
+            //  yyyy-MM
+            let split = dob.split(separator: "-")
+            return "\(split[1])/\(split[0])"
+        }
+        
+        //  yyyy-MM-dd
+        return dob.toDate?.toDateReadableString ?? ""
+    }
     
 }
