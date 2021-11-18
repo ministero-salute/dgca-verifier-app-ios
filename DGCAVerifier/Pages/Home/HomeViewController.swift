@@ -283,11 +283,13 @@ class HomeViewController: UIViewController {
     }
     
     private func showDownloadingProgress() {
+        self.scanButton.isEnabled = false
         progressView.downloading(with: sync.progress)
         showCRL(true)
     }
     
     private func downloadCompleted() {
+        self.scanButton.isEnabled = true
         showCRL(false)
     }
     
