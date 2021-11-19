@@ -265,7 +265,7 @@ class HomeViewController: UIViewController {
                 return
             }
             guard isCRLDownloadCompleted else {
-                showAlert(key: "no.crl.download")
+                showAlert(key: "crl.update.resume")
                 return
             }
         }
