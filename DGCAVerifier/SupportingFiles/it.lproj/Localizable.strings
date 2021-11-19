@@ -64,6 +64,9 @@
 "alert.no.crl.download.title" = "Impossibile scansionare";
 "alert.no.crl.download.message" = "L'aggiornamento della lista dei certificati revocati è in corso. Attendere la fine del download per procedere con le scansioni.";
 
+"alert.crl.update.resume.title" = "Impossibile scansionare";
+"alert.crl.update.resume.message" = "L'aggiornamento della lista dei certificati revocati non è terminato. Assicurati di essere connesso a internet e clicca per continuare.";
+
 "alert.no.connection.title" = "Connessione internet assente";
 "alert.no.connection.message" = "Connessione internet assente. Assicurati di essere connesso alla rete e riprova.";
 
