@@ -90,39 +90,57 @@ extension GatewayConnection {
                 else {
                     return
                 }
+                
                 completion?(responseKid, responseStr, newResumeToken, nil)
             }
     }
     
     private func status(completion: ((String?) -> Void)? = nil) {
-        certStatus { validKids in
+        certStatus { validKids, error in
+            if error != nil {
+                completion?(error)
+                return
+            }
+            
+            guard let validKids = validKids else {
+                completion?(error)
+                return
+            }
+            
             let invalid = LocalData.sharedInstance.encodedPublicKeys.keys.filter {
                 !validKids.contains($0)
             }
+            
             for key in invalid {
                 LocalData.sharedInstance.encodedPublicKeys.removeValue(forKey: key)
             }
-            LocalData.sharedInstance.lastFetch = Date()
+            
             LocalData.sharedInstance.save()
             completion?(nil)
         }
     }
     
-    private func certStatus(resume resumeToken: String? = nil, completion: (([String]) -> Void)?) {
+    private func certStatus(resume resumeToken: String? = nil, completion: (([String]?, String?) -> Void)?) {
         session.request(certStatusUrl).response {
+            guard let status = $0.response?.statusCode else {
+                completion?(nil, "server.error.generic.error".localized)
+                return
+            }
+            
             guard
                 case let .success(result) = $0.result,
                 let response = result,
                 let responseStr = String(data: response, encoding: .utf8),
                 let json = JSON(parseJSON: responseStr).array
             else {
+                completion?(nil, "server.error.error.with.status".localized + "\(status)")
                 return
             }
             let kids = json.compactMap { $0.string }
             if kids.isEmpty {
                 LocalData.sharedInstance.resumeToken = nil
             }
-            completion?(kids)
+            completion?(kids, nil)
         }
     }
     
