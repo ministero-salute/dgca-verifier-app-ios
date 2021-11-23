@@ -83,6 +83,13 @@ class CRLSynchronizationManager {
         log("check status")
         gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
             guard error == nil, responseCode == 200 else {
+                self.log("status failed")
+                
+                guard self.isFetchOutdated else {
+                    self.log("fetch not outdated, allow scans")
+                    return
+                }
+                
                 self.crlStatusFailCounter -= 1
                 
                 if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
@@ -170,6 +177,7 @@ class CRLSynchronizationManager {
         _serverStatus = nil
         crlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
         CRLDataStorage.shared.lastFetch = Date()
+        CRLDataStorage.shared.save()
         isDownloadingCRL = false
         delegate?.statusDidChange(with: .completed)
     }
