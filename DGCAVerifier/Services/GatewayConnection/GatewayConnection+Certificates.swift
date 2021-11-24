@@ -85,12 +85,11 @@ extension GatewayConnection {
                     let response = result,
                     let responseStr = String(data: response, encoding: .utf8),
                     let headers = $0.response?.headers,
-                    let responseKid = headers["x-kid"]//,
-//                    let newResumeToken = headers["x-resume-token"]
+                    let responseKid = headers["x-kid"],
+                    let newResumeToken = headers["x-resume-token"]
                 else {
                     return
                 }
-                let newResumeToken = "123"
                 completion?(responseKid, responseStr, newResumeToken, nil)
             }
     }

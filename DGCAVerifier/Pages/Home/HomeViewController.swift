@@ -75,6 +75,7 @@ class HomeViewController: UIViewController {
     
     private func initialize() {
         setUpSettingsAction()
+        setScanMode()
         setFAQ()
         setPrivacyPolicy()
         setVersion()
@@ -82,7 +83,6 @@ class HomeViewController: UIViewController {
         setCountriesButton()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
-        modeLabel.bold = true
     }
 
     private func setUpSettingsAction() {
@@ -112,6 +112,11 @@ class HomeViewController: UIViewController {
         case .versionOutdated:      showOutdatedAlert()
         case .error(_):             lastFetchLabel.text = "error"
         }
+    }
+    
+    private func setScanMode() {
+        modeLabel.bold = true
+        modeTitleLabel.text = "home.scan.mode".localized
     }
     
     private func setFAQ() {

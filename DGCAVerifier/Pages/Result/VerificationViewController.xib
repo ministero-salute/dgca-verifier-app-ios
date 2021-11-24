@@ -16,6 +16,7 @@
                 <outlet property="faqStackView" destination="Eo6-qj-uTC" id="ThN-XD-Mox"/>
                 <outlet property="lastFetchLabel" destination="wjN-By-5Cf" id="TNx-c9-9OQ"/>
                 <outlet property="modeLabel" destination="d3E-SZ-Sib" id="RXQ-fv-7dY"/>
+                <outlet property="modeTitleLabel" destination="ZgV-45-IWr" id="4yg-0o-7SF"/>
                 <outlet property="personalDataStackView" destination="cUa-ER-OWe" id="uvQ-8C-a2R"/>
                 <outlet property="resultImageHeight" destination="gC8-BI-seK" id="T2s-3M-34g"/>
                 <outlet property="resultImageView" destination="PTF-G7-lvy" id="qkV-HD-V3Q"/>
