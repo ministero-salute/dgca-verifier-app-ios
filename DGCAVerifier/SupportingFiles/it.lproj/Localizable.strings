@@ -74,4 +74,5 @@
 "settings.faq" = "DOMANDE FREQUENTI";
 "settings.privacy" = "RISPETTO DELLA PRIVACY";
 
-
+"label.done" = "Conferma";
+"label.cancel" = "Chiudi";

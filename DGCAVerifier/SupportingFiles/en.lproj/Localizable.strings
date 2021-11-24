@@ -63,6 +63,7 @@
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 
+
 "settings.title" = "IMPOSTAZIONI";
 "settings.preferences" = "Preferenze";
 "settings.mode" = "MODALITÀ";
@@ -72,3 +73,6 @@
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";
 "settings.privacy" = "RISPETTO DELLA PRIVACY";
+
+"label.done" = "Done";
+"label.cancel" = "Cancel";

@@ -102,4 +102,11 @@ extension Status {
         }
     }
     
+    var isValidState: Bool {
+        switch self {
+        case .valid:            return true
+        case .validPartially:   return true
+        default:                return false
+        }
+    }
 }

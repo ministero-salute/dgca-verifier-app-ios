@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PickerViewController" customModule="VerificaC19" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="k3F-Ft-AGc" id="y8g-66-HUt"/>
+                <outlet property="itemCancel" destination="Kdy-L6-Zfx" id="GEv-AR-HGx"/>
+                <outlet property="itemDone" destination="Fdv-BP-bQz" id="z8d-wt-Gel"/>
+                <outlet property="pickerView" destination="asM-vg-YrK" id="ZDe-q3-C1P"/>
+                <outlet property="pickerViewComponent" destination="g5M-oq-Ry9" id="c8N-Hh-ycx"/>
+                <outlet property="view" destination="I1x-5s-Lee" id="q71-WE-ty0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="I1x-5s-Lee">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3F-Ft-AGc" userLabel="backgroundView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="asM-vg-YrK" userLabel="animatedView">
+                    <rect key="frame" x="0.0" y="32" width="414" height="218"/>
+                    <subviews>
+                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbQ-ud-TC2" userLabel="Actions Toolbar">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <items>
+                                <barButtonItem title="Item" id="Kdy-L6-Zfx" userLabel="Cancel Item"/>
+                                <barButtonItem systemItem="flexibleSpace" id="IdN-gu-VZ0" userLabel="Spacer Item"/>
+                                <barButtonItem title="Item" id="Fdv-BP-bQz" userLabel="Done Item"/>
+                            </items>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </toolbar>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5M-oq-Ry9">
+                            <rect key="frame" x="0.0" y="44" width="414" height="162"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </pickerView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IP0-3g-YeT">
+                            <rect key="frame" x="0.0" y="206" width="414" height="12"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="12" id="2cC-zu-Mhh"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="kbQ-ud-TC2" firstAttribute="width" secondItem="g5M-oq-Ry9" secondAttribute="width" id="IME-Sb-7Ux"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="7PB-19-sxb"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="k3F-Ft-AGc" secondAttribute="bottom" id="1eR-lk-GiA"/>
+                <constraint firstItem="7PB-19-sxb" firstAttribute="trailing" secondItem="k3F-Ft-AGc" secondAttribute="trailing" id="3JE-rh-ahO"/>
+                <constraint firstItem="k3F-Ft-AGc" firstAttribute="leading" secondItem="7PB-19-sxb" secondAttribute="leading" id="Hx5-3m-WUC"/>
+                <constraint firstItem="k3F-Ft-AGc" firstAttribute="top" secondItem="I1x-5s-Lee" secondAttribute="top" id="SVF-t3-ytm"/>
+                <constraint firstItem="asM-vg-YrK" firstAttribute="trailing" secondItem="7PB-19-sxb" secondAttribute="trailing" id="rmR-Yd-QhJ"/>
+                <constraint firstItem="asM-vg-YrK" firstAttribute="bottom" secondItem="I1x-5s-Lee" secondAttribute="bottom" id="sLj-Po-OD5"/>
+                <constraint firstItem="asM-vg-YrK" firstAttribute="leading" secondItem="7PB-19-sxb" secondAttribute="leading" id="wbQ-47-MJj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="237.68115942028987" y="352.90178571428572"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

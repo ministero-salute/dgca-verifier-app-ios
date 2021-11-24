@@ -28,6 +28,8 @@ import Foundation
 extension Date {
     
     static var startOfDay: Date? { Date().toDateString.toDate }
+    
+    var startOfDay: Date? { self.toDateString.toDate }
         
     func add(_ value: Int, ofType type: Calendar.Component) -> Date? {
         Calendar.current.date(byAdding: type, value: value, to: self)
