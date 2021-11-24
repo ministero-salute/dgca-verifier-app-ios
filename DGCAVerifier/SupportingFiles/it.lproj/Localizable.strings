@@ -69,6 +69,9 @@
 "settings.mode" = "MODALITÀ";
 "settings.mode.automatic" = "Automatica";
 "settings.mode.manual" = "Manuale";
+"settings.scan.mode" = "MODALITÀ SCANSIONE";
+"settings.scan.mode.2G" = "2G";
+"settings.scan.mode.3G" = "3G";
 
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";

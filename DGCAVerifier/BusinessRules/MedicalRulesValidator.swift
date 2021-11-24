@@ -31,6 +31,7 @@ struct MedicalRulesValidator: Validator {
     static func getStatus(from hCert: HCert) -> Status {
         let statementValidityCheck = StatementValidityCheck()
         guard !statementValidityCheck.isStatementBlacklisted(hCert) else { return .notValid }
+        guard !Store.getBool(key: .isScanMode2G) else { return .notValid }
         switch hCert.type {
         case .test:
             let testValidityCheck = TestValidityCheck()

@@ -45,6 +45,8 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var faqStackView: UIStackView!
     @IBOutlet weak var personalDataStackView: UIStackView!
     
+    @IBOutlet weak var modeLabel: AppLabel!
+    
     var timer: Timer?
     
     init(coordinator: VerificationCoordinator, delegate: CameraDelegate, viewModel: VerificationViewModel) {
@@ -102,6 +104,9 @@ class VerificationViewController: UIViewController {
         setCard()
         setCloseView()
         resultImageHeight.constant *= Font.scaleFactor
+        modeLabel.bold = true
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "2G" : "3G"
+        modeLabel.text = mode
     }
     
     private func getResult(_ description: String, for title: String) -> ResultView {

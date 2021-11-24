@@ -43,9 +43,13 @@ class SettingsViewController: UIViewController {
     weak var coordinator: SettingsCoordinator?
     private var viewModel: SettingsViewModel
     
-    private var pickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
-    private var pickerView = UIPickerView()
-    private var pickerToolBar = UIToolbar()
+    private var modePickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
+    private var modePickerView = UIPickerView()
+    private var modePickerToolBar = UIToolbar()
+    
+    private var scanPickerOptions = ["settings.scan.mode.2G".localized, "settings.scan.mode.3G".localized]
+    private var scanPickerView = UIPickerView()
+    private var scanPickerToolBar = UIToolbar()
     
     private let informationsSettings = ["settings.faq".localized, "settings.privacy".localized]
 
@@ -90,9 +94,20 @@ class SettingsViewController: UIViewController {
         PickerViewController.present(for: self, with: .init(
             doneButtonTitle: "label.done".localized,
             cancelButtonTitle: "label.cancel".localized,
-            pickerOptions: self.pickerOptions,
+            pickerOptions: self.modePickerOptions,
             selectedOption: Store.get(key: .isTotemModeActive) == "0" ? 1 : 0,
-            doneCallback: self.didTapDone,
+            doneCallback: self.didModeTapDone,
+            cancelCallback: nil
+        ))
+    }
+    
+    func scanViewDidTap() {
+        PickerViewController.present(for: self, with: .init(
+            doneButtonTitle: "label.done".localized,
+            cancelButtonTitle: "label.cancel".localized,
+            pickerOptions: self.scanPickerOptions,
+            selectedOption: Store.get(key: .isScanMode2G) == "0" ? 1 : 0,
+            doneCallback: self.didScanTapDone,
             cancelCallback: nil
         ))
     }
@@ -107,11 +122,19 @@ class SettingsViewController: UIViewController {
         coordinator?.openWebURL(url: url)
     }
     
-    private func didTapDone(vc: PickerViewController) {
+    private func didModeTapDone(vc: PickerViewController) {
         let selectedRow: Int = vc.selectedRow()
         
         vc.selectRow(selectedRow, animated: false)
         Store.set(selectedRow == 0, for: .isTotemModeActive)
+        tableView.reloadData()
+    }
+    
+    private func didScanTapDone(vc: PickerViewController) {
+        let selectedRow: Int = vc.selectedRow()
+        
+        vc.selectRow(selectedRow, animated: false)
+        Store.set(selectedRow == 0, for: .isScanMode2G)
         tableView.reloadData()
     }
     
@@ -131,7 +154,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             return 1
         case 2:
-            return 1
+            return 2
         case 3:
             return 1
         case 4:
@@ -155,10 +178,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             headerCell.fillCell(title: "settings.preferences".localized, fontSize: 13)
             return headerCell
         case 2:
-            let value = Store.getBool(key: .isTotemModeActive)
-            let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
-            cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
-            return cell
+            switch indexPath.row{
+            case 0:
+                let value = Store.getBool(key: .isTotemModeActive)
+                let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
+                cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
+                return cell
+            case 1:
+                let value = Store.getBool(key: .isScanMode2G)
+                let valueString = value ? "settings.scan.mode.2G".localized : "settings.scan.mode.3G".localized
+                cell.fillCell(title: "settings.scan.mode".localized, icon: "pencil", value: valueString)
+                return cell
+            default:
+                break
+            }
         case 3:
             headerCell.fillCell(title: "settings.informations".localized, fontSize: 13)
             return headerCell
@@ -177,6 +210,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row{
             case 0:
                 modeViewDidTap()
+            case 1:
+                scanViewDidTap()
             default:
                 break
             }

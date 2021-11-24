@@ -45,6 +45,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var settingsView: UIView!
     
+    @IBOutlet weak var modeTitleLabel: AppLabel!
+    @IBOutlet weak var modeLabel: AppLabel!
+    
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
@@ -66,6 +69,8 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Store.set(false, for: .isTorchActive)
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "2G" : "3G"
+        modeLabel.text = mode
     }
     
     private func initialize() {
@@ -77,6 +82,7 @@ class HomeViewController: UIViewController {
         setCountriesButton()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
+        modeLabel.bold = true
     }
 
     private func setUpSettingsAction() {
