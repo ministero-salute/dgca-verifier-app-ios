@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController {
             doneButtonTitle: "label.done".localized,
             cancelButtonTitle: "label.cancel".localized,
             pickerOptions: self.modePickerOptions,
-            selectedOption: Store.get(key: .isTotemModeActive) == "0" ? 1 : 0,
+            selectedOption: Store.getBool(key: .isTotemModeActive) ? 0 : 1,
             doneCallback: self.didModeTapDone,
             cancelCallback: nil
         ))
@@ -106,7 +106,7 @@ class SettingsViewController: UIViewController {
             doneButtonTitle: "label.done".localized,
             cancelButtonTitle: "label.cancel".localized,
             pickerOptions: self.scanPickerOptions,
-            selectedOption: Store.get(key: .isScanMode2G) == "0" ? 1 : 0,
+            selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
             doneCallback: self.didScanTapDone,
             cancelCallback: nil
         ))
