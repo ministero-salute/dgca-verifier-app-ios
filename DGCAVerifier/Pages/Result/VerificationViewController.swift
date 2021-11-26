@@ -40,12 +40,11 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var titleLabel: AppLabel!
     @IBOutlet weak var descriptionLabel: AppLabel!
-    @IBOutlet weak var closeView: UIView!
+    @IBOutlet weak var closeView: UIStackView!
 
     @IBOutlet weak var faqStackView: UIStackView!
     @IBOutlet weak var personalDataStackView: UIStackView!
     
-    @IBOutlet weak var modeTitleLabel: AppLabel!
     @IBOutlet weak var modeLabel: AppLabel!
     
     var timer: Timer?
@@ -140,10 +139,9 @@ class VerificationViewController: UIViewController {
     }
     
     private func setScanMode() {
-        modeLabel.bold = true
-        let mode = Store.get(key: .isScanMode2G) == "1" ? "2G" : "3G"
+        modeLabel.textColor = Palette.white
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "settings.scan.mode.2G".localized : "settings.scan.mode.3G".localized
         modeLabel.text = mode
-        modeTitleLabel.text = "result.scan.mode".localized
     }
     
     private func setLastFetch() {

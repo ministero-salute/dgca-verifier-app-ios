@@ -15,7 +15,6 @@
                 <outlet property="faqLabel" destination="u8T-GU-inN" id="vfH-MP-0VT"/>
                 <outlet property="lastFetchLabel" destination="qed-03-Mb1" id="z4T-Bc-kYd"/>
                 <outlet property="modeLabel" destination="Pfl-6E-8FQ" id="CO8-Wx-dOg"/>
-                <outlet property="modeTitleLabel" destination="Peq-Ji-D0Y" id="uQe-BP-6z4"/>
                 <outlet property="privacyPolicyLabel" destination="yfd-dg-T9K" id="MmA-6n-wER"/>
                 <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
                 <outlet property="settingsView" destination="fLh-X8-Yfz" id="dds-gF-N9T"/>
@@ -217,14 +216,8 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="zDb-Yd-hX6">
                                     <rect key="frame" x="24" y="16" width="334" height="96"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modalità Scansione: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Peq-Ji-D0Y" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="157.5" height="96"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="3G" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfl-6E-8FQ" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="163.5" y="0.0" width="170.5" height="96"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3G" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfl-6E-8FQ" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="96"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

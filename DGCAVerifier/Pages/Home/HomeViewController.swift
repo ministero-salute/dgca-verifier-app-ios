@@ -45,7 +45,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var settingsView: UIView!
     
-    @IBOutlet weak var modeTitleLabel: AppLabel!
     @IBOutlet weak var modeLabel: AppLabel!
     
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
@@ -69,7 +68,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Store.set(false, for: .isTorchActive)
-        let mode = Store.get(key: .isScanMode2G) == "1" ? "2G" : "3G"
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
         modeLabel.text = mode
     }
     
@@ -116,7 +115,6 @@ class HomeViewController: UIViewController {
     
     private func setScanMode() {
         modeLabel.bold = true
-        modeTitleLabel.text = "home.scan.mode".localized
     }
     
     private func setFAQ() {

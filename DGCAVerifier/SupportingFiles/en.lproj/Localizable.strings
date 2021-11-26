@@ -16,7 +16,9 @@
 "home.not.available" = "N/A";
 "home.version" = "Versione";
 "home.update.now" = "Aggiorna ora";
-"home.scan.mode" = "La modalità di scansione impostata è: ";
+"home.scan.mode.2G" = "Vaccinazione/Guarigione";
+"home.scan.mode.3G" = "Vaccinazione/Guarigione/Test";
+
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -71,9 +73,9 @@
 "settings.mode" = "MODALITÀ";
 "settings.mode.automatic" = "Automatica";
 "settings.mode.manual" = "Manuale";
-"settings.scan.mode" = "MODALITÀ SCANSIONE";
-"settings.scan.mode.2G" = "2G";
-"settings.scan.mode.3G" = "3G";
+"settings.scan.mode" = "TIPOLOGIA VERIFICA";
+"settings.scan.mode.2G" = "Vaccinazione/Guarigione";
+"settings.scan.mode.3G" = "Vaccinazione/Guarigione/Test";
 
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";

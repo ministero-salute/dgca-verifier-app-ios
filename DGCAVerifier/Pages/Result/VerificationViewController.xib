@@ -14,9 +14,8 @@
                 <outlet property="closeView" destination="l5W-js-7vX" id="kEj-EF-LLV"/>
                 <outlet property="descriptionLabel" destination="Mh0-Ix-hZA" id="MtI-CP-SxH"/>
                 <outlet property="faqStackView" destination="Eo6-qj-uTC" id="ThN-XD-Mox"/>
-                <outlet property="lastFetchLabel" destination="wjN-By-5Cf" id="TNx-c9-9OQ"/>
-                <outlet property="modeLabel" destination="d3E-SZ-Sib" id="RXQ-fv-7dY"/>
-                <outlet property="modeTitleLabel" destination="ZgV-45-IWr" id="4yg-0o-7SF"/>
+                <outlet property="lastFetchLabel" destination="D2C-TL-zjH" id="341-9Z-UAS"/>
+                <outlet property="modeLabel" destination="wjN-By-5Cf" id="QZX-aj-ljp"/>
                 <outlet property="personalDataStackView" destination="cUa-ER-OWe" id="uvQ-8C-a2R"/>
                 <outlet property="resultImageHeight" destination="gC8-BI-seK" id="T2s-3M-34g"/>
                 <outlet property="resultImageView" destination="PTF-G7-lvy" id="qkV-HD-V3Q"/>
@@ -30,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUp-UK-zcR">
-                    <rect key="frame" x="12" y="94.5" width="390" height="717"/>
+                    <rect key="frame" x="12" y="101" width="390" height="704"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTF-G7-lvy">
                             <rect key="frame" x="155" y="48" width="80" height="80"/>
@@ -62,25 +61,8 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBx-AP-H98">
-                            <rect key="frame" x="24" y="233" width="342" height="20.5"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modalità scansione: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgV-45-IWr" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="155.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="3G" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3E-SZ-Sib" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="155.5" y="0.0" width="186.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ugs-uU-O9p">
-                            <rect key="frame" x="24" y="541" width="342" height="85.5"/>
+                            <rect key="frame" x="24" y="528" width="342" height="85.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="900" text="La certificazione presenta i seguenti dati anagrafici" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh0-Ix-hZA" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="41"/>
@@ -107,7 +89,7 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CzN-ar-iBD">
-                            <rect key="frame" x="167" y="666.5" width="56.5" height="34.5"/>
+                            <rect key="frame" x="167" y="653.5" width="56.5" height="34.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="CHIUDI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbC-jF-4kO" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="56.5" height="20.5"/>
@@ -137,11 +119,9 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="ugs-uU-O9p" secondAttribute="trailing" constant="24" id="5WA-ks-qSR"/>
                         <constraint firstAttribute="trailing" secondItem="ldu-CB-JRg" secondAttribute="trailing" constant="24" id="5wd-DV-NkK"/>
-                        <constraint firstItem="ugs-uU-O9p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hBx-AP-H98" secondAttribute="bottom" constant="40" id="7k8-RX-r2X"/>
                         <constraint firstItem="PTF-G7-lvy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NUp-UK-zcR" secondAttribute="top" constant="24" id="AfV-to-ItL"/>
                         <constraint firstItem="Eo6-qj-uTC" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" id="DxB-0y-zWK"/>
                         <constraint firstItem="PTF-G7-lvy" firstAttribute="top" secondItem="NUp-UK-zcR" secondAttribute="top" priority="750" constant="48" id="EZ6-0b-nOd"/>
-                        <constraint firstItem="hBx-AP-H98" firstAttribute="top" secondItem="Eo6-qj-uTC" secondAttribute="bottom" constant="16" id="HVn-bX-bYn"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="top" secondItem="PTF-G7-lvy" secondAttribute="bottom" priority="750" constant="32" id="QZj-88-Gtz"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="24" id="SHC-xF-ugm"/>
                         <constraint firstItem="CzN-ar-iBD" firstAttribute="centerX" secondItem="NUp-UK-zcR" secondAttribute="centerX" id="X6r-Wj-B4C"/>
@@ -149,10 +129,8 @@
                         <constraint firstAttribute="trailing" secondItem="Eo6-qj-uTC" secondAttribute="trailing" id="dTK-lU-Oud"/>
                         <constraint firstItem="ugs-uU-O9p" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="24" id="dbh-OC-WIg"/>
                         <constraint firstItem="CzN-ar-iBD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NUp-UK-zcR" secondAttribute="leading" id="fUi-xo-PPd"/>
-                        <constraint firstItem="hBx-AP-H98" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="24" id="jrW-yZ-x3l"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CzN-ar-iBD" secondAttribute="trailing" id="kXR-Wn-cS5"/>
-                        <constraint firstItem="CzN-ar-iBD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hBx-AP-H98" secondAttribute="bottom" constant="16" id="puS-LU-Jst"/>
-                        <constraint firstAttribute="trailing" secondItem="hBx-AP-H98" secondAttribute="trailing" constant="24" id="txw-qg-KUh"/>
+                        <constraint firstItem="ugs-uU-O9p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Eo6-qj-uTC" secondAttribute="bottom" constant="16" id="puS-LU-Jst"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PTF-G7-lvy" secondAttribute="bottom" constant="16" id="uV6-ri-2df"/>
                         <constraint firstItem="CzN-ar-iBD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ugs-uU-O9p" secondAttribute="bottom" constant="16" id="uj8-pS-777"/>
                         <constraint firstAttribute="bottom" secondItem="CzN-ar-iBD" secondAttribute="bottom" constant="16" id="wTK-qt-0kS"/>
@@ -161,39 +139,54 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5W-js-7vX">
-                    <rect key="frame" x="0.0" y="745" width="414" height="117"/>
+                    <rect key="frame" x="0.0" y="738.5" width="414" height="123.5"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="data e ora di validazione" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjN-By-5Cf" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                    <rect key="frame" x="24" y="48" width="366" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                            <real key="value" value="13"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Cmg-hz-CeH">
+                    <rect key="frame" x="24" y="48" width="366" height="45"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="data e ora di validazione" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2C-TL-zjH" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="366" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                    <real key="value" value="13"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="3G" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjN-By-5Cf" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="24.5" width="366" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="size">
+                                    <real key="value" value="13"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="OzW-CK-pC1"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="NUp-UK-zcR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wjN-By-5Cf" secondAttribute="bottom" constant="4" id="35t-Yd-gEk"/>
                 <constraint firstItem="NUp-UK-zcR" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="12" id="4BZ-Ud-Fmh"/>
+                <constraint firstItem="Cmg-hz-CeH" firstAttribute="top" secondItem="OzW-CK-pC1" secondAttribute="top" constant="4" id="6Of-c9-Ldg"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="NUp-UK-zcR" secondAttribute="trailing" constant="12" id="7Ow-dF-WRq"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="bottom" secondItem="l5W-js-7vX" secondAttribute="bottom" id="8IO-eC-pkC"/>
-                <constraint firstItem="wjN-By-5Cf" firstAttribute="top" secondItem="OzW-CK-pC1" secondAttribute="top" constant="4" id="CJ4-Gs-aBC"/>
+                <constraint firstItem="NUp-UK-zcR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Cmg-hz-CeH" secondAttribute="bottom" constant="8" id="DLk-ge-6aD"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="l5W-js-7vX" secondAttribute="trailing" id="IIH-3c-LBT"/>
                 <constraint firstItem="NUp-UK-zcR" firstAttribute="height" secondItem="2ox-tZ-GfJ" secondAttribute="height" multiplier="0.8" priority="750" id="MJY-ng-hJn"/>
                 <constraint firstItem="cbC-jF-4kO" firstAttribute="top" secondItem="l5W-js-7vX" secondAttribute="top" constant="16" id="N3l-55-P4B"/>
                 <constraint firstItem="l5W-js-7vX" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" id="Oep-Ae-30r"/>
-                <constraint firstItem="wjN-By-5Cf" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="24" id="PZC-hG-j6T"/>
+                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="Cmg-hz-CeH" secondAttribute="trailing" constant="24" id="PWC-Bd-OII"/>
                 <constraint firstItem="NUp-UK-zcR" firstAttribute="centerX" secondItem="OzW-CK-pC1" secondAttribute="centerX" id="Se1-9p-KEr"/>
                 <constraint firstItem="NUp-UK-zcR" firstAttribute="centerY" secondItem="OzW-CK-pC1" secondAttribute="centerY" id="a36-gg-6c4"/>
-                <constraint firstItem="wjN-By-5Cf" firstAttribute="centerX" secondItem="OzW-CK-pC1" secondAttribute="centerX" id="cMO-VK-R3l"/>
-                <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="wjN-By-5Cf" secondAttribute="trailing" constant="24" id="pgC-gE-48X"/>
+                <constraint firstItem="Cmg-hz-CeH" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" constant="24" id="yny-oC-KAZ"/>
             </constraints>
-            <point key="canvasLocation" x="-768.11594202898561" y="-1570.3125"/>
+            <point key="canvasLocation" x="-732" y="-1582"/>
         </view>
     </objects>
     <resources>
