@@ -186,7 +186,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             case 1:
                 let value = Store.getBool(key: .isScanMode2G)
-                let valueString = value ? "settings.scan.mode.2G".localized : "settings.scan.mode.3G".localized
+                let valueString = value ? "settings.scan.mode.short.2G".localized : "settings.scan.mode.short.3G".localized
                 cell.fillCell(title: "settings.scan.mode".localized, icon: "pencil", value: valueString)
                 return cell
             default:

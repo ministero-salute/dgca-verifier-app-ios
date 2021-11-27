@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var faqLabel: AppLabelUrl!
     @IBOutlet weak var privacyPolicyLabel: AppLabelUrl!
     @IBOutlet weak var versionLabel: AppLabelUrl!
+    @IBOutlet weak var scanModeButton: AppButton!
     @IBOutlet weak var scanButton: AppButton!
     @IBOutlet weak var countriesButton: AppButton!
     @IBOutlet weak var updateNowButton: AppButton!
@@ -68,16 +69,15 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Store.set(false, for: .isTorchActive)
-        let mode = Store.get(key: .isScanMode2G) == "1" ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
-        modeLabel.text = mode
+        setScanModeButtonText()
     }
     
     private func initialize() {
         setUpSettingsAction()
-        setScanMode()
         setFAQ()
         setPrivacyPolicy()
         setVersion()
+        setScanModeButton()
         setScanButton()
         setCountriesButton()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
@@ -113,10 +113,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func setScanMode() {
-        modeLabel.bold = true
-    }
-    
     private func setFAQ() {
         let title = Link.faq.title.localized
         let tap = UITapGestureRecognizer(target: self, action: #selector(faqDidTap))
@@ -132,6 +128,20 @@ class HomeViewController: UIViewController {
     private func setVersion() {
         let version = viewModel.currentVersion() ?? "?"
         versionLabel.text = "home.version".localized + " " + version
+    }
+    
+    private func setScanModeButton() {
+        setScanModeButtonStyle()
+        setScanModeButtonText()
+    }
+    
+    private func setScanModeButtonStyle() {
+        scanModeButton.style = .clear
+        scanModeButton.setRightImage(named: "pencil")
+    }
+    
+    private func setScanModeButtonText() {
+        scanModeButton.localizedText =  Store.get(key: .isScanMode2G) == "1" ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
     }
     
     private func setScanButton() {

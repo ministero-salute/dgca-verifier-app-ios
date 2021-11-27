@@ -76,6 +76,8 @@
 "settings.scan.mode" = "TIPOLOGIA VERIFICA";
 "settings.scan.mode.2G" = "Vaccinazione/Guarigione";
 "settings.scan.mode.3G" = "Vaccinazione/Guarigione/Test";
+"settings.scan.mode.short.2G" = "V/G";
+"settings.scan.mode.short.3G" = "V/G/T";
 
 "settings.informations" = "Informazioni";
 "settings.faq" = "DOMANDE FREQUENTI";
