@@ -249,6 +249,9 @@
                             <rect key="frame" x="0.0" y="55" width="350" height="31"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="scanModeButtonTapped:" destination="-1" eventType="touchUpInside" id="nGD-n2-dmu"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO1-as-LpM" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="100" width="350" height="30"/>

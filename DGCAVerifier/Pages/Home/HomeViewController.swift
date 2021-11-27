@@ -27,7 +27,7 @@ import UIKit
 protocol HomeCoordinator: Coordinator {
     func showCamera()
     func showCountries()
-    func openSettings()
+    func openSettings(openScanModePicker: Bool)
 }
 
 class HomeViewController: UIViewController {
@@ -171,7 +171,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func settingsImageDidTap() {
-        coordinator?.openSettings()
+        coordinator?.openSettings(openScanModePicker: false)
     }
 
     @objc func goToStore(_ action: UIAlertAction? = nil) {
@@ -194,6 +194,10 @@ class HomeViewController: UIViewController {
         )
         alertController.addAction(.init(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func scanModeButtonTapped(_ sender: Any) {
+        coordinator?.openSettings(openScanModePicker: true)
     }
     
     @IBAction func scan(_ sender: Any) {

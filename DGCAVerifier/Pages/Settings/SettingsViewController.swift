@@ -42,6 +42,7 @@ class SettingsViewController: UIViewController {
     
     weak var coordinator: SettingsCoordinator?
     private var viewModel: SettingsViewModel
+    private var openScanModePicker: Bool
     
     private var modePickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
     private var modePickerView = UIPickerView()
@@ -53,9 +54,10 @@ class SettingsViewController: UIViewController {
     
     private let informationsSettings = ["settings.faq".localized, "settings.privacy".localized]
 
-    init(coordinator: SettingsCoordinator, viewModel: SettingsViewModel) {
+    init(coordinator: SettingsCoordinator, viewModel: SettingsViewModel, openScanModePicker: Bool) {
         self.coordinator = coordinator
         self.viewModel = viewModel
+        self.openScanModePicker = openScanModePicker
 
         super.init(nibName: "SettingsViewController", bundle: nil)
     }
@@ -68,7 +70,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         initializeBackButton()
         initializeTaleView()
-
+        
+        guard !openScanModePicker else { return scanViewDidTap() }
     }
     
     private func initializeTaleView(){

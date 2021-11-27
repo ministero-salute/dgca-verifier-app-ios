@@ -68,9 +68,9 @@ extension MainCoordinator: HomeCoordinator {
     func showCountries() {
     }
     
-    func openSettings() {
+    func openSettings(openScanModePicker: Bool) {
         let vm = SettingsViewModel()
-        let controller = SettingsViewController(coordinator: self, viewModel: vm)
+        let controller = SettingsViewController(coordinator: self, viewModel: vm, openScanModePicker: openScanModePicker)
         controller.modalPresentationStyle = .overFullScreen
         controller.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(controller, animated: true)
