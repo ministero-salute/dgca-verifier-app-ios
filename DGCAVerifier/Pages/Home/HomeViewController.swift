@@ -27,7 +27,7 @@ import UIKit
 protocol HomeCoordinator: Coordinator {
     func showCamera()
     func showCountries()
-    func openSettings(openScanModePicker: Bool)
+    func openSettings()
 }
 
 class HomeViewController: UIViewController {
@@ -46,8 +46,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var settingsView: UIView!
     
-    @IBOutlet weak var modeLabel: AppLabel!
-    
+    private var modePickerOptions = ["home.scan.mode.2G".localized, "home.scan.mode.3G".localized]
+    private var modePickerView = UIPickerView()
+    private var modePickerToolBar = UIToolbar()
+        
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
@@ -171,7 +173,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func settingsImageDidTap() {
-        coordinator?.openSettings(openScanModePicker: false)
+        coordinator?.openSettings()
     }
 
     @objc func goToStore(_ action: UIAlertAction? = nil) {
@@ -197,7 +199,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-        coordinator?.openSettings(openScanModePicker: true)
+        modeViewDidTap()
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -215,4 +217,29 @@ class HomeViewController: UIViewController {
         guard !isLoading else { return }
         viewModel.startOperations()
     }
+}
+
+extension HomeViewController {
+    
+    func modeViewDidTap() {
+        PickerViewController.present(for: self, with: .init(
+            doneButtonTitle: "label.done".localized,
+            cancelButtonTitle: "label.cancel".localized,
+            pickerOptions: self.modePickerOptions,
+            selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
+            doneCallback: self.didModeTapDone,
+            cancelCallback: nil
+        ))
+    }
+    
+    private func didModeTapDone(vc: PickerViewController) {
+        let selectedRow: Int = vc.selectedRow()
+        
+        vc.selectRow(selectedRow, animated: false)
+        Store.set(selectedRow == 0, for: .isScanMode2G)
+        
+        let scanModeButtonTitle = selectedRow == 0 ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
+        scanModeButton.setTitle(scanModeButtonTitle)
+    }
+    
 }
