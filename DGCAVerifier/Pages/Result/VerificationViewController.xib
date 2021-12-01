@@ -32,14 +32,14 @@
                     <rect key="frame" x="12" y="101" width="390" height="704"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTF-G7-lvy">
-                            <rect key="frame" x="155" y="48" width="80" height="80"/>
+                            <rect key="frame" x="155" y="30" width="80" height="80"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="PTF-G7-lvy" secondAttribute="height" multiplier="1:1" id="YtZ-yn-2sc"/>
                                 <constraint firstAttribute="height" constant="80" id="gC8-BI-seK"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="999" text="Certificazione valida per l'Italia" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldu-CB-JRg" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="24" y="160" width="342" height="20.5"/>
+                            <rect key="frame" x="24" y="142" width="342" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eo6-qj-uTC">
-                            <rect key="frame" x="0.0" y="196.5" width="390" height="20.5"/>
+                            <rect key="frame" x="0.0" y="178.5" width="390" height="20.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dummy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6V-Xp-kXR">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="20.5"/>
@@ -61,11 +61,14 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ugs-uU-O9p">
-                            <rect key="frame" x="24" y="528" width="342" height="85.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ugs-uU-O9p">
+                            <rect key="frame" x="24" y="526" width="342" height="87.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="900" text="La certificazione presenta i seguenti dati anagrafici" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh0-Ix-hZA" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="41"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="900" text="La certificazione presenta i seguenti dati anagrafici" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mh0-Ix-hZA" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="55"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="GaL-Ir-2wo"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -75,8 +78,8 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cUa-ER-OWe">
-                                    <rect key="frame" x="0.0" y="65" width="342" height="20.5"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cUa-ER-OWe">
+                                    <rect key="frame" x="0.0" y="67" width="342" height="20.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="dummy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EM9-wn-Mbm">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="20.5"/>
@@ -121,7 +124,7 @@
                         <constraint firstAttribute="trailing" secondItem="ldu-CB-JRg" secondAttribute="trailing" constant="24" id="5wd-DV-NkK"/>
                         <constraint firstItem="PTF-G7-lvy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NUp-UK-zcR" secondAttribute="top" constant="24" id="AfV-to-ItL"/>
                         <constraint firstItem="Eo6-qj-uTC" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" id="DxB-0y-zWK"/>
-                        <constraint firstItem="PTF-G7-lvy" firstAttribute="top" secondItem="NUp-UK-zcR" secondAttribute="top" priority="750" constant="48" id="EZ6-0b-nOd"/>
+                        <constraint firstItem="PTF-G7-lvy" firstAttribute="top" secondItem="NUp-UK-zcR" secondAttribute="top" priority="750" constant="30" id="EZ6-0b-nOd"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="top" secondItem="PTF-G7-lvy" secondAttribute="bottom" priority="750" constant="32" id="QZj-88-Gtz"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="24" id="SHC-xF-ugm"/>
                         <constraint firstItem="CzN-ar-iBD" firstAttribute="centerX" secondItem="NUp-UK-zcR" secondAttribute="centerX" id="X6r-Wj-B4C"/>
@@ -178,7 +181,7 @@
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="bottom" secondItem="l5W-js-7vX" secondAttribute="bottom" id="8IO-eC-pkC"/>
                 <constraint firstItem="NUp-UK-zcR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Cmg-hz-CeH" secondAttribute="bottom" constant="8" id="DLk-ge-6aD"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="l5W-js-7vX" secondAttribute="trailing" id="IIH-3c-LBT"/>
-                <constraint firstItem="NUp-UK-zcR" firstAttribute="height" secondItem="2ox-tZ-GfJ" secondAttribute="height" multiplier="0.8" priority="750" id="MJY-ng-hJn"/>
+                <constraint firstItem="NUp-UK-zcR" firstAttribute="height" secondItem="2ox-tZ-GfJ" secondAttribute="height" multiplier="0.9" priority="750" id="MJY-ng-hJn"/>
                 <constraint firstItem="cbC-jF-4kO" firstAttribute="top" secondItem="l5W-js-7vX" secondAttribute="top" constant="16" id="N3l-55-P4B"/>
                 <constraint firstItem="l5W-js-7vX" firstAttribute="leading" secondItem="OzW-CK-pC1" secondAttribute="leading" id="Oep-Ae-30r"/>
                 <constraint firstItem="OzW-CK-pC1" firstAttribute="trailing" secondItem="Cmg-hz-CeH" secondAttribute="trailing" constant="24" id="PWC-Bd-OII"/>

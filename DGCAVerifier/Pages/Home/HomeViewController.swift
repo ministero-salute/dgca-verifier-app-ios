@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var settingsView: UIView!
     
-    private var modePickerOptions = ["home.scan.mode.2G".localized, "home.scan.mode.3G".localized]
+    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized]
     private var modePickerView = UIPickerView()
     private var modePickerToolBar = UIToolbar()
         
@@ -139,11 +139,27 @@ class HomeViewController: UIViewController {
     
     private func setScanModeButtonStyle() {
         scanModeButton.style = .clear
-        scanModeButton.setRightImage(named: "pencil")
+        scanModeButton.setRightImage(named: "icon_arrow-right")
     }
     
     private func setScanModeButtonText() {
-        scanModeButton.localizedText =  Store.get(key: .isScanMode2G) == "1" ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
+        // Allows to have a multiline title label
+        scanModeButton.titleLabel?.lineBreakMode = .byWordWrapping
+        
+        if Store.getBool(key: .isScanModeSet) {
+            scanModeButton.titleLabel?.font = Font.getFont(size: 14, style: .regular)
+            
+            let isScanMode2G: Bool = Store.getBool(key: .isScanMode2G)
+            let localizedBaseScanModeButtonTitle: String = isScanMode2G ? "home.scan.button.mode.2G".localized : "home.scan.button.mode.3G".localized
+            let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
+            let boldLocalizedText: String = isScanMode2G ? "home.scan.button.bold.2G".localized : "home.scan.button.bold.3G".localized
+            let boldRange: NSRange = (scanModeButtonTitle.string as NSString).range(of: boldLocalizedText)
+            
+            scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
+            scanModeButton.setAttributedTitle(scanModeButtonTitle, for: .normal)
+        } else {
+            scanModeButton.setTitle("home.scan.button.mode.default".localized)
+        }
     }
     
     private func setScanButton() {
@@ -204,6 +220,20 @@ class HomeViewController: UIViewController {
     
     @IBAction func scan(_ sender: Any) {
         guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
+        
+        guard Store.getBool(key: .isScanModeSet) else {
+            let alert = UIAlertController(
+                title: "alert.default.error.title".localized,
+                message: "alert.scan.unset.message".localized,
+                preferredStyle: .alert
+            )
+            alert.addAction(.init(title: "alert.default.action".localized, style: .default, handler: goToStore))
+            present(alert, animated: true, completion: nil)
+
+            return
+
+        }
+        
         let lastFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
         lastFetch > 0 ? coordinator?.showCamera() : showAlert(key: "no.keys")
     }
@@ -236,10 +266,10 @@ extension HomeViewController {
         let selectedRow: Int = vc.selectedRow()
         
         vc.selectRow(selectedRow, animated: false)
+        Store.set(true, for: .isScanModeSet)
         Store.set(selectedRow == 0, for: .isScanMode2G)
         
-        let scanModeButtonTitle = selectedRow == 0 ? "home.scan.mode.2G".localized : "home.scan.mode.3G".localized
-        scanModeButton.setTitle(scanModeButtonTitle)
+        setScanModeButton()
     }
     
 }

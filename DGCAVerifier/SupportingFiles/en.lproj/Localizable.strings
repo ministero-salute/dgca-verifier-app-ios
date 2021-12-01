@@ -16,6 +16,20 @@
 "home.not.available" = "N/A";
 "home.version" = "Versione";
 "home.update.now" = "Aggiorna ora";
+
+"home.scan.button.mode.default" = "SCEGLI TIPOLOGIA DI VERIFICA";
+"home.scan.button.bold.3G" = "VERIFICA BASE";
+"home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
+"home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
+"home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
+"home.scan.picker.mode.3G" = "Tipologia verifica BASE";
+"home.scan.picker.mode.2G" = "Tipologia verifica RAFFORZATA";
+
+"alert.default.error.title" = "Errore";
+"alert.default.action" = "OK";
+
+"alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. Se si sceglie la tipologia BASE la app considera valide le certificazioni verdi generate sia da vaccinazione, sia da guarigione, sia da tampone molecolare o antigenico rapido. Se si sceglie la modalità RAFFORZATA la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La verifica BASE viene utilizzata per l’accesso ai luoghi di lavoro, quella RAFFORZATA - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc. Per approfondimenti consultare https://www.dgc.gov.it/web/faq.html#verifica19";
+
 "home.scan.mode.2G" = "Vaccinazione/Guarigione";
 "home.scan.mode.3G" = "Vaccinazione/Guarigione/Test";
 
@@ -24,6 +38,9 @@
 
 "country.movements" = "Per spostamenti ed eventi in Italia";
 "country.select" = "Scegli paese di destinazione";
+
+"result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
+"result.scan.mode.3G" = "Tipologia verifica: BASE";
 
 "result.close" = "Chiudi";
 "result.last.fetch" = "Ora e data di validazione:";
@@ -59,7 +76,6 @@
 "alert.no.countries.title" = "Impossibile accedere ai paesi";
 "alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
-
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
 "links.what.can.be.done" = "Cosa si può fare con la Certificazione verde COVID-19?";
@@ -73,9 +89,8 @@
 "settings.mode" = "MODALITÀ";
 "settings.mode.automatic" = "Automatica";
 "settings.mode.manual" = "Manuale";
+
 "settings.scan.mode" = "TIPOLOGIA VERIFICA";
-"settings.scan.mode.2G" = "Vaccinazione/Guarigione";
-"settings.scan.mode.3G" = "Vaccinazione/Guarigione/Test";
 "settings.scan.mode.short.2G" = "V/G";
 "settings.scan.mode.short.3G" = "V/G/T";
 

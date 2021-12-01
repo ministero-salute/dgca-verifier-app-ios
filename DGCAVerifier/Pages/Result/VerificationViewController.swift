@@ -72,6 +72,7 @@ class VerificationViewController: UIViewController {
         resultImageView.image = status.mainImage
         titleLabel.text = status.title.localizeWith(getTitleArguments(status))
         descriptionLabel.text = status.description?.localized
+        descriptionLabel.sizeToFit()
         lastFetchLabel.isHidden = !status.showLastFetch
         setFaq(for: status)
         setPersonalData(for: status)
@@ -140,7 +141,7 @@ class VerificationViewController: UIViewController {
     
     private func setScanMode() {
         modeLabel.textColor = Palette.white
-        let mode = Store.get(key: .isScanMode2G) == "1" ? "settings.scan.mode.2G".localized : "settings.scan.mode.3G".localized
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "result.scan.mode.2G".localized : "result.scan.mode.3G".localized
         modeLabel.text = mode
     }
     

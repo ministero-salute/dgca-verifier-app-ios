@@ -14,6 +14,7 @@ public class Store {
         case isFrontCameraActive
         case isTotemModeActive
         case isScanMode2G
+        case isScanModeSet
     }
     
     public static func getBool(key: Key) -> Bool {

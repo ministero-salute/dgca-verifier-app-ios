@@ -47,10 +47,6 @@ class SettingsViewController: UIViewController {
     private var modePickerView = UIPickerView()
     private var modePickerToolBar = UIToolbar()
     
-    private var scanPickerOptions = ["settings.scan.mode.2G".localized, "settings.scan.mode.3G".localized]
-    private var scanPickerView = UIPickerView()
-    private var scanPickerToolBar = UIToolbar()
-    
     private let informationsSettings = ["settings.faq".localized, "settings.privacy".localized]
 
     init(coordinator: SettingsCoordinator, viewModel: SettingsViewModel) {
@@ -100,17 +96,6 @@ class SettingsViewController: UIViewController {
         ))
     }
     
-    func scanViewDidTap() {
-        PickerViewController.present(for: self, with: .init(
-            doneButtonTitle: "label.done".localized,
-            cancelButtonTitle: "label.cancel".localized,
-            pickerOptions: self.scanPickerOptions,
-            selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
-            doneCallback: self.didScanTapDone,
-            cancelCallback: nil
-        ))
-    }
-    
     func faqDidTap() {
         guard let url = URL(string: Link.faq.url) else { return }
         coordinator?.openWebURL(url: url)
@@ -153,7 +138,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             return 1
         case 2:
-            return 2
+            return 1
         case 3:
             return 1
         case 4:
@@ -209,8 +194,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row{
             case 0:
                 modeViewDidTap()
-            case 1:
-                scanViewDidTap()
             default:
                 break
             }
