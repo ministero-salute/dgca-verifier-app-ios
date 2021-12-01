@@ -227,7 +227,7 @@ class HomeViewController: UIViewController {
                 message: "alert.scan.unset.message".localized,
                 preferredStyle: .alert
             )
-            alert.addAction(.init(title: "alert.default.action".localized, style: .default, handler: goToStore))
+            alert.addAction(.init(title: "alert.default.action".localized, style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
 
             return
