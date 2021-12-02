@@ -114,6 +114,7 @@ class AppButton: UIButton {
         ])
         
         contentEdgeInsets = .init(top: 0, left: EDGE_INSET, bottom: 0, right: EDGE_INSET)
+        titleEdgeInsets = .init(top: 0, left: EDGE_INSET, bottom: 0, right: EDGE_INSET)
         
     }
     private func removeImages() {
@@ -131,6 +132,7 @@ class AppButton: UIButton {
     
     private func setCompressionResistance() {
         setContentCompressionResistancePriority(.init(800), for: .vertical)
+        setContentCompressionResistancePriority(.init(1000), for: .horizontal)
     }
  
     private func getImage(_ image: UIImage?) -> UIImage? {
@@ -142,8 +144,8 @@ class AppButton: UIButton {
     }
 
     public func restoreInsets() {
-        contentEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
-        titleEdgeInsets = .init(top: 0, left: TITLE_INSET, bottom: 0, right: TITLE_INSET)
+        contentEdgeInsets = .init(top: 0, left: TITLE_INSET, bottom: 0, right: TITLE_INSET)
+        titleEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
 }

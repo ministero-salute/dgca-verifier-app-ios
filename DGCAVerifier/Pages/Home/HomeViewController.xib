@@ -13,8 +13,11 @@
             <connections>
                 <outlet property="countriesButton" destination="w6r-or-WKE" id="ZOK-Qw-yAB"/>
                 <outlet property="faqLabel" destination="u8T-GU-inN" id="vfH-MP-0VT"/>
+                <outlet property="lastFetchContainer" destination="I6Z-bN-OQY" id="Qgg-zl-eFA"/>
                 <outlet property="lastFetchLabel" destination="qed-03-Mb1" id="z4T-Bc-kYd"/>
                 <outlet property="privacyPolicyLabel" destination="yfd-dg-T9K" id="MmA-6n-wER"/>
+                <outlet property="progressContainer" destination="wUk-gZ-rIk" id="eN1-bk-m1j"/>
+                <outlet property="progressView" destination="6sa-SH-03R" id="ryX-Nv-O82"/>
                 <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
                 <outlet property="scanModeButton" destination="29A-Co-TOQ" id="UGD-9U-Ez8"/>
                 <outlet property="settingsView" destination="fLh-X8-Yfz" id="dds-gF-N9T"/>
@@ -29,11 +32,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsf-5a-Lh7">
-                    <rect key="frame" x="0.0" y="192.5" width="414" height="703.5"/>
+                    <rect key="frame" x="0.0" y="128.5" width="414" height="767.5"/>
                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iKT-oS-23a">
-                    <rect key="frame" x="16" y="44" width="382" height="443"/>
+                    <rect key="frame" x="16" y="44" width="382" height="268"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Gy-cc-akY">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
@@ -96,13 +99,13 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6Z-bN-OQY" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="48" width="382" height="201"/>
+                            <rect key="frame" x="0.0" y="48" width="382" height="73"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cx5-Ij-ji4">
-                                    <rect key="frame" x="24" y="16" width="334" height="169"/>
+                                    <rect key="frame" x="24" y="16" width="334" height="41"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ultimo aggiornamento dati e regole:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98k-TR-9MX" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="334" height="148.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -111,13 +114,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meno di 4 ore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qed-03-Mb1" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="148.5" width="334" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="20.5" width="334" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INV-4q-ygT">
-                                            <rect key="frame" x="0.0" y="169" width="334" height="43"/>
+                                            <rect key="frame" x="0.0" y="41" width="334" height="43"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69a-03-GkF" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="150.5" height="35"/>
@@ -152,14 +155,33 @@
                                 <constraint firstItem="Cx5-Ij-ji4" firstAttribute="top" secondItem="I6Z-bN-OQY" secondAttribute="top" constant="16" id="liG-qO-NNY"/>
                             </constraints>
                         </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUk-gZ-rIk" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="129" width="382" height="0.0"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sa-SH-03R" customClass="ProgressView" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="0.0"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="250" constant="40" id="RE1-S3-gMl"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="6sa-SH-03R" firstAttribute="top" secondItem="wUk-gZ-rIk" secondAttribute="top" id="5Zy-CT-qZc"/>
+                                <constraint firstItem="6sa-SH-03R" firstAttribute="leading" secondItem="wUk-gZ-rIk" secondAttribute="leading" id="EcK-FP-fH6"/>
+                                <constraint firstAttribute="trailing" secondItem="6sa-SH-03R" secondAttribute="trailing" id="aFZ-Ap-DDO"/>
+                                <constraint firstAttribute="bottom" secondItem="6sa-SH-03R" secondAttribute="bottom" id="tuR-ef-KNa"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTu-7K-NKS" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="265" width="382" height="81"/>
+                            <rect key="frame" x="0.0" y="137" width="382" height="52.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TnV-pK-Hlg">
-                                    <rect key="frame" x="24" y="16" width="334" height="49"/>
+                                    <rect key="frame" x="24" y="16" width="334" height="20.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leggi le domande frequenti" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8T-GU-inN" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="334" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -182,13 +204,13 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-Hq-dha" customClass="AppShadowView" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="362" width="382" height="81"/>
+                            <rect key="frame" x="0.0" y="205.5" width="382" height="62.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="T9Q-W6-3I2">
-                                    <rect key="frame" x="24" y="16" width="334" height="49"/>
+                                    <rect key="frame" x="24" y="16" width="334" height="30.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leggi le privacy policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfd-dg-T9K" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="334" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="30.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

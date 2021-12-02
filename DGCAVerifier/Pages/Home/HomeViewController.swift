@@ -23,6 +23,9 @@
 //
 
 import UIKit
+import RealmSwift
+
+typealias Tap = UITapGestureRecognizer
 
 protocol HomeCoordinator: Coordinator {
     func showCamera()
@@ -31,7 +34,7 @@ protocol HomeCoordinator: Coordinator {
 }
 
 class HomeViewController: UIViewController {
-    
+        
     weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
 
@@ -43,7 +46,15 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var countriesButton: AppButton!
     @IBOutlet weak var updateNowButton: AppButton!
     
+    @IBOutlet weak var lastFetchContainer: UIView!
+    @IBOutlet weak var progressContainer: UIView!
+    
+    @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var lastFetchLabel: AppLabel!
+    
+    var sync: CRLSynchronizationManager { CRLSynchronizationManager.shared }
+    let userDefaults = UserDefaults.standard
+
     @IBOutlet weak var settingsView: UIView!
     
     private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized]
@@ -92,12 +103,22 @@ class HomeViewController: UIViewController {
     }
     
     private func subscribeEvents() {
+        bindResults()
+        bindIsLoading()
+        bindShowMore()
+        bindConfirmButton()
+        bindResumeButton()
+    }
+    
+    func bindResults() {
         viewModel.results.add(observer: self, { [weak self] result in
             DispatchQueue.main.async { [weak self] in
                 self?.manage(result)
             }
         })
-        
+    }
+    
+    func bindIsLoading() {
         viewModel.isLoading.add(observer: self, { [weak self] isLoading in
             DispatchQueue.main.async { [weak self] in
                 guard let isLoading = isLoading else { return }
@@ -106,24 +127,40 @@ class HomeViewController: UIViewController {
         })
     }
     
+    func bindShowMore() {
+        let tap = Tap(target: self, action: #selector(crlShowMore))
+        progressView.showMoreLabel.add(tap)
+    }
+    
+    func bindConfirmButton() {
+        progressView.confirmButton
+            .addTarget(self, action: #selector(startSync), for: .touchUpInside)
+    }
+     
+    func bindResumeButton() {
+        progressView.resumeButton
+            .addTarget(self, action: #selector(resumeSync), for: .touchUpInside)
+    }
+    
     private func manage(_ result: HomeViewModel.Result?) {
         guard let result = result else { return }
         switch result {
-        case .updateComplete:       updateLastFetch(isLoading: false)
-        case .versionOutdated:      showOutdatedAlert()
-        case .error(_):             lastFetchLabel.text = "error"
+        case .initializeSync:   initializeSync()
+        case .updateComplete:   updateLastFetch(isLoading: false)
+        case .versionOutdated:  showOutdatedAlert()
+        case .error(_):         lastFetchLabel.text = "error"
         }
     }
     
     private func setFAQ() {
         let title = Link.faq.title.localized
-        let tap = UITapGestureRecognizer(target: self, action: #selector(faqDidTap))
+        let tap = Tap(target: self, action: #selector(faqDidTap))
         faqLabel.fillView(with: .init(text: title, onTap: tap))
     }
     
     private func setPrivacyPolicy() {
         let title = Link.privacyPolicy.title.localized
-        let tap = UITapGestureRecognizer(target: self, action: #selector(privacyPolicyDidTap))
+        let tap = Tap(target: self, action: #selector(privacyPolicyDidTap))
         privacyPolicyLabel.fillView(with: .init(text: title, onTap: tap))
     }
     
@@ -172,6 +209,10 @@ class HomeViewController: UIViewController {
         countriesButton.setRightImage(named: "icon_arrow-right")
     }
     
+    func initializeSync() {
+        CRLSynchronizationManager.shared.initialize(delegate: self)
+    }
+    
     private func updateLastFetch(isLoading: Bool) {
         guard !isLoading else { return lastFetchLabel.text = "home.loading".localized }
         let date = viewModel.getLastUpdate()?.toDateTimeReadableString
@@ -198,6 +239,31 @@ class HomeViewController: UIViewController {
         UIApplication.shared.open(url)
     }
     
+    @objc func crlShowMore() {
+        sync.showCRLUpdateAlert()
+    }
+    
+    @objc func startSync() {
+        guard Connectivity.isOnline else {
+            showAlert(key: "no.connection")
+            return
+        }
+        
+        if sync.noPendingDownload || sync.needsServerStatusUpdate {
+            sync.start()
+        } else {
+            sync.download()
+        }
+    }
+    
+    @objc func resumeSync() {
+        guard Connectivity.isOnline else {
+            showAlert(key: "no.connection")
+            return
+        }
+        sync.download()
+    }
+    
     private func showOutdatedAlert() {
         let alert = UIAlertController(title: "alert.version.outdated.title".localized, message: "alert.version.outdated.message".localized, preferredStyle: .alert)
         alert.addAction(.init(title: "OK", style: .default, handler: goToStore))
@@ -221,7 +287,20 @@ class HomeViewController: UIViewController {
     @IBAction func scan(_ sender: Any) {
         guard !viewModel.isVersionOutdated() else { return showOutdatedAlert() }
         
-        guard Store.getBool(key: .isScanModeSet) else {
+        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        let certFetchUpdated            = certFetch > 0
+        
+        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        
+        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
+        
+        guard certFetchUpdated else {
+            showAlert(key: "no.keys")
+            return
+        }
+		
+		guard Store.getBool(key: .isScanModeSet) else {
             let alert = UIAlertController(
                 title: "alert.default.error.title".localized,
                 message: "alert.scan.unset.message".localized,
@@ -231,11 +310,20 @@ class HomeViewController: UIViewController {
             present(alert, animated: true, completion: nil)
 
             return
-
         }
         
-        let lastFetch = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        lastFetch > 0 ? coordinator?.showCamera() : showAlert(key: "no.keys")
+        if isCRLAllowed {
+            guard !crlFetchOutdated else {
+                showAlert(key: "crl.outdated")
+                return
+            }
+            guard isCRLDownloadCompleted else {
+                showAlert(key: "crl.update.resume")
+                return
+            }
+        }
+        
+        coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
@@ -246,6 +334,63 @@ class HomeViewController: UIViewController {
         let isLoading = viewModel.isLoading.value ?? false
         guard !isLoading else { return }
         viewModel.startOperations()
+    }
+    
+    private func showNotAvailable() {
+        lastFetchLabel.text = "home.not.available".localized
+    }
+    
+    private func crlDownloadNeeded() {
+        progressView.fillView(with: sync.progress)
+        showCRL(true)
+    }
+    
+    private func showDownloadingProgress() {
+        self.scanButton.isEnabled = false
+        progressView.downloading(with: sync.progress)
+        showCRL(true)
+    }
+    
+    private func downloadCompleted() {
+        self.scanButton.isEnabled = true
+        showCRL(false)
+    }
+    
+    private func downloadPaused() {
+        progressView.pause(with: sync.progress)
+        showCRL(true)
+    }
+    
+    private func downloadError() {
+        self.scanButton.isEnabled = true
+        progressView.error(with: sync.progress)
+        showCRL(true)
+    }
+    
+    private func networkStatusError() {
+        self.scanButton.isEnabled = true
+        progressView.error(with: sync.progress, noSize: true)
+        showCRL(true)
+    }
+    
+    private func showCRL(_ value: Bool) {
+        lastFetchContainer.isHidden = value
+        progressContainer.isHidden = !value
+    }
+    
+}
+
+extension HomeViewController: CRLSynchronizationDelegate {
+    
+    func statusDidChange(with result: CRLSynchronizationManager.Result) {
+        switch result {
+        case .downloadReady:        crlDownloadNeeded()
+        case .downloading:          showDownloadingProgress()
+        case .completed:            downloadCompleted()
+        case .paused:               downloadPaused()
+        case .error:                downloadError()
+        case .statusNetworkError:   networkStatusError()
+        }
     }
 }
 

@@ -30,6 +30,10 @@ struct VaccineValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
+    private var allowedVaccinationInCountry: [String: [String]] {
+        [Constants.SputnikVacineCode: [Constants.sanMarinoCode]]
+    }
+    
     func isVaccineDateValid(_ hcert: HCert) -> Status {
         guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
         guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
@@ -57,6 +61,13 @@ struct VaccineValidityCheck {
         guard result == .valid else { return result }
         if !lastDose { return .validPartially }
         return result
+    }
+    
+    private func isAllowedVaccination(for medicalProduct: String, fromCountryWithCode countryCode: String) -> Bool {
+        if let allowedCountries = allowedVaccinationInCountry[medicalProduct] {
+            return allowedCountries.contains(countryCode)
+        }
+        return true
     }
     
     private func isValid(for medicalProduct: String) -> Bool {

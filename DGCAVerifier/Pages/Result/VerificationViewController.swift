@@ -23,13 +23,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol VerificationCoordinator: Coordinator {
     func dismissVerification(completion: (()->())?)
 }
 
 class VerificationViewController: UIViewController {
-    
+        
     private weak var coordinator: VerificationCoordinator?
     private var delegate: CameraDelegate?
     private var viewModel: VerificationViewModel

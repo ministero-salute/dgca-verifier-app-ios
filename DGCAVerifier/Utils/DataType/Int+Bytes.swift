@@ -17,18 +17,22 @@
 */
 
 //
-//  Status.swift
+//  Int+Bytes.swift
 //  Verifier
 //
-//  Created by Andrea Prosseda on 26/07/21.
+//  Created by Emilio Apuzzo on 27/10/21.
 //
 
-import UIKit
+import Foundation
 
-enum Status {
-    case valid
-    case validPartially
-    case notValid
-    case notValidYet
-    case notGreenPass
+public extension Int {
+    
+    var toKiloBytes: Double { self.doubleValue.toKiloBytes }
+    
+    var toMegaBytes: Double { self.doubleValue.toMegaBytes }
+    
+    var byteReadableValue: String { self.doubleValue.byteReadableValue }
+
+    var fromMegaBytesToBytes: Double { self.doubleValue.fromMegaBytesToBytes }
+    
 }

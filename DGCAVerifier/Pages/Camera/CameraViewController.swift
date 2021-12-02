@@ -112,6 +112,12 @@ class CameraViewController: UIViewController {
         guard !(vc is VerificationViewController) else { return }
         stopRunning()
         hapticFeedback()
+        let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed = SettingDataStorage.sharedInstance.getFirstSetting(withName: "DRL_SYNC_ACTIVE")?.boolValue ?? true
+        if !isCRLDownloadCompleted && isCRLAllowed {
+            showAlert(key: "no.crl.download")
+            return
+        }
         coordinator?.validate(payload: payload, country: country, delegate: self)
     }
     
@@ -163,7 +169,7 @@ class CameraViewController: UIViewController {
         let enable = torchActive && !frontCamera
         AVCaptureDevice.enableTorch(enable)
     }
-    
+  
     private var currentCameraMode: AVCaptureDevice.Position {
         let isFrontCamera = Store.getBool(key: .isFrontCameraActive)
         return isFrontCamera ? .front : .back
@@ -175,6 +181,18 @@ class CameraViewController: UIViewController {
         }
     }
     
+    private func showAlert(key: String) {
+        let alertController = UIAlertController(
+            title: "alert.\(key).title".localized,
+            message: "alert.\(key).message".localized,
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.coordinator?.dismiss()
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension CameraViewController: CameraDelegate {
@@ -196,7 +214,6 @@ extension CameraViewController: CameraDelegate {
 }
 
 extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let handler = getHandler(sampleBuffer)
         try? handler?.perform([getBarcodeDetectorHandler()])
