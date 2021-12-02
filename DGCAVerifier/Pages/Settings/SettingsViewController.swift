@@ -113,15 +113,6 @@ class SettingsViewController: UIViewController {
         Store.set(selectedRow == 0, for: .isTotemModeActive)
         tableView.reloadData()
     }
-    
-    private func didScanTapDone(vc: PickerViewController) {
-        let selectedRow: Int = vc.selectedRow()
-        
-        vc.selectRow(selectedRow, animated: false)
-        Store.set(selectedRow == 0, for: .isScanMode2G)
-        tableView.reloadData()
-    }
-    
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -167,11 +158,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 let value = Store.getBool(key: .isTotemModeActive)
                 let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
                 cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
-                return cell
-            case 1:
-                let value = Store.getBool(key: .isScanMode2G)
-                let valueString = value ? "settings.scan.mode.short.2G".localized : "settings.scan.mode.short.3G".localized
-                cell.fillCell(title: "settings.scan.mode".localized, icon: "pencil", value: valueString)
                 return cell
             default:
                 break
