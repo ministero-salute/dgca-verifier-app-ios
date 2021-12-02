@@ -43,9 +43,9 @@ class SettingsViewController: UIViewController {
     weak var coordinator: SettingsCoordinator?
     private var viewModel: SettingsViewModel
     
-    private var pickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
-    private var pickerView = UIPickerView()
-    private var pickerToolBar = UIToolbar()
+    private var modePickerOptions = ["settings.mode.automatic".localized, "settings.mode.manual".localized]
+    private var modePickerView = UIPickerView()
+    private var modePickerToolBar = UIToolbar()
     
     private let informationsSettings = ["settings.faq".localized, "settings.privacy".localized]
 
@@ -89,9 +89,9 @@ class SettingsViewController: UIViewController {
         PickerViewController.present(for: self, with: .init(
             doneButtonTitle: "label.done".localized,
             cancelButtonTitle: "label.cancel".localized,
-            pickerOptions: self.pickerOptions,
-            selectedOption: Store.get(key: .isTotemModeActive) == "0" ? 1 : 0,
-            doneCallback: self.didTapDone,
+            pickerOptions: self.modePickerOptions,
+            selectedOption: Store.getBool(key: .isTotemModeActive) ? 0 : 1,
+            doneCallback: self.didModeTapDone,
             cancelCallback: nil
         ))
     }
@@ -106,13 +106,13 @@ class SettingsViewController: UIViewController {
         coordinator?.openWebURL(url: url)
     }
     
-    private func didTapDone(vc: PickerViewController) {
+    private func didModeTapDone(vc: PickerViewController) {
         let selectedRow: Int = vc.selectedRow()
+        
         vc.selectRow(selectedRow, animated: false)
         Store.set(selectedRow == 0, for: .isTotemModeActive)
         tableView.reloadData()
     }
-    
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -153,10 +153,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             headerCell.fillCell(title: "settings.preferences".localized, fontSize: 13)
             return headerCell
         case 2:
-            let value = Store.getBool(key: .isTotemModeActive)
-            let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
-            cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
-            return cell
+            switch indexPath.row{
+            case 0:
+                let value = Store.getBool(key: .isTotemModeActive)
+                let valueString = value ? "settings.mode.automatic".localized : "settings.mode.manual".localized
+                cell.fillCell(title: "settings.mode".localized, icon: "pencil", value: valueString)
+                return cell
+            default:
+                break
+            }
         case 3:
             headerCell.fillCell(title: "settings.informations".localized, fontSize: 13)
             return headerCell

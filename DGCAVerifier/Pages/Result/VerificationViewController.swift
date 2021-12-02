@@ -41,10 +41,12 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var titleLabel: AppLabel!
     @IBOutlet weak var descriptionLabel: AppLabel!
-    @IBOutlet weak var closeView: UIView!
+    @IBOutlet weak var closeView: UIStackView!
 
     @IBOutlet weak var faqStackView: UIStackView!
     @IBOutlet weak var personalDataStackView: UIStackView!
+    
+    @IBOutlet weak var modeLabel: AppLabel!
     
     var timer: Timer?
     
@@ -71,6 +73,7 @@ class VerificationViewController: UIViewController {
         resultImageView.image = status.mainImage
         titleLabel.text = status.title.localizeWith(getTitleArguments(status))
         descriptionLabel.text = status.description?.localized
+        descriptionLabel.sizeToFit()
         lastFetchLabel.isHidden = !status.showLastFetch
         setFaq(for: status)
         setPersonalData(for: status)
@@ -102,6 +105,7 @@ class VerificationViewController: UIViewController {
         setLastFetch()
         setCard()
         setCloseView()
+        setScanMode()
         resultImageHeight.constant *= Font.scaleFactor
     }
     
@@ -134,6 +138,12 @@ class VerificationViewController: UIViewController {
         timer?.invalidate()
         coordinator?.dismissVerification(completion: nil)
         delegate?.startOperations()
+    }
+    
+    private func setScanMode() {
+        modeLabel.textColor = Palette.white
+        let mode = Store.get(key: .isScanMode2G) == "1" ? "result.scan.mode.2G".localized : "result.scan.mode.3G".localized
+        modeLabel.text = mode
     }
     
     private func setLastFetch() {

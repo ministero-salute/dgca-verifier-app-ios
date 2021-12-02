@@ -37,10 +37,11 @@ class HomeViewController: UIViewController {
         
     weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
-    
+
     @IBOutlet weak var faqLabel: AppLabelUrl!
     @IBOutlet weak var privacyPolicyLabel: AppLabelUrl!
     @IBOutlet weak var versionLabel: AppLabelUrl!
+    @IBOutlet weak var scanModeButton: AppButton!
     @IBOutlet weak var scanButton: AppButton!
     @IBOutlet weak var countriesButton: AppButton!
     @IBOutlet weak var updateNowButton: AppButton!
@@ -56,17 +57,21 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var settingsView: UIView!
     
+    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized]
+    private var modePickerView = UIPickerView()
+    private var modePickerToolBar = UIToolbar()
+        
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
-        
+
         super.init(nibName: "HomeViewController", bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
@@ -77,6 +82,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Store.set(false, for: .isTorchActive)
+        setScanModeButtonText()
     }
     
     private func initialize() {
@@ -84,12 +90,13 @@ class HomeViewController: UIViewController {
         setFAQ()
         setPrivacyPolicy()
         setVersion()
+        setScanModeButton()
         setScanButton()
         setCountriesButton()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
     }
-    
+
     private func setUpSettingsAction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(settingsImageDidTap))
         settingsView.addGestureRecognizer(tap)
@@ -162,6 +169,36 @@ class HomeViewController: UIViewController {
         versionLabel.text = "home.version".localized + " " + version
     }
     
+    private func setScanModeButton() {
+        setScanModeButtonStyle()
+        setScanModeButtonText()
+    }
+    
+    private func setScanModeButtonStyle() {
+        scanModeButton.style = .clear
+        scanModeButton.setRightImage(named: "icon_arrow-right")
+    }
+    
+    private func setScanModeButtonText() {
+        // Allows to have a multiline title label
+        scanModeButton.titleLabel?.lineBreakMode = .byWordWrapping
+        
+        if Store.getBool(key: .isScanModeSet) {
+            scanModeButton.titleLabel?.font = Font.getFont(size: 14, style: .regular)
+            
+            let isScanMode2G: Bool = Store.getBool(key: .isScanMode2G)
+            let localizedBaseScanModeButtonTitle: String = isScanMode2G ? "home.scan.button.mode.2G".localized : "home.scan.button.mode.3G".localized
+            let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
+            let boldLocalizedText: String = isScanMode2G ? "home.scan.button.bold.2G".localized : "home.scan.button.bold.3G".localized
+            let boldRange: NSRange = (scanModeButtonTitle.string as NSString).range(of: boldLocalizedText)
+            
+            scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
+            scanModeButton.setAttributedTitle(scanModeButtonTitle, for: .normal)
+        } else {
+            scanModeButton.setTitle("home.scan.button.mode.default".localized)
+        }
+    }
+    
     private func setScanButton() {
         scanButton.style = .blue
         scanButton.setRightImage(named: "icon_qr-code")
@@ -181,7 +218,7 @@ class HomeViewController: UIViewController {
         let date = viewModel.getLastUpdate()?.toDateTimeReadableString
         lastFetchLabel.text = date == nil ? "home.not.available".localized : date
     }
-    
+
     @objc func faqDidTap() {
         guard let url = URL(string: Link.faq.url) else { return }
         UIApplication.shared.open(url)
@@ -195,7 +232,7 @@ class HomeViewController: UIViewController {
     @objc func settingsImageDidTap() {
         coordinator?.openSettings()
     }
-    
+
     @objc func goToStore(_ action: UIAlertAction? = nil) {
         guard let url = URL(string: Link.store.url) else { return }
         guard UIApplication.shared.canOpenURL(url) else { return }
@@ -232,7 +269,7 @@ class HomeViewController: UIViewController {
         alert.addAction(.init(title: "OK", style: .default, handler: goToStore))
         present(alert, animated: true, completion: nil)
     }
-    
+
     private func showAlert(key: String) {
         let alertController = UIAlertController(
             title: "alert.\(key).title".localized,
@@ -241,6 +278,10 @@ class HomeViewController: UIViewController {
         )
         alertController.addAction(.init(title: "OK", style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func scanModeButtonTapped(_ sender: Any) {
+        modeViewDidTap()
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -256,6 +297,18 @@ class HomeViewController: UIViewController {
         
         guard certFetchUpdated else {
             showAlert(key: "no.keys")
+            return
+        }
+		
+		guard Store.getBool(key: .isScanModeSet) else {
+            let alert = UIAlertController(
+                title: "alert.default.error.title".localized,
+                message: "alert.scan.unset.message".localized,
+                preferredStyle: .alert
+            )
+            alert.addAction(.init(title: "alert.default.action".localized, style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+
             return
         }
         
@@ -339,4 +392,29 @@ extension HomeViewController: CRLSynchronizationDelegate {
         case .statusNetworkError:   networkStatusError()
         }
     }
+}
+
+extension HomeViewController {
+    
+    func modeViewDidTap() {
+        PickerViewController.present(for: self, with: .init(
+            doneButtonTitle: "label.done".localized,
+            cancelButtonTitle: "label.cancel".localized,
+            pickerOptions: self.modePickerOptions,
+            selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
+            doneCallback: self.didModeTapDone,
+            cancelCallback: nil
+        ))
+    }
+    
+    private func didModeTapDone(vc: PickerViewController) {
+        let selectedRow: Int = vc.selectedRow()
+        
+        vc.selectRow(selectedRow, animated: false)
+        Store.set(true, for: .isScanModeSet)
+        Store.set(selectedRow == 0, for: .isScanMode2G)
+        
+        setScanModeButton()
+    }
+    
 }

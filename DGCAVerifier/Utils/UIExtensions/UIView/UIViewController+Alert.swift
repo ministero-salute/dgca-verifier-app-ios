@@ -33,7 +33,9 @@ extension UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         
-        self.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async{
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     func showToast(message: String, seconds: Double = 2.0) {

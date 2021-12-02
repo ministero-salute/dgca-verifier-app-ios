@@ -175,10 +175,6 @@ class CameraViewController: UIViewController {
         return isFrontCamera ? .front : .back
     }
     
-    private func noCameraError() {
-        showAlert(withTitle: "alert.nocamera.title".localized, message: "alert.nocamera.message".localized)
-    }
-
     private func hapticFeedback() {
         DispatchQueue.main.async {
             UINotificationFeedbackGenerator().notificationOccurred(.success)

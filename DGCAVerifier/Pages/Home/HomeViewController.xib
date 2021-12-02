@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +19,7 @@
                 <outlet property="progressContainer" destination="wUk-gZ-rIk" id="eN1-bk-m1j"/>
                 <outlet property="progressView" destination="6sa-SH-03R" id="ryX-Nv-O82"/>
                 <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
+                <outlet property="scanModeButton" destination="29A-Co-TOQ" id="UGD-9U-Ez8"/>
                 <outlet property="settingsView" destination="fLh-X8-Yfz" id="dds-gF-N9T"/>
                 <outlet property="updateNowButton" destination="69a-03-GkF" id="5WT-6P-EvP"/>
                 <outlet property="versionLabel" destination="39z-HB-0ZJ" id="SZ9-SZ-D2I"/>
@@ -234,7 +235,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="5bx-Gg-eaB">
-                    <rect key="frame" x="32" y="761" width="350" height="85"/>
+                    <rect key="frame" x="32" y="717" width="350" height="129"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cy2-hK-jJT">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="41"/>
@@ -266,8 +267,19 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO1-as-LpM" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29A-Co-TOQ" userLabel="ScanModeButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="55" width="350" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="750" constant="30" id="KfR-k8-3ta"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="scanModeButtonTapped:" destination="-1" eventType="touchUpInside" id="nGD-n2-dmu"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO1-as-LpM" userLabel="ScanButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="99" width="350" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="30" id="Ktm-aY-uux"/>
                             </constraints>
@@ -280,7 +292,7 @@
                             </connections>
                         </button>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="oppure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO5-cr-3N3" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="85" width="350" height="0.0"/>
+                            <rect key="frame" x="0.0" y="129" width="350" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -289,8 +301,8 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6r-or-WKE" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="85" width="350" height="0.0"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6r-or-WKE" userLabel="CountryButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="129" width="350" height="0.0"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="30" id="JEg-Ck-llB"/>
                             </constraints>

@@ -75,6 +75,7 @@ extension MainCoordinator: HomeCoordinator {
         controller.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(controller, animated: true)
     }
+    
 }
 
 extension MainCoordinator: CameraCoordinator {
