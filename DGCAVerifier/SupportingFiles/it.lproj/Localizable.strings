@@ -26,9 +26,6 @@
 "home.scan.picker.mode.3G" = "Tipologia verifica BASE";
 "home.scan.picker.mode.2G" = "Tipologia verifica RAFFORZATA";
 
-"alert.default.error.title" = "Errore";
-"alert.default.action" = "OK";
-
 "alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. \nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone. Viene utilizzata per l’accesso ai luoghi di lavoro. \nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.Viene utilizzata - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.";
 
 "camera.back.home" = "Torna all'inizio";
@@ -87,7 +84,11 @@
 "alert.no.connection.title" = "Connessione internet assente";
 "alert.no.connection.message" = "Connessione internet assente. Assicurati di essere connesso alla rete e riprova.";
 
+"alert.default.error.title" = "Errore";
 "alert.default.action" = "OK";
+
+"alert.scan.unset.title" = "Errore";
+"alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. \nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.Viene utilizzata per l’accesso ai luoghi di lavoro. \nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.Viene utilizzata - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";

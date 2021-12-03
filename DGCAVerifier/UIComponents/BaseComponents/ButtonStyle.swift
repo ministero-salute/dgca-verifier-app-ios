@@ -30,6 +30,7 @@ public enum ButtonStyle {
     case clear
     case white
     case minimal
+    case disabled
     
     var backgroundColor: UIColor {
         switch self {
@@ -37,6 +38,7 @@ public enum ButtonStyle {
         case .clear:    return Palette.white.withAlphaComponent(0)
         case .white:    return Palette.white
         case .minimal:  return Palette.white.withAlphaComponent(0)
+        case .disabled: return Palette.blackLight
         }
     }
     
@@ -46,6 +48,7 @@ public enum ButtonStyle {
         case .clear:    return Palette.blue
         case .white:    return Palette.blue
         case .minimal:  return Palette.blue
+        case .disabled: return Palette.grayDark
         }
     }
     
@@ -55,6 +58,7 @@ public enum ButtonStyle {
         case .clear:    return true
         case .white:    return true
         case .minimal:  return false
+        case .disabled: return false
         }
     }
     
