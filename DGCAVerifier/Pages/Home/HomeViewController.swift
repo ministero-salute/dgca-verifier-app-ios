@@ -74,9 +74,9 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialize()
         viewModel.startOperations()
         subscribeEvents()
+        initialize()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -62,10 +62,10 @@ extension GatewayConnection {
     
     private func getCRL(version: Int?, chunk: Int?, completion: ((CRL?, Int?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL] [REST]")
-        let version = version ?? 0
-        let chunk = chunk ?? 1
+        let versionString: Int = version ?? 0
+        let chunkString: Int = chunk ?? 1
         
-        session.request("\(revocationUrl)?version=\(version)&chunk=\(chunk)").response {
+        session.request("\(revocationUrl)?version=\(versionString)&chunk=\(chunkString)").response {
             //  Were the response to be `nil` (AFRequest failed, see $0.result),
             //  it'd be okay for it to be handled just like a statusCode 408.
             let responseStatusCode = $0.response?.statusCode ?? 408
@@ -97,10 +97,10 @@ extension GatewayConnection {
     
     private func status(version: Int?, chunk: Int?, completion: ((CRLStatus?, Int?) -> Void)?) {
         let restStartTime = Log.start(key: "[CRL STATUS] [REST]")
-        let version = version ?? 0
-        let chunk = chunk ?? 1
+        let versionString: Int = version ?? 0
+        let chunkString: Int = chunk ?? 1
         
-        session.request("\(statusUrl)?version=\(version)&chunk=\(chunk)").response {
+        session.request("\(statusUrl)?version=\(versionString)&chunk=\(chunkString)").response {
             // Were the response to be `nil`, it'd okay for it to be handled just like a statusCode 400.
             let responseStatusCode = $0.response?.statusCode ?? 408
             
