@@ -35,6 +35,7 @@ class HomeViewModel {
     
     let results: Observable<Result>     = Observable(nil)
     let isLoading: Observable<Bool>     = Observable(true)
+    let isScanEnabled: Observable<Bool> = Observable(false)
     var dispatchGroupErrors: [String]   = .init()
     
     public func startOperations() {

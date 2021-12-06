@@ -139,6 +139,7 @@ class AppButton: UIButton {
         guard let image = image else { return nil }
         switch style {
         case .blue:     return image.white
+        case .disabled: return image.white
         default:        return image.blue
         }
     }

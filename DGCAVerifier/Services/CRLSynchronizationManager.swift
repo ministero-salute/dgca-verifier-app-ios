@@ -84,10 +84,9 @@ class CRLSynchronizationManager {
         gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
             guard error == nil, responseCode == 200 else {
                 self.log("status failed")
-                
-                guard self.isFetchOutdated else {
-                    self.log("fetch not outdated, allow scans")
-                    return
+
+                if self.isFetchOutdated {
+                    self.log("fetch outdated, scans not allowed")
                 }
                 
                 self.crlStatusFailCounter -= 1

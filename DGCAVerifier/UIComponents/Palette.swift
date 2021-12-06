@@ -35,7 +35,7 @@ struct Palette {
     
     static let white        = UIColor(r: 255,   g: 255,     b: 255)
     static let black        = UIColor(r: 0,     g: 0,       b: 0)
+    static let blackLight   = UIColor(r: 100,   g: 100,     b: 100)
     static let gray         = UIColor(r: 238,   g: 238,     b: 238)
     static let grayDark     = UIColor(r: 224,   g: 227,     b: 231)
-    
 }
