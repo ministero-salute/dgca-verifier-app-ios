@@ -27,8 +27,6 @@
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
 
-"alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. \nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone. Viene utilizzata per l’accesso ai luoghi di lavoro. \nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.Viene utilizzata - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.";
-
 "camera.back.home" = "Torna all'inizio";
 
 "country.movements" = "Per spostamenti ed eventi in Italia";
@@ -66,7 +64,7 @@
 "alert.barcode.error.title" = "Errore nel QR code";
 
 "alert.version.outdated.title" = "Aggiornamento richiesto";
-"alert.version.outdated.message" = "Per continuare ad utilizzare l’applicazione, scarica la nuova versione dallo store";
+"alert.version.outdated.message" = "Per continuare ad utilizzare l'applicazione, scarica la nuova versione dallo store";
 
 "alert.no.keys.title" = "Impossibile scansionare";
 "alert.no.keys.message" = "L'applicazione deve connettersi alla rete almeno una volta per essere utilizzata";
@@ -74,13 +72,13 @@
 "alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
 "alert.crl.outdated.title" = "Impossibile scansionare";
-"alert.crl.outdated.message" = "L'applicazione deve aggiornare la lista dei certificati revocati per essere utilizzata";
+"alert.crl.outdated.message" = "Per utilizzare l'applicazione è necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
 
 "alert.no.crl.download.title" = "Impossibile scansionare";
-"alert.no.crl.download.message" = "L'aggiornamento della lista dei certificati revocati è in corso. Attendere la fine del download per procedere con le scansioni.";
+"alert.no.crl.download.message" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate. Attendere la fine del download per procedere con le scansioni.";
 
 "alert.crl.update.resume.title" = "Impossibile scansionare";
-"alert.crl.update.resume.message" = "L’aggiornamento della lista dei certificati revocati non è terminato, completa l’aggiornamento per continuare a scansionare.";
+"alert.crl.update.resume.message" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
 
 "alert.no.connection.title" = "Connessione internet assente";
 "alert.no.connection.message" = "Connessione internet assente. Assicurati di essere connesso alla rete e riprova.";
@@ -89,7 +87,7 @@
 "alert.default.action" = "OK";
 
 "alert.scan.unset.title" = "Impossibile scansionare";
-"alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. \nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.Viene utilizzata per l’accesso ai luoghi di lavoro. \nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.Viene utilizzata - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.";
+"alert.scan.unset.message" = "Per procedere alla scansione è necessario selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA. \nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.Viene utilizzata per l'accesso ai luoghi di lavoro. \nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.Viene utilizzata - dal 6 dicembre 2021 - per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
@@ -98,12 +96,12 @@
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 
-"crl.update.loading.title" = "Aggiornamento lista dei certificati revocati in corso...";
-"crl.update.resume.title" = "L'aggiornamento della lista dei certificati revocati non è terminato. Assicurati di essere connesso a internet e clicca per continuare.";
-"crl.update.alert.title" = "Aggiornamento lista certificati revocati da %@ MB";
-"crl.update.title" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati, scaricando ed elaborando pacchetti dati per un totale di %@ MB.";
-"crl.update.title.no.size" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati.";
-"crl.update.message" = "L'applicazione VerificaC19 necessita di aggiornare la lista dei certificati revocati, scaricando ed elaborando pacchetti dati per un totale di %@ MB. Controlla il piano dati della tua connessione oppure connetti una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.\n\nLa lista verrà aggiornata ogni 24 ore con pacchetti di aggiornamento dati che di solito non supereranno i pochi KB. In caso un prossimo aggiornamento supererà i 5MB si visualizzerà un nuovo messaggio come il presente";
+"crl.update.loading.title" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate.";
+"crl.update.resume.title" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
+"crl.update.alert.title" = "Aggiornamento lista Certificazioni revocate da %@ MB";
+"crl.update.title" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate per un totale di %@ MB.";
+"crl.update.title.no.size" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
+"crl.update.message" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate, per un totale di %@ MB. Controlla il tuo piano dati oppure connettiti a una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.La lista verrà aggiornata ogni 24 ore.";
 "crl.update.download.now" = "Scarica ora";
 "crl.update.try.later" = "Più tardi";
 "crl.update.resume" = "Riprendi";
