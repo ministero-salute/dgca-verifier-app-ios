@@ -12,6 +12,11 @@
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB4294275FAE8A006E9183 /* DebugView.xib */; };
+		14EB429B275FAFFF006E9183 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4298275FAF59006E9183 /* DebugViewModel.swift */; };
+		14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4296275FAE9F006E9183 /* DebugViewController.swift */; };
+		14EB42A1275FE2B3006E9183 /* DebugCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB42A0275FE2B3006E9183 /* DebugCell.xib */; };
+		14EB42A2275FE2B9006E9183 /* DebugCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB429E275FE29E006E9183 /* DebugCell.swift */; };
 		65021B3926AEB21F004C3D14 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3826AEB21F004C3D14 /* AppButton.swift */; };
 		65021B3B26AEB291004C3D14 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3A26AEB291004C3D14 /* ButtonStyle.swift */; };
 		65021B3D26AEB33F004C3D14 /* UIButton+Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65021B3C26AEB33F004C3D14 /* UIButton+Set.swift */; };
@@ -334,6 +339,11 @@
 		1410B20A271DBADD00F912BA /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
+		14EB4294275FAE8A006E9183 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
+		14EB4296275FAE9F006E9183 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		14EB4298275FAF59006E9183 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
+		14EB429E275FE29E006E9183 /* DebugCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugCell.swift; sourceTree = "<group>"; };
+		14EB42A0275FE2B3006E9183 /* DebugCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugCell.xib; sourceTree = "<group>"; };
 		65021B3826AEB21F004C3D14 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		65021B3A26AEB291004C3D14 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		65021B3C26AEB33F004C3D14 /* UIButton+Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Set.swift"; sourceTree = "<group>"; };
@@ -548,6 +558,25 @@
 			path = PickerVC;
 			sourceTree = "<group>";
 		};
+		14EB4293275FAE6A006E9183 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				14EB4294275FAE8A006E9183 /* DebugView.xib */,
+				14EB4296275FAE9F006E9183 /* DebugViewController.swift */,
+				14EB4298275FAF59006E9183 /* DebugViewModel.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		14EB429D275FE285006E9183 /* DebugCell */ = {
+			isa = PBXGroup;
+			children = (
+				14EB429E275FE29E006E9183 /* DebugCell.swift */,
+				14EB42A0275FE2B3006E9183 /* DebugCell.xib */,
+			);
+			path = DebugCell;
+			sourceTree = "<group>";
+		};
 		65021B3626AEB1DC004C3D14 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +637,7 @@
 		653F928526B0043F000BE8F5 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				14EB429D275FE285006E9183 /* DebugCell */,
 				90C2EB172726BA7600E06A5F /* SettingsHeaderCell */,
 				90CDC6AE271EB0E400707836 /* Settings Cell */,
 				653F929326B01BFD000BE8F5 /* CountryCell */,
@@ -762,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				65E281462697217B00377913 /* LaunchScreen.storyboard */,
+				14EB4293275FAE6A006E9183 /* Debug */,
 				65E281422697217B00377913 /* Home */,
 				65E2814D2697217B00377913 /* Camera */,
 				65E281472697217B00377913 /* Result */,
@@ -1310,6 +1341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9020C5E82721601E00F45CA7 /* CountryCell.xib in Resources */,
+				14EB42A1275FE2B3006E9183 /* DebugCell.xib in Resources */,
 				149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */,
 				65E281DF2697259D00377913 /* TitilliumWeb-SemiBoldItalic.ttf in Resources */,
 				65E281E02697259D00377913 /* Roboto-ThinItalic.ttf in Resources */,
@@ -1317,6 +1349,7 @@
 				65E281E22697259D00377913 /* TitilliumWeb-ExtraLight.ttf in Resources */,
 				65E281E32697259D00377913 /* Roboto-Black.ttf in Resources */,
 				65E281E42697259D00377913 /* VerificationViewController.xib in Resources */,
+				14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */,
 				65E281E52697259D00377913 /* Roboto-Italic.ttf in Resources */,
 				65E281E62697259D00377913 /* Roboto-MediumItalic.ttf in Resources */,
 				65E281E72697259D00377913 /* TitilliumWeb-Regular.ttf in Resources */,
@@ -1539,12 +1572,14 @@
 				65E281CF2697259D00377913 /* Cache.swift in Sources */,
 				90A3E617273C6B2C00D161BD /* Array+Utils.swift in Sources */,
 				65E281D02697259D00377913 /* CameraViewController.swift in Sources */,
+				14EB429B275FAFFF006E9183 /* DebugViewModel.swift in Sources */,
 				65E281D12697259D00377913 /* MainCoordinator.swift in Sources */,
 				65E281D22697259D00377913 /* DateFormatter+Default.swift in Sources */,
 				65E281D32697259D00377913 /* HCert+Vaccine.swift in Sources */,
 				65E3C1D72716D87A004B2E98 /* Store.swift in Sources */,
 				90C2EB1C2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */,
 				90A3E614273AFC3700D161BD /* Connectivity.swift in Sources */,
+				14EB42A2275FE2B9006E9183 /* DebugCell.swift in Sources */,
 				9037A0A7270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */,
 				65E281D42697259D00377913 /* VerificationViewController.swift in Sources */,
 				65E281D52697259D00377913 /* UIViewController+Alert.swift in Sources */,
@@ -1555,6 +1590,7 @@
 				65E7000D26AF753C00715CCC /* AppView.swift in Sources */,
 				65F280C926D65269009BC452 /* GatewayConnection+Revocation.swift in Sources */,
 				65E281D72697259D00377913 /* RecoveryValidityCheck.swift in Sources */,
+				14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */,
 				65C3A55F26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
 				659605F426E7911E008AD4E2 /* ProgressView.swift in Sources */,
 				65EFB62A26B0BFC00081682B /* CertLogicValidator.swift in Sources */,

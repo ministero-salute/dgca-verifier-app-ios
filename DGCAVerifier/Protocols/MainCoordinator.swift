@@ -76,6 +76,13 @@ extension MainCoordinator: HomeCoordinator {
         navigationController.pushViewController(controller, animated: true)
     }
     
+    func openDebug() {
+        let vm = DebugViewModel()
+        let controller = DebugViewController(coordinator: self, viewModel: vm)
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 extension MainCoordinator: CameraCoordinator {
@@ -102,5 +109,11 @@ extension MainCoordinator: SettingsCoordinator {
     
     func openWebURL(url: URL){
         UIApplication.shared.open(url)
+    }
+}
+
+extension MainCoordinator: DebugCoordinator {
+    func dismissDebugPage(completion: (() -> ())?) {
+        navigationController.popViewController(animated: true)
     }
 }

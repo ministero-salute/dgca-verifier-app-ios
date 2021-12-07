@@ -20,7 +20,7 @@
 //  RevocationValidityCheckTests.swift
 //  VerificaC19
 //
-//  Created by Johnny Bueti IBM on 11/11/21.
+//  Created by Johnny Bueti on 11/11/21.
 //
 
 import XCTest
