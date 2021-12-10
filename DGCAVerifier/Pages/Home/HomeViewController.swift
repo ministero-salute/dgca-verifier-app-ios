@@ -31,6 +31,7 @@ protocol HomeCoordinator: Coordinator {
     func showCamera()
     func showCountries()
     func openSettings()
+    func openDebug()
 }
 
 class HomeViewController: UIViewController {
@@ -45,6 +46,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var scanButton: AppButton!
     @IBOutlet weak var countriesButton: AppButton!
     @IBOutlet weak var updateNowButton: AppButton!
+    @IBOutlet weak var debugInfoButton: UIButton!
     
     @IBOutlet weak var lastFetchContainer: UIView!
     @IBOutlet weak var progressContainer: UIView!
@@ -56,6 +58,7 @@ class HomeViewController: UIViewController {
     let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var debugView: UIView!
     
     private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized]
     private var modePickerView = UIPickerView()
@@ -94,6 +97,7 @@ class HomeViewController: UIViewController {
         setScanModeButton()
         setScanButton()
         setCountriesButton()
+        setDebugView()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
     }
@@ -113,6 +117,11 @@ class HomeViewController: UIViewController {
     private func setUpSettingsAction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(settingsImageDidTap))
         settingsView.addGestureRecognizer(tap)
+    }
+    
+    private func setupDebugAction() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showDebugInfoDidTap))
+        self.debugView.addGestureRecognizer(tap)
     }
     
     private func subscribeEvents() {
@@ -237,6 +246,14 @@ class HomeViewController: UIViewController {
     private func setCountriesButton() {
         countriesButton.style = .clear
         countriesButton.setRightImage(named: "icon_arrow-right")
+    }
+    
+    private func setDebugView() {
+        #if !DEBUG
+        self.debugView.isHidden = true
+        #else
+        self.setupDebugAction()
+        #endif
     }
     
     func initializeSync() {
@@ -368,6 +385,12 @@ class HomeViewController: UIViewController {
         let isLoading = viewModel.isLoading.value ?? false
         guard !isLoading else { return }
         viewModel.startOperations()
+    }
+    
+    @IBAction func showDebugInfoDidTap(_ sender: Any) {
+        #if DEBUG
+        self.coordinator?.openDebug()
+        #endif
     }
     
     private func showNotAvailable() {
