@@ -31,18 +31,27 @@ class PickerViewController: UIViewController {
     @IBOutlet weak var pickerView:          UIStackView!
     @IBOutlet weak var backgroundView:      UIView!
     @IBOutlet weak var pickerViewComponent: UIPickerView!
+    @IBOutlet weak var pickerViewHeader:    UIView!
+    @IBOutlet weak var pickerViewTitle:     UILabel!
     @IBOutlet weak var itemDone:            UIBarButtonItem!
     @IBOutlet weak var itemCancel:          UIBarButtonItem!
     
     private lazy var content: PickerContent = .init(doneButtonTitle: "label.done".localized, cancelButtonTitle: "label.cancel".localized, pickerOptions: [])
     
+    /// Determines whether the tap on the background view dismisses the `PickerView` or not.
+    private var isTapToDismissEnabled: Bool = true
+    
     public struct PickerContent {
+        var headerTitle:        String?
         var doneButtonTitle:    String = "label.done".localized
-        var cancelButtonTitle:  String = "label.cancel".localized
+        var cancelButtonTitle:  String? = "label.cancel".localized
         var pickerOptions:      [String]
         var selectedOption:     Int = 0
         var doneCallback:       ((PickerViewController) -> ())? = nil
         var cancelCallback:     (() -> ())? = nil
+        
+        /// Determines whether the user should be able to tap anywhere outside the `PickerView` area to dismiss the `PickerView`.
+        var tapAnywhereToDismissEnabled: Bool = true
     }
     
     public static func present(for sender: UIViewController, with content: PickerContent) {
@@ -62,7 +71,8 @@ class PickerViewController: UIViewController {
     
     override func viewDidLoad() {
         self.fillView(with: self.content)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCancel))
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
         backgroundView.addGestureRecognizer(tap)
     }
     
@@ -73,9 +83,6 @@ class PickerViewController: UIViewController {
     
     private func fillView(with content: PickerContent) {
         self.initialize()
-        
-        self.itemDone.title     = content.doneButtonTitle
-        self.itemCancel.title   = content.cancelButtonTitle
     }
     
     private func initialize() {
@@ -83,8 +90,19 @@ class PickerViewController: UIViewController {
         self.pickerViewComponent.delegate                   = self
         self.pickerViewComponent.dataSource                 = self
         
+        if self.content.headerTitle == nil {
+            self.pickerViewHeader.isHidden = true
+        }
+        
+        self.pickerViewTitle.text                           = self.content.headerTitle
+        
+        self.itemDone.title                                 = content.doneButtonTitle
+        self.itemCancel.title                               = content.cancelButtonTitle
+        
         self.itemDone.action                                = #selector(self.didTapDone)
         self.itemCancel.action                              = #selector(self.didTapCancel)
+        
+        self.isTapToDismissEnabled                          = content.tapAnywhereToDismissEnabled
         
         self.backgroundView.backgroundColor                 = backgroundColor
         self.view.backgroundColor                           = .clear
@@ -99,6 +117,12 @@ class PickerViewController: UIViewController {
     public func selectedRow() -> Int {
         return self.pickerViewComponent.selectedRow(inComponent: 0)
     }
+    
+    /// Sets the default "tap anywhere outside the active picker area to dismiss" behaviour, enabling or disabling it. This behaviour is **enabled by default**.
+    /// - Parameter disabled: whether the behaviour should be **disabled** or not. Setting this to `true` makes it possible for the user to dismiss the `PickerView` exclusively by either tapping "Cancel" or "Done".
+    public func shouldDisableTapToDismiss(disabled: Bool) -> Void {
+        self.isTapToDismissEnabled = false
+    }
 
     @objc private func didTapDone() {
         self.dismissPicker(completionHandler: nil)
@@ -109,6 +133,14 @@ class PickerViewController: UIViewController {
         self.dismissPicker(completionHandler: nil)
         self.content.cancelCallback?()
     }
+    
+    @objc private func didTapBackground() {
+        if !self.isTapToDismissEnabled {
+            return
+        }
+        
+        self.didTapCancel()
+    }
 }
 
 extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -116,8 +148,19 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.content.pickerOptions[row]
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var optionLabel: UILabel? = (view as? UILabel)
+        
+        if optionLabel == nil {
+            optionLabel = UILabel()
+            optionLabel!.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+            optionLabel!.adjustsFontForContentSizeCategory = true
+            optionLabel!.textAlignment = .center
+        }
+        
+        optionLabel!.text = self.content.pickerOptions[row]
+        
+        return optionLabel!
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -131,7 +174,8 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController {
     private func animatePresentingPicker() {
-        pickerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.pickerView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
+        self.pickerViewHeader.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
         UIView.animate (
             withDuration: 0.5,
@@ -139,7 +183,10 @@ extension PickerViewController {
             usingSpringWithDamping: 0.9,
             initialSpringVelocity: 0.2,
             options: .curveEaseOut,
-            animations: { [weak self] in self?.pickerView.transform = .identity }
+            animations: { [weak self] in
+                self?.pickerView.transform = .identity
+                self?.pickerViewHeader.transform = .identity
+            }
         )
         
         UIView.animate(withDuration: 0.3, animations: { [weak self] in self?.backgroundView.alpha = 1.0 })
@@ -162,11 +209,18 @@ extension PickerViewController {
     }
     
     private func dismissAnimation() {
-        self.pickerView.frame = CGRect (
+        self.pickerView.frame = CGRect(
             x: 0,
             y: self.view.frame.height,
             width: self.view.frame.width,
             height: self.pickerView.frame.height
+        )
+        
+        self.pickerViewHeader.frame = CGRect(
+            x: 0,
+            y: self.view.frame.height,
+            width: self.view.frame.width,
+            height: self.pickerViewHeader.frame.height
         )
     }
     

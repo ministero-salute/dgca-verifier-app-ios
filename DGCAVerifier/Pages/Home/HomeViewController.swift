@@ -433,12 +433,14 @@ extension HomeViewController {
     
     func modeViewDidTap() {
         PickerViewController.present(for: self, with: .init(
+            headerTitle: "home.scan.picker.title".localized,
             doneButtonTitle: "label.done".localized,
-            cancelButtonTitle: "label.cancel".localized,
+            cancelButtonTitle: nil,
             pickerOptions: self.modePickerOptions,
             selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
             doneCallback: self.didModeTapDone,
-            cancelCallback: nil
+            cancelCallback: nil,
+            tapAnywhereToDismissEnabled: false
         ))
     }
     
