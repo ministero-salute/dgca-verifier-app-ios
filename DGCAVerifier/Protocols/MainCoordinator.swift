@@ -32,7 +32,6 @@ protocol Coordinator: AnyObject {
     func start()
     func dismiss()
     func dismissToRoot()
-    
 }
 
 class MainCoordinator: Coordinator {
@@ -77,11 +76,13 @@ extension MainCoordinator: HomeCoordinator {
     }
     
     func openDebug() {
+        #if DEBUG
         let vm = DebugViewModel()
         let controller = DebugViewController(coordinator: self, viewModel: vm)
         controller.modalPresentationStyle = .overFullScreen
         controller.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(controller, animated: true)
+        #endif
     }
 }
 
@@ -112,8 +113,10 @@ extension MainCoordinator: SettingsCoordinator {
     }
 }
 
+#if DEBUG
 extension MainCoordinator: DebugCoordinator {
     func dismissDebugPage(completion: (() -> ())?) {
         navigationController.popViewController(animated: true)
     }
 }
+#endif
