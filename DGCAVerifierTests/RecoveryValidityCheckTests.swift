@@ -71,26 +71,6 @@ class RecoveryValidityCheckTest: XCTestCase {
         XCTAssertEqual(isRecoveryDateValidResult, .valid)
     }
     
-    func testValidPartiallyRecoveryDate() {
-        let recoverySettingStartDay = Setting(name: "recovery_cert_start_day", type: "GENERIC", value: "0")
-        let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "7")
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
-        let todayDate : Date = Date()
-        let pastDfDate = Calendar.current.date(byAdding: .day, value: -5, to: todayDate)!
-        let pastDuDate = Calendar.current.date(byAdding: .day, value: -1, to: todayDate)!
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let pastDfDateFormatted = dateFormatter.string(from: pastDfDate)
-        let pastDuDateFormatted = dateFormatter.string(from: pastDuDate)
-        bodyString = bodyString.replacingOccurrences(of: "\"df\": \"2021-05-04\"", with: "\"df\": \"\(pastDfDateFormatted)\"")
-        bodyString = bodyString.replacingOccurrences(of: "\"du\": \"2021-10-31\"", with: "\"du\": \"\(pastDuDateFormatted)\"")
-        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        let isRecoveryDateValidResult = recoveryValidityCheck.isRecoveryValid(hcert)
-        
-        XCTAssertEqual(isRecoveryDateValidResult, .validPartially)
-    }
-    
     func testFutureRecoveryDate() {
         let recoverySettingStartDay = Setting(name: "recovery_cert_start_day", type: "GENERIC", value: "0")
         let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "1")

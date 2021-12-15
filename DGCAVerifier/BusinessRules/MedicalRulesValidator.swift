@@ -65,7 +65,7 @@ struct MedicalRulesValidator: Validator {
         case validityStart...validityEnd:
             return .valid
         case validityEnd...validityEndExtension:
-            return .validPartially
+            return .valid
         default:
             return .notValid
         }
