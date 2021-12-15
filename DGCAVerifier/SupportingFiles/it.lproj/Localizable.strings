@@ -40,8 +40,7 @@
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 
-"result.title.valid" = "Certificazione valida in %@ e in Europa";
-"result.title.valid.partially" = "Certificazione valida solo in Italia";
+"result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";

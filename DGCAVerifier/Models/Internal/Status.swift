@@ -27,7 +27,6 @@ import UIKit
 
 enum Status {
     case valid
-    case validPartially
     case notValid
     case notValidYet
     case notGreenPass

@@ -59,7 +59,7 @@ struct VaccineValidityCheck {
         
         let result = Validator.validate(currentDate, from: fromDate, to: validityEnd)
         guard result == .valid else { return result }
-        if !lastDose { return .validPartially }
+        if !lastDose { return .valid }
         return result
     }
     
