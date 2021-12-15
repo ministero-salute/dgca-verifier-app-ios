@@ -101,18 +101,6 @@ class HomeViewController: UIViewController {
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
     }
-    
-    private func bindScanEnabled() {
-        viewModel.isScanEnabled.add(observer: self) { [weak self] scanEnabled in
-            guard let scanEnabled = scanEnabled else { return }
-            if scanEnabled {
-                self?.enableScanButton()
-            }
-            else {
-                self?.disableScanButton()
-            }
-        }
-    }
 
     private func setUpSettingsAction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(settingsImageDidTap))
@@ -130,6 +118,19 @@ class HomeViewController: UIViewController {
         bindShowMore()
         bindConfirmButton()
         bindResumeButton()
+        bindSyncStatusChanged()
+    }
+    
+    private func bindScanEnabled() {
+        viewModel.isScanEnabled.add(observer: self) { [weak self] scanEnabled in
+            guard let scanEnabled = scanEnabled else { return }
+            if scanEnabled {
+                self?.enableScanButton()
+            }
+            else {
+                self?.disableScanButton()
+            }
+        }
     }
     
     func bindResults() {
@@ -164,13 +165,28 @@ class HomeViewController: UIViewController {
             .addTarget(self, action: #selector(resumeSync), for: .touchUpInside)
     }
     
+    func bindSyncStatusChanged() {
+        self.viewModel.syncStatus.add(observer: self, { [weak self] syncStatus in
+            guard let syncStatus = syncStatus else { return }
+            
+            switch syncStatus {
+                case .downloadReady:        self?.crlDownloadNeeded()
+                case .downloading:          self?.showDownloadingProgress()
+                case .completed:            self?.downloadCompleted()
+                case .paused:               self?.downloadPaused()
+                case .error:                self?.downloadError()
+                case .statusNetworkError:   self?.networkStatusError()
+            }
+        })
+    }
+    
     private func manage(_ result: HomeViewModel.Result?) {
         guard let result = result else { return }
         switch result {
-        case .initializeSync:   initializeSync()
-        case .updateComplete:   updateLastFetch(isLoading: false)
-        case .versionOutdated:  showCustomAlert(key: "version.outdated")
-        case .error(_):         lastFetchLabel.text = "error"
+            case .initializeSync:   initializeSync()
+            case .updateComplete:   updateLastFetch(isLoading: false)
+            case .versionOutdated:  showCustomAlert(key: "version.outdated")
+            case .error(_):         lastFetchLabel.text = "error"
         }
     }
     
@@ -208,7 +224,7 @@ class HomeViewController: UIViewController {
         if Store.getBool(key: .isScanModeSet) {
             scanModeButton.titleLabel?.font = Font.getFont(size: 14, style: .regular)
             
-            let isScanMode2G: Bool = Store.getBool(key: .isScanMode2G)
+            let isScanMode2G: Bool = self.viewModel.isScanMode2G()
             let localizedBaseScanModeButtonTitle: String = isScanMode2G ? "home.scan.button.mode.2G".localized : "home.scan.button.mode.3G".localized
             let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
             let boldLocalizedText: String = isScanMode2G ? "home.scan.button.bold.2G".localized : "home.scan.button.bold.3G".localized
@@ -222,25 +238,12 @@ class HomeViewController: UIViewController {
     }
     
     private func setScanButton() {
-        viewModel.isScanEnabled.value = !shouldDisableScanButton()
+        viewModel.isScanEnabled.value = self.viewModel.isAppReadyToScan() == .canScan
         scanButton.setRightImage(named: "icon_qr-code")
     }
     
     private func updateScanButtonStatus() {
-        viewModel.isScanEnabled.value = !shouldDisableScanButton()
-    }
-    
-    private func shouldDisableScanButton() -> Bool {
-        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        let certFetchUpdated            = certFetch > 0
-
-        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
-
-        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
-
-        let hideCondition = (viewModel.isVersionOutdated() || !Store.getBool(key: .isScanModeSet) || !certFetchUpdated || (isCRLAllowed && (crlFetchOutdated || !isCRLDownloadCompleted)))
-        return hideCondition
+        viewModel.isScanEnabled.value = self.viewModel.isAppReadyToScan() == .canScan
     }
     
     private func setCountriesButton() {
@@ -291,24 +294,21 @@ class HomeViewController: UIViewController {
     }
     
     @objc func startSync() {
-        guard Connectivity.isOnline else {
+        guard self.viewModel.isConnectionAvailable() else {
             showAlert(key: "no.connection")
             return
         }
         
-        if sync.noPendingDownload || sync.needsServerStatusUpdate {
-            sync.start()
-        } else {
-            sync.download()
-        }
+        self.viewModel.startSync()
     }
     
     @objc func resumeSync() {
-        guard Connectivity.isOnline else {
+        guard self.viewModel.isConnectionAvailable() else {
             showAlert(key: "no.connection")
             return
         }
-        sync.download()
+        
+        self.viewModel.startDownloading()
     }
 
     private func showAlert(key: String) {
@@ -346,39 +346,29 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scan(_ sender: Any) {
-        guard !viewModel.isVersionOutdated() else { return showCustomAlert(key: "version.outdated") }
-                
-        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        let certFetchUpdated            = certFetch > 0
+        let scanStatus: HomeViewModel.ScanStatus = self.viewModel.isAppReadyToScan()
         
-        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        var scanErrorMessage: String?
         
-        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
-        
-        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset") }
-        
-        guard certFetchUpdated else {
-            showCustomAlert(key: "no.keys")
-            return
+        switch scanStatus {
+            case .versionOutdated: scanErrorMessage = "version.outdated"
+            case .scanModeUnset: scanErrorMessage = "scan.unset"
+            case .certFetchOutdated: scanErrorMessage = "no.keys"
+            case .drlFetchOutdated: scanErrorMessage = "crl.outdated"
+            case .drlDownloadNotCompleted: scanErrorMessage = "crl.update.resume"
+            case .canScan: break
         }
         
-        if isCRLAllowed {
-            guard !crlFetchOutdated else {
-                showCustomAlert(key: "crl.outdated")
-                return
-            }
-            guard isCRLDownloadCompleted else {
-                showCustomAlert(key: "crl.update.resume")
-                return
-            }
+        if let scanErrorMessage = scanErrorMessage {
+            self.showCustomAlert(key: scanErrorMessage)
+            return
         }
         
         coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
-        guard !viewModel.isVersionOutdated() else { return showCustomAlert(key: "version.outdated") }
+        guard !self.viewModel.isVersionOutdated() else { return showCustomAlert(key: "version.outdated") }
     }
     
     @IBAction func updateNow(_ sender: Any) {
@@ -436,20 +426,6 @@ class HomeViewController: UIViewController {
         progressContainer.isHidden = !value
     }
     
-}
-
-extension HomeViewController: CRLSynchronizationDelegate {
-    
-    func statusDidChange(with result: CRLSynchronizationManager.Result) {
-        switch result {
-        case .downloadReady:        crlDownloadNeeded()
-        case .downloading:          showDownloadingProgress()
-        case .completed:            downloadCompleted()
-        case .paused:               downloadPaused()
-        case .error:                downloadError()
-        case .statusNetworkError:   networkStatusError()
-        }
-    }
 }
 
 extension HomeViewController {

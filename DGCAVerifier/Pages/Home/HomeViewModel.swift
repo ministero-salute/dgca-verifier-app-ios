@@ -33,10 +33,21 @@ class HomeViewModel {
         case error(String)
     }
     
-    let results: Observable<Result>     = Observable(nil)
-    let isLoading: Observable<Bool>     = Observable(true)
+    public enum ScanStatus {
+        case versionOutdated
+        case certFetchOutdated
+        case drlFetchOutdated
+        case drlDownloadNotCompleted
+        case scanModeUnset
+        case canScan
+    }
+    
+    let results: Observable<Result> = Observable(nil)
+    let isLoading: Observable<Bool> = Observable(true)
     let isScanEnabled: Observable<Bool> = Observable(false)
-    var dispatchGroupErrors: [String]   = .init()
+    let syncStatus: Observable<CRLSynchronizationManager.Result> = Observable(nil)
+    var dispatchGroupErrors: [String] = .init()
+    let sync: CRLSynchronizationManager = CRLSynchronizationManager.shared
     
     public func startOperations() {
         isLoading.value = true
@@ -76,6 +87,47 @@ class HomeViewModel {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
     
+    public func isScanMode2G() -> Bool {
+        return Store.getBool(key: .isScanMode2G)
+    }
+    
+    public func isAppReadyToScan() -> ScanStatus {
+        if self.isVersionOutdated() { return .versionOutdated }
+                
+        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        let certFetchUpdated            = certFetch > 0
+        
+        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        
+        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
+        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
+        
+        guard Store.getBool(key: .isScanModeSet) else { return .scanModeUnset }
+        
+        if !certFetchUpdated { return .certFetchOutdated }
+        if !isCRLAllowed { return .canScan }
+        if crlFetchOutdated { return .drlFetchOutdated }
+        if !isCRLDownloadCompleted { return .drlDownloadNotCompleted }
+        
+        return .canScan
+    }
+    
+    public func isConnectionAvailable() -> Bool {
+        return Connectivity.isOnline
+    }
+    
+    public func startSync() {
+        if self.sync.noPendingDownload || sync.needsServerStatusUpdate {
+            sync.start()
+        } else {
+            sync.download()
+        }
+    }
+    
+    public func startDownloading() -> Void {
+        sync.download()
+    }
+    
     private func minVersion() -> String? {
         return SettingDataStorage
             .sharedInstance
@@ -84,6 +136,12 @@ class HomeViewModel {
             .value
     }
 
+}
+
+extension HomeViewModel: CRLSynchronizationDelegate {
+    func statusDidChange(with result: CRLSynchronizationManager.Result) {
+        self.syncStatus.value = result
+    }
 }
 
 extension HomeViewModel {
