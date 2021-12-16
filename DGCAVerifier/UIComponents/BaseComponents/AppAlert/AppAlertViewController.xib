@@ -42,7 +42,7 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabelLinks" customModule="VerificaC19" customModuleProvider="target">
+                                        <label opaque="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="36.5" width="283" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
