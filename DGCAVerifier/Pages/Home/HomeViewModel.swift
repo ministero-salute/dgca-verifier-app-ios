@@ -60,6 +60,8 @@ class HomeViewModel {
         // Initialize DRLSynchronizationManager
         self.sync.initialize(delegate: self)
         
+        Store.set(false, for: .isTorchActive)
+        
         if updateLastFetch {
             LocalData.sharedInstance.lastFetch = Date()
             LocalData.sharedInstance.save()

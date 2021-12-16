@@ -53,8 +53,6 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var lastFetchLabel: AppLabel!
-    
-    let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
@@ -83,7 +81,6 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Store.set(false, for: .isTorchActive)
         setScanModeButtonText()
     }
     
@@ -185,7 +182,7 @@ class HomeViewController: UIViewController {
         guard let result = result else { return }
         switch result {
             case .updateComplete:   updateLastFetch(isLoading: false)
-            case .versionOutdated:  showCustomAlert(key: "version.outdated")
+            case .versionOutdated:  self.coordinator?.showCustomAlert(for: self, key: "version.outdated")
             case .error(_):         lastFetchLabel.text = "error"
         }
     }
@@ -317,20 +314,6 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func showCustomAlert(key: String) {
-        AppAlertViewController.present(for: self, with: .init(
-            title: "alert.\(key).title".localized,
-            message: "alert.\(key).message".localized,
-            confirmAction: nil,
-            confirmActionTitle: "alert.default.action".localized,
-            cancelAction: nil,
-            cancelActionTitle: nil))
-    }
-    
-    private func showCustomAlert(content: AlertContent) {
-        AppAlertViewController.present(for: self, with: content)
-    }
-    
     private func showDRLUpdateAlert() {
         let drlProgress: DRLProgress = self.viewModel.getDRLProgress()
         
@@ -343,7 +326,7 @@ class HomeViewController: UIViewController {
             cancelActionTitle: "drl.update.try.later"
         )
 
-        self.showCustomAlert(content: content)
+        self.coordinator?.showCustomAlert(for: self, content: content)
     }
     
     private func showNoConnectionAlert() {
@@ -356,7 +339,7 @@ class HomeViewController: UIViewController {
             cancelActionTitle: nil
         )
         
-        self.showCustomAlert(content: content)
+        self.coordinator?.showCustomAlert(for: self, content: content)
     }
     
     private func disableScanButton(){
@@ -388,7 +371,7 @@ class HomeViewController: UIViewController {
         }
         
         if let scanErrorMessage = scanErrorMessage {
-            self.showCustomAlert(key: scanErrorMessage)
+            self.coordinator?.showCustomAlert(for: self, key: scanErrorMessage)
             return
         }
         
@@ -396,7 +379,10 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
-        guard !self.viewModel.isVersionOutdated() else { return showCustomAlert(key: "version.outdated") }
+        guard !self.viewModel.isVersionOutdated() else {
+            self.coordinator?.showCustomAlert(for: self, key: "version.outdated")
+            return
+        }
     }
     
     @IBAction func updateNow(_ sender: Any) {

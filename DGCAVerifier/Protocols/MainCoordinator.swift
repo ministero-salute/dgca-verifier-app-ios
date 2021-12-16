@@ -32,6 +32,8 @@ protocol Coordinator: AnyObject {
     func start()
     func dismiss()
     func dismissToRoot()
+    func showCustomAlert(for controller: UIViewController, key: String)
+    func showCustomAlert(for controller: UIViewController, content: AlertContent)
 }
 
 class MainCoordinator: Coordinator {
@@ -56,6 +58,20 @@ class MainCoordinator: Coordinator {
         navigationController.popToRootViewController(animated: true)
     }
 
+    func showCustomAlert(for controller: UIViewController, key: String) {
+        AppAlertViewController.present(for: controller, with: .init(
+            title: "alert.\(key).title".localized,
+            message: "alert.\(key).message".localized,
+            confirmAction: nil,
+            confirmActionTitle: "alert.default.action".localized,
+            cancelAction: nil,
+            cancelActionTitle: nil)
+        )
+    }
+    
+    func showCustomAlert(for controller: UIViewController, content: AlertContent) {
+        AppAlertViewController.present(for: controller, with: content)
+    }
 }
 
 extension MainCoordinator: HomeCoordinator {
