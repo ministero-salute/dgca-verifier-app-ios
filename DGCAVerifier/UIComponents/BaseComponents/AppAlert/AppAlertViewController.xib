@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
                 <outlet property="alertView" destination="YIM-Fs-0ZT" id="Y4l-2g-Jug"/>
                 <outlet property="cancelButton" destination="Xtc-3X-ldM" id="ZOW-iX-Atx"/>
                 <outlet property="confirmButton" destination="LyC-d4-NRu" id="dVd-Oe-KJA"/>
-                <outlet property="messageLabel" destination="4DA-XF-bYZ" id="R99-Dl-5Fg"/>
+                <outlet property="messageLabel" destination="4DA-XF-bYZ" id="80b-GF-YFg"/>
                 <outlet property="titleLabel" destination="JiI-5C-sGj" id="1e5-Xf-J7t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,7 +42,7 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                        <label opaque="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="36.5" width="283" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -73,7 +73,7 @@
                                     <rect key="frame" x="16" y="0.0" width="240" height="35"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyC-d4-NRu" userLabel="Confirm Button" customClass="AppButton" customModule="AppUIComponents" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyC-d4-NRu" userLabel="Confirm Button" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="272" y="0.0" width="11" height="35"/>
                                     <state key="normal" title="Conferma"/>
                                     <connections>

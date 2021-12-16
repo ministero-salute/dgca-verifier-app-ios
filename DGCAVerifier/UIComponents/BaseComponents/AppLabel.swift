@@ -30,6 +30,7 @@ class AppLabel: UILabel {
     @IBInspectable var bold: Bool = false       { didSet { initialize() } }
     @IBInspectable var size: CGFloat = 12       { didSet { initialize() } }
     @IBInspectable var uppercased: Bool = false { didSet { initialize() } }
+    @IBInspectable var containsLinks: Bool = false
     
     override var text: String? { didSet { toUppercase() } }
     
@@ -54,5 +55,59 @@ class AppLabel: UILabel {
         guard (text?.uppercased() ?? "") != (text ?? "") else { return }
         text = text?.uppercased()
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        guard let attributedText = self.attributedText, self.containsLinks else {
+            return super.point(inside: point, with: event)
+        }
+                
+        let textContainer = NSTextContainer(size: bounds.size)
+        textContainer.lineFragmentPadding = 0.0
+        textContainer.lineBreakMode = lineBreakMode
+        textContainer.maximumNumberOfLines = numberOfLines
+        
+        let layoutManager = NSLayoutManager()
+        layoutManager.addTextContainer(textContainer)
+        
+       
+        let textStorage = NSTextStorage(attributedString: attributedText)
+        textStorage.addAttribute(NSAttributedString.Key.font, value: font!, range: NSMakeRange(0, attributedText.length))
+        textStorage.addLayoutManager(layoutManager)
+        
+        let locationOfTouchInLabel = point
+        
+        let textBoundingBox = layoutManager.usedRect(for: textContainer)
+        var alignmentOffset: CGFloat!
+        switch textAlignment {
+        case .left, .natural, .justified:
+            alignmentOffset = 0.0
+        case .center:
+            alignmentOffset = 0.5
+        case .right:
+            alignmentOffset = 1.0
+        @unknown default:
+            fatalError()
+        }
+        
+        let xOffset = ((bounds.size.width - textBoundingBox.size.width) * alignmentOffset) - textBoundingBox.origin.x
+        let yOffset = ((bounds.size.height - textBoundingBox.size.height) * alignmentOffset) - textBoundingBox.origin.y
+        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - xOffset, y: locationOfTouchInLabel.y - yOffset)
+        
+        let characterIndex = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        let attributeName = NSAttributedString.Key.link
+        
+        let attributeValue = self.attributedText?.attribute(attributeName, at: characterIndex, effectiveRange: nil)
+        
+        if let value = attributeValue {
+            if let url = value as? URL {
+                UIApplication.shared.open(url)
+            }
+        }
+        
+        return super.point(inside: point, with: event)
+        
+    }
+    
 }
-

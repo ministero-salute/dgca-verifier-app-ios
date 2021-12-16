@@ -268,6 +268,12 @@
 		90A3E617273C6B2C00D161BD /* Array+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A3E615273C6B2C00D161BD /* Array+Utils.swift */; };
 		90BD8F4F272C1C8A00BE816B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BD8F4E272C1C8A00BE816B /* Constants.swift */; };
 		90BD8F50272C1C8A00BE816B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BD8F4E272C1C8A00BE816B /* Constants.swift */; };
+		90BED815276A4F15006225CE /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED814276A4F15006225CE /* String+HTML.swift */; };
+		90BED816276A4F15006225CE /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED814276A4F15006225CE /* String+HTML.swift */; };
+		90BED818276A570E006225CE /* String+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED817276A570E006225CE /* String+Link.swift */; };
+		90BED819276A570E006225CE /* String+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED817276A570E006225CE /* String+Link.swift */; };
+		90BED81B276A682C006225CE /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED81A276A682C006225CE /* String+Range.swift */; };
+		90BED81C276A682C006225CE /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BED81A276A682C006225CE /* String+Range.swift */; };
 		90C2EB1B2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2EB192726BA9B00E06A5F /* SettingsHeaderCell.swift */; };
 		90C2EB1C2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2EB192726BA9B00E06A5F /* SettingsHeaderCell.swift */; };
 		90C2EB1D2726BA9B00E06A5F /* SettingsHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C2EB1A2726BA9B00E06A5F /* SettingsHeaderCell.xib */; };
@@ -458,6 +464,9 @@
 		90A3E612273AFC3700D161BD /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		90A3E615273C6B2C00D161BD /* Array+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
 		90BD8F4E272C1C8A00BE816B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		90BED814276A4F15006225CE /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
+		90BED817276A570E006225CE /* String+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Link.swift"; sourceTree = "<group>"; };
+		90BED81A276A682C006225CE /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
 		90C2EB192726BA9B00E06A5F /* SettingsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderCell.swift; sourceTree = "<group>"; };
 		90C2EB1A2726BA9B00E06A5F /* SettingsHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHeaderCell.xib; sourceTree = "<group>"; };
 		90C421CB2729A60900B50ABC /* Int+Bytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Bytes.swift"; sourceTree = "<group>"; };
@@ -879,6 +888,9 @@
 				65E28194269721ED00377913 /* String+Localization.swift */,
 				65C3A55326AEF642000BBCC5 /* String+UIImage.swift */,
 				6B797DD926D0528200EB2873 /* String+SHA256.swift */,
+				90BED814276A4F15006225CE /* String+HTML.swift */,
+				90BED817276A570E006225CE /* String+Link.swift */,
+				90BED81A276A682C006225CE /* String+Range.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -1504,6 +1516,7 @@
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
 				656433B526D787C300A41590 /* RevokedDCC.swift in Sources */,
+				90BED816276A4F15006225CE /* String+HTML.swift in Sources */,
 				65021B6926AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65021B5426AEC88E004C3D14 /* UIView+Shadow.swift in Sources */,
 				65EFB60D26B06AD80081682B /* SettingsDataStorage.swift in Sources */,
@@ -1542,6 +1555,7 @@
 				658CB72626AF3C1200B90EC0 /* Status+Configuration.swift in Sources */,
 				65021B5326AEC88E004C3D14 /* UIView+Set.swift in Sources */,
 				6B797DDB26D0528200EB2873 /* String+SHA256.swift in Sources */,
+				90BED819276A570E006225CE /* String+Link.swift in Sources */,
 				656150E12726A9C40076BAE4 /* String+Bool.swift in Sources */,
 				658CB71F26AF359100B90EC0 /* UIImage+Rotate.swift in Sources */,
 				65E281C62697259D00377913 /* String+Int.swift in Sources */,
@@ -1571,6 +1585,7 @@
 				65E281CE2697259D00377913 /* VerificationViewModel.swift in Sources */,
 				65E281CF2697259D00377913 /* Cache.swift in Sources */,
 				90A3E617273C6B2C00D161BD /* Array+Utils.swift in Sources */,
+				90BED81C276A682C006225CE /* String+Range.swift in Sources */,
 				65E281D02697259D00377913 /* CameraViewController.swift in Sources */,
 				14EB429B275FAFFF006E9183 /* DebugViewModel.swift in Sources */,
 				65E281D12697259D00377913 /* MainCoordinator.swift in Sources */,
@@ -1658,6 +1673,7 @@
 				658CB72526AF3C1200B90EC0 /* Status+Configuration.swift in Sources */,
 				65E2816C2697217B00377913 /* ResultView.swift in Sources */,
 				9037A0A6270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */,
+				90BED818276A570E006225CE /* String+Link.swift in Sources */,
 				65E281682697217B00377913 /* HomeViewController.swift in Sources */,
 				65E2819B269721ED00377913 /* Date.swift in Sources */,
 				656150E02726A9C40076BAE4 /* String+Bool.swift in Sources */,
@@ -1683,6 +1699,7 @@
 				65021B4026AEC142004C3D14 /* UILabel+Inspectable.swift in Sources */,
 				65021B3D26AEB33F004C3D14 /* UIButton+Set.swift in Sources */,
 				9037A0A9270EFD490067DCF8 /* SettingsViewModel.swift in Sources */,
+				90BED815276A4F15006225CE /* String+HTML.swift in Sources */,
 				65EFB62926B0BFC00081682B /* CertLogicValidator.swift in Sources */,
 				90A3E616273C6B2C00D161BD /* Array+Utils.swift in Sources */,
 				659605F926E7A6E0008AD4E2 /* CRLProgress.swift in Sources */,
@@ -1695,6 +1712,7 @@
 				65021B4826AEC768004C3D14 /* UIView+Shadow.swift in Sources */,
 				65021B4326AEC202004C3D14 /* UIButton+Inspectable.swift in Sources */,
 				65EFB62F26B1829E0081682B /* Link.swift in Sources */,
+				90BED81B276A682C006225CE /* String+Range.swift in Sources */,
 				1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */,
 				65E281A0269721ED00377913 /* UIViewController+Alert.swift in Sources */,
 				6B797DDA26D0528200EB2873 /* String+SHA256.swift in Sources */,
