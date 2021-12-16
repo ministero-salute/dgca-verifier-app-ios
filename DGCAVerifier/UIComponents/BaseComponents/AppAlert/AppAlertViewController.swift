@@ -68,8 +68,28 @@ public class AppAlertViewController: UIViewController {
     }
     
     private func setMessage() {
-        messageLabel.text = content.message
-        messageLabel.isHidden = content.message == nil
+        guard let message = content.message else {
+            messageLabel.isHidden = content.message == nil
+            return
+        }
+        
+        messageLabel.isHidden = false
+        
+        let linkRanges = message.extractLinksRange()
+        guard !linkRanges.isEmpty else {
+            messageLabel.text = message
+            return
+        }
+        
+        let attributedString = NSMutableAttributedString(string: message, attributes: nil)
+        linkRanges.forEach { range in
+            guard let url = URL(string: String(message[range])) else { return }
+            let urlRange = message.nsRange(from: range)
+            attributedString.addAttribute(NSAttributedString.Key.link, value: url, range: urlRange)
+        }
+        messageLabel.attributedText = attributedString
+        messageLabel.containsLinks = true
+        
     }
     
     private func setCancelButton() {

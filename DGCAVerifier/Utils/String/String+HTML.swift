@@ -1,14 +1,14 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,18 +17,24 @@
 */
 
 //
-//  Status.swift
+//  String+HTML.swift
 //  Verifier
 //
-//  Created by Andrea Prosseda on 26/07/21.
+//  Created by Emilio Apuzzo on 15/12/21.
 //
 
-import UIKit
+import Foundation
 
-enum Status {
-    case valid
-    case notValid
-    case notValidYet
-    case notGreenPass
-    case revokedGreenPass
+extension String{
+    var html: NSMutableAttributedString? {
+        do {
+            guard let data = data(using: String.Encoding.utf8) else {
+                return nil
+            }
+            return try NSMutableAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            print ("Error \(error)")
+            return nil
+        }
+    }
 }
