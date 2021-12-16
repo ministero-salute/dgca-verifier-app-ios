@@ -27,7 +27,6 @@ import Foundation
 class HomeViewModel {
     
     public enum Result {
-        case initializeSync
         case updateComplete
         case versionOutdated
         case error(String)
@@ -57,7 +56,9 @@ class HomeViewModel {
     public func loadComplete(updateLastFetch: Bool) {
         results.value = .updateComplete
         isLoading.value = false
-        results.value = .initializeSync
+        
+        // Initialize DRLSynchronizationManager
+        self.sync.initialize(delegate: self)
         
         if updateLastFetch {
             LocalData.sharedInstance.lastFetch = Date()
@@ -91,6 +92,10 @@ class HomeViewModel {
         return Store.getBool(key: .isScanMode2G)
     }
     
+    public func isScanModeSet() -> Bool {
+        return Store.getBool(key: .isScanModeSet)
+    }
+    
     public func isAppReadyToScan() -> ScanStatus {
         if self.isVersionOutdated() { return .versionOutdated }
                 
@@ -102,7 +107,7 @@ class HomeViewModel {
         let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
         let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
         
-        guard Store.getBool(key: .isScanModeSet) else { return .scanModeUnset }
+        guard self.isScanModeSet() else { return .scanModeUnset }
         
         if !certFetchUpdated { return .certFetchOutdated }
         if !isCRLAllowed { return .canScan }
@@ -124,8 +129,18 @@ class HomeViewModel {
         }
     }
     
+    // Note: was sync.download(), need to test
     public func startDownloading() -> Void {
-        sync.download()
+        sync.startDownload()
+    }
+    
+    // Note: not the model's responsibility
+    public func readyToDownload() -> Void {
+        self.sync.readyToDownload()
+    }
+    
+    public func getDRLProgress() -> CRLProgress {
+        return self.sync.progress
     }
     
     private func minVersion() -> String? {

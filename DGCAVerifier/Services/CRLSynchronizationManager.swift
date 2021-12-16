@@ -41,6 +41,10 @@ class CRLSynchronizationManager {
         case paused
         case error
         case statusNetworkError
+        case noConnection
+        
+        /// DRL snapshot size grater than `AUTOMATIC_MAX_SIZE`
+        case userInteractionRequired
     }
     
     static let shared = CRLSynchronizationManager()
@@ -120,13 +124,18 @@ class CRLSynchronizationManager {
         
     func checkDownload() {
         _progress = CRLProgress(serverStatus: _serverStatus)
-        guard !requireUserInteraction else { return showCRLUpdateAlert() }
+        
+        guard !requireUserInteraction else {
+            self.delegate?.statusDidChange(with: .userInteractionRequired)
+            return
+        }
+        
         startDownload()
     }
     
     func startDownload() {
         guard Connectivity.isOnline else {
-            self.showNoConnectionAlert()
+            self.delegate?.statusDidChange(with: .noConnection)
             return
         }
         
@@ -225,7 +234,11 @@ class CRLSynchronizationManager {
             self.cleanAndRetry()
         case 408:
             // 408 - Timeout: resume downloading from the last persisted chunk.
-            Connectivity.isOnline ? readyToResume() : showNoConnectionAlert()
+            if Connectivity.isOnline {
+                readyToResume()
+            } else {
+                self.delegate?.statusDidChange(with: .noConnection)
+            }
         default:
             self.errorFlow()
             log("there was an unexpected HTTP error, code: \(statusCode)")
@@ -249,33 +262,6 @@ class CRLSynchronizationManager {
         let completedVersion = progress.requestedVersion
         _progress = .init(version: completedVersion)
     }
-    
-    public func showCRLUpdateAlert() {
-        let content: AlertContent = .init(
-            title: "crl.update.alert.title".localizeWith(progress.remainingSize),
-            message: "crl.update.message".localizeWith(progress.remainingSize),
-            confirmAction: { self.startDownload() },
-            confirmActionTitle: "crl.update.download.now",
-            cancelAction: { self.readyToDownload() },
-            cancelActionTitle: "crl.update.try.later"
-        )
-
-        UIApplication.showAppAlert(content: content)
-    }
-    
-    public func showNoConnectionAlert() {
-        let content: AlertContent = .init(
-            title: "alert.no.connection.title",
-            message: "alert.no.connection.message",
-            confirmAction: nil,
-            confirmActionTitle: "alert.default.action",
-            cancelAction: nil,
-            cancelActionTitle: nil
-        )
-        
-        UIApplication.showAppAlert(content: content)
-    }
-
 }
 
 extension CRLSynchronizationManager {
@@ -315,6 +301,7 @@ extension CRLSynchronizationManager {
         return localChunkSize == serverChunkSize
     }
     
+    /// Returns `true` if the download size is greater than `AUTOMATIC_MAX_SIZE`.
     private var requireUserInteraction: Bool {
         guard let size = _serverStatus?.totalSizeInByte else { return false }
         return size.doubleValue > AUTOMATIC_MAX_SIZE
