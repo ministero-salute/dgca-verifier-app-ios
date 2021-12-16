@@ -43,7 +43,7 @@ public class AppAlertViewController: UIViewController {
     
     @IBOutlet private weak var alertView: UIView!
     @IBOutlet private weak var titleLabel: AppLabel!
-    @IBOutlet private weak var messageLabel: AppLabel!
+    @IBOutlet private weak var messageLabel: AppLabelLinks!
     @IBOutlet private weak var confirmButton: AppButton!
     @IBOutlet private weak var cancelButton: AppLabelUrl!
 
@@ -68,7 +68,20 @@ public class AppAlertViewController: UIViewController {
     }
     
     private func setMessage() {
-        messageLabel.text = content.message
+        
+        guard let string = content.message else { return }
+        
+        let linkRanges = string.extractLinksRange()
+        
+        let attributedString = NSMutableAttributedString(string: string, attributes: nil)
+        
+        linkRanges.forEach { range in
+            guard let url = URL(string: String(string[range])) else {return}
+            let urlRange = string.nsRange(from: range)
+            attributedString.addAttribute(NSAttributedString.Key.link, value: url, range: urlRange)
+        }
+        
+        messageLabel.attributedText = attributedString
         messageLabel.isHidden = content.message == nil
     }
     
