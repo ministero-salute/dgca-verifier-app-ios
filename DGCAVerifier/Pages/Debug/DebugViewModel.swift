@@ -29,7 +29,7 @@ class DebugViewModel {
     private var publicKeys: [String]?
     
     public func getUCVICount() -> Int {
-        return CRLDataStorage.crlTotalNumber()
+        return DRLDataStorage.drlTotalNumber()
     }
     
     public func getKIDCount() -> Int {
@@ -45,6 +45,6 @@ class DebugViewModel {
     }
     
     public func isDRLDownloadCompleted() -> Bool {
-        return CRLDataStorage.shared.isCRLDownloadCompleted
+        return DRLDataStorage.shared.isDRLDownloadCompleted
     }
 }

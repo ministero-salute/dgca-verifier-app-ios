@@ -17,7 +17,7 @@
 */
 
 //
-//  CRLDataStorage.swift
+//  DRLDataStorage.swift
 //  Verifier
 //
 //  Created by Andrea Prosseda on 25/08/21.
@@ -28,15 +28,15 @@ import RealmSwift
 import SwiftDGC
 import SwiftyJSON
 
-struct CRLDataStorage: Codable {
+struct DRLDataStorage: Codable {
 
-    static var shared = CRLDataStorage()
-    static let storage = SecureStorage<CRLDataStorage>(fileName: "crl_secure")
+    static var shared = DRLDataStorage()
+    static let storage = SecureStorage<DRLDataStorage>(fileName: "drl_secure")
 
-    var progress: CRLProgress?
+    var progress: DRLProgress?
     var lastFetchRaw: Date?
     
-    var isCRLDownloadCompleted: Bool {
+    var isDRLDownloadCompleted: Bool {
         if let currentVersion = progress?.currentVersion, let requestedVersion = progress?.requestedVersion, let currentChunk = progress?.currentChunk, let totalChunk = progress?.totalChunk {
             return currentVersion == requestedVersion && currentChunk == totalChunk
         }
@@ -49,33 +49,33 @@ struct CRLDataStorage: Codable {
         set { lastFetchRaw = newValue }
     }
 
-    public mutating func saveProgress(_ crlProgress: CRLProgress?) {
-        progress = crlProgress
+    public mutating func saveProgress(_ drlProgress: DRLProgress?) {
+        progress = drlProgress
         save()
     }
     
 }
 
 // REALM I/O
-extension CRLDataStorage {
+extension DRLDataStorage {
     
     private static var realm: Realm { try! Realm() }
     
-    public static func store(crl: CRL) {
-        let startTime = Log.start(key: "[CRL] [STORAGE]")
-        if (crl.isSnapshot) { storeSnapshot(crl) }
-        if (crl.isDelta)    { storeDelta(crl) }
-        Log.end(key: "[CRL] [STORAGE]", startTime: startTime)
+    public static func store(drl: DRL) {
+        let startTime = Log.start(key: "[DRL] [STORAGE]")
+        if (drl.isSnapshot) { storeSnapshot(drl) }
+        if (drl.isDelta)    { storeDelta(drl) }
+        Log.end(key: "[DRL] [STORAGE]", startTime: startTime)
     }
     
-    private static func storeSnapshot(_ crl: CRL) {
-        if (isFirstChunk(crl)) { clear() }
-        addAll(hashes: crl.revokedUcvi)
+    private static func storeSnapshot(_ drl: DRL) {
+        if (isFirstChunk(drl)) { clear() }
+        addAll(hashes: drl.revokedUcvi)
     }
     
-    private static func storeDelta(_ crl: CRL) {
-        addAll(hashes: crl.delta?.insertions)
-        removeAll(hashes: crl.delta?.deletions)
+    private static func storeDelta(_ drl: DRL) {
+        addAll(hashes: drl.delta?.insertions)
+        removeAll(hashes: drl.delta?.deletions)
     }
     
     public static func addAll(hashes: [String]?) {
@@ -100,7 +100,7 @@ extension CRLDataStorage {
             .first != nil
     }
     
-    public static func crlTotalNumber() -> Int {
+    public static func drlTotalNumber() -> Int {
         let storage = realm
         return storage
             .objects(RevokedDCC.self)
@@ -122,21 +122,21 @@ extension CRLDataStorage {
         try! storage.write { storage.delete(dcc) }
     }
     
-    private static func isFirstChunk(_ crl: CRL) -> Bool {
-        crl.chunk == CRLProgress.FIRST_CHUNK
+    private static func isFirstChunk(_ drl: DRL) -> Bool {
+        drl.chunk == DRLProgress.FIRST_CHUNK
     }
 
 }
 
 // Persistence
-extension CRLDataStorage {
+extension DRLDataStorage {
     
     public func save() { Self.storage.save(self) }
     
     static func initialize(completion: @escaping () -> Void) {
-        storage.loadOverride(fallback: CRLDataStorage.shared) { success in
+        storage.loadOverride(fallback: DRLDataStorage.shared) { success in
             guard let result = success else { return }
-            CRLDataStorage.shared = result
+            DRLDataStorage.shared = result
             completion()
         }
     }

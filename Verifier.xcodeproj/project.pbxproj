@@ -69,8 +69,8 @@
 		658CB72626AF3C1200B90EC0 /* Status+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */; };
 		659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* CRLStatus.swift */; };
 		659605D926E75A6E008AD4E2 /* CRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* CRLStatus.swift */; };
-		659605DB26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */; };
-		659605DC26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */; };
+		659605DB26E75F5A008AD4E2 /* DRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLSynchronizationManager.swift */; };
+		659605DC26E75F5A008AD4E2 /* DRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLSynchronizationManager.swift */; };
 		659605DE26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605DF26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605E526E763F5008AD4E2 /* AppAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659605E226E763F5008AD4E2 /* AppAlertViewController.xib */; };
@@ -381,7 +381,7 @@
 		658CB72126AF3B5B00B90EC0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+Configuration.swift"; sourceTree = "<group>"; };
 		659605D726E75A6E008AD4E2 /* CRLStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLStatus.swift; sourceTree = "<group>"; };
-		659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLSynchronizationManager.swift; sourceTree = "<group>"; };
+		659605DA26E75F5A008AD4E2 /* DRLSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLSynchronizationManager.swift; sourceTree = "<group>"; };
 		659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlertViewController.swift; sourceTree = "<group>"; };
 		659605E226E763F5008AD4E2 /* AppAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppAlertViewController.xib; sourceTree = "<group>"; };
 		659605E726E76622008AD4E2 /* AlertContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContent.swift; sourceTree = "<group>"; };
@@ -1129,7 +1129,7 @@
 			isa = PBXGroup;
 			children = (
 				65EFB60626B068EA0081682B /* GatewayConnection */,
-				659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */,
+				659605DA26E75F5A008AD4E2 /* DRLSynchronizationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1522,7 +1522,7 @@
 				65EFB60D26B06AD80081682B /* SettingsDataStorage.swift in Sources */,
 				65E281BC2697259D00377913 /* HCert+Recovery.swift in Sources */,
 				659605ED26E77B40008AD4E2 /* Double+String.swift in Sources */,
-				659605DC26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */,
+				659605DC26E75F5A008AD4E2 /* DRLSynchronizationManager.swift in Sources */,
 				65E281BD2697259D00377913 /* LocalData+Setting.swift in Sources */,
 				65E281BE2697259D00377913 /* RulesValidator.swift in Sources */,
 				65021B6326AEDCF3004C3D14 /* Palette.swift in Sources */,
@@ -1623,7 +1623,7 @@
 				658CB72226AF3B5B00B90EC0 /* Status.swift in Sources */,
 				65F280C226D64AEF009BC452 /* CRLDataStorage.swift in Sources */,
 				65E281A6269721ED00377913 /* UIView+Set.swift in Sources */,
-				659605DB26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */,
+				659605DB26E75F5A008AD4E2 /* DRLSynchronizationManager.swift in Sources */,
 				65E281A9269721ED00377913 /* HCert+PersonalData.swift in Sources */,
 				90CDC6D9271F049A00707836 /* UIView+NibFile.swift in Sources */,
 				65021B6526AEE30F004C3D14 /* UIColor+RGB.swift in Sources */,

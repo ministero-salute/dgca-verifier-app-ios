@@ -31,37 +31,37 @@ extension GatewayConnection {
     
     private var statusUrl: String { baseUrl + "drl/check" }
     
-    func revocationStatus(_ progress: CRLProgress?, completion: ((CRLStatus?, String?, Int?) -> Void)? = nil) {
+    func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
-        status(version: version, chunk: chunk) { crlStatus, statusCode in
+        status(version: version, chunk: chunk) { drlStatus, statusCode in
             
-            guard let crlStatus = crlStatus else {
+            guard let drlStatus = drlStatus else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
                 return
             }
             
-            completion?(crlStatus, nil, statusCode)
+            completion?(drlStatus, nil, statusCode)
         }
     }
     
-    func updateRevocationList(_ progress: CRLProgress?, completion: ((CRL?, String?, Int?) -> Void)? = nil) {
+    func updateRevocationList(_ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
         
-        getCRL(version: version, chunk: chunk) { crl, statusCode in
+        getDRL(version: version, chunk: chunk) { drl, statusCode in
             
-            guard let crl = crl else {
+            guard let drl = drl else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
                 return
             }
             
-            completion?(crl, nil, statusCode)
+            completion?(drl, nil, statusCode)
         }
     }
     
-    private func getCRL(version: Int?, chunk: Int?, completion: ((CRL?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[CRL] [REST]")
+    private func getDRL(version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
+        let restStartTime = Log.start(key: "[DRL] [REST]")
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
         
@@ -71,32 +71,32 @@ extension GatewayConnection {
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
-                Log.end(key: "[CRL] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[CRL STATUS] [ERROR]")
-                Log.end(key: "[CRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "[DRL] [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "[DRL STATUS] [ERROR]")
+                Log.end(key: "[DRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[CRL] [REST]", startTime: restStartTime)
+            Log.end(key: "[DRL] [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[CRL] [JSON]")
+            let jsonStartTime = Log.start(key: "[DRL] [JSON]")
             let decoder = JSONDecoder()
-            var data = try? decoder.decode(CRL.self, from: $0.data ?? .init())
+            var data = try? decoder.decode(DRL.self, from: $0.data ?? .init())
             data?.responseSize = $0.data?.count.doubleValue
-            Log.end(key: "[CRL] [JSON]", startTime: jsonStartTime)
+            Log.end(key: "[DRL] [JSON]", startTime: jsonStartTime)
             
-            guard let crl = data else {
+            guard let drl = data else {
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            completion?(crl, responseStatusCode)
+            completion?(drl, responseStatusCode)
         }
     }
     
-    private func status(version: Int?, chunk: Int?, completion: ((CRLStatus?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[CRL STATUS] [REST]")
+    private func status(version: Int?, chunk: Int?, completion: ((DRLStatus?, Int?) -> Void)?) {
+        let restStartTime = Log.start(key: "[DRL STATUS] [REST]")
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
         
@@ -105,19 +105,19 @@ extension GatewayConnection {
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
-                Log.end(key: "[CRL] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[CRL STATUS] [ERROR]")
-                Log.end(key: "[CRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "[DRL] [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "[DRL STATUS] [ERROR]")
+                Log.end(key: "[DRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[CRL STATUS] [REST]", startTime: restStartTime)
+            Log.end(key: "[DRL STATUS] [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[CRL STATUS] [JSON]")
+            let jsonStartTime = Log.start(key: "[DRL STATUS] [JSON]")
             let decoder = JSONDecoder()
-            let data = try? decoder.decode(CRLStatus.self, from: $0.data ?? .init())
-            Log.end(key: "[CRL STATUS] [JSON]", startTime: jsonStartTime)
+            let data = try? decoder.decode(DRLStatus.self, from: $0.data ?? .init())
+            Log.end(key: "[DRL STATUS] [JSON]", startTime: jsonStartTime)
             
             guard let status = data else {
                 completion?(nil, responseStatusCode)

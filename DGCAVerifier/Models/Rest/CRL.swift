@@ -17,7 +17,7 @@
 */
 
 //
-//  CRL.swift
+//  DRL.swift
 //  Verifier
 //
 //  Created by Andrea Prosseda on 25/08/21.
@@ -25,7 +25,7 @@
 
 import Foundation
 
-struct CRL: Codable {
+struct DRL: Codable {
     var id: String?
     var version: Int?
     var chunk: Int?

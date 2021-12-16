@@ -54,7 +54,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var lastFetchLabel: AppLabel!
     
-//    var sync: CRLSynchronizationManager { CRLSynchronizationManager.shared }
     let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var settingsView: UIView!
@@ -151,7 +150,7 @@ class HomeViewController: UIViewController {
     }
     
     func bindShowMore() {
-        let tap = Tap(target: self, action: #selector(crlShowMore))
+        let tap = Tap(target: self, action: #selector(drlShowMore))
         progressView.showMoreLabel.add(tap)
     }
     
@@ -170,14 +169,14 @@ class HomeViewController: UIViewController {
             guard let syncStatus = syncStatus else { return }
             
             switch syncStatus {
-                case .downloadReady:            self?.crlDownloadNeeded()
+                case .downloadReady:            self?.drlDownloadNeeded()
                 case .downloading:              self?.showDownloadingProgress()
                 case .completed:                self?.downloadCompleted()
                 case .paused:                   self?.downloadPaused()
                 case .error:                    self?.downloadError()
                 case .statusNetworkError:       self?.networkStatusError()
                 case .noConnection:             self?.showNoConnectionAlert()
-                case .userInteractionRequired:  self?.showCRLUpdateAlert()
+                case .userInteractionRequired:  self?.showDRLUpdateAlert()
             }
         })
     }
@@ -286,8 +285,8 @@ class HomeViewController: UIViewController {
         UIApplication.shared.open(url)
     }
     
-    @objc func crlShowMore() {
-        self.showCRLUpdateAlert()
+    @objc func drlShowMore() {
+        self.showDRLUpdateAlert()
     }
     
     @objc func startSync() {
@@ -332,16 +331,16 @@ class HomeViewController: UIViewController {
         AppAlertViewController.present(for: self, with: content)
     }
     
-    private func showCRLUpdateAlert() {
-        let drlProgress: CRLProgress = self.viewModel.getDRLProgress()
+    private func showDRLUpdateAlert() {
+        let drlProgress: DRLProgress = self.viewModel.getDRLProgress()
         
         let content: AlertContent = .init(
-            title: "crl.update.alert.title".localizeWith(drlProgress.remainingSize),
-            message: "crl.update.message".localizeWith(drlProgress.remainingSize),
+            title: "drl.update.alert.title".localizeWith(drlProgress.remainingSize),
+            message: "drl.update.message".localizeWith(drlProgress.remainingSize),
             confirmAction: { self.viewModel.startDownloading() },
-            confirmActionTitle: "crl.update.download.now",
-            cancelAction: { self.crlDownloadNeeded() },
-            cancelActionTitle: "crl.update.try.later"
+            confirmActionTitle: "drl.update.download.now",
+            cancelAction: { self.drlDownloadNeeded() },
+            cancelActionTitle: "drl.update.try.later"
         )
 
         self.showCustomAlert(content: content)
@@ -383,8 +382,8 @@ class HomeViewController: UIViewController {
             case .versionOutdated: scanErrorMessage = "version.outdated"
             case .scanModeUnset: scanErrorMessage = "scan.unset"
             case .certFetchOutdated: scanErrorMessage = "no.keys"
-            case .drlFetchOutdated: scanErrorMessage = "crl.outdated"
-            case .drlDownloadNotCompleted: scanErrorMessage = "crl.update.resume"
+            case .drlFetchOutdated: scanErrorMessage = "drl.outdated"
+            case .drlDownloadNotCompleted: scanErrorMessage = "drl.update.resume"
             case .canScan: break
         }
         
@@ -416,41 +415,41 @@ class HomeViewController: UIViewController {
         lastFetchLabel.text = "home.not.available".localized
     }
     
-    private func crlDownloadNeeded() {
+    private func drlDownloadNeeded() {
         progressView.fillView(with: self.viewModel.getDRLProgress())
-        showCRL(true)
+        showDRL(true)
     }
     
     private func showDownloadingProgress() {
         updateScanButtonStatus()
         progressView.downloading(with: self.viewModel.getDRLProgress())
-        showCRL(true)
+        showDRL(true)
     }
     
     private func downloadCompleted() {
         updateScanButtonStatus()
-        showCRL(false)
+        showDRL(false)
     }
     
     private func downloadPaused() {
         updateScanButtonStatus()
         progressView.pause(with: self.viewModel.getDRLProgress())
-        showCRL(true)
+        showDRL(true)
     }
     
     private func downloadError() {
         updateScanButtonStatus()
         progressView.error(with: self.viewModel.getDRLProgress())
-        showCRL(true)
+        showDRL(true)
     }
     
     private func networkStatusError() {
         updateScanButtonStatus()
         progressView.error(with: self.viewModel.getDRLProgress(), noSize: true)
-        showCRL(true)
+        showDRL(true)
     }
     
-    private func showCRL(_ value: Bool) {
+    private func showDRL(_ value: Bool) {
         lastFetchContainer.isHidden = value
         progressContainer.isHidden = !value
     }

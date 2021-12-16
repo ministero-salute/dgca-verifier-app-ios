@@ -17,7 +17,7 @@
 */
 
 //
-//  CRL+Entity.swift
+//  DRL+Entity.swift
 //  Verifier
 //
 //  Created by Andrea Prosseda on 25/08/21.
@@ -25,7 +25,7 @@
 
 import Foundation
 
-extension CRL {
+extension DRL {
     
     var isSnapshot: Bool {
         guard let revokedUcvi = revokedUcvi else { return false }

@@ -53,19 +53,19 @@ class RevocationValidityCheckTests: XCTestCase {
             realm.deleteAll()
         }
         
-        CRLDataStorage.removeAll(hashes: nil)
+        DRLDataStorage.removeAll(hashes: nil)
     }
 
     func testRevokedUVCI() {
         let hash: String = self.hcert.uvci.sha256()
-        CRLDataStorage.add(hash: hash, on: realm)
+        DRLDataStorage.add(hash: hash, on: realm)
         
         XCTAssertTrue(RulesValidator.isRevoked(hcert))
     }
     
     func testNonRevokedUVCI() {
         let hash: String = "abcdefg".sha256()
-        CRLDataStorage.add(hash: hash, on: realm)
+        DRLDataStorage.add(hash: hash, on: realm)
         
         XCTAssertFalse(RulesValidator.isRevoked(hcert))
     }

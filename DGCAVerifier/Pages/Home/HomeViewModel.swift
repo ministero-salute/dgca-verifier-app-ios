@@ -44,9 +44,9 @@ class HomeViewModel {
     let results: Observable<Result> = Observable(nil)
     let isLoading: Observable<Bool> = Observable(true)
     let isScanEnabled: Observable<Bool> = Observable(false)
-    let syncStatus: Observable<CRLSynchronizationManager.Result> = Observable(nil)
+    let syncStatus: Observable<DRLSynchronizationManager.Result> = Observable(nil)
     var dispatchGroupErrors: [String] = .init()
-    let sync: CRLSynchronizationManager = CRLSynchronizationManager.shared
+    let sync: DRLSynchronizationManager = DRLSynchronizationManager.shared
     
     public func startOperations() {
         isLoading.value = true
@@ -102,17 +102,17 @@ class HomeViewModel {
         let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
         let certFetchUpdated            = certFetch > 0
         
-        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        let drlFetchOutdated            = DRLSynchronizationManager.shared.isFetchOutdated
         
-        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
+        let isDRLDownloadCompleted      = DRLDataStorage.shared.isDRLDownloadCompleted
+        let isDRLAllowed                = DRLSynchronizationManager.shared.isSyncEnabled
         
         guard self.isScanModeSet() else { return .scanModeUnset }
         
         if !certFetchUpdated { return .certFetchOutdated }
-        if !isCRLAllowed { return .canScan }
-        if crlFetchOutdated { return .drlFetchOutdated }
-        if !isCRLDownloadCompleted { return .drlDownloadNotCompleted }
+        if !isDRLAllowed { return .canScan }
+        if drlFetchOutdated { return .drlFetchOutdated }
+        if !isDRLDownloadCompleted { return .drlDownloadNotCompleted }
         
         return .canScan
     }
@@ -139,7 +139,7 @@ class HomeViewModel {
         self.sync.readyToDownload()
     }
     
-    public func getDRLProgress() -> CRLProgress {
+    public func getDRLProgress() -> DRLProgress {
         return self.sync.progress
     }
     
@@ -153,8 +153,8 @@ class HomeViewModel {
 
 }
 
-extension HomeViewModel: CRLSynchronizationDelegate {
-    func statusDidChange(with result: CRLSynchronizationManager.Result) {
+extension HomeViewModel: DRLSynchronizationDelegate {
+    func statusDidChange(with result: DRLSynchronizationManager.Result) {
         self.syncStatus.value = result
     }
 }
@@ -210,8 +210,8 @@ extension HomeViewModel {
     }
 
     private func loadRevocationList(in loadingGroup: DispatchGroup) {
-        CRLDataStorage.initialize {
-            print("log.crl.done")
+        DRLDataStorage.initialize {
+            print("log.drl.done")
             loadingGroup.leave()
         }
         loadingGroup.enter()

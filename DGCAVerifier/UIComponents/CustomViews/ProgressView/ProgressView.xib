@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="zQI-l8-7oE">
-                    <rect key="frame" x="24" y="60" width="351" height="267.5"/>
+                    <rect key="frame" x="24" y="16" width="351" height="267.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmG-Br-4kw" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="351" height="20.5"/>
@@ -56,7 +54,7 @@
                                     <rect key="frame" x="286" y="0.0" width="65" height="35"/>
                                     <state key="normal" title="Scarica ora"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="crl.update.download.now"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="drl.update.download.now"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>
@@ -94,7 +92,7 @@
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="crl.update.resume"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="drl.update.resume"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>
