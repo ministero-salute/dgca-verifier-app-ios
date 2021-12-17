@@ -29,10 +29,7 @@ import SwiftDGC
 struct RecoveryValidityCheck {
     
     typealias Validator = MedicalRulesValidator
-    
-    private let recoveryStartDays = "recovery_cert_start_day"
-    private let recoveryEndDays = "recovery_cert_end_day"
-    
+        
     func isRecoveryValid(_ hcert: HCert) -> Status {
         guard let validFrom = hcert.recoveryDateFrom else { return .notValid }
         guard let validUntil = hcert.recoveryDateUntil else { return .notValid }
@@ -41,7 +38,7 @@ struct RecoveryValidityCheck {
         guard let recoveryValidUntilDate = validUntil.toRecoveryDate else { return .notValid }
         
         guard let recoveryStartDays = getStartDays() else { return .notGreenPass }
-        guard let recoveryEndDays = getEndDays() else { return .notGreenPass }
+        guard let recoveryEndDays = getEndDays(hcert: hcert) else { return .notGreenPass }
         
         guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
         let validityEnd = recoveryValidUntilDate
@@ -53,13 +50,26 @@ struct RecoveryValidityCheck {
     }
     
     private func getStartDays() -> Int? {
-        return getValue(for: recoveryStartDays)?.intValue
+        return getValue(for: Constants.recoveryStartDays)?.intValue
     }
     
-    private func getEndDays() -> Int? {
-        return getValue(for: recoveryEndDays)?.intValue
+    private func getEndDays(hcert: HCert) -> Int? {
+        if isSpecialRecovery(hcert: hcert){
+            return getValue(for: Constants.recoverySpecialEndDays)?.intValue
+        }
+        else {
+            return getValue(for: Constants.recoveryEndDays)?.intValue
+        }
     }
     
+    private func isSpecialRecovery(hcert: HCert) -> Bool {
+        guard hcert.countryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
+        guard let signedCerficate = hcert.signedCerficate else { return false }
+        let extendedKeyUsage = signedCerficate.extendedKeyUsage
+        let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT}
+        return !validKeysUsages.isEmpty
+        
+    }
     
     private func getValue(for name: String) -> String? {
         return LocalData.getSetting(from: name)
