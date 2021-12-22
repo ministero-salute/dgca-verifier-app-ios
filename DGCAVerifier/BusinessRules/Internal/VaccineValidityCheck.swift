@@ -40,28 +40,34 @@ struct VaccineValidityCheck {
         guard currentDoses > 0 else { return .notValid }
         guard totalDoses > 0 else { return .notValid }
         let lastDose = currentDoses >= totalDoses
-        
+        let boosterDose = currentDoses > totalDoses || currentDoses >= 3
+
         guard let product = hcert.medicalProduct else { return .notValid }
         guard isValid(for: product) else { return .notValid }
         guard let countryCode = hcert.countryCode else { return .notValid }
         guard isAllowedVaccination(for: product, fromCountryWithCode: countryCode) else { return .notValid }
-        
+
         guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
         guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
-        
+
         guard let dateString = hcert.vaccineDate else { return .notValid }
         guard let date = dateString.toVaccineDate else { return .notValid }
         guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
         guard let validityEnd = date.add(end, ofType: .day)?.startOfDay else { return .notValid }
 
         guard let currentDate = Date.startOfDay else { return .notValid }
-        
+
         let isJJBooster = hcert.medicalProduct == Constants.JeJVacineCode && currentDoses > totalDoses
         let fromDate = isJJBooster ? date : validityStart
-        
+
         let result = Validator.validate(currentDate, from: fromDate, to: validityEnd)
         guard result == .valid else { return result }
-        if !lastDose { return .valid }
+
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        if scanMode == Constants.scanModeBooster {
+            return boosterDose ?  .valid : .verificationIsNeeded
+        }
+
         return result
     }
     

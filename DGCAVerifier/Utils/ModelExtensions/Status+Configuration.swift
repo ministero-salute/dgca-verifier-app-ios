@@ -29,59 +29,65 @@ extension Status {
     
     var backgroundColor: UIColor {
         switch self {
-        case .valid:            return Palette.green
-        default:                return Palette.red
+        case .valid:                return Palette.green
+        case .verificationIsNeeded: return Palette.blue
+        default:                    return Palette.red
         }
     }
     
     var mainImage: UIImage? {
         switch self {
-        case .valid:            return "icon_valid".image
-        case .notValid:         return "icon_not-valid".image
-        case .notValidYet:      return "icon_not-valid-yet".image
-        case .notGreenPass:     return "icon_not-green-pass".image
-        case .revokedGreenPass: return "icon_not-green-pass".image
+        case .valid:                return "icon_valid".image
+        case .notValid:             return "icon_not-valid".image
+        case .notValidYet:          return "icon_not-valid-yet".image
+        case .notGreenPass:         return "icon_not-green-pass".image
+        case .revokedGreenPass:     return "icon_not-green-pass".image
+        case .verificationIsNeeded: return "icon_not-valid-yet".image
         }
     }
     
     var title: String {
         switch self {
-        case .valid:            return "result.title.valid"
-        case .notValid:         return "result.title.not.valid"
-        case .notValidYet:      return "result.title.not.valid.yet"
-        case .notGreenPass:     return "result.title.not.green.pass"
-        case .revokedGreenPass: return "result.title.revoked.green.pass"
-
+        case .valid:                return "result.title.valid"
+        case .notValid:             return "result.title.not.valid"
+        case .notValidYet:          return "result.title.not.valid.yet"
+        case .notGreenPass:         return "result.title.not.green.pass"
+        case .revokedGreenPass:     return "result.title.revoked.green.pass"
+        case .verificationIsNeeded: return "result.title.not.valid.yet"
+            
         }
     }
     
     var description: String? {
         switch self {
-        case .valid:            return "result.description.valid"
-        case .notValidYet:      return "result.description.not.valid"
-        case .notValid:         return "result.description.not.valid"
-        case .revokedGreenPass: return "result.description.revoked"
-        default:                return nil
+        case .valid:                return "result.description.valid"
+        case .notValidYet:          return "result.description.not.valid"
+        case .notValid:             return "result.description.not.valid"
+        case .revokedGreenPass:     return "result.description.revoked"
+        case .verificationIsNeeded: return "result.description.not.valid.yet"
+        default:                    return nil
         }
     }
     
     var showPersonalData: Bool {
         switch self {
-        case .valid:            return true
-        case .notValidYet:      return true
-        case .notValid:         return true
-        case .revokedGreenPass: return true
-        default:                return false
+        case .valid:                return true
+        case .notValidYet:          return true
+        case .notValid:             return true
+        case .revokedGreenPass:     return true
+        case .verificationIsNeeded: return true
+        default:                    return false
         }
     }
     
     var showLastFetch: Bool {
         switch self {
-        case .valid:            return true
-        case .notValidYet:      return true
-        case .notValid:         return true
-        case .revokedGreenPass: return true
-        default:                return false
+        case .valid:                return true
+        case .notValidYet:          return true
+        case .notValid:             return true
+        case .revokedGreenPass:     return true
+        case .verificationIsNeeded: return true
+        default:                    return false
         }
     }
     
@@ -94,11 +100,12 @@ extension Status {
     
     var faqs: [Link] {
         switch self {
-        case .valid:            return [.whatCanBeDone]
-        case .notValidYet:      return [.qrValidityRange]
-        case .notValid:         return [.whyQrNotValid]
-        case .notGreenPass:     return [.whichQrScan]
-        case .revokedGreenPass: return []
+        case .valid:                return [.whatCanBeDone]
+        case .notValidYet:          return [.qrValidityRange]
+        case .notValid:             return [.whyQrNotValid]
+        case .notGreenPass:         return [.whichQrScan]
+        case .verificationIsNeeded: return []
+        case .revokedGreenPass:     return []
         }
     }
     

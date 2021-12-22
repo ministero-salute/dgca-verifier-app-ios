@@ -31,16 +31,17 @@ struct MedicalRulesValidator: Validator {
     static func getStatus(from hCert: HCert) -> Status {
         let statementValidityCheck = StatementValidityCheck()
         guard !statementValidityCheck.isStatementBlacklisted(hCert) else { return .notValid }
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
         switch hCert.type {
         case .test:
-            let scanMode: String = Store.get(key: .scanMode) ?? ""
-            guard scanMode != Constants.scanMode2G else { return .notValid }
+            guard scanMode != Constants.scanMode2G, scanMode != Constants.scanModeBooster else { return .notValid }
             let testValidityCheck = TestValidityCheck()
             return testValidityCheck.isTestValid(hCert)
         case .vaccine:
             let vaccineValidityCheck = VaccineValidityCheck()
             return vaccineValidityCheck.isVaccineDateValid(hCert)
         case .recovery:
+            guard scanMode != Constants.scanModeBooster else { return .notValid }
             let recoveryValidityCheck = RecoveryValidityCheck()
             return recoveryValidityCheck.isRecoveryValid(hCert)
         case .unknown:
