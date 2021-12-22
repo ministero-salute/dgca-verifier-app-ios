@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized]
+    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized, "BOOSTER TEST"]
     private var modePickerView = UIPickerView()
     private var modePickerToolBar = UIToolbar()
             
@@ -208,10 +208,25 @@ class HomeViewController: UIViewController {
         if Store.getBool(key: .isScanModeSet) {
             scanModeButton.titleLabel?.font = Font.getFont(size: 14, style: .regular)
             
-            let isScanMode2G: Bool = Store.getBool(key: .isScanMode2G)
-            let localizedBaseScanModeButtonTitle: String = isScanMode2G ? "home.scan.button.mode.2G".localized : "home.scan.button.mode.3G".localized
+            let scanMode: String = Store.get(key: .scanMode) ?? ""
+            var localizedBaseScanModeButtonTitle: String = ""
+            var boldLocalizedText: String = ""
+            
+            switch scanMode{
+            case Constants.scanMode2G:
+                localizedBaseScanModeButtonTitle = "home.scan.button.mode.2G".localized
+                boldLocalizedText = "home.scan.button.bold.2G".localized
+            case Constants.scanMode3G:
+                localizedBaseScanModeButtonTitle = "home.scan.button.mode.3G".localized
+                boldLocalizedText = "home.scan.button.bold.3G".localized
+            case Constants.scanModeBooster:
+                localizedBaseScanModeButtonTitle = "BOOSTER TEST"
+                boldLocalizedText = "BOOSTER"
+            default:
+                break
+            }
+            
             let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
-            let boldLocalizedText: String = isScanMode2G ? "home.scan.button.bold.2G".localized : "home.scan.button.bold.3G".localized
             let boldRange: NSRange = (scanModeButtonTitle.string as NSString).range(of: boldLocalizedText)
             
             scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
@@ -455,12 +470,28 @@ extension HomeViewController: CRLSynchronizationDelegate {
 extension HomeViewController {
     
     func modeViewDidTap() {
+        
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var pickerSelectedOption: Int = 0
+        
+        switch scanMode{
+        case Constants.scanMode2G:
+            pickerSelectedOption = 0
+        case Constants.scanMode3G:
+            pickerSelectedOption = 1
+        case Constants.scanModeBooster:
+            pickerSelectedOption = 2
+        default:
+            break
+        }
+        
+        
         PickerViewController.present(for: self, with: .init(
             headerTitle: "home.scan.picker.title".localized,
             doneButtonTitle: "label.done".localized,
             cancelButtonTitle: nil,
             pickerOptions: self.modePickerOptions,
-            selectedOption: Store.getBool(key: .isScanMode2G) ? 0 : 1,
+            selectedOption: pickerSelectedOption,
             doneCallback: self.didModeTapDone,
             cancelCallback: nil,
             tapAnywhereToDismissEnabled: false
@@ -470,9 +501,21 @@ extension HomeViewController {
     private func didModeTapDone(vc: PickerViewController) {
         let selectedRow: Int = vc.selectedRow()
         
+        switch selectedRow{
+        case 0:
+            Store.set(Constants.scanMode2G, for: Store.Key.scanMode)
+            Store.set(true, for: .isScanModeSet)
+        case 1:
+            Store.set(Constants.scanMode3G, for: Store.Key.scanMode)
+            Store.set(true, for: .isScanModeSet)
+        case 2:
+            Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
+            Store.set(true, for: .isScanModeSet)
+        default:
+            break
+        }
+        
         vc.selectRow(selectedRow, animated: false)
-        Store.set(true, for: .isScanModeSet)
-        Store.set(selectedRow == 0, for: .isScanMode2G)
         
         setScanModeButton()
         updateScanButtonStatus()

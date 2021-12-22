@@ -142,7 +142,21 @@ class VerificationViewController: UIViewController {
     
     private func setScanMode() {
         modeLabel.textColor = Palette.white
-        let mode = Store.get(key: .isScanMode2G) == "1" ? "result.scan.mode.2G".localized : "result.scan.mode.3G".localized
+        
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var mode: String = ""
+        
+        switch scanMode{
+        case Constants.scanMode2G:
+            mode = "result.scan.mode.2G".localized
+        case Constants.scanMode3G:
+            mode = "result.scan.mode.3G".localized
+        case Constants.scanModeBooster:
+            mode = "BOOSTER_TEST_RESULT"
+        default:
+            break
+        }
+        
         modeLabel.text = mode
     }
     

@@ -42,6 +42,11 @@ struct Constants {
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
     
+    // SwitchScanMode
+    static let scanMode2G = "scanMode2G"
+    static let scanMode3G = "scanMode3G"
+    static let scanModeBooster = "scanModeBooster"
+    
     // Settings
     static let drlMaxRetries = "MAX_RETRY"
     
