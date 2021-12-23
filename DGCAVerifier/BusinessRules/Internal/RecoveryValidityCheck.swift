@@ -37,8 +37,8 @@ struct RecoveryValidityCheck {
         guard let recoveryValidFromDate = validFrom.toRecoveryDate else { return .notValid }
         guard let recoveryValidUntilDate = validUntil.toRecoveryDate else { return .notValid }
         
-        guard let recoveryStartDays = getStartDays() else { return .notGreenPass }
-        guard let recoveryEndDays = getEndDays(hcert: hcert) else { return .notGreenPass }
+        guard let recoveryStartDays = getStartDays(from: hcert ) else { return .notGreenPass }
+        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notGreenPass }
         
         guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
         let validityEnd = recoveryValidUntilDate
@@ -49,17 +49,14 @@ struct RecoveryValidityCheck {
         return Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
     }
     
-    private func getStartDays() -> Int? {
-        return getValue(for: Constants.recoveryStartDays)?.intValue
+    private func getStartDays(from hcert: HCert) -> Int? {
+        let startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays
+        return getValue(for: startDaysConfig)?.intValue
     }
     
-    private func getEndDays(hcert: HCert) -> Int? {
-        if isSpecialRecovery(hcert: hcert){
-            return getValue(for: Constants.recoverySpecialEndDays)?.intValue
-        }
-        else {
-            return getValue(for: Constants.recoveryEndDays)?.intValue
-        }
+    private func getEndDays(from hcert: HCert) -> Int? {
+        let endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays
+        return getValue(for: endDaysConfig)?.intValue
     }
     
     private func isSpecialRecovery(hcert: HCert) -> Bool {
