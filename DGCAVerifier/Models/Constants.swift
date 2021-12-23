@@ -42,6 +42,15 @@ struct Constants {
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
     
+    // RecoveryValidityCheck
+    static let recoveryStartDays = "recovery_cert_start_day"
+    static let recoveryEndDays = "recovery_cert_end_day"
+    static let recoverySpecialStartDays = "recovery_pv_cert_start_day"
+    static let recoverySpecialEndDays = "recovery_pv_cert_end_day"
+    static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
+    static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
+    static let ItalyCountryCode = "IT"
+
     // SwitchScanMode
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
