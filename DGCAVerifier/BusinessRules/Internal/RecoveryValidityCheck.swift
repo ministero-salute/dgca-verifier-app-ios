@@ -60,7 +60,7 @@ struct RecoveryValidityCheck {
     }
     
     private func isSpecialRecovery(hcert: HCert) -> Bool {
-        guard hcert.countryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
+        guard hcert.rcountryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
         guard let signedCerficate = hcert.signedCerficate else { return false }
         let extendedKeyUsage = signedCerficate.extendedKeyUsage
         let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT}

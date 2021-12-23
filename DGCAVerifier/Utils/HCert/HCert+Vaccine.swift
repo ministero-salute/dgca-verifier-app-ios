@@ -50,14 +50,7 @@ extension HCert {
     }
     
     var countryCode: String? {
-        switch self.type {
-        case .vaccine:
-            return body["v"].array?.map{ $0[countryCodeKey] }.first?.string
-        case .recovery:
-            return body["r"].array?.map{ $0[countryCodeKey] }.first?.string
-        default:
-            return nil
-        }
+        return body["v"].array?.map{ $0[countryCodeKey] }.first?.string
     }
 
 }

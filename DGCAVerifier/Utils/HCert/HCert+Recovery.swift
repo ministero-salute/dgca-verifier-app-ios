@@ -29,6 +29,7 @@ extension HCert {
     
     private var dateFromKey     : String { "df" }
     private var dateUntilKey    : String { "du" }
+    private var countryCodeKey  : String { "co" }
     
     var recoveryDateFrom: String? {
         body["r"].array?.map{ $0[dateFromKey] }.first?.string
@@ -38,4 +39,7 @@ extension HCert {
         body["r"].array?.map{ $0[dateUntilKey] }.first?.string
     }
     
+    var rcountryCode: String? {
+        return body["r"].array?.map{ $0[countryCodeKey] }.first?.string
+    }
 }
