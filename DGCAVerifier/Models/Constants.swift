@@ -50,8 +50,14 @@ struct Constants {
     static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
     static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
     static let ItalyCountryCode = "IT"
+
+    // SwitchScanMode
+    static let scanMode2G = "scanMode2G"
+    static let scanMode3G = "scanMode3G"
+    static let scanModeBooster = "scanModeBooster"
     
     // Settings
     static let drlMaxRetries = "MAX_RETRY"
     
+    static let boosterMinimumDosesNumber = 3
 }
