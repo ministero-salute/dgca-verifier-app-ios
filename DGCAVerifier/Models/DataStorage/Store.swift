@@ -31,7 +31,7 @@ public class Store {
         case isTorchActive
         case isFrontCameraActive
         case isTotemModeActive
-        case isScanMode2G
+        case scanMode
         case isScanModeSet
     }
     
