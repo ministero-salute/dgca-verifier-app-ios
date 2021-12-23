@@ -65,7 +65,6 @@ struct RecoveryValidityCheck {
         let extendedKeyUsage = signedCerficate.extendedKeyUsage
         let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT}
         return !validKeysUsages.isEmpty
-        
     }
     
     private func getValue(for name: String) -> String? {
