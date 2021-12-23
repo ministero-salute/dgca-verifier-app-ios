@@ -29,9 +29,12 @@ extension Status {
     
     var backgroundColor: UIColor {
         switch self {
-        case .valid:                return Palette.green
-        case .verificationIsNeeded: return Palette.blue
-        default:                    return Palette.red
+        case .valid:
+            return Palette.green
+        case .verificationIsNeeded:
+            return Palette.orange
+        default:
+            return Palette.red
         }
     }
     
@@ -42,7 +45,7 @@ extension Status {
         case .notValidYet:          return "icon_not-valid-yet".image
         case .notGreenPass:         return "icon_not-green-pass".image
         case .revokedGreenPass:     return "icon_not-green-pass".image
-        case .verificationIsNeeded: return "icon_not-valid-yet".image
+        case .verificationIsNeeded: return "icon_need-verification".image
         }
     }
     
@@ -53,7 +56,7 @@ extension Status {
         case .notValidYet:          return "result.title.not.valid.yet"
         case .notGreenPass:         return "result.title.not.green.pass"
         case .revokedGreenPass:     return "result.title.revoked.green.pass"
-        case .verificationIsNeeded: return "result.title.not.valid.yet"
+        case .verificationIsNeeded: return "result.title.need.verification"
             
         }
     }
@@ -64,7 +67,7 @@ extension Status {
         case .notValidYet:          return "result.description.not.valid"
         case .notValid:             return "result.description.not.valid"
         case .revokedGreenPass:     return "result.description.revoked"
-        case .verificationIsNeeded: return "result.description.not.valid.yet"
+        case .verificationIsNeeded: return "result.description.need.verification"
         default:                    return nil
         }
     }
@@ -104,7 +107,7 @@ extension Status {
         case .notValidYet:          return [.qrValidityRange]
         case .notValid:             return [.whyQrNotValid]
         case .notGreenPass:         return [.whichQrScan]
-        case .verificationIsNeeded: return []
+        case .verificationIsNeeded: return [.whyQrNotValid]
         case .revokedGreenPass:     return []
         }
     }

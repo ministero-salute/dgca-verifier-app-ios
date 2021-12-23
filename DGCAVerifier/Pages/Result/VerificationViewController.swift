@@ -152,7 +152,7 @@ class VerificationViewController: UIViewController {
         case Constants.scanMode3G:
             mode = "result.scan.mode.3G".localized
         case Constants.scanModeBooster:
-            mode = "BOOSTER_TEST_RESULT"
+            mode = "result.scan.mode.Boster".localized
         default:
             break
         }

@@ -50,4 +50,5 @@ struct Constants {
     // Settings
     static let drlMaxRetries = "MAX_RETRY"
     
+    static let boosterMinimumDosesNumber = 3
 }

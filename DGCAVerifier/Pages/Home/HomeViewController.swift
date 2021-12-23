@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized, "BOOSTER TEST"]
+    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized, "home.scan.picker.mode.Booster".localized]
     private var modePickerView = UIPickerView()
     private var modePickerToolBar = UIToolbar()
             
@@ -220,8 +220,8 @@ class HomeViewController: UIViewController {
                 localizedBaseScanModeButtonTitle = "home.scan.button.mode.3G".localized
                 boldLocalizedText = "home.scan.button.bold.3G".localized
             case Constants.scanModeBooster:
-                localizedBaseScanModeButtonTitle = "BOOSTER TEST"
-                boldLocalizedText = "BOOSTER"
+                localizedBaseScanModeButtonTitle = "home.scan.button.mode.Booster".localized
+                boldLocalizedText = "home.scan.button.bold.Booster".localized
             default:
                 break
             }
