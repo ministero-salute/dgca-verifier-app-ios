@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.2G".localized, "home.scan.picker.mode.3G".localized, "home.scan.picker.mode.Booster".localized]
+    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized]
     private var modePickerView = UIPickerView()
     private var modePickerToolBar = UIToolbar()
             
@@ -208,6 +208,13 @@ class HomeViewController: UIViewController {
         if Store.getBool(key: .isScanModeSet) {
             scanModeButton.titleLabel?.font = Font.getFont(size: 14, style: .regular)
             
+            let isScanMode2GKeyExists = Store.valueExist(forKey: .isScanMode2G)
+            if isScanMode2GKeyExists {
+                let isScanMode2G = Store.getBool(key: .isScanMode2G)
+                isScanMode2G ? Store.set(Constants.scanMode2G, for: .scanMode) : Store.set(Constants.scanMode3G, for: .scanMode)
+                Store.remove(key: .isScanMode2G)
+            }
+
             let scanMode: String = Store.get(key: .scanMode) ?? ""
             var localizedBaseScanModeButtonTitle: String = ""
             var boldLocalizedText: String = ""
@@ -475,9 +482,9 @@ extension HomeViewController {
         var pickerSelectedOption: Int = 0
         
         switch scanMode{
-        case Constants.scanMode2G:
-            pickerSelectedOption = 0
         case Constants.scanMode3G:
+            pickerSelectedOption = 0
+        case Constants.scanMode2G:
             pickerSelectedOption = 1
         case Constants.scanModeBooster:
             pickerSelectedOption = 2
@@ -503,10 +510,10 @@ extension HomeViewController {
         
         switch selectedRow{
         case 0:
-            Store.set(Constants.scanMode2G, for: Store.Key.scanMode)
+            Store.set(Constants.scanMode3G, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 1:
-            Store.set(Constants.scanMode3G, for: Store.Key.scanMode)
+            Store.set(Constants.scanMode2G, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 2:
             Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
