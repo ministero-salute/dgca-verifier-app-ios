@@ -56,7 +56,8 @@ struct VaccineValidityCheck {
 
         guard let currentDate = Date.startOfDay else { return .notValid }
 
-        let isJJBooster = hcert.medicalProduct == Constants.JeJVacineCode && currentDoses > totalDoses
+        let isJJ = hcert.medicalProduct == Constants.JeJVacineCode
+        let isJJBooster = isJJ && currentDoses > totalDoses
         let fromDate = isJJBooster ? date : validityStart
 
         let result = Validator.validate(currentDate, from: fromDate, to: validityEnd)
@@ -65,7 +66,9 @@ struct VaccineValidityCheck {
 
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         if scanMode == Constants.scanModeBooster {
-            let boosterDose = currentDoses > totalDoses || currentDoses >= Constants.boosterMinimumDosesNumber
+            let boosterDose = currentDoses > totalDoses ||
+                currentDoses >= Constants.boosterMinimumDosesNumber ||
+                (isJJ && currentDoses >= Constants.jjBoosterMinimumDosesNumber)
             if boosterDose { return . valid }
             
             return lastDose ? .verificationIsNeeded : .notValid

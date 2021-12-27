@@ -60,4 +60,5 @@ struct Constants {
     static let drlMaxRetries = "MAX_RETRY"
     
     static let boosterMinimumDosesNumber = 3
+    static let jjBoosterMinimumDosesNumber = 2
 }
