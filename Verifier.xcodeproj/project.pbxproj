@@ -292,6 +292,8 @@
 		90CDC6DA271F049A00707836 /* UIView+NibFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CDC6D8271F049A00707836 /* UIView+NibFile.swift */; };
 		90E9560A270F397600DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		90E9560B270F397700DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
+		98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
+		98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */; };
 		9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */; };
 		9F4F3C5B2649D60C00F59BA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C422649D60B00F59BA2 /* AppDelegate.swift */; };
@@ -476,6 +478,7 @@
 		90CDC6B6271EB48000707836 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		90CDC6B9271EB48C00707836 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
+		98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		9F4F3C422649D60B00F59BA2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -885,6 +888,7 @@
 		65E28192269721ED00377913 /* String */ = {
 			isa = PBXGroup;
 			children = (
+				98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */,
 				65E28193269721ED00377913 /* String+Int.swift */,
 				656150DF2726A9C40076BAE4 /* String+Bool.swift */,
 				653F929126B00F9C000BE8F5 /* String+Char.swift */,
@@ -1612,6 +1616,7 @@
 				65E281D72697259D00377913 /* RecoveryValidityCheck.swift in Sources */,
 				14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */,
 				65C3A55F26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
+				98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */,
 				659605F426E7911E008AD4E2 /* ProgressView.swift in Sources */,
 				65EFB62A26B0BFC00081682B /* CertLogicValidator.swift in Sources */,
 				65021B5C26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
@@ -1696,6 +1701,7 @@
 				90BD8F4F272C1C8A00BE816B /* Constants.swift in Sources */,
 				90CDC6B7271EB48000707836 /* SettingsCell.swift in Sources */,
 				65EFB62C26B0C2390081682B /* Validator.swift in Sources */,
+				98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */,
 				659605EC26E77B40008AD4E2 /* Double+String.swift in Sources */,
 				65F280C826D65269009BC452 /* GatewayConnection+Revocation.swift in Sources */,
 				65E2819D269721ED00377913 /* DateFormatter+Default.swift in Sources */,
