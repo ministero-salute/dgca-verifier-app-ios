@@ -238,6 +238,8 @@ class HomeViewController: UIViewController {
             
             scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
             scanModeButton.setAttributedTitle(scanModeButtonTitle, for: .normal)
+            scanModeButton.setContentCompressionResistancePriority(.init(1000), for: .vertical)
+            scanModeButton.contentEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
         } else {
             scanModeButton.setTitle("home.scan.button.mode.default".localized)
         }
