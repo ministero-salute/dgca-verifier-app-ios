@@ -55,7 +55,7 @@
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
 "result.description.revoked" = "La certificazione risulta essere revocata";
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
-"result.description.need.verification" = "La certificazione presenta i seguenti dati anagrafici:";
+"result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
