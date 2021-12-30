@@ -151,8 +151,9 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerItemLabel() -> UILabel {
+        let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         let itemLabel = UILabel()
-        itemLabel.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+        itemLabel.font = font
         itemLabel.adjustsFontForContentSizeCategory = true
         itemLabel.textAlignment = .center
         itemLabel.numberOfLines = 0
@@ -171,11 +172,17 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        let text = self.content.pickerOptions[component]
-        let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-        let horizontalPadding: CGFloat = 64
-        let verticalPadding: CGFloat = 4
-        return text.height(withConstrainedWidth: pickerView.bounds.width - horizontalPadding, font: font) + verticalPadding
+        if component == 0 {
+            let longestTextLenght = self.content.pickerOptions.map{ $0.count }.max()
+            if let longestText = self.content.pickerOptions.first(where: { $0.count == longestTextLenght }) {
+                let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+                let horizontalPadding: CGFloat = 64
+                let verticalPadding: CGFloat = 4
+                let height = longestText.height(withConstrainedWidth: pickerView.bounds.width - horizontalPadding, font: font) + verticalPadding
+                return height
+            }
+        }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
