@@ -61,9 +61,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var debugView: UIView!
     
     private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized]
-    private var modePickerView = UIPickerView()
-    private var modePickerToolBar = UIToolbar()
-            
+
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel

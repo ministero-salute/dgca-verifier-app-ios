@@ -25,6 +25,7 @@
 
 import Foundation
 import UIKit
+import SwiftDGC
 
 class PickerViewController: UIViewController {
     
@@ -144,23 +145,44 @@ class PickerViewController: UIViewController {
 }
 
 extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    func pickerItemLabel() -> UILabel {
+        let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+        let itemLabel = UILabel()
+        itemLabel.font = font
+        itemLabel.adjustsFontForContentSizeCategory = true
+        itemLabel.textAlignment = .center
+        itemLabel.numberOfLines = 0
+        return itemLabel
+    }
+    
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var optionLabel: UILabel? = (view as? UILabel)
-        
         if optionLabel == nil {
-            optionLabel = UILabel()
-            optionLabel!.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-            optionLabel!.adjustsFontForContentSizeCategory = true
-            optionLabel!.textAlignment = .center
+            optionLabel = pickerItemLabel()
         }
         
-        optionLabel!.text = self.content.pickerOptions[row]
-        
+        let text = self.content.pickerOptions[row]
+        optionLabel!.text = text
         return optionLabel!
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if component == 0 {
+            let longestTextLenght = self.content.pickerOptions.map{ $0.count }.max()
+            if let longestText = self.content.pickerOptions.first(where: { $0.count == longestTextLenght }) {
+                let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+                let horizontalPadding: CGFloat = 64
+                let verticalPadding: CGFloat = 4
+                let height = longestText.height(withConstrainedWidth: pickerView.bounds.width - horizontalPadding, font: font) + verticalPadding
+                return height
+            }
+        }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
