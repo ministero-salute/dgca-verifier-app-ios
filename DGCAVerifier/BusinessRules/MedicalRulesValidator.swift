@@ -32,7 +32,7 @@ struct MedicalRulesValidator: Validator {
         let statementValidityCheck = StatementValidityCheck()
         guard !statementValidityCheck.isStatementBlacklisted(hCert) else { return .notValid }
         let scanMode: String = Store.get(key: .scanMode) ?? ""
-        switch hCert.type {
+        switch hCert.extendedType {
         case .test:
             guard scanMode != Constants.scanMode2G, scanMode != Constants.scanModeBooster else { return .notValid }
             let testValidityCheck = TestValidityCheck()
@@ -45,6 +45,8 @@ struct MedicalRulesValidator: Validator {
             let recoveryStatus = recoveryValidityCheck.isRecoveryValid(hCert)
             guard scanMode != Constants.scanModeBooster else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
             return recoveryStatus
+        case .vaccineExemption:
+            return .valid
         case .unknown:
             return .notValid
         }
