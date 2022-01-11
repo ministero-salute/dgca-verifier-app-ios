@@ -19,7 +19,7 @@ extension HCert {
           } ?? []
     }
     
-    var lastStatement: HCertEntry! {
+    var lastStatement: HCertEntry? {
         guard self.statement == nil else { return self.statement }
         guard !vaccineExemptionStatements.isEmpty else { return nil }
         return vaccineExemptionStatements.last
