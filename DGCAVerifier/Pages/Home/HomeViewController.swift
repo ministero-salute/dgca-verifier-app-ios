@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized]
+    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized, "home.scan.picker.mode.50".localized]
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
@@ -227,6 +227,9 @@ class HomeViewController: UIViewController {
             case Constants.scanModeBooster:
                 localizedBaseScanModeButtonTitle = "home.scan.button.mode.Booster".localized
                 boldLocalizedText = "home.scan.button.bold.Booster".localized
+            case Constants.scanMode50:
+                localizedBaseScanModeButtonTitle = "home.scan.button.mode.50".localized
+                boldLocalizedText = "home.scan.button.bold.50".localized
             default:
                 break
             }
@@ -488,6 +491,8 @@ extension HomeViewController {
             pickerSelectedOption = 1
         case Constants.scanModeBooster:
             pickerSelectedOption = 2
+        case Constants.scanMode50:
+            pickerSelectedOption = 3
         default:
             break
         }
@@ -517,6 +522,9 @@ extension HomeViewController {
             Store.set(true, for: .isScanModeSet)
         case 2:
             Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
+            Store.set(true, for: .isScanModeSet)
+        case 3:
+            Store.set(Constants.scanMode50, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         default:
             break

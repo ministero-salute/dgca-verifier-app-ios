@@ -52,4 +52,9 @@ extension HCert {
         return dob.toDate?.toDateReadableString ?? ""
     }
     
+    var birthYear: Int? {
+        guard let birthYear = Int(birthDate[4]) else { return nil }
+        return birthYear
+    }
+    
 }

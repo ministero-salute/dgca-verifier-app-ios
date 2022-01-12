@@ -31,6 +31,7 @@ struct TestValidityCheck {
     typealias Validator = MedicalRulesValidator
     
     func isTestDateValid(_ hcert: HCert) -> Status {
+        guard !isOver50(hcert) else { return .notValid }
         guard hcert.isKnownTestType else { return .notValid }
         
         let startHours = getStartHours(for: hcert)
@@ -47,12 +48,20 @@ struct TestValidityCheck {
         return Validator.validate(Date(), from: validityStart, to: validityEnd)
     }
     
+    func isOver50 (_ hcert: HCert) -> Bool{
+        guard let birthYear = hcert.birthYear else { return false }
+        let todayYearInt = Calendar.current.component(.year, from: Date())
+        return (todayYearInt-birthYear)>=50
+    }
+    
     func isTestNegative(_ hcert: HCert) -> Status {
         guard let isNegative = hcert.testNegative else { return .notValid }
         return isNegative ? .valid : .notValid
     }
     
     func isTestValid(_ hcert: HCert) -> Status {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        guard scanMode != Constants.scanMode2G, scanMode != Constants.scanModeBooster else { return .notValid }
         let testValidityResults = [isTestNegative(hcert), isTestDateValid(hcert)]
         return testValidityResults.first(where: {$0 != .valid}) ?? .valid
     }

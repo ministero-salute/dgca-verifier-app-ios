@@ -22,13 +22,18 @@
 "home.scan.button.bold.3G" = "VERIFICA BASE";
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
 "home.scan.button.bold.Booster" = "VERIFICA BOOSTER";
+"home.scan.button.bold.50" = "VERIFICA LAVORO";
+
 "home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
 "home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
 "home.scan.button.mode.Booster" = "VERIFICA BOOSTER\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
+"home.scan.button.mode.50" = "VERIFICA LAVORO\nVACCINAZIONE/GUARIGIONE";
+
 "home.scan.picker.title"   = "Tipologia verifica";
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
 "home.scan.picker.mode.Booster" = "BOOSTER (Richiamo/ciclo completo + tampone/guarigione+tampone)";
+"home.scan.picker.mode.50" = "LAVORO (vaccinazione/guarigione)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -43,6 +48,7 @@
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.Boster" = "Tipologia verifica: BOOSTER";
+"result.scan.mode.50" = "Tipologia verifica: LAVORO";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
