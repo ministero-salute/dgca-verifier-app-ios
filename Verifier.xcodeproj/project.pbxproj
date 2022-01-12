@@ -300,6 +300,8 @@
 		98DCD743278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */; };
 		98DCD748278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */; };
 		98DCD749278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */; };
+		98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
+		98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
 		98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */; };
@@ -490,6 +492,7 @@
 		98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCert+VaccineExemptionStatement.swift"; sourceTree = "<group>"; };
 		98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineExemptionEntry.swift; sourceTree = "<group>"; };
 		98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+UVCI.swift"; sourceTree = "<group>"; };
+		98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineExemptionValidityCheck.swift; sourceTree = "<group>"; };
 		98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -1026,6 +1029,7 @@
 				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
 				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
 				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
+				98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1602,6 +1606,7 @@
 				65E281CA2697259D00377913 /* ResultView.swift in Sources */,
 				65E281CB2697259D00377913 /* HomeViewController.swift in Sources */,
 				658CB72326AF3B5B00B90EC0 /* Status.swift in Sources */,
+				98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				65E281CC2697259D00377913 /* Date.swift in Sources */,
 				65EFB63426B183CF0081682B /* Link+Values.swift in Sources */,
 				90BD8F50272C1C8A00BE816B /* Constants.swift in Sources */,
@@ -1664,6 +1669,7 @@
 				65C3A55E26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
 				6570422026E9387400370B2A /* Int+String.swift in Sources */,
 				65E281A8269721ED00377913 /* HCert+Recovery.swift in Sources */,
+				98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				658CB71E26AF359100B90EC0 /* UIImage+Rotate.swift in Sources */,
 				653F928E26B00727000BE8F5 /* UITableView+Nib.swift in Sources */,
 				65E281A1269721ED00377913 /* LocalData+Setting.swift in Sources */,

@@ -53,6 +53,8 @@ struct TestValidityCheck {
     }
     
     func isTestValid(_ hcert: HCert) -> Status {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        guard scanMode != Constants.scanMode2G, scanMode != Constants.scanModeBooster else { return .notValid }
         let testValidityResults = [isTestNegative(hcert), isTestDateValid(hcert)]
         return testValidityResults.first(where: {$0 != .valid}) ?? .valid
     }

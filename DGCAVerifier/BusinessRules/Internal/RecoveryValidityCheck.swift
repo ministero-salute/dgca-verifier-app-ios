@@ -46,7 +46,12 @@ struct RecoveryValidityCheck {
 
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        return Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
+        let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
+        
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        guard scanMode != Constants.scanModeBooster else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
+        
+        return recoveryStatus
     }
     
     private func getStartDays(from hcert: HCert) -> Int? {
