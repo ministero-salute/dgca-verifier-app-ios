@@ -34,6 +34,7 @@ struct VaccineExemptionValidityCheck {
         guard let exemption = hcert.vaccineExemptionStatements.last else { return .notValid }
         guard let dateFrom = exemption.dateFrom else { return .notValid }
         guard let currentDate = Date.startOfDay else { return .notValid }
+        guard !(Store.get(key: .scanMode) == Constants.scanModeBooster) else { return .verificationIsNeeded }
         guard let dateUntil = exemption.dateUntil else { return Validator.validate(currentDate, from: dateFrom) }
         return Validator.validate(currentDate, from: dateFrom, to: dateUntil)
     }
