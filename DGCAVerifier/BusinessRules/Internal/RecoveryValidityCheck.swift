@@ -50,12 +50,26 @@ struct RecoveryValidityCheck {
     }
     
     private func getStartDays(from hcert: HCert) -> Int? {
-        let startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var startDaysConfig: String
+        if scanMode == Constants.scanModeSchool {
+            startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySchoolSpecialStartDays : Constants.recoverySchoolStartDays
+        }
+        else {
+            startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays
+        }
         return getValue(for: startDaysConfig)?.intValue
     }
     
     private func getEndDays(from hcert: HCert) -> Int? {
-        let endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var endDaysConfig: String
+        if scanMode == Constants.scanModeSchool {
+            endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySchoolSpecialEndDays : Constants.recoverySchoolEndDays
+        }
+        else {
+            endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays
+        }
         return getValue(for: endDaysConfig)?.intValue
     }
     

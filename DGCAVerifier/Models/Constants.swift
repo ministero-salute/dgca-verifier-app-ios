@@ -38,6 +38,12 @@ struct Constants {
     static let vaccineIncompleteEndDays = "vaccine_end_day_not_complete"
     static let vaccineCompleteStartDays = "vaccine_start_day_complete"
     static let vaccineCompleteEndDays = "vaccine_end_day_complete"
+    //TODO: Update settings names
+    static let vaccineIncompleteSchoolStartDays = "vaccine_start_day_not_complete"
+    static let vaccineIncompleteSchoolEndDays = "vaccine_end_day_not_complete"
+    static let vaccineCompleteSchoolStartDays = "vaccine_start_day_complete"
+    static let vaccineCompleteSchoolEndDays = "vaccine_end_day_complete"
+    //---------------------------
     static let JeJVacineCode = "EU/1/20/1525"
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
@@ -47,6 +53,12 @@ struct Constants {
     static let recoveryEndDays = "recovery_cert_end_day"
     static let recoverySpecialStartDays = "recovery_pv_cert_start_day"
     static let recoverySpecialEndDays = "recovery_pv_cert_end_day"
+    //TODO: Update settings names
+    static let recoverySchoolStartDays = "recovery_cert_start_day"
+    static let recoverySchoolEndDays = "recovery_cert_end_day"
+    static let recoverySchoolSpecialStartDays = "recovery_pv_cert_start_day"
+    static let recoverySchoolSpecialEndDays = "recovery_pv_cert_end_day"
+    //---------------------------
     static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
     static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
     static let ItalyCountryCode = "IT"
@@ -55,6 +67,7 @@ struct Constants {
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
+    static let scanModeSchool = "scanModeSchool"
     
     // Settings
     static let drlMaxRetries = "MAX_RETRY"

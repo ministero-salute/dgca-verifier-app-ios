@@ -94,13 +94,27 @@ struct VaccineValidityCheck {
     }
      
     private func getStartDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteStartDays : Constants.vaccineIncompleteStartDays
-        return getValue(for: name, type: medicalProduct)?.intValue
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var startDaysConfig: String
+        if scanMode == Constants.scanModeSchool {
+            startDaysConfig = isLastDose ? Constants.vaccineCompleteSchoolStartDays : Constants.vaccineIncompleteSchoolStartDays
+        }
+        else {
+            startDaysConfig = isLastDose ? Constants.vaccineCompleteStartDays : Constants.vaccineIncompleteStartDays
+        }
+        return getValue(for: startDaysConfig, type: medicalProduct)?.intValue
     }
     
     private func getEndDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteEndDays : Constants.vaccineIncompleteEndDays
-        return getValue(for: name, type: medicalProduct)?.intValue
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        var endDaysConfig: String
+        if scanMode == Constants.scanModeSchool {
+            endDaysConfig = isLastDose ? Constants.vaccineCompleteSchoolEndDays : Constants.vaccineIncompleteSchoolEndDays
+        }
+        else {
+            endDaysConfig = isLastDose ? Constants.vaccineCompleteEndDays : Constants.vaccineIncompleteEndDays
+        }
+        return getValue(for: endDaysConfig, type: medicalProduct)?.intValue
     }
     
     private func getValue(for name: String, type: String) -> String? {
