@@ -53,7 +53,7 @@ struct RecoveryValidityCheck {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         var startDaysConfig: String
         if scanMode == Constants.scanModeSchool {
-            startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySchoolSpecialStartDays : Constants.recoverySchoolStartDays
+            startDaysConfig = Constants.recoverySchoolStartDays
         }
         else {
             startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays
@@ -65,7 +65,7 @@ struct RecoveryValidityCheck {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         var endDaysConfig: String
         if scanMode == Constants.scanModeSchool {
-            endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySchoolSpecialEndDays : Constants.recoverySchoolEndDays
+            endDaysConfig = Constants.recoverySchoolEndDays
         }
         else {
             endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays

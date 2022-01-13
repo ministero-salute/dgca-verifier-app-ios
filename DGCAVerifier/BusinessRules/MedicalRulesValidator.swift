@@ -39,7 +39,7 @@ struct MedicalRulesValidator: Validator {
             return testValidityCheck.isTestValid(hCert)
         case .vaccine:
             let vaccineValidityCheck = VaccineValidityCheck()
-            return vaccineValidityCheck.isVaccineDateValid(hCert)
+            return vaccineValidityCheck.isVaccineValid(hCert)
         case .recovery:
             let recoveryValidityCheck = RecoveryValidityCheck()
             let recoveryStatus = recoveryValidityCheck.isRecoveryValid(hCert)
