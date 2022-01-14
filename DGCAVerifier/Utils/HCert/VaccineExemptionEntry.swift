@@ -42,16 +42,6 @@ struct VaccineExemptionEntry : HCertEntry {
     }
     
     init?(body: JSON) {
-        //        "e" : [
-        //          {
-        //            "co" : "IT",
-        //            "du" : "2021-12-15",
-        //            "df" : "2021-12-15",
-        //            "tg" : "840539006",
-        //            "is" : "IT",
-        //            "ci" : "01ITF4BCB7E4FFD14913B39FF3CB3C70C694#3"
-        //          }
-        //        ],
         guard
             let diseaseTargeted = body[Fields.diseaseTargeted.rawValue].string,
             let country = body[Fields.countryCode.rawValue].string,
