@@ -201,7 +201,7 @@ class CRLSynchronizationManager {
         delegate?.statusDidChange(with: .downloading)
         gateway.updateRevocationList(progress) { crl, error, statusCode in
             guard statusCode == 200 else { return self.handleDRLHTTPError(statusCode: statusCode) }
-            guard error == nil else { return self.errorFlow() }
+            guard error == nil else { return self.resumeDownload() }
             guard let crl = crl else { return self.errorFlow() }
             self.manageResponse(with: crl)
         }

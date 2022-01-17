@@ -70,7 +70,7 @@ extension GatewayConnection {
             //  it'd be okay for it to be handled just like a statusCode 408.
             let responseStatusCode = $0.response?.statusCode ?? 408
             
-            guard responseStatusCode == 200 else {
+            guard responseStatusCode == 200, $0.error == nil else {
                 Log.end(key: "[CRL] [REST]", startTime: restStartTime)
                 let jsonStartTime = Log.start(key: "[CRL STATUS] [ERROR]")
                 Log.end(key: "[CRL] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
