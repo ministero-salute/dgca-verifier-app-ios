@@ -127,6 +127,7 @@ class CRLSynchronizationManager {
     func startDownload() {
         guard Connectivity.isOnline else {
             self.showNoConnectionAlert()
+            self.resumeDownload()
             return
         }
         
@@ -200,8 +201,7 @@ class CRLSynchronizationManager {
         log(progress)
         delegate?.statusDidChange(with: .downloading)
         gateway.updateRevocationList(progress) { crl, error, statusCode in
-            guard statusCode == 200 else { return self.handleDRLHTTPError(statusCode: statusCode) }
-            guard error == nil else { return self.resumeDownload() }
+            guard statusCode == 200, error == nil else { return self.handleDRLHTTPError(statusCode: statusCode) }
             guard let crl = crl else { return self.errorFlow() }
             self.manageResponse(with: crl)
         }
@@ -221,6 +221,8 @@ class CRLSynchronizationManager {
         }
 
         switch statusCode {
+        case 200:
+            self.resumeDownload()
         case 400...407:
             self.cleanAndRetry()
         case 408:
