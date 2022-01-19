@@ -31,9 +31,8 @@ struct MedicalRulesValidator: Validator {
     static func getStatus(from hCert: HCert) -> Status {
         let statementValidityCheck = StatementValidityCheck()
         guard !statementValidityCheck.isStatementBlacklisted(hCert) else { return .notValid }
-        switch hCert.type {
+        switch hCert.extendedType {
         case .test:
-            guard !Store.getBool(key: .isScanMode2G) else { return .notValid }
             let testValidityCheck = TestValidityCheck()
             return testValidityCheck.isTestValid(hCert)
         case .vaccine:
@@ -42,8 +41,20 @@ struct MedicalRulesValidator: Validator {
         case .recovery:
             let recoveryValidityCheck = RecoveryValidityCheck()
             return recoveryValidityCheck.isRecoveryValid(hCert)
+        case .vaccineExemption:
+            let exemptionValidityCheck = VaccineExemptionValidityCheck()
+            return exemptionValidityCheck.isExemptionValid(hCert)
         case .unknown:
             return .notValid
+        }
+    }
+    
+    static func validate(_ current: Date, from validityStart: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        default:
+            return .valid
         }
     }
     

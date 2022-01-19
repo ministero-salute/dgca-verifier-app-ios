@@ -50,7 +50,7 @@ extension HCert {
     }
     
     var countryCode: String? {
-        body["v"].array?.map{ $0[countryCodeKey] }.first?.string
+        return body["v"].array?.map{ $0[countryCodeKey] }.first?.string
     }
 
 }

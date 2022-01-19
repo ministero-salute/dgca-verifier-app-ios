@@ -31,8 +31,13 @@ public class Store {
         case isTorchActive
         case isFrontCameraActive
         case isTotemModeActive
+        case scanMode
         case isScanMode2G
         case isScanModeSet
+    }
+    
+    public static func valueExist(forKey key: Key) -> Bool {
+        return userDefaults.object(forKey: key.rawValue) != nil
     }
     
     public static func getBool(key: Key) -> Bool {

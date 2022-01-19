@@ -43,24 +43,41 @@ struct VaccineValidityCheck {
         
         guard let product = hcert.medicalProduct else { return .notValid }
         guard isValid(for: product) else { return .notValid }
-        
+        guard let countryCode = hcert.countryCode else { return .notValid }
+        guard isAllowedVaccination(for: product, fromCountryWithCode: countryCode) else { return .notValid }
+
         guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
         guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
-        
+
         guard let dateString = hcert.vaccineDate else { return .notValid }
         guard let date = dateString.toVaccineDate else { return .notValid }
         guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
         guard let validityEnd = date.add(end, ofType: .day)?.startOfDay else { return .notValid }
 
         guard let currentDate = Date.startOfDay else { return .notValid }
-        
-        let isJJBooster = hcert.medicalProduct == Constants.JeJVacineCode && currentDoses > totalDoses
+
+        let isJJ = hcert.medicalProduct == Constants.JeJVacineCode
+        let isJJBooster = isJJ && isaJJBoosterDose(current: currentDoses, total: totalDoses)
         let fromDate = isJJBooster ? date : validityStart
-        
+
         let result = Validator.validate(currentDate, from: fromDate, to: validityEnd)
+        
         guard result == .valid else { return result }
-        if !lastDose { return .valid }
+
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        if scanMode == Constants.scanModeBooster {
+            let isaBoosterDose = currentDoses > totalDoses ||
+                currentDoses >= Constants.boosterMinimumDosesNumber || isJJBooster
+            
+            if isaBoosterDose { return . valid }
+            return lastDose ? .verificationIsNeeded : .notValid
+        }
+
         return result
+    }
+    
+    private func isaJJBoosterDose(current: Int, total: Int) -> Bool {
+        return current > total || (current == total && current >= Constants.jjBoosterMinimumDosesNumber)
     }
     
     private func isAllowedVaccination(for medicalProduct: String, fromCountryWithCode countryCode: String) -> Bool {

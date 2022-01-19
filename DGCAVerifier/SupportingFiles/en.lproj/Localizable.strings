@@ -21,11 +21,14 @@
 "home.scan.button.mode.default" = "SCEGLI TIPOLOGIA DI VERIFICA";
 "home.scan.button.bold.3G" = "VERIFICA BASE";
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
+"home.scan.button.bold.Booster" = "VERIFICA BOOSTER";
 "home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
 "home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
+"home.scan.button.mode.Booster" = "VERIFICA BOOSTER\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
 "home.scan.picker.title"   = "Tipologia verifica";
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
+"home.scan.picker.mode.Booster" = "BOOSTER (Richiamo/ciclo completo + tampone/guarigione+tampone)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -39,17 +42,20 @@
 
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
+"result.scan.mode.Boster" = "Tipologia verifica: BOOSTER";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
 "result.title.revoked.green.pass" = "Certificazione revocata";
+"result.title.need.verification" = "Certificazione valida richiesto tampone";
 
 "result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
 "result.description.revoked" = "La certificazione risulta essere revocata";
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
+"result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
@@ -86,7 +92,7 @@
 "alert.default.action" = "OK";
 
 "alert.scan.unset.title" = "Impossibile scansionare";
-"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle due tipologie di verifica della Certificazione verde Covid-19: BASE o RAFFORZATA.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone. Viene utilizzata per l'accesso ai luoghi di lavoro, mezzi di trasporto pubblico o privato di linea, impianti sciistici chiusi, strutture ricettive, strutture sanitarie, attività sportive e culturali al chiuso, sagre e fiere, ecc.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. Viene utilizzata per accedere a spettacoli, eventi sportivi, ristorazione al chiuso, feste e discoteche, cerimonie pubbliche, ecc.\n\nIndicazioni di dettaglio sulle attività consentite senza/con green pass BASE e RAFFORZATO (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf). \n\nIl dettaglio dell'uso è nella tabella della PCM al seguente link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf ";
+"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, BOOSTER.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.\nTipologia BOOSTER: la app considera valide le certificazioni verdi generate dopo dose di richiamo vaccinale. Considera valide, inoltre, le certificazioni verdi generate dopo ciclo vaccinale primario o guarigione con la contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2.\n\nIndicazioni di dettaglio sulle attività consentite senza/con green pass BASE, RAFFORZATO, BOOSTER (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";

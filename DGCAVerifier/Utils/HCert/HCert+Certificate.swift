@@ -17,29 +17,23 @@
 */
 
 //
-//  HCert+Recovery.swift
-//  VerificaC19
+//  HCert+Certificate.swift
+//  Verifier
 //
-//  Created by Andrea Prosseda on 26/06/21.
+//  Created by Emilio Apuzzo on 17/12/21.
 //
 
+import Foundation
 import SwiftDGC
+import ASN1Decoder
 
 extension HCert {
     
-    private var dateFromKey     : String { "df" }
-    private var dateUntilKey    : String { "du" }
-    private var countryCodeKey  : String { "co" }
-    
-    var recoveryDateFrom: String? {
-        body["r"].array?.map{ $0[dateFromKey] }.first?.string
+    var signedCerficate: X509Certificate? {
+        let certificatesForKID = Self.publicKeyStorageDelegate?.getEncodedPublicKeys(for: self.kidStr)
+        guard let certificate = certificatesForKID, !certificate.isEmpty else { return nil }
+        let data: Data? = Data(base64Encoded: certificate[0])
+        return try? X509Certificate(data: data ?? .init())
     }
     
-    var recoveryDateUntil: String? {
-        body["r"].array?.map{ $0[dateUntilKey] }.first?.string
-    }
-    
-    var rcountryCode: String? {
-        return body["r"].array?.map{ $0[countryCodeKey] }.first?.string
-    }
 }
