@@ -256,10 +256,12 @@
 		9020C5E62721600D00F45CA7 /* UITableView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F928D26B00727000BE8F5 /* UITableView+Nib.swift */; };
 		9020C5E72721600D00F45CA7 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F928826B00474000BE8F5 /* CountryCell.swift */; };
 		9020C5E82721601E00F45CA7 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653F928926B00474000BE8F5 /* CountryCell.xib */; };
+		9020E6822798724600EB2109 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9020E6812798724600EB2109 /* PromiseKit */; };
 		9037A0A6270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */; };
 		9037A0A7270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */; };
 		9037A0A9270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
 		9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
+		905FBA8F27986AD500BC4A0B /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 905FBA8E27986AD500BC4A0B /* PromiseKit */; };
 		9093B3E72758CCA40054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		9093B3E82758CCB50054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		90A2C59C276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */; };
@@ -539,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B797DD326D041ED00EB2873 /* Realm in Frameworks */,
+				9020E6822798724600EB2109 /* PromiseKit in Frameworks */,
 				65E281D92697259D00377913 /* Alamofire in Frameworks */,
 				6B797DD526D041ED00EB2873 /* RealmSwift in Frameworks */,
 				65E281DA2697259D00377913 /* SwiftDGC in Frameworks */,
@@ -553,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B797DCF26D041AA00EB2873 /* Realm in Frameworks */,
+				905FBA8F27986AD500BC4A0B /* PromiseKit in Frameworks */,
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
 				6B797DD126D041AA00EB2873 /* RealmSwift in Frameworks */,
 				CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */,
@@ -1256,6 +1260,7 @@
 				65E281B52697259D00377913 /* SwiftDGC */,
 				6B797DD226D041ED00EB2873 /* Realm */,
 				6B797DD426D041ED00EB2873 /* RealmSwift */,
+				9020E6812798724600EB2109 /* PromiseKit */,
 			);
 			productName = DGCAVerifier;
 			productReference = 65E282022697259D00377913 /* VerificaC19 Dev.app */;
@@ -1283,6 +1288,7 @@
 				65D6D7D32684FCA90022C816 /* SwiftDGC */,
 				6B797DCE26D041AA00EB2873 /* Realm */,
 				6B797DD026D041AA00EB2873 /* RealmSwift */,
+				905FBA8E27986AD500BC4A0B /* PromiseKit */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* VerificaC19.app */;
@@ -1362,6 +1368,7 @@
 				CE1F155A2639F9E700736D48 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				65D6D7D22684FCA90022C816 /* XCRemoteSwiftPackageReference "dgca-app-core-ios" */,
 				6B797DCD26D041AA00EB2873 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				905FBA8D27986AD500BC4A0B /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = CEA6D6E9261F8D2700715333 /* Products */;
 			projectDirPath = "";
@@ -2562,6 +2569,14 @@
 				minimumVersion = 10.12.0;
 			};
 		};
+		905FBA8D27986AD500BC4A0B /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				branch = v6;
+				kind = branch;
+			};
+		};
 		CE13CEFE262DCC180070C80E /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SCENEE/FloatingPanel";
@@ -2637,6 +2652,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6B797DCD26D041AA00EB2873 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
+		};
+		9020E6812798724600EB2109 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 905FBA8D27986AD500BC4A0B /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		905FBA8E27986AD500BC4A0B /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 905FBA8D27986AD500BC4A0B /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 		CE13CEFF262DCC180070C80E /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;

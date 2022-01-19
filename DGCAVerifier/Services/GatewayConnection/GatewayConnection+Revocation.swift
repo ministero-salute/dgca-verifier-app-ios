@@ -24,6 +24,7 @@
 //
 import Foundation
 import SwiftDGC
+import PromiseKit
 
 extension GatewayConnection {
     
@@ -35,15 +36,28 @@ extension GatewayConnection {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
         status(version: version, chunk: chunk) { drlStatus, statusCode in
-            
+
             guard let drlStatus = drlStatus else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
                 return
             }
-            
+
             completion?(drlStatus, nil, statusCode)
         }
     }
+    
+//    func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
+//        let version = progress?.currentVersion
+//        let chunk = progress?.currentChunk
+//        firstly{
+//            status(version: version, chunk: chunk)
+//        }.done{ serverStatus in
+//            print("[DRL] [STATUS] \(serverStatus.DRLStatus)")
+//            completion?(serverStatus.DRLStatus, nil, serverStatus.statusCode)
+//        }.catch{ error in
+//            completion?(nil, "server.error.generic.error".localized, 200)
+//        }
+//    }
     
     func updateRevocationList(_ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -126,5 +140,19 @@ extension GatewayConnection {
             
             completion?(status, responseStatusCode)
         }
+    }
+    
+    private func status(version: Int?, chunk: Int?) -> Promise<DRLStatusResponse>{
+        return Promise{ seal in
+            status(version: version, chunk: chunk) { drlResult, httpStatusCode in
+                let drlStatusResponse = DRLStatusResponse(DRLStatus: drlResult, statusCode: httpStatusCode)
+                seal.resolve(.fulfilled(drlStatusResponse))
+            }
+        }
+    }
+    
+    struct DRLStatusResponse {
+        var DRLStatus: DRLStatus?
+        var statusCode: Int?
     }
 }
