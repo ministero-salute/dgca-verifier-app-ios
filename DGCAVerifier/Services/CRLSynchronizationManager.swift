@@ -77,6 +77,7 @@ class CRLSynchronizationManager {
         self.delegate = delegate
         setTimer() { self.start() }
         crlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+        crlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
     
     func start() {
@@ -89,16 +90,7 @@ class CRLSynchronizationManager {
                     self.log("fetch outdated, scans not allowed")
                 }
                 
-                self.crlStatusFailCounter -= 1
-                
-                if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
-                    self.delegate?.statusDidChange(with: .statusNetworkError)
-                }
-                else {
-                    self.handleRetry()
-                }
-                
-                return
+                return self.handleStatusRetry(responseCode: responseCode)
             }
             
             self.crlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
@@ -182,6 +174,17 @@ class CRLSynchronizationManager {
         else {
             log("retrying...")
             return cleanAndRetry()
+        }
+    }
+    
+    func handleStatusRetry(responseCode: Int?){
+        self.crlStatusFailCounter -= 1
+        
+        if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
+            self.delegate?.statusDidChange(with: .statusNetworkError)
+        }
+        else {
+            self.cleanAndRetry()
         }
     }
     
