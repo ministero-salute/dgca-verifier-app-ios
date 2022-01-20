@@ -57,4 +57,24 @@ extension HCert {
         return birthYear
     }
     
+    var age: Int? {
+        let dateFormatter = DateFormatter()
+        switch birthDate.count {
+        case 4:
+            dateFormatter.dateFormat = "yyyy"
+            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
+            return Calendar.current.dateComponents([.year], from: birthdayDate, to: Date()).year
+        case 7:
+            dateFormatter.dateFormat = "MM/yyyy"
+            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
+            return Calendar.current.dateComponents([.year, .month], from: birthdayDate, to: Date()).year
+        case 10:
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
+            return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year
+        default:
+            return nil
+        }
+    }
+    
 }

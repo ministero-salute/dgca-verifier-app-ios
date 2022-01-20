@@ -52,9 +52,8 @@ struct TestValidityCheck {
     }
     
     func isOver50 (_ hcert: HCert) -> Bool{
-        guard let birthYear = hcert.birthYear else { return false }
-        let todayYearInt = Calendar.current.component(.year, from: Date())
-        return (todayYearInt-birthYear)>=50
+        guard let age = hcert.age else { return false }
+        return age >= 50
     }
     
     func isTestNegative(_ hcert: HCert) -> Status {
