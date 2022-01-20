@@ -28,6 +28,7 @@
 import Foundation
 import SwiftDGC
 import SwiftyJSON
+import PromiseKit
 
 struct LocalData: Codable {
     static var sharedInstance = LocalData()
@@ -64,6 +65,7 @@ struct LocalData: Codable {
     
     static let storage = SecureStorage<LocalData>(fileName: "secure")
     
+//TODO: REMOVE
     static func initialize(completion: @escaping () -> Void) {
         storage.loadOverride(fallback: LocalData.sharedInstance) { success in
             guard let result = success else {
@@ -75,6 +77,23 @@ struct LocalData: Codable {
             completion()
         }
         HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+    }
+    
+    static func initialize() -> Promise<Void> {
+        return Promise { seal in
+            HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+            storage.loadOverride(fallback: LocalData.sharedInstance) { success in
+                guard let result = success else {
+                    print("log.keys.error")
+                    return seal.reject(Errors.missingRequiredParameter)
+                }
+                let format = l10n("log.keys")
+                print(String.localizedStringWithFormat(format, result.encodedPublicKeys.count))
+                LocalData.sharedInstance = result
+                print("log.keys.done")
+                seal.fulfill(())
+            }
+        }
     }
 }
 

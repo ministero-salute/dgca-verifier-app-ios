@@ -27,6 +27,7 @@ import Foundation
 import RealmSwift
 import SwiftDGC
 import SwiftyJSON
+import PromiseKit
 
 struct DRLDataStorage: Codable {
 
@@ -133,11 +134,23 @@ extension DRLDataStorage {
     
     public func save() { Self.storage.save(self) }
     
+//TODO: REMOVE
     static func initialize(completion: @escaping () -> Void) {
         storage.loadOverride(fallback: DRLDataStorage.shared) { success in
             guard let result = success else { return }
             DRLDataStorage.shared = result
             completion()
+        }
+    }
+    
+    static func initialize() -> Promise<Void> {
+        Promise { seal in
+            storage.loadOverride(fallback: DRLDataStorage.shared) { success in
+                guard let result = success else { return }
+                DRLDataStorage.shared = result
+                print("log.drl.done")
+                seal.fulfill(())
+            }
         }
     }
 }

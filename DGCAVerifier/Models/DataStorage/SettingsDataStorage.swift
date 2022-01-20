@@ -26,6 +26,7 @@
 import Foundation
 import SwiftDGC
 import SwiftyJSON
+import PromiseKit
 
 struct SettingDataStorage: Codable {
     static var sharedInstance = SettingDataStorage()
@@ -50,6 +51,7 @@ struct SettingDataStorage: Codable {
     
     static let storage = SecureStorage<SettingDataStorage>(fileName: "setting_secure")
     
+    //TODO: REMOVE
     static func initialize(completion: @escaping () -> Void) {
         storage.loadOverride(fallback: SettingDataStorage.sharedInstance) { success in
             guard let result = success else {
@@ -61,6 +63,23 @@ struct SettingDataStorage: Codable {
             completion()
         }
         HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+    }
+    
+    static func initialize() -> Promise<Void> {
+        return Promise { seal in
+            HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+            storage.loadOverride(fallback: SettingDataStorage.sharedInstance) { success in
+                guard let result = success else {
+                    print("log.settings.error")
+                    return seal.reject(Errors.missingRequiredParameter)
+                }
+                let format = l10n("log.settings")
+                print(String.localizedStringWithFormat(format, result.settings.count))
+                SettingDataStorage.sharedInstance = result
+                print("log.settings.done")
+                seal.fulfill(())
+            }
+        }
     }
 }
 

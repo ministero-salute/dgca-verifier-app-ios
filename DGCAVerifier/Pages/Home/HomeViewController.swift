@@ -24,6 +24,7 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 typealias Tap = UITapGestureRecognizer
 
@@ -80,6 +81,21 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setScanModeButtonText()
+        
+        
+        // TEST
+        
+//        firstly {
+//            GatewayConnection.shared.revocationStatus(DRLProgress(version: 1))
+//        }
+//        .done { drlStatus in
+//            print("[TEST] ", drlStatus)
+//        }
+//        .catch { error in
+//            print("[ERROR] ", error)
+//        }
+        
+        //
     }
     
     private func initialize() {
