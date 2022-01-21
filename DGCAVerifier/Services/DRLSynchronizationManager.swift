@@ -25,6 +25,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 protocol DRLSynchronizationDelegate {
     func statusDidChange(with result: DRLSynchronizationManager.Result)
@@ -83,8 +84,19 @@ class DRLSynchronizationManager {
         drlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
     
+    let disposeBag = DisposeBag()
+    
     func start() {
         log("check status")
+        
+        gateway._revocationStatus(progress)
+            .subscribe { status in
+                print("Status.rx -> \(status)")
+            } onError: { err in
+               print("Error -> \(err)")
+            }
+            .disposed(by: disposeBag)
+
         gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
             guard error == nil, responseCode == 200 else {
                 self.log("status failed")
