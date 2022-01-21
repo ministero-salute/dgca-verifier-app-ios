@@ -1,20 +1,20 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
-*/
+ */
 
 //
 //  GatewayConnection+Revocation.swift
@@ -24,12 +24,29 @@
 //
 import Foundation
 import SwiftDGC
+import RxSwift
+import Alamofire
 
 extension GatewayConnection {
     
     private var revocationUrl: String { baseUrl + "drl" }
     
     private var statusUrl: String { baseUrl + "drl/check" }
+    
+    func _revocationStatus(_ progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
+        let version = progress.currentVersion
+        let chunk = progress.currentChunk ?? 1
+        let url = "\(self.statusUrl)?version=\(version)&chunk=\(chunk)"
+        return self.get(url: url)
+    }
+    
+    func _updateRevocationList(_ progress: DRLProgress) -> RxSwift.Observable<DRL> {
+        let version = progress.currentVersion
+        let chunk = progress.currentChunk ?? 1
+        let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
+        return self.get(url: url)
+    }
+    
     
     func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -68,6 +85,9 @@ extension GatewayConnection {
         session.request("\(revocationUrl)?version=\(versionString)&chunk=\(chunkString)").response {
             //  Were the response to be `nil` (AFRequest failed, see $0.result),
             //  it'd be okay for it to be handled just like a statusCode 408.
+            let headers = $0.response?.headers.dictionary.map{ "\($0.key) : \($0.value) \n" }.reduce("", +) ?? ""
+            print("Headers: \n \(headers)")
+            
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
