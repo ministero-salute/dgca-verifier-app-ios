@@ -137,9 +137,9 @@ class HomeViewModel {
     }
     
     // Note: not the model's responsibility
-    public func readyToDownload() -> Void {
-        self.sync.readyToDownload()
-    }
+//    public func readyToDownload() -> Void {
+//        self.sync.readyToDownload()
+//    }
     
     public func getDRLProgress() -> DRLProgress {
         return self.sync.progress

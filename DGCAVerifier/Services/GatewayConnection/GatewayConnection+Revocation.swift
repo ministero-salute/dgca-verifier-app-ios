@@ -40,7 +40,7 @@ extension GatewayConnection {
         return self.get(url: url)
     }
     
-    func _updateRevocationList(_ progress: DRLProgress) -> RxSwift.Observable<DRL> {
+    func getDLRChunk(_ progress: DRLProgress) -> RxSwift.Observable<DRL> {
         let version = progress.currentVersion
         let chunk = progress.currentChunk ?? 1
         let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
@@ -76,6 +76,7 @@ extension GatewayConnection {
             completion?(drl, nil, statusCode)
         }
     }
+    
     
     private func getDRL(version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
         let restStartTime = Log.start(key: "[DRL] [REST]")
