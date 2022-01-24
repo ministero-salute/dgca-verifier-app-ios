@@ -86,19 +86,31 @@ class DRLSynchronizationManager {
     
     let disposeBag = DisposeBag()
     
+    private func getHttpErrorCode(from error: Error) -> Int? {
+        guard let gatewayError = error as? GatewayConnection.GCError else { return nil }
+        switch gatewayError {
+        case .httpError(let code):
+            return code
+        default:
+            return nil
+        }
+    }
+    
+    private func isaServerTimeoutError(_ error: Error) -> Bool {
+        return self.getHttpErrorCode(from: error) == 408
+    }
+    
+    
     func start() {
         log("check status")
         
         gateway._revocationStatus(progress)
             .subscribe { status in
-                print("Status.rx -> \(status)")
+                self.drlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+                self._serverStatus = status
+                self.synchronize()
             } onError: { err in
-               print("Error -> \(err)")
-            }
-            .disposed(by: disposeBag)
-
-        gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
-            guard error == nil, responseCode == 200 else {
+                
                 self.log("status failed")
 
                 if self.isFetchOutdated {
@@ -107,20 +119,40 @@ class DRLSynchronizationManager {
                 
                 self.drlStatusFailCounter -= 1
                 
-                if self.drlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
+                if self.drlStatusFailCounter < 0 || !Connectivity.isOnline || self.isaServerTimeoutError(err) {
                     self.delegate?.statusDidChange(with: .statusNetworkError)
                 }
                 else {
                     self.cleanAndRetry()
                 }
                 
-                return
             }
-            
-            self.drlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
-            self._serverStatus = serverStatus
-            self.synchronize()
-        }
+            .disposed(by: disposeBag)
+
+//        gateway.revocationStatus(progress) { (serverStatus, error, responseCode) in
+//            guard error == nil, responseCode == 200 else {
+//                self.log("status failed")
+//
+//                if self.isFetchOutdated {
+//                    self.log("fetch outdated, scans not allowed")
+//                }
+//
+//                self.drlStatusFailCounter -= 1
+//
+//                if self.drlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
+//                    self.delegate?.statusDidChange(with: .statusNetworkError)
+//                }
+//                else {
+//                    self.cleanAndRetry()
+//                }
+//
+//                return
+//            }
+//
+//            self.drlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+//            self._serverStatus = serverStatus
+//            self.synchronize()
+//        }
     }
     
     var isSyncEnabled: Bool {
@@ -129,12 +161,18 @@ class DRLSynchronizationManager {
     
     private func synchronize() {
         log("start synchronization")
-        guard outdatedVersion else { return downloadCompleted() }
-        guard noPendingDownload else { return resumeDownload() }
+        guard outdatedVersion else {
+            downloadCompleted()
+            return
+        }
+        guard noPendingDownload else {
+            resumeDownload()
+            return
+        }
         checkDownload()
     }
         
-    func checkDownload() {
+    private func checkDownload() {
         _progress = DRLProgress(serverStatus: _serverStatus)
         
         guard !requireUserInteraction else {
@@ -155,22 +193,51 @@ class DRLSynchronizationManager {
         download()
     }
     
-    func resumeDownload() {
+    private func resumeDownload() {
         log("resuming previous progress")
         guard sameChunkSize else { return cleanAndRetry() }
         guard sameRequestedVersion else { return cleanAndRetry() }
-        guard oneChunkAlreadyDownloaded else { return readyToDownload() }
-        readyToResume()
+        guard oneChunkAlreadyDownloaded else {
+            self.notifyStatusChange(newStatus: .downloadReady)
+            return
+        }
+        self.notifyStatusChange(newStatus: .paused)
     }
     
-    func readyToDownload() {
-        log("user can download")
-        delegate?.statusDidChange(with: .downloadReady)
+    private func notifyStatusChange(newStatus status: Result) {
+        delegate?.statusDidChange(with: status)
     }
     
-    func readyToResume() {
-        log("user can resume download")
-        delegate?.statusDidChange(with: .paused)
+    
+    
+//    private func readyToDownload() {
+//        log("user can download")
+//        delegate?.statusDidChange(with: .downloadReady)
+//    }
+//
+//    private func readyToResume() {
+//        log("user can resume download")
+//        delegate?.statusDidChange(with: .paused)
+//    }
+    
+    
+    private func alignInternalStatusWithServerStatus() {
+        log("inconsistent number of UCVI, clean needed")
+        DRLSynchronizationManager.shared.drlFailCounter -= 1
+        if DRLSynchronizationManager.shared.drlFailCounter < 0 {
+            log("failed too many times")
+            if progress.remainingSize == "0.00" || progress.remainingSize == "" {
+                delegate?.statusDidChange(with: .statusNetworkError)
+            } else {
+                delegate?.statusDidChange(with: .error)
+            }
+            clean()
+            return
+        }
+        else {
+            log("retrying...")
+            return cleanAndRetry()
+        }
     }
     
     func downloadCompleted() {
@@ -199,10 +266,10 @@ class DRLSynchronizationManager {
         DRLDataStorage.shared.lastFetch = Date()
         DRLDataStorage.shared.save()
         isDownloadingDRL = false
-        delegate?.statusDidChange(with: .completed)
+        self.notifyStatusChange(newStatus: .completed)
     }
     
-    func clean() {
+    private func clean() {
         _progress = .init()
         _serverStatus = nil
         isDownloadingDRL = false
@@ -210,7 +277,7 @@ class DRLSynchronizationManager {
         log("cleaned")
     }
     
-    func cleanAndRetry() {
+    private func cleanAndRetry() {
         log("clean needed, retry")
         clean()
         start()
@@ -247,7 +314,7 @@ class DRLSynchronizationManager {
         case 408:
             // 408 - Timeout: resume downloading from the last persisted chunk.
             if Connectivity.isOnline {
-                readyToResume()
+                self.notifyStatusChange(newStatus: .paused)
             } else {
                 self.delegate?.statusDidChange(with: .noConnection)
             }
