@@ -35,7 +35,11 @@ class DRLSynchronizationManager {
     
     let AUTOMATIC_MAX_SIZE: Double = 5.0.fromMegaBytesToBytes
     
-    enum DownloadError: Error {
+    enum DRLStatusError: Error {
+        case illegalChunkNumber
+    }
+    
+    enum DRLDownloadError: Error {
         case versionMismatch
     }
     
@@ -110,9 +114,10 @@ class DRLSynchronizationManager {
         guard isSyncEnabled else { return }
         log("initialize")
         self.delegate = delegate
-        setTimer() { self.start() }
+        //setTimer() { self.start() }
         drlFailCounter = maxRetries
         drlStatusFailCounter = maxRetries
+        self.start()
     }
     
     private func resetStatusFailsCounter() {
@@ -126,6 +131,7 @@ class DRLSynchronizationManager {
     private func downloadChunks(fromStatus status: DRLStatus, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
         let version = status.version ?? 0
         let chunks = status.totalChunk ?? 1
+        guard chunks > 0 else { return RxSwift.Observable.error(DRLStatusError.illegalChunkNumber) }
         let downloadList = (1 ... chunks).map{ downloadChunk(version: version, chunk: $0, allowMaxSizeDownload: allowMaxSizeDownload) }
         return RxSwift.Observable.concat(downloadList)
     }
@@ -134,7 +140,7 @@ class DRLSynchronizationManager {
         return gateway.getDRLChunk(version: version, chunk: chunk)
             .do { drl in
                 // todo move this code in another observable
-                guard drl.version == version else { throw DownloadError.versionMismatch }
+                guard drl.version == version else { throw DRLDownloadError.versionMismatch }
                 
                 //guard isConsistent(drl) else { return handleRetry() }
                 //log("managing response")
@@ -154,21 +160,23 @@ class DRLSynchronizationManager {
             .subscribe { chunk in
                 // call after chunk download
                 
-                
             } onError: { err in
+                
+                self.log("Error = \(err)")
+                
                 //handle chunk download error
-                
-                
-//                self.log("status failed")
-//
-//                if self.isFetchOutdated {
-//                    self.log("fetch outdated, scans not allowed")
-//                }
-//
-//                return self.handleStatusError(err)
+
                 
             } onCompleted: {
                 // all chunks downloaded
+                self._progress.completeProgress()
+                self._serverStatus = nil
+                self.resetDrlFailsCounter()
+                DRLDataStorage.shared.lastFetch = Date()
+                DRLDataStorage.shared.save()
+                self.isDownloadingDRL = false
+                self.notifyStatusChange(newStatus: .completed)
+                
             }
             .disposed(by: disposeBag)
     }
