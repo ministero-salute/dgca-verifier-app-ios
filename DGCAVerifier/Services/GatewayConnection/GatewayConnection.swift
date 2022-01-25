@@ -89,6 +89,8 @@ class GatewayConnection {
 	
 	public func get<T: Codable>(url: String) -> RxSwift.Observable<T> {
 		
+        print("API GET \(T.self) url: \(url)")
+        
 		return RxSwift.Observable<T>.create{ observer in
 			
 			let request = self.session.request(url).response {

@@ -34,5 +34,8 @@ struct DRL: Codable {
     var delta: Delta?
     var sizeSingleChunkInByte: Int?
     var totalNumberUCVI: Int?
-    var responseSize: Double?
+    var responseSize: Double? {
+        guard let sizeChunk = self.sizeSingleChunkInByte, let lastChunk = self.lastChunk else {return nil}
+        return Double(sizeChunk * lastChunk)
+    }
 }

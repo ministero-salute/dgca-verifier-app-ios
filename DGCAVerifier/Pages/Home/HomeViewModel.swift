@@ -127,13 +127,13 @@ class HomeViewModel {
         if self.sync.noPendingDownload || sync.needsServerStatusUpdate {
             sync.start()
         } else {
-            sync.download()
+//            sync.download()
         }
     }
     
     // Note: was sync.download(), need to test
     public func startDownloading() -> Void {
-        sync.startDownload()
+//        sync.startDownload()
     }
     
     // Note: not the model's responsibility

@@ -308,8 +308,6 @@
 		98F0B1F9279AF60900F621EC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F8279AF60900F621EC /* RxCocoa */; };
 		98F0B1FB279AF60900F621EC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1FA279AF60900F621EC /* RxRelay */; };
 		98F0B1FD279AF60900F621EC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1FC279AF60900F621EC /* RxSwift */; };
-		98F0B22027A0000000F621EC /* DebugHeaderInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F0B21F27A0000000F621EC /* DebugHeaderInterceptor.swift */; };
-		98F0B22127A0000000F621EC /* DebugHeaderInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F0B21F27A0000000F621EC /* DebugHeaderInterceptor.swift */; };
 		98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */; };
@@ -501,7 +499,6 @@
 		98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineExemptionEntry.swift; sourceTree = "<group>"; };
 		98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+UVCI.swift"; sourceTree = "<group>"; };
 		98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineExemptionValidityCheck.swift; sourceTree = "<group>"; };
-		98F0B21F27A0000000F621EC /* DebugHeaderInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugHeaderInterceptor.swift; sourceTree = "<group>"; };
 		98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -1029,7 +1026,6 @@
 		65EFB60626B068EA0081682B /* GatewayConnection */ = {
 			isa = PBXGroup;
 			children = (
-				98F0B21F27A0000000F621EC /* DebugHeaderInterceptor.swift */,
 				9F4F3C442649D60B00F59BA2 /* GatewayConnection.swift */,
 				65EFB5ED26B04D850081682B /* GatewayConnection+Certificates.swift */,
 				65EFB5F026B04D900081682B /* GatewayConnection+Settings.swift */,
@@ -1567,7 +1563,6 @@
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
 				656433B526D787C300A41590 /* RevokedDCC.swift in Sources */,
-				98F0B22127A0000000F621EC /* DebugHeaderInterceptor.swift in Sources */,
 				98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */,
 				90BED816276A4F15006225CE /* String+HTML.swift in Sources */,
 				65021B6926AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
@@ -1769,7 +1764,6 @@
 				65021B6826AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65E281AA269721ED00377913 /* HCert+Vaccine.swift in Sources */,
 				90C2EB1B2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */,
-				98F0B22027A0000000F621EC /* DebugHeaderInterceptor.swift in Sources */,
 				98DCD742278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */,
 				65E2816D2697217B00377913 /* VerificationViewController.swift in Sources */,
 				65F280CB26D655E3009BC452 /* CRL.swift in Sources */,
