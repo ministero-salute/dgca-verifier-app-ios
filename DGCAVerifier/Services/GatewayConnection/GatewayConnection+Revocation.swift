@@ -33,16 +33,14 @@ extension GatewayConnection {
     
     private var statusUrl: String { baseUrl + "drl/check" }
     
-    func _revocationStatus(_ progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
+    func getDRLStatus(_ progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
         let version = progress.currentVersion
         let chunk = progress.currentChunk ?? 1
         let url = "\(self.statusUrl)?version=\(version)&chunk=\(chunk)"
         return self.get(url: url)
     }
     
-    func getDLRChunk(_ progress: DRLProgress) -> RxSwift.Observable<DRL> {
-        let version = progress.currentVersion
-        let chunk = progress.currentChunk ?? 1
+    func getDRLChunk(version: Int, chunk: Int) -> RxSwift.Observable<DRL> {
         let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
         return self.get(url: url)
     }

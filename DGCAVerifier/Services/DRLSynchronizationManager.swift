@@ -133,6 +133,7 @@ class DRLSynchronizationManager {
     private func downloadChunk(version: Int, chunk: Int, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
         return gateway.getDRLChunk(version: version, chunk: chunk)
             .do { drl in
+                // todo move this code in another observable
                 guard drl.version == version else { throw DownloadError.versionMismatch }
                 
                 //guard isConsistent(drl) else { return handleRetry() }

@@ -32,7 +32,7 @@ struct DRLProgress: Codable {
     var totalChunk: Int?
     var sizeSingleChunkInByte: Int?
     var totalSizeInByte: Int?
-    var downloadedSize: Double?
+    var downloadedSize: Int?
     
     static let FIRST_VERSION: Int = 0
     static let FIRST_CHUNK: Int = 1
@@ -60,7 +60,7 @@ struct DRLProgress: Codable {
         totalChunk: Int? = nil,
         sizeSingleChunkInByte: Int? = nil,
         totalSizeInByte: Int? = nil,
-        downloadedSize: Double? = nil
+        downloadedSize: Int? = nil
     ) {
         self.currentVersion = currentVersion ?? DRLProgress.FIRST_VERSION
         self.requestedVersion = requestedVersion ?? DRLProgress.FIRST_VERSION
@@ -71,10 +71,16 @@ struct DRLProgress: Codable {
         self.downloadedSize = downloadedSize ?? 0
     }
     
+    var remainingBytes: Int? {
+        guard let responseSize = totalSizeInByte else { return nil }
+        guard let downloadedSize = downloadedSize else { return nil }
+        return responseSize - downloadedSize
+    }
+    
     var remainingSize: String {
         guard let responseSize = totalSizeInByte else { return "" }
         guard let downloadedSize = downloadedSize else { return "" }
-        return (responseSize.doubleValue - downloadedSize).toMegaBytes.byteReadableValue
+        return (responseSize - downloadedSize).toMegaBytes.byteReadableValue
     }
     
     var current: Float {
@@ -96,5 +102,15 @@ struct DRLProgress: Codable {
         let downloaded = downloadedSize.toMegaBytes.byteReadableValue
         return "drl.update.progress.mb".localizeWith(downloaded, total)
     }
+    
+    mutating func updateProgress(with size: Int?) {
+        self.currentChunk = (self.currentChunk ?? DRLProgress.FIRST_CHUNK) + 1
+        self.downloadedSize = (self.downloadedSize ?? 0) + (size ?? 0)
+    }
+    
+    mutating func completeProgress() {
+        self.currentVersion = self.requestedVersion
+    }
+    
     
 }
