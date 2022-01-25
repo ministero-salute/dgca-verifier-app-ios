@@ -302,11 +302,9 @@
 		98DCD749278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */; };
 		98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
 		98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
-		98F0B1EF279AF51600F621EC /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1EE279AF51600F621EC /* RxBlocking */; };
 		98F0B1F1279AF51600F621EC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F0279AF51600F621EC /* RxCocoa */; };
 		98F0B1F3279AF51600F621EC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F2279AF51600F621EC /* RxRelay */; };
 		98F0B1F5279AF51600F621EC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F4279AF51600F621EC /* RxSwift */; };
-		98F0B1F7279AF51600F621EC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F6279AF51600F621EC /* RxTest */; };
 		98F0B1F9279AF60900F621EC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1F8279AF60900F621EC /* RxCocoa */; };
 		98F0B1FB279AF60900F621EC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1FA279AF60900F621EC /* RxRelay */; };
 		98F0B1FD279AF60900F621EC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 98F0B1FC279AF60900F621EC /* RxSwift */; };
@@ -567,11 +565,9 @@
 				98F0B1F1279AF51600F621EC /* RxCocoa in Frameworks */,
 				6B797DCF26D041AA00EB2873 /* Realm in Frameworks */,
 				CE8912FB2634C6B900CB92AF /* Alamofire in Frameworks */,
-				98F0B1F7279AF51600F621EC /* RxTest in Frameworks */,
 				6B797DD126D041AA00EB2873 /* RealmSwift in Frameworks */,
 				CE56B5052639F48E00FB31B1 /* SwiftDGC in Frameworks */,
 				65D6D7D42684FCA90022C816 /* SwiftDGC in Frameworks */,
-				98F0B1EF279AF51600F621EC /* RxBlocking in Frameworks */,
 				CE1F155C2639F9E700736D48 /* SwiftyJSON in Frameworks */,
 				CE13CF00262DCC180070C80E /* FloatingPanel in Frameworks */,
 				98F0B1F5279AF51600F621EC /* RxSwift in Frameworks */,
@@ -879,7 +875,6 @@
 		65E28186269721ED00377913 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				98F0B201279AFCAB00F621EC /* Alamofire */,
 				90A3E611273AFC2A00D161BD /* Connectivity */,
 				65E2818F269721ED00377913 /* Observable */,
 				65E28187269721ED00377913 /* Date */,
@@ -1303,11 +1298,9 @@
 				65D6D7D32684FCA90022C816 /* SwiftDGC */,
 				6B797DCE26D041AA00EB2873 /* Realm */,
 				6B797DD026D041AA00EB2873 /* RealmSwift */,
-				98F0B1EE279AF51600F621EC /* RxBlocking */,
 				98F0B1F0279AF51600F621EC /* RxCocoa */,
 				98F0B1F2279AF51600F621EC /* RxRelay */,
 				98F0B1F4279AF51600F621EC /* RxSwift */,
-				98F0B1F6279AF51600F621EC /* RxTest */,
 			);
 			productName = DGCAVerifier;
 			productReference = CEA6D6E8261F8D2700715333 /* VerificaC19.app */;
@@ -2672,11 +2665,6 @@
 			package = 6B797DCD26D041AA00EB2873 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
 		};
-		98F0B1EE279AF51600F621EC /* RxBlocking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 98F0B1ED279AF51500F621EC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxBlocking;
-		};
 		98F0B1F0279AF51600F621EC /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F0B1ED279AF51500F621EC /* XCRemoteSwiftPackageReference "RxSwift" */;
@@ -2691,11 +2679,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 98F0B1ED279AF51500F621EC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
-		};
-		98F0B1F6279AF51600F621EC /* RxTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 98F0B1ED279AF51500F621EC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxTest;
 		};
 		98F0B1F8279AF60900F621EC /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
