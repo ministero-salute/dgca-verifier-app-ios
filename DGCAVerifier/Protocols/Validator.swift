@@ -46,7 +46,7 @@ extension Validator {
         guard hCert.cryptographicallyValid else { return false }
         guard hCert.exp >= HCert.clock else { return false }
         guard hCert.iat <= HCert.clock else { return false }
-        guard hCert.statement != nil else { return false }
+        guard hCert.lastStatement != nil else { return false }
         return true
     }
 

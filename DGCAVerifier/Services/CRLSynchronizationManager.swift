@@ -77,6 +77,7 @@ class CRLSynchronizationManager {
         self.delegate = delegate
         setTimer() { self.start() }
         crlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
+        crlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
     
     func start() {
@@ -89,16 +90,7 @@ class CRLSynchronizationManager {
                     self.log("fetch outdated, scans not allowed")
                 }
                 
-                self.crlStatusFailCounter -= 1
-                
-                if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
-                    self.delegate?.statusDidChange(with: .statusNetworkError)
-                }
-                else {
-                    self.cleanAndRetry()
-                }
-                
-                return
+                return self.handleStatusRetry(responseCode: responseCode)
             }
             
             self.crlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
@@ -127,6 +119,7 @@ class CRLSynchronizationManager {
     func startDownload() {
         guard Connectivity.isOnline else {
             self.showNoConnectionAlert()
+            self.resumeDownload()
             return
         }
         
@@ -136,8 +129,8 @@ class CRLSynchronizationManager {
     
     func resumeDownload() {
         log("resuming previous progress")
-        guard sameChunkSize else { return cleanAndRetry() }
-        guard sameRequestedVersion else { return cleanAndRetry() }
+        guard sameChunkSize else { return handleRetry() }
+        guard sameRequestedVersion else { return handleRetry() }
         guard oneChunkAlreadyDownloaded else { return readyToDownload() }
         readyToResume()
     }
@@ -156,21 +149,7 @@ class CRLSynchronizationManager {
         log("download completed")
         guard sameDatabaseSize else {
             log("inconsistent number of UCVI, clean needed")
-            CRLSynchronizationManager.shared.crlFailCounter -= 1
-            if CRLSynchronizationManager.shared.crlFailCounter < 0 {
-                log("failed too many times")
-                if progress.remainingSize == "0.00" || progress.remainingSize == "" {
-                    delegate?.statusDidChange(with: .statusNetworkError)
-                } else {
-                    delegate?.statusDidChange(with: .error)
-                }
-                clean()
-                return
-            }
-            else {
-                log("retrying...")
-                return cleanAndRetry()
-            }
+            return handleRetry()
         }
         completeProgress()
         _serverStatus = nil
@@ -179,6 +158,36 @@ class CRLSynchronizationManager {
         CRLDataStorage.shared.save()
         isDownloadingCRL = false
         delegate?.statusDidChange(with: .completed)
+    }
+    
+    func handleRetry() {
+		self.crlFailCounter -= 1
+        if self.crlFailCounter < 0 {
+            log("failed too many times")
+            if progress.remainingSize == "0.00" || progress.remainingSize == "" {
+                delegate?.statusDidChange(with: .statusNetworkError)
+            } else {
+                delegate?.statusDidChange(with: .error)
+            }
+            clean()
+            return
+        }
+        else {
+            log("retrying...")
+            return cleanAndRetry()
+        }
+    }
+    
+    func handleStatusRetry(responseCode: Int?) {
+		if responseCode != 408 {
+			self.crlStatusFailCounter -= 1
+		}
+        
+        if self.crlStatusFailCounter < 0 || !Connectivity.isOnline || responseCode == 408 {
+            self.delegate?.statusDidChange(with: .statusNetworkError)
+        } else {
+            self.cleanAndRetry()
+        }
     }
     
     func clean() {
@@ -200,15 +209,14 @@ class CRLSynchronizationManager {
         log(progress)
         delegate?.statusDidChange(with: .downloading)
         gateway.updateRevocationList(progress) { crl, error, statusCode in
-            guard statusCode == 200 else { return self.handleDRLHTTPError(statusCode: statusCode) }
-            guard error == nil else { return self.errorFlow() }
+            guard statusCode == 200, error == nil else { return self.handleDRLHTTPError(statusCode: statusCode) }
             guard let crl = crl else { return self.errorFlow() }
             self.manageResponse(with: crl)
         }
     }
     
     private func manageResponse(with crl: CRL) {
-        guard isConsistent(crl) else { return cleanAndRetry() }
+        guard isConsistent(crl) else { return handleRetry() }
         log("managing response")
         CRLDataStorage.store(crl: crl)
         updateProgress(with: crl.sizeSingleChunkInByte)
@@ -217,12 +225,14 @@ class CRLSynchronizationManager {
     
     private func handleDRLHTTPError(statusCode: Int?) {
         guard let statusCode = statusCode else {
-            return self.cleanAndRetry()
+            return self.handleRetry()
         }
 
         switch statusCode {
+        case 200:
+            self.resumeDownload()
         case 400...407:
-            self.cleanAndRetry()
+            self.handleRetry()
         case 408:
             // 408 - Timeout: resume downloading from the last persisted chunk.
             Connectivity.isOnline ? readyToResume() : showNoConnectionAlert()

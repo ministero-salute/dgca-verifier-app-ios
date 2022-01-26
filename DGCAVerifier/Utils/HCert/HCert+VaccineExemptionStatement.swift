@@ -17,32 +17,30 @@
 */
 
 //
-//  StatementValidityCheck.swift
+//  HCert+Statement.swift
 //  Verifier
 //
-//  Created by Davide Aliti on 28/10/21.
+//  Created by Ludovico Girolimini on 10/01/22.
 //
 
 import Foundation
-
 import SwiftDGC
 
-struct StatementValidityCheck {
+
+extension HCert {
     
-    private let blacklist = "black_list_uvci"
-
-    func isStatementBlacklisted(_ hCert: HCert) -> Bool {
-        guard let blacklist = getBlacklist() else { return false }
-        return blacklist.split(separator: ";").contains("\(hCert.getUVCI())")
-        
+    var vaccineExemptionStatements: [VaccineExemptionEntry] {
+        return self.body["e"]
+          .array?
+          .compactMap {
+            VaccineExemptionEntry(body: $0)
+          } ?? []
     }
-
-    private func getBlacklist() -> String? {
-        return getValue(for: blacklist)
+    
+    var lastStatement: HCertEntry? {
+        guard self.statement == nil else { return self.statement }
+        guard !vaccineExemptionStatements.isEmpty else { return nil }
+        return vaccineExemptionStatements.last
     }
-
-    private func getValue(for name: String) -> String? {
-        return LocalData.getSetting(from: name)
-    }
+    
 }
-

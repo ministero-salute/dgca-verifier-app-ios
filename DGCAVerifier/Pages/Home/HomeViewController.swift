@@ -317,7 +317,8 @@ class HomeViewController: UIViewController {
     
     @objc func startSync() {
         guard Connectivity.isOnline else {
-            showAlert(key: "no.connection")
+            showCustomAlert(key: "no.connection")
+            networkStatusError()
             return
         }
         
@@ -330,7 +331,8 @@ class HomeViewController: UIViewController {
     
     @objc func resumeSync() {
         guard Connectivity.isOnline else {
-            showAlert(key: "no.connection")
+            showCustomAlert(key: "no.connection")
+            downloadPaused()
             return
         }
         sync.download()
@@ -424,6 +426,7 @@ class HomeViewController: UIViewController {
     
     private func crlDownloadNeeded() {
         progressView.fillView(with: sync.progress)
+        progressView.error(with: sync.progress, noSize: true)
         showCRL(true)
     }
     
