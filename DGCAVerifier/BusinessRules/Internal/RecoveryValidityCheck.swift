@@ -37,8 +37,26 @@ struct RecoveryValidityCheck {
         guard let recoveryValidFromDate = validFrom.toRecoveryDate else { return .notValid }
         guard let recoveryValidUntilDate = validUntil.toRecoveryDate else { return .notValid }
         
-        guard let recoveryStartDays = getStartDays(from: hcert ) else { return .notGreenPass }
-        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notGreenPass }
+        var start: Int?
+        var end: Int?
+        
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        switch scanMode {
+        case Constants.scanMode2G:
+            start = getStartDays(from: hcert)
+            end = getEndDays(from: hcert)
+        case Constants.scanMode3G:
+            start = getStartDays3G(from: hcert)
+            end = getEndDays3G(from: hcert)
+        case Constants.scanModeBooster:
+            start = getStartDays(from: hcert)
+            end = getEndDays(from: hcert)
+        default:
+            return .notValid
+        }
+        
+        guard let recoveryStartDays = start else { return .notGreenPass }
+        guard let recoveryEndDays = end else { return .notGreenPass }
         
         guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
         let validityEnd = recoveryValidUntilDate
@@ -48,19 +66,42 @@ struct RecoveryValidityCheck {
         
         let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
         
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
         guard scanMode != Constants.scanModeBooster else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
         
         return recoveryStatus
     }
     
+    private func getStartDays3G(from hcert: HCert) -> Int? {
+        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
+        let startDaysConfig: String
+        if isSpecialRecovery(hcert: hcert){
+            startDaysConfig = Constants.recoverySpecialStartDays
+        }
+        else {
+            startDaysConfig = isITCode ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
+        }
+        return getValue(for: startDaysConfig)?.intValue
+    }
+    
+    private func getEndDays3G(from hcert: HCert) -> Int? {
+        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
+        let startDaysConfig: String
+        if isSpecialRecovery(hcert: hcert){
+            startDaysConfig = Constants.recoverySpecialEndDays
+        }
+        else {
+            startDaysConfig = isITCode ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
+        }
+        return getValue(for: startDaysConfig)?.intValue
+    }
+    
     private func getStartDays(from hcert: HCert) -> Int? {
-        let startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays
+        let startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays_IT
         return getValue(for: startDaysConfig)?.intValue
     }
     
     private func getEndDays(from hcert: HCert) -> Int? {
-        let endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays
+        let endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays_IT
         return getValue(for: endDaysConfig)?.intValue
     }
     

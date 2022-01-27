@@ -42,17 +42,33 @@ struct VaccineValidityCheck {
         let lastDose = currentDoses >= totalDoses
         
         guard let product = hcert.medicalProduct else { return .notValid }
-        guard isValid(for: product) else { return .notValid }
+        guard isValid(for: hcert) else { return .notValid }
         guard let countryCode = hcert.countryCode else { return .notValid }
         guard isAllowedVaccination(for: product, fromCountryWithCode: countryCode) else { return .notValid }
-
-        guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
-        guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
-
+        
+        var start: Int?
+        var end: Int?
+        
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        switch scanMode {
+        case Constants.scanMode2G:
+            start = getStartDays2G(for: hcert, lastDose)
+            end = getEndDays2G(for: hcert, lastDose)
+        case Constants.scanMode3G:
+            start = getStartDays3G(for: hcert, lastDose)
+            end = getEndDays3G(for: hcert, lastDose)
+        case Constants.scanModeBooster:
+            start = getStartDaysBooster(for: hcert, lastDose)
+            end = getEndDaysBooster(for: hcert, lastDose)
+        default:
+            return .notValid
+        }
+        
+        guard let startDate = start, let endDate = end else { return .notValid }
         guard let dateString = hcert.vaccineDate else { return .notValid }
         guard let date = dateString.toVaccineDate else { return .notValid }
-        guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
-        guard let validityEnd = date.add(end, ofType: .day)?.startOfDay else { return .notValid }
+        guard let validityStart = date.add(startDate, ofType: .day) else { return .notValid }
+        guard let validityEnd = date.add(endDate, ofType: .day)?.startOfDay else { return .notValid }
 
         guard let currentDate = Date.startOfDay else { return .notValid }
 
@@ -64,16 +80,21 @@ struct VaccineValidityCheck {
         
         guard result == .valid else { return result }
 
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
         if scanMode == Constants.scanModeBooster {
-            let isaBoosterDose = currentDoses > totalDoses ||
-                currentDoses >= Constants.boosterMinimumDosesNumber || isJJBooster
-            
-            if isaBoosterDose { return . valid }
+            if isBoosterDoses(hcert: hcert) { return . valid }
             return lastDose ? .verificationIsNeeded : .notValid
         }
 
         return result
+    }
+    
+    private func isBoosterDoses (hcert: HCert) -> Bool {
+        guard let currentDoses = hcert.currentDosesNumber, let totalDoses = hcert.totalDosesNumber else { return false }
+        let isJJ = hcert.medicalProduct == Constants.JeJVacineCode
+        let isJJBooster = isJJ && isaJJBoosterDose(current: currentDoses, total: totalDoses)
+        let isaBoosterDose = currentDoses > totalDoses ||
+            currentDoses >= Constants.boosterMinimumDosesNumber || isJJBooster
+        return isaBoosterDose
     }
     
     private func isaJJBoosterDose(current: Int, total: Int) -> Bool {
@@ -87,19 +108,78 @@ struct VaccineValidityCheck {
         return true
     }
     
-    private func isValid(for medicalProduct: String) -> Bool {
+    private func isValid(for hcert: HCert) -> Bool {
         // Vaccine code not included in settings -> not a valid vaccine for Italy
-        let name = Constants.vaccineCompleteEndDays
+        guard let countryCode = hcert.countryCode, let medicalProduct = hcert.medicalProduct else { return false }
+        var name: String
+        if countryCode == Constants.ItalyCountryCode {
+            name = Constants.vaccineCompleteEndDays_IT
+        }
+        else {
+            name = Constants.vaccineCompleteEndDays_NOT_IT
+        }
         return getValue(for: name, type: medicalProduct) != nil
     }
      
-    private func getStartDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteStartDays : Constants.vaccineIncompleteStartDays
+    private func getStartDays3G(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let countryCode = hcert.countryCode, let medicalProduct = hcert.medicalProduct else { return nil }
+        var name: String
+        if !isLastDose {
+            name = Constants.vaccineIncompleteStartDays
+        }
+        else {
+            let isITCode =  countryCode == Constants.ItalyCountryCode
+            name = isITCode ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
+        }
         return getValue(for: name, type: medicalProduct)?.intValue
     }
     
-    private func getEndDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteEndDays : Constants.vaccineIncompleteEndDays
+    private func getEndDays3G(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let countryCode = hcert.countryCode, let medicalProduct = hcert.medicalProduct else { return nil }
+        var name: String
+        if !isLastDose {
+            name = Constants.vaccineIncompleteEndDays
+        }
+        else {
+            let isITCode =  countryCode == Constants.ItalyCountryCode
+            name = isITCode ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
+        }
+        return getValue(for: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getStartDays2G(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let medicalProduct = hcert.medicalProduct else { return nil }
+        let name = isLastDose ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineIncompleteStartDays
+        return getValue(for: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getEndDays2G(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let medicalProduct = hcert.medicalProduct else { return nil }
+        let name = isLastDose ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineIncompleteEndDays
+        return getValue(for: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getStartDaysBooster(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let medicalProduct = hcert.medicalProduct, isLastDose else { return nil }
+        let name: String
+        if isBoosterDoses(hcert: hcert){
+            name = Constants.vaccineBoosterStartDays_IT
+        }
+        else {
+            name = Constants.vaccineCompleteStartDays_IT
+        }
+        return getValue(for: name, type: medicalProduct)?.intValue
+    }
+    
+    private func getEndDaysBooster(for hcert: HCert, _ isLastDose: Bool) -> Int? {
+        guard let medicalProduct = hcert.medicalProduct, isLastDose else { return nil }
+        let name: String
+        if isBoosterDoses(hcert: hcert){
+            name = Constants.vaccineBoosterEndDays_IT
+        }
+        else {
+            name = Constants.vaccineCompleteEndDays_IT
+        }
         return getValue(for: name, type: medicalProduct)?.intValue
     }
     

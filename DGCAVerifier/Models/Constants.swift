@@ -38,6 +38,16 @@ struct Constants {
     static let vaccineIncompleteEndDays = "vaccine_end_day_not_complete"
     static let vaccineCompleteStartDays = "vaccine_start_day_complete"
     static let vaccineCompleteEndDays = "vaccine_end_day_complete"
+
+    static let vaccineCompleteStartDays_IT = "vaccine_start_day_complete_IT"
+    static let vaccineCompleteEndDays_IT = "vaccine_end_day_complete_IT"
+    static let vaccineCompleteStartDays_NOT_IT = "vaccine_start_day_complete_NOT_IT"
+    static let vaccineCompleteEndDays_NOT_IT = "vaccine_end_day_complete_NOT_IT"
+    static let vaccineBoosterStartDays_IT = "vaccine_start_day_booster_IT"
+    static let vaccineBoosterEndDays_IT = "vaccine_end_day_booster_IT"
+    static let vaccineBoosterStartDays_NOT_IT = "vaccine_start_day_booster_NOT_IT"
+    static let vaccineBoosterEndDays_NOT_IT = "vaccine_end_day_booster_NOT_IT"
+    
     static let JeJVacineCode = "EU/1/20/1525"
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
@@ -45,6 +55,10 @@ struct Constants {
     // RecoveryValidityCheck
     static let recoveryStartDays = "recovery_cert_start_day"
     static let recoveryEndDays = "recovery_cert_end_day"
+    static let recoveryStartDays_IT = "recovery_cert_start_day_IT"
+    static let recoveryEndDays_IT = "recovery_cert_end_day_IT"
+    static let recoveryStartDays_NOT_IT = "recovery_cert_start_day_NOT_IT"
+    static let recoveryEndDays_NOT_IT = "recovery_cert_end_day_NOT_IT"
     static let recoverySpecialStartDays = "recovery_pv_cert_start_day"
     static let recoverySpecialEndDays = "recovery_pv_cert_end_day"
     static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
