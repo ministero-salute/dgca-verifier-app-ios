@@ -115,10 +115,9 @@ class DRLSynchronizationManager {
         guard isSyncEnabled else { return }
         log("initialize")
         self.delegate = delegate
-        //setTimer() { self.start() }
+        setTimer() { self.start() }
         drlFailCounter = maxRetries
         drlStatusFailCounter = maxRetries
-        self.start()
     }
     
     private func resetStatusFailsCounter() {
@@ -128,63 +127,7 @@ class DRLSynchronizationManager {
     private func resetDrlFailsCounter() {
         self.drlFailCounter = self.maxRetries
     }
-    
-    private func getDRLStatus (progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
-        return gateway.getDRLStatus(progress).do { newStatus in
-            self.resetStatusFailsCounter()
-            self._serverStatus = newStatus
-            self._progress = .init(serverStatus: newStatus)
-        } onError: { error in
-            self.log("[getDRLStatus] Error = \(error)")
-            self.handleStatusError(error)
-        } onCompleted: {
-            self.log("[getDRLStatus] Completed")
-        } onSubscribe: {
-            self.log("[getDRLStatus] Subscribed")
-        } onDispose: {
-            self.log("[getDRLStatus] Disposed")
-        }
-    }
-    
-//    private func getDRLStatus (progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
-//        return gateway.getDRLStatus(progress).do { newStatus in
-//            self.resetStatusFailsCounter()
-//        } onError: { error in
-//            self.log("[getDRLStatus] Error = \(error)")
-//            self.handleStatusError(error)
-//        } onCompleted: {
-//            self.log("[getDRLStatus] Completed")
-//        } onSubscribe: {
-//            self.log("[getDRLStatus] Subscribed")
-//        } onDispose: {
-//            self.log("[getDRLStatus] Disposed")
-//        }
-//    }
-    
-    private func getDRL (progress: DRLProgress, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
-        return downloadChunks(progress: progress, allowMaxSizeDownload: allowMaxSizeDownload).do { drl in
-            self.log("Downloaded chunk: \(String(describing: drl.id))")
-            self.saveDRL(drl: drl)
-        } onError: { error in
-            self.log("[getDRL] Error = \(error)")
-            self.handleRetry()
-        } onCompleted: {
-            // all chunks downloaded
-            self.log("[getDRL] Completed")
-            self._progress.completeProgress()
-            self._serverStatus = nil
-            self.resetDrlFailsCounter()
-            DRLDataStorage.shared.lastFetch = Date()
-            DRLDataStorage.shared.save()
-            self.isDownloadingDRL = false
-            self.notifyStatusChange(newStatus: .completed)
-        } onSubscribe: {
-            self.log("[getDRL] Subscribed")
-        } onDispose: {
-            self.log("[getDRL] Disposed")
-        }
-    }
-    
+
     private func downloadChunks(progress: DRLProgress, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
         let currentVersion = progress.currentVersion
         let requesterVersion = progress.requestedVersion
@@ -226,13 +169,28 @@ class DRLSynchronizationManager {
                     return self.downloadChunks(progress: self.progress, allowMaxSizeDownload: allowMaxSizeDownload)
                 }
                 .subscribe { drl in
-                    print ("DRL")
+                    self.log("Downloaded chunk: \(String(describing: drl.id))")
+                    self.saveDRL(drl: drl)
                 } onError: { error in
-                    let err = error as! testError
+                    guard let err = error as? ResponseError else { return }
                     print ("ERROR :\(err)")
+                    if err.invoker == .drl {
+                        self.handleRetry()
+                    }
+                    else {
+                        self.handleStatusError(err.underlyingError)
+                    }
                 } onCompleted: {
-                    print ("COMPLETED")
-                }
+                    // all chunks downloaded
+                    self.log("[getDRL] Completed")
+                    self._progress.completeProgress()
+                    self._serverStatus = nil
+                    self.resetDrlFailsCounter()
+                    DRLDataStorage.shared.lastFetch = Date()
+                    DRLDataStorage.shared.save()
+                    self.isDownloadingDRL = false
+                    self.notifyStatusChange(newStatus: .completed)
+                }.disposed(by: self.disposeBag)
 
             return Disposables.create()
         }
@@ -249,99 +207,9 @@ class DRLSynchronizationManager {
             return
         }
         
-        test(progress: progress, allowMaxSizeDownload: allowMaxSizeDownload).subscribe()
-        
-        
-//        EMILIO GIOVANNI
-//        getDRLStatus(progress: progress).subscribe {event in
-//            switch event{
-//            case .next(let status):
-//                print ("[DRLStatus: \(status)]")
-//                self.getDRL(progress: self.progress, allowMaxSizeDownload: allowMaxSizeDownload).subscribe { evnt in
-//                    switch event {
-//                    case .next(let drl):
-//                        print ("DRL scaricate: \(String(describing: drl.totalNumberUCVI))")
-//                        print ("DRL memorizzate: \(DRLDataStorage.drlTotalNumber())")
-//                    case .error(let error):
-//                        print ("Error in getDRL: \(error)")
-//                    case .completed:
-//                        print ("getDRL completed")
-//                    }
-//                }.disposed(by: self.disposeBag)
-//            case .error(let error):
-//                print ("Error in getDRLStatus: \(error)")
-//            case .completed:
-//                print ("getDRLStatus completed")
-//            }
-//        }.disposed(by: disposeBag)
-
-//        LUDOVICO
-//        gateway.getDRLStatus(progress)
-//            .do(onNext: { newServerStatus in
-//                self.resetStatusFailsCounter()
-//                self._progress = DRLProgress(serverStatus: newServerStatus)
-//            })
-//            .concatMap({_ in
-//                self.downloadChunks(allowMaxSizeDownload: allowMaxSizeDownload)
-//            })
-//            .subscribe { drl in
-//                // call after chunk download
-//                self.log("Downloaded chunk: \(drl.id)")
-//                self.saveDRL(drl: drl)
-//            } onError: { err in
-//                self.log("Errore in getDRL = \(err)")
-//                //handle chunk download error
-//
-//            } onCompleted: {
-//                // all chunks downloaded
-//                self._progress.completeProgress()
-//                self._serverStatus = nil
-//                self.resetDrlFailsCounter()
-//                DRLDataStorage.shared.lastFetch = Date()
-//                DRLDataStorage.shared.save()
-//                self.isDownloadingDRL = false
-//                self.notifyStatusChange(newStatus: .completed)
-//
-//            }
-//            .disposed(by: disposeBag)
+        test(progress: progress, allowMaxSizeDownload: allowMaxSizeDownload).subscribe().disposed(by: disposeBag)
     }
-    
-//
-//    private func synchronize() {
-//        log("start synchronization")
-//        guard outdatedVersion else {
-//            downloadCompleted()
-//            return
-//        }
-//        guard noPendingDownload else {
-//            resumeDownload()
-//            return
-//        }
-//        checkDownload()
-//    }
-//
-//    private func checkDownload() {
-//        _progress = DRLProgress(serverStatus: _serverStatus)
-//
-//        guard !requireUserInteraction else {
-//            notifyStatusChange(newStatus: .userInteractionRequired)
-//            //self.delegate?.statusDidChange(with: .userInteractionRequired)
-//            return
-//        }
-//
-//        startDownload()
-//    }
-//
-//    func startDownload() {
-//        guard Connectivity.isOnline else {
-//            self.delegate?.statusDidChange(with: .noConnection)
-//            return
-//        }
-//
-//        isDownloadingDRL = true
-//        download()
-//    }
-//
+        
     private func resumeDownload() {
         log("resuming previous progress")
 

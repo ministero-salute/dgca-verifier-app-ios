@@ -37,11 +37,9 @@ extension Bundle {
 	}
 }
 
-enum GCStatusError: Error {
-    case networkError(AFError)
-    case httpError(Int)
-    case noResponseError
-    case decodeResponseError
+enum ErrorInvoker {
+    case drlStatus
+    case drl
 }
 
 enum GCError: Error {
@@ -49,14 +47,15 @@ enum GCError: Error {
     case httpError(Int)
     case noResponseError
     case decodeResponseError
-    var test: String {
-        return "ciao"
-    }
 }
 
-struct testError: Error{
-    var test: String {
-        return "ciao"
+struct ResponseError: Error{
+    var underlyingError: GCError
+    var invoker: ErrorInvoker
+    
+    init(error: GCError, invoker: ErrorInvoker){
+        self.underlyingError = error
+        self.invoker = invoker
     }
 }
 
@@ -112,20 +111,24 @@ class GatewayConnection {
 			
 			let request = self.session.request(url).response {
 				
+                let invoker = (T.self is DRL.Type) ? ErrorInvoker.drl : ErrorInvoker.drlStatus
+                
 				guard $0.error == nil else {
-					observer.on(.error(GCError.networkError($0.error!)))
+                    let gcError = GCError.networkError($0.error!)
+                    observer.on(.error(ResponseError.init(error: gcError, invoker: invoker)))
 					return
 				}
 				
 				guard let response = $0.response else {
-					observer.on(.error(GCError.noResponseError))
+                    let gcError = GCError.noResponseError
+                    observer.on(.error(ResponseError.init(error: gcError, invoker: invoker)))
 					return
 				}
 				
 				guard response.statusCode == 200 else {
 					//error case
-//					observer.on(.error(GCError.httpError(response.statusCode)))
-                    observer.on(.error(testError.init()))
+                    let gcError = GCError.httpError(response.statusCode)
+                    observer.on(.error(ResponseError.init(error: gcError, invoker: invoker)))
 					return
 				}
 				
@@ -134,7 +137,8 @@ class GatewayConnection {
 				let data = try? decoder.decode(T.self, from: $0.data ?? .init())
 				
 				guard let status = data else {
-					observer.on(.error(GCError.decodeResponseError))
+                    let gcError = GCError.decodeResponseError
+                    observer.on(.error(ResponseError.init(error: gcError, invoker: invoker)))
 					return
 				}
 				
