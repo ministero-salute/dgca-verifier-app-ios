@@ -26,6 +26,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoaRuntime
 
 protocol DRLSynchronizationDelegate {
     func statusDidChange(with result: DRLSynchronizationManager.Result)
@@ -97,7 +98,7 @@ class DRLSynchronizationManager {
     
 
     private func getHttpErrorCode(from error: Error) -> Int? {
-        guard let gatewayError = error as? GatewayConnection.GCError else { return nil }
+        guard let gatewayError = error as? GCError else { return nil }
         switch gatewayError {
         case .httpError(let code):
             return code
@@ -128,7 +129,63 @@ class DRLSynchronizationManager {
         self.drlFailCounter = self.maxRetries
     }
     
-    private func downloadChunks(allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
+    private func getDRLStatus (progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
+        return gateway.getDRLStatus(progress).do { newStatus in
+            self.resetStatusFailsCounter()
+            self._serverStatus = newStatus
+            self._progress = .init(serverStatus: newStatus)
+        } onError: { error in
+            self.log("[getDRLStatus] Error = \(error)")
+            self.handleStatusError(error)
+        } onCompleted: {
+            self.log("[getDRLStatus] Completed")
+        } onSubscribe: {
+            self.log("[getDRLStatus] Subscribed")
+        } onDispose: {
+            self.log("[getDRLStatus] Disposed")
+        }
+    }
+    
+//    private func getDRLStatus (progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
+//        return gateway.getDRLStatus(progress).do { newStatus in
+//            self.resetStatusFailsCounter()
+//        } onError: { error in
+//            self.log("[getDRLStatus] Error = \(error)")
+//            self.handleStatusError(error)
+//        } onCompleted: {
+//            self.log("[getDRLStatus] Completed")
+//        } onSubscribe: {
+//            self.log("[getDRLStatus] Subscribed")
+//        } onDispose: {
+//            self.log("[getDRLStatus] Disposed")
+//        }
+//    }
+    
+    private func getDRL (progress: DRLProgress, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
+        return downloadChunks(progress: progress, allowMaxSizeDownload: allowMaxSizeDownload).do { drl in
+            self.log("Downloaded chunk: \(String(describing: drl.id))")
+            self.saveDRL(drl: drl)
+        } onError: { error in
+            self.log("[getDRL] Error = \(error)")
+            self.handleRetry()
+        } onCompleted: {
+            // all chunks downloaded
+            self.log("[getDRL] Completed")
+            self._progress.completeProgress()
+            self._serverStatus = nil
+            self.resetDrlFailsCounter()
+            DRLDataStorage.shared.lastFetch = Date()
+            DRLDataStorage.shared.save()
+            self.isDownloadingDRL = false
+            self.notifyStatusChange(newStatus: .completed)
+        } onSubscribe: {
+            self.log("[getDRL] Subscribed")
+        } onDispose: {
+            self.log("[getDRL] Disposed")
+        }
+    }
+    
+    private func downloadChunks(progress: DRLProgress, allowMaxSizeDownload: Bool) -> RxSwift.Observable<DRL> {
         let currentVersion = progress.currentVersion
         let requesterVersion = progress.requestedVersion
         let currentChunk = progress.currentChunk ?? 1
@@ -159,6 +216,28 @@ class DRLSynchronizationManager {
         }
     }
     
+    func test (progress: DRLProgress, allowMaxSizeDownload: Bool) -> RxSwift.Observable<Void>{
+        return RxSwift.Observable<Void>.create { observer in
+            self.gateway.getDRLStatus(progress)
+                .flatMap { drlStatus -> RxSwift.Observable<DRL> in
+                    self.resetStatusFailsCounter()
+                    self._serverStatus = drlStatus
+                    self._progress = .init(serverStatus: drlStatus)
+                    return self.downloadChunks(progress: self.progress, allowMaxSizeDownload: allowMaxSizeDownload)
+                }
+                .subscribe { drl in
+                    print ("DRL")
+                } onError: { error in
+                    let err = error as! testError
+                    print ("ERROR :\(err)")
+                } onCompleted: {
+                    print ("COMPLETED")
+                }
+
+            return Disposables.create()
+        }
+    }
+    
     func start(allowMaxSizeDownload: Bool = false) {
         log("check status")
         
@@ -170,35 +249,61 @@ class DRLSynchronizationManager {
             return
         }
         
-        gateway.getDRLStatus(progress)
-            .do(onNext: { newServerStatus in
-                self.resetStatusFailsCounter()
-                self._progress = DRLProgress(serverStatus: newServerStatus)
-            })
-            .concatMap({_ in
-                self.downloadChunks(allowMaxSizeDownload: allowMaxSizeDownload)
-            })
-            .subscribe { drl in
-                // call after chunk download
-                self.log("Downloaded chunk: \(drl.id)")
-                self.saveDRL(drl: drl)
-            } onError: { err in
-                
-                self.log("Errore in getDRL = \(err)")
-                //handle chunk download error
+        test(progress: progress, allowMaxSizeDownload: allowMaxSizeDownload).subscribe()
+        
+        
+//        EMILIO GIOVANNI
+//        getDRLStatus(progress: progress).subscribe {event in
+//            switch event{
+//            case .next(let status):
+//                print ("[DRLStatus: \(status)]")
+//                self.getDRL(progress: self.progress, allowMaxSizeDownload: allowMaxSizeDownload).subscribe { evnt in
+//                    switch event {
+//                    case .next(let drl):
+//                        print ("DRL scaricate: \(String(describing: drl.totalNumberUCVI))")
+//                        print ("DRL memorizzate: \(DRLDataStorage.drlTotalNumber())")
+//                    case .error(let error):
+//                        print ("Error in getDRL: \(error)")
+//                    case .completed:
+//                        print ("getDRL completed")
+//                    }
+//                }.disposed(by: self.disposeBag)
+//            case .error(let error):
+//                print ("Error in getDRLStatus: \(error)")
+//            case .completed:
+//                print ("getDRLStatus completed")
+//            }
+//        }.disposed(by: disposeBag)
 
-            } onCompleted: {
-                // all chunks downloaded
-                self._progress.completeProgress()
-                self._serverStatus = nil
-                self.resetDrlFailsCounter()
-                DRLDataStorage.shared.lastFetch = Date()
-                DRLDataStorage.shared.save()
-                self.isDownloadingDRL = false
-                self.notifyStatusChange(newStatus: .completed)
-                
-            }
-            .disposed(by: disposeBag)
+//        LUDOVICO
+//        gateway.getDRLStatus(progress)
+//            .do(onNext: { newServerStatus in
+//                self.resetStatusFailsCounter()
+//                self._progress = DRLProgress(serverStatus: newServerStatus)
+//            })
+//            .concatMap({_ in
+//                self.downloadChunks(allowMaxSizeDownload: allowMaxSizeDownload)
+//            })
+//            .subscribe { drl in
+//                // call after chunk download
+//                self.log("Downloaded chunk: \(drl.id)")
+//                self.saveDRL(drl: drl)
+//            } onError: { err in
+//                self.log("Errore in getDRL = \(err)")
+//                //handle chunk download error
+//
+//            } onCompleted: {
+//                // all chunks downloaded
+//                self._progress.completeProgress()
+//                self._serverStatus = nil
+//                self.resetDrlFailsCounter()
+//                DRLDataStorage.shared.lastFetch = Date()
+//                DRLDataStorage.shared.save()
+//                self.isDownloadingDRL = false
+//                self.notifyStatusChange(newStatus: .completed)
+//
+//            }
+//            .disposed(by: disposeBag)
     }
     
 //

@@ -37,16 +37,33 @@ extension Bundle {
 	}
 }
 
+enum GCStatusError: Error {
+    case networkError(AFError)
+    case httpError(Int)
+    case noResponseError
+    case decodeResponseError
+}
+
+enum GCError: Error {
+    case networkError(AFError)
+    case httpError(Int)
+    case noResponseError
+    case decodeResponseError
+    var test: String {
+        return "ciao"
+    }
+}
+
+struct testError: Error{
+    var test: String {
+        return "ciao"
+    }
+}
+
 class GatewayConnection {
 	
-	enum GCError: Error {
-		case networkError(AFError)
-		case httpError(Int)
-		case noResponseError
-		case decodeResponseError
-	}
-	
-	
+    let disposeBag = DisposeBag()
+    
 	let baseUrl: String
 	let session: Session
 	var timer: Timer?
@@ -107,7 +124,8 @@ class GatewayConnection {
 				
 				guard response.statusCode == 200 else {
 					//error case
-					observer.on(.error(GCError.httpError(response.statusCode)))
+//					observer.on(.error(GCError.httpError(response.statusCode)))
+                    observer.on(.error(testError.init()))
 					return
 				}
 				
@@ -127,6 +145,47 @@ class GatewayConnection {
 		}
 		
 	}
+    
+    public func get<T: Codable>(url: String) -> RxSwift.Single<T> {
+        
+        print("API GET \(T.self) url: \(url)")
+        
+        return RxSwift.Single<T>.create{ single in
+            
+            let request = self.session.request(url).response {
+                
+                guard $0.error == nil else {
+                    let error = GCError.networkError($0.error!)
+                    single(.failure(error))
+                    return
+                }
+                
+                guard let response = $0.response else {
+                    single(.failure(GCError.noResponseError))
+                    return
+                }
+                
+                guard response.statusCode == 200 else {
+                    //error case
+                    single(.failure(GCError.httpError(response.statusCode)))
+                    return
+                }
+                
+                
+                let decoder = JSONDecoder()
+                let data = try? decoder.decode(T.self, from: $0.data ?? .init())
+                
+                guard let status = data else {
+                    single(.failure(GCError.decodeResponseError))
+                    return
+                }
+                
+                single(.success(status))
+            }
+            return Disposables.create { request.cancel() }
+        }
+        
+    }
 	
 	
 }

@@ -33,18 +33,49 @@ extension GatewayConnection {
     
     private var statusUrl: String { baseUrl + "drl/check" }
     
+//    func getDRLStatus(_ progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
+//        let version = progress.currentVersion
+//        let chunk = progress.currentChunk ?? 1
+//        let url = "\(self.statusUrl)?version=\(version+100)&chunk=\(chunk)"
+//        return RxSwift.Observable<DRLStatus>.create { observer in
+//            self.get(url: url)
+//                .subscribe{ status in
+//                    observer.on(.next(status))
+//                }
+//                onFailure: { err in
+//                    observer.on(.error(err as! GCStatusError))
+//                }
+//        }
+//    }
+//
+//    func getDRLChunk(version: Int, chunk: Int) -> RxSwift.Observable<DRL> {
+//        let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
+//        return self.get(url: url)
+//    }
+    
     func getDRLStatus(_ progress: DRLProgress) -> RxSwift.Observable<DRLStatus> {
         let version = progress.currentVersion
         let chunk = progress.currentChunk ?? 1
-        let url = "\(self.statusUrl)?version=\(version)&chunk=\(chunk)"
+        let url = "\(self.statusUrl)?version=\(version+10)&chunk=\(chunk)"
         return self.get(url: url)
     }
-    
+
     func getDRLChunk(version: Int, chunk: Int) -> RxSwift.Observable<DRL> {
-        let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
+        let url = "\(self.revocationUrl)?version=\(version)&chunk=\(chunk)"
         return self.get(url: url)
     }
     
+//    func getDRLStatus(_ progress: DRLProgress) -> RxSwift.Single<DRLStatus> {
+//        let version = progress.currentVersion
+//        let chunk = progress.currentChunk ?? 1
+//        let url = "\(self.statusUrl)?version=\(version)&chunk=\(chunk)"
+//        return self.get(url: url)
+//    }
+//
+//    func getDRLChunk(version: Int, chunk: Int) -> RxSwift.Single<DRL> {
+//        let url = "\(revocationUrl)?version=\(version)&chunk=\(chunk)"
+//        return self.get(url: url)
+//    }
     
 //    func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
 //        let version = progress?.currentVersion
