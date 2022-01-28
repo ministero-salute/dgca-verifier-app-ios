@@ -175,7 +175,6 @@ struct VaccineValidityCheck {
 				}
 				
 				return nil
-			// case Constants.scanModeSchool:
 			default:
 				return nil
 		}
@@ -215,22 +214,10 @@ struct VaccineValidityCheck {
 				}
 				
 				return nil
-				// case Constants.scanModeSchool:
 			default:
 				return nil
 		}
 	}
-	
-//	private func getStartDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-//		let startDaysConfig = isLastDose ? Constants.vaccineCompleteStartDays : Constants.vaccineIncompleteStartDays
-//		return getValue(for: startDaysConfig, type: medicalProduct)?.intValue
-//	}
-//
-//	private func getEndDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-//		var endDaysConfig: String
-//		endDaysConfig = isLastDose ? Constants.vaccineCompleteEndDays : Constants.vaccineIncompleteEndDays
-//		return getValue(for: endDaysConfig, type: medicalProduct)?.intValue
-//	}
 	
 	private func getValue(for name: String, type: String) -> String? {
 		return LocalData.getSetting(from: name, type: type)
