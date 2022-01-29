@@ -62,7 +62,7 @@ struct VaccineValidityCheck {
 		}
 		
 		var isCurrentDoseComplete: Bool {
-			return self.currentDoses == self.totalDoses
+			return self.currentDoses >= self.totalDoses
 		}
 		
 		/// Valid booster dose JJ or any other
@@ -149,44 +149,45 @@ struct VaccineValidityCheck {
 					return self.getValue(for: settingName)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-                    if preconditions.isJJ {
-                        let settingName = Constants.vaccineCompleteStartDays
-                        return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-                    }
-					let settingName =  preconditions.isIT ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
-					return self.getValue(for: settingName)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
 				}
+            
+                if preconditions.isJJ {
+                    let settingName = Constants.vaccineCompleteStartDays
+                    return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+                }
+                let settingName =  preconditions.isIT ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
+                return self.getValue(for: settingName)?.intValue
 				
-				return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
 			case Constants.scanMode2G:
 				if preconditions.isCurrentDoseBooster {
 					return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-                    if preconditions.isJJ {
-                        let settingName = Constants.vaccineCompleteStartDays
-                        return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-                    }
-					return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
 				}
-				
-				return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            
+                if preconditions.isJJ {
+                    let settingName = Constants.vaccineCompleteStartDays
+                    return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+                }
+                return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
 			case Constants.scanModeBooster:
 				if preconditions.isCurrentDoseBooster {
 					return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-                    if preconditions.isJJ {
-                        let settingName = Constants.vaccineCompleteStartDays
-                        return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-                    }
-					return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
 				}
-				
-                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            
+                if preconditions.isJJ {
+                    let settingName = Constants.vaccineCompleteStartDays
+                    return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+                }
+                return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
 			default:
 				return nil
 		}
@@ -200,32 +201,32 @@ struct VaccineValidityCheck {
 					return self.getValue(for: settingName)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-					let settingName =  preconditions.isIT ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
-					return self.getValue(for: settingName)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
 				}
-				
-				return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            
+                let settingName =  preconditions.isIT ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
+                return self.getValue(for: settingName)?.intValue
 			case Constants.scanMode2G:
 				if preconditions.isCurrentDoseBooster {
 					return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-					return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
 				}
-				
-				return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            
+                return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
 			case Constants.scanModeBooster:
 				if preconditions.isCurrentDoseBooster {
 					return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
 				}
 				
-				if preconditions.isCurrentDoseComplete {
-					return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
+				if preconditions.isCurrentDoseIncomplete {
+                    return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
 				}
-				
-                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            
+                return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
 			default:
 				return nil
 		}
