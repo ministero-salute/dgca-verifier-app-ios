@@ -50,7 +50,7 @@ struct VaccineValidityCheck {
 		}
 		
 		var isJJBooster: Bool {
-			return self.isJJ && self.currentDoses >= Constants.jjBoosterMinimumDosesNumber
+			return self.isJJ && (self.currentDoses >= Constants.jjBoosterMinimumDosesNumber)
 		}
 		
 		var isNonJJBooster: Bool {
@@ -62,12 +62,12 @@ struct VaccineValidityCheck {
 		}
 		
 		var isCurrentDoseComplete: Bool {
-			return self.currentDoses >= self.totalDoses
+			return self.currentDoses == self.totalDoses
 		}
 		
 		/// Valid booster dose JJ or any other
 		var isCurrentDoseBooster: Bool {
-			return isJJBooster || self.isNonJJBooster
+			return (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster)
 		}
 	}
 	
