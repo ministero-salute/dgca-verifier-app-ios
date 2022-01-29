@@ -182,7 +182,7 @@ struct VaccineValidityCheck {
 					return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
 				}
 				
-				return nil
+                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
 			default:
 				return nil
 		}
@@ -221,7 +221,7 @@ struct VaccineValidityCheck {
 					return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
 				}
 				
-				return nil
+                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
 			default:
 				return nil
 		}
