@@ -29,29 +29,7 @@ import SwiftDGC
 struct RecoveryValidityCheck {
     
     typealias Validator = MedicalRulesValidator
-    
-//    private func getValidityFrom (from hcert: HCert) -> String? {
-//        return isSchoolScanMode() ? hcert.recoveryDateFirstPositive : hcert.recoveryDateFrom
-//    }
-    
-//    private func getValidityUntil (from hcert: HCert) -> Date? {
-//        guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else {return nil}
-//        guard let recoveryDateUntil = hcert.recoveryDateUntil?.toRecoveryDate else {return nil}
-//        guard let vaccineSchoolEndDays = getValue(for: Constants.vaccineSchoolEndDays)?.intValue else {return nil}
-//        guard let recoveryDate = recoveryDateFirstPositive.add(vaccineSchoolEndDays, ofType: .day) else {return nil}
-//        if isSchoolScanMode() {
-//            if (recoveryDate < recoveryDateUntil) {
-//                return recoveryDate
-//            }
-//            else {
-//                return recoveryDateUntil
-//            }
-//        }
-//        else {
-//            return recoveryDateUntil
-//        }
-//    }
-//
+
     private func validityEnd(_ hcert: HCert, dateFrom: Date, dateUntil: Date, additionalDays: Int) -> Date? {
         if isSchoolScanMode() {
             guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else { return nil }
