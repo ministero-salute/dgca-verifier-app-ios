@@ -27,9 +27,10 @@ import SwiftDGC
 
 extension HCert {
     
-    private var dateFromKey     : String { "df" }
-    private var dateUntilKey    : String { "du" }
-    private var countryCodeKey  : String { "co" }
+    private var dateFromKey         : String { "df" }
+    private var dateUntilKey        : String { "du" }
+    private var countryCodeKey      : String { "co" }
+    private var dateFirstPositive   : String { "fr" }
     
     var recoveryDateFrom: String? {
         body["r"].array?.map{ $0[dateFromKey] }.first?.string
@@ -41,5 +42,9 @@ extension HCert {
     
     var rcountryCode: String? {
         return body["r"].array?.map{ $0[countryCodeKey] }.first?.string
+    }
+    
+    var recoveryDateFirstPositive: String? {
+        return body["r"].array?.map{ $0[dateFirstPositive] }.first?.string
     }
 }
