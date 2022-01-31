@@ -62,7 +62,7 @@ struct VaccineValidityCheck {
 		}
 		
 		var isCurrentDoseComplete: Bool {
-			return self.currentDoses == self.totalDoses
+            return self.currentDoses == self.totalDoses && !self.isJJBooster && !self.isNonJJBooster
 		}
 		
 		/// Valid booster dose JJ or any other
@@ -188,6 +188,20 @@ struct VaccineValidityCheck {
                     return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
                 }
                 return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+        case Constants.scanModeSchool:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return nil
+            }
+        
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
 			default:
 				return nil
 		}
@@ -227,18 +241,32 @@ struct VaccineValidityCheck {
 				}
             
                 return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
-			default:
-				return nil
-		}
-	}
-	
-	private func getValue(for name: String, type: String) -> String? {
-		return LocalData.getSetting(from: name, type: type)
-	}
-	
-	private func getValue(for name: String) -> String? {
-		return LocalData.getSetting(from: name)
-	}
-
+            case Constants.scanModeSchool:
+                if preconditions.isCurrentDoseBooster {
+                    return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
+                }
+                
+                if preconditions.isCurrentDoseIncomplete {
+                    return nil
+                }
+                
+                if preconditions.isJJ {
+                    let settingName = Constants.vaccineCompleteStartDays
+                    return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+                }
+                return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
+            default:
+                return nil
+        }
+    }
+    
+    private func getValue(for name: String, type: String) -> String? {
+        return LocalData.getSetting(from: name, type: type)
+    }
+    
+    private func getValue(for name: String) -> String? {
+        return LocalData.getSetting(from: name)
+    }
+    
 }
 

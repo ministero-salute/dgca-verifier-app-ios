@@ -79,7 +79,7 @@ struct RecoveryValidityCheck {
         
         let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd)
         
-        guard isBoosterScanMode() else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
+        guard !isBoosterScanMode() else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
         
         return recoveryStatus
     }
@@ -127,7 +127,7 @@ struct RecoveryValidityCheck {
             }
             return getValue(for: startDaysConfig)?.intValue
         case Constants.scanModeSchool:
-            let startDaysConfig = Constants.recoverySchoolStartDays
+            let startDaysConfig = Constants.recoveryStartDays_IT
             return getValue(for: startDaysConfig)?.intValue
         default:
             return nil
