@@ -33,9 +33,16 @@ class RecoveryValidityCheckTest: XCTestCase {
     var hcert: HCert!
     var payload: String!
     var bodyString: String!
+	
+	let recoveryStartDaysIT = "recovery_cert_start_day_IT"
+	let recoveryStartDaysNotIT = "recovery_cert_start_day_NOT_IT"
+	let recoveryEndDays = "recovery_cert_end_day"
+	let recoveryEndDaysIT = "recovery_cert_end_day_IT"
+	let recoveryEndDaysNotIT = "recovery_cert_end_day_NOT_IT"
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+		Store.set(Constants.scanMode3G, for: .scanMode)
         recoveryValidityCheck = RecoveryValidityCheck()
         payload = "HC1:6BFOXN%TS3DHPVO13J /G-/2YRVA.Q/R8WRU2FCAH9BDF%188WA.*RXU7IJ6W*PP+PDPIGOK-*GN*Q:XJR-GM%O-RQOTAF/8X*G3M9FQH+4J/-K$+CY73JC3MD3IFTKJ3SZ4P:45/GZW4:.AY731MF7FN6LBHKBCAJPF71M3.FJZIJ09B*KNQ579PJMD3+476J3:NB3N5XW49+20CMAHLW 70SO:GOLIROGOAQ5ZU4RKCSHGX2M5C9HHB%LGJZII7JSTNCA7G6MXYQYYQQKRM64YVQB95326FW4AJOMKMV35U:7-Z7QT499RLHPQ15O+4/Z6E 6U963X7$8Q$HMCP63HU$*GT*Q3-Q4+O7F6E%CN4D74DWZJ$7K+ CZEDB2M$9C1QD7+2*KUQFCOYA73A-MG*VM%UUY$MW5LM+GW*1.Q5$Y7M-FSYLJF3*TRJY9R.8VBQA65%UVLXFTYVN T$WM3 UJ16F:S0CLRVJAD7KOB1GV+20RT8S0"
         hcert = HCert(from: payload)
@@ -53,10 +60,17 @@ class RecoveryValidityCheckTest: XCTestCase {
     }
 
     func testValidRecoveryDate() {
-        let recoverySettingStartDay = Setting(name: "recovery_cert_start_day", type: "GENERIC", value: "0")
-        let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "1")
+		let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
+		let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
+		let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
+		let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
+		let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
         SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
         SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
+		
         let todayDate : Date = Date()
         let todayDateFormatted = todayDate.toDateString
         let futureDate = Calendar.current.date(byAdding: .day, value: 2, to: todayDate)!
@@ -72,10 +86,17 @@ class RecoveryValidityCheckTest: XCTestCase {
     }
     
     func testFutureRecoveryDate() {
-        let recoverySettingStartDay = Setting(name: "recovery_cert_start_day", type: "GENERIC", value: "0")
-        let recoverySettingEndDay = Setting(name: "recovery_cert_end_day", type: "GENERIC", value: "1")
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
+		let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
+		let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
+		let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
+		let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
+		let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
+		
         let todayDate : Date = Date()
         let futureDate = Calendar.current.date(byAdding: .day, value: 2, to: todayDate)!
         let dateFormatter = DateFormatter()
