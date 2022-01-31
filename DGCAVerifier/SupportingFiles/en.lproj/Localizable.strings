@@ -22,16 +22,18 @@
 "home.scan.button.bold.3G" = "VERIFICA BASE";
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
 "home.scan.button.bold.Booster" = "VERIFICA BOOSTER";
+"home.scan.button.bold.School" = "VERIFICA STUDENTI";
+
 "home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
 "home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
 "home.scan.button.mode.Booster" = "VERIFICA BOOSTER\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
-"home.scan.button.mode.School" = "VERIFICA SCUOLA\nVACCINAZIONE/GUARIGIONE DURATA 120 GIORNI";
+"home.scan.button.mode.School" = "VERIFICA STUDENTI\nRICHIAMO/<120GG CICLO COMPLETO E GUARIGIONE";
 
 "home.scan.picker.title"   = "Tipologia verifica";
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
 "home.scan.picker.mode.Booster" = "BOOSTER (Richiamo/ciclo completo + tampone/guarigione+tampone)";
-"home.scan.picker.mode.School" = "SCUOLA (vaccinazione/guarigione durata 120 giorni)";
+"home.scan.picker.mode.School" = "STUDENTI (richiamo/<120gg ciclo completo e guarigione)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -46,7 +48,7 @@
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.Boster" = "Tipologia verifica: BOOSTER";
-"result.scan.mode.Scuola" = "Tipologia verifica: SCUOLA";
+"result.scan.mode.Scuola" = "Tipologia verifica: STUDENTI";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
@@ -96,7 +98,7 @@
 "alert.default.action" = "OK";
 
 "alert.scan.unset.title" = "Impossibile scansionare";
-"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, BOOSTER.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.\nTipologia BOOSTER: la app considera valide le certificazioni verdi generate dopo dose di richiamo vaccinale. Considera valide, inoltre, le certificazioni verdi generate dopo ciclo vaccinale primario o guarigione con la contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2.\n\nIndicazioni di dettaglio sulle attività consentite senza/con green pass BASE, RAFFORZATO, BOOSTER (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
+"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, BOOSTER, STUDENTI.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.\nTipologia BOOSTER: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione insieme alla contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2. \nTipologia STUDENTI: la app considera valide solo le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione fino a 120 giorni dalla loro emissione. \n\nConsulta la tabella sulle attività consentite senza o con green pass (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
