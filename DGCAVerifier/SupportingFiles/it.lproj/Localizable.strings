@@ -48,7 +48,7 @@
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.Boster" = "Tipologia verifica: BOOSTER";
-"result.scan.mode.Boster" = "Tipologia verifica: SCUOLA";
+"result.scan.mode.Scuola" = "Tipologia verifica: SCUOLA";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
