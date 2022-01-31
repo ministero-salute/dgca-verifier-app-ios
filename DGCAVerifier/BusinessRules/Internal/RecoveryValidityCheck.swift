@@ -34,47 +34,50 @@ struct RecoveryValidityCheck {
 //        return isSchoolScanMode() ? hcert.recoveryDateFirstPositive : hcert.recoveryDateFrom
 //    }
     
-    private func getValidityUntil (from hcert: HCert) -> Date? {
-        guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else {return nil}
-        guard let recoveryDateUntil = hcert.recoveryDateUntil?.toRecoveryDate else {return nil}
-        guard let vaccineSchoolEndDays = getValue(for: Constants.vaccineSchoolEndDays)?.intValue else {return nil}
-        guard let recoveryDate = recoveryDateFirstPositive.add(vaccineSchoolEndDays, ofType: .day) else {return nil}
+//    private func getValidityUntil (from hcert: HCert) -> Date? {
+//        guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else {return nil}
+//        guard let recoveryDateUntil = hcert.recoveryDateUntil?.toRecoveryDate else {return nil}
+//        guard let vaccineSchoolEndDays = getValue(for: Constants.vaccineSchoolEndDays)?.intValue else {return nil}
+//        guard let recoveryDate = recoveryDateFirstPositive.add(vaccineSchoolEndDays, ofType: .day) else {return nil}
+//        if isSchoolScanMode() {
+//            if (recoveryDate < recoveryDateUntil) {
+//                return recoveryDate
+//            }
+//            else {
+//                return recoveryDateUntil
+//            }
+//        }
+//        else {
+//            return recoveryDateUntil
+//        }
+//    }
+//
+    private func validityEnd(_ hcert: HCert, dateFrom: Date, dateUntil: Date, additionalDays: Int) -> Date? {
         if isSchoolScanMode() {
-            if (recoveryDate < recoveryDateUntil) {
-                return recoveryDate
-            }
-            else {
-                return recoveryDateUntil
-            }
-        }
-        else {
-            return recoveryDateUntil
+            guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else { return nil }
+            guard let validityExtension = recoveryDateFirstPositive.add(additionalDays, ofType: .day) else { return nil }
+            return dateUntil < validityExtension ? dateUntil : validityExtension
+            
+        } else {
+            guard let validityExtension = dateFrom.add(additionalDays, ofType: .day) else { return nil }
+            return dateUntil > validityExtension ? dateUntil : validityExtension
         }
     }
-        
+    
     func isRecoveryValid(_ hcert: HCert) -> Status {
-        guard let validFrom = hcert.recoveryDateFrom else { return .notValid }
-//        guard let validUntil = hcert.recoveryDateUntil else { return .notValid }
-        
-        guard let recoveryValidFromDate = validFrom.toRecoveryDate else { return .notValid }
-        guard let recoveryValidUntilDate = getValidityUntil(from: hcert) else { return .notValid }
+       
+        guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
+        guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
 
-        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notGreenPass }
-        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notGreenPass }
+        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
+        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
         
-        guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
-        let validityEnd = recoveryValidUntilDate
-        guard let validityExtension = recoveryValidFromDate.add(recoveryEndDays, ofType: .day) else { return .notValid }
-
+        guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
+        guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
+        
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        let recoveryStatus: Status
-        if isSchoolScanMode() {
-            recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd)
-        }
-        else {
-            recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
-        }
+        let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd)
         
         guard isBoosterScanMode() else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
         
