@@ -31,6 +31,7 @@ class VerificationViewModel {
     var status: Status
     var hCert: HCert?
     var country: CountryModel?
+   
     
     init(payload: String, country: CountryModel?) {
         self.country = country

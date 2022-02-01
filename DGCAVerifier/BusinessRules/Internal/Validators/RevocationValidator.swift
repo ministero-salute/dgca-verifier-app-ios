@@ -11,10 +11,10 @@ import SwiftDGC
 struct RevocationValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
-        guard CRLSynchronizationManager.shared.isSyncEnabled else { return .notValid }
+        guard CRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
         let hash = hcert.getUVCI().sha256()
-        guard !hash.isEmpty else { return .notValid }
-        return CRLDataStorage.contains(hash: hash) ? .valid : .notValid
+        guard !hash.isEmpty else { return .valid }
+        return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
     }
     
 }
