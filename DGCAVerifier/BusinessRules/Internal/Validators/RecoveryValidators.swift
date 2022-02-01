@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDGC
 
-class RecoveryBaseValidator: MedicalValidator {
+class RecoveryBaseValidator: DGCValidator {
     
     typealias Validator = RecoveryBaseValidator
     

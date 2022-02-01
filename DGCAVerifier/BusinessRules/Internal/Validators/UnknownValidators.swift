@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDGC
 
-class UnknownValidator: MedicalValidator {
+class UnknownValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
         return .notValid

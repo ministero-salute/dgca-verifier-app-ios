@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDGC
 
-class VaccineBaseValidator: MedicalValidator {
+class VaccineBaseValidator: DGCValidator {
     
     typealias Validator = VaccineBaseValidator
     

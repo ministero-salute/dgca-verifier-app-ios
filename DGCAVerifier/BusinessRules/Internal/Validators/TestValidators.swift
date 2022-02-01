@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDGC
 
-class TestBaseValidator: MedicalValidator {
+class TestBaseValidator: DGCValidator {
     
     private func isTestDateValid(_ hcert: HCert) -> Status {
         guard hcert.isKnownTestType else { return .notValid }
@@ -61,8 +61,8 @@ class TestBaseValidator: MedicalValidator {
     
 }
 
-class ReinforcedTestValidator: AlwaysNotValid {}
+class TestReinforcedValidator: AlwaysNotValid {}
 
-class BoosterTestValidator: AlwaysNotValid {}
+class TestBoosterValidator: AlwaysNotValid {}
 
-class SchoolTestValidator: AlwaysNotValid {}
+class TestSchoolValidator: AlwaysNotValid {}

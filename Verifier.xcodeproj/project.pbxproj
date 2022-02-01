@@ -295,8 +295,8 @@
 		90E9560B270F397700DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B727A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
-		98BF53B927A9471700B8FB1A /* MedicalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* MedicalValidator.swift */; };
-		98BF53BA27A9471700B8FB1A /* MedicalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* MedicalValidator.swift */; };
+		98BF53B927A9471700B8FB1A /* DGCValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* DGCValidator.swift */; };
+		98BF53BA27A9471700B8FB1A /* DGCValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* DGCValidator.swift */; };
 		98BF53BC27A94BD300B8FB1A /* VaccineValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */; };
 		98BF53BD27A94BD300B8FB1A /* VaccineValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */; };
 		98BF53BF27A94BFB00B8FB1A /* RecoveryValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53BE27A94BFB00B8FB1A /* RecoveryValidators.swift */; };
@@ -307,6 +307,12 @@
 		98BF53C627A94C3800B8FB1A /* VaccineExemptionValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53C427A94C3800B8FB1A /* VaccineExemptionValidators.swift */; };
 		98BF53C927A94CD800B8FB1A /* UnknownValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53C827A94CD800B8FB1A /* UnknownValidators.swift */; };
 		98BF53CA27A94CD800B8FB1A /* UnknownValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53C827A94CD800B8FB1A /* UnknownValidators.swift */; };
+		98BF53CF27A9846500B8FB1A /* RevocationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53CE27A9846500B8FB1A /* RevocationValidator.swift */; };
+		98BF53D027A9846500B8FB1A /* RevocationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53CE27A9846500B8FB1A /* RevocationValidator.swift */; };
+		98BF53D227A987F500B8FB1A /* HCertValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53D127A987F500B8FB1A /* HCertValidator.swift */; };
+		98BF53D327A987F500B8FB1A /* HCertValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53D127A987F500B8FB1A /* HCertValidator.swift */; };
+		98BF53D527A9927C00B8FB1A /* BlackListValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53D427A9927C00B8FB1A /* BlackListValidator.swift */; };
+		98BF53D627A9927C00B8FB1A /* BlackListValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53D427A9927C00B8FB1A /* BlackListValidator.swift */; };
 		98DCD73E278C853200D4B418 /* HCert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73B278C853200D4B418 /* HCert+Type.swift */; };
 		98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73B278C853200D4B418 /* HCert+Type.swift */; };
 		98DCD740278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */; };
@@ -505,12 +511,15 @@
 		90CDC6B9271EB48C00707836 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
 		98BF53B527A9469400B8FB1A /* ScanMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMode.swift; sourceTree = "<group>"; };
-		98BF53B827A9471700B8FB1A /* MedicalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalValidator.swift; sourceTree = "<group>"; };
+		98BF53B827A9471700B8FB1A /* DGCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCValidator.swift; sourceTree = "<group>"; };
 		98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineValidators.swift; sourceTree = "<group>"; };
 		98BF53BE27A94BFB00B8FB1A /* RecoveryValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryValidators.swift; sourceTree = "<group>"; };
 		98BF53C127A94C2000B8FB1A /* TestValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestValidators.swift; sourceTree = "<group>"; };
 		98BF53C427A94C3800B8FB1A /* VaccineExemptionValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineExemptionValidators.swift; sourceTree = "<group>"; };
 		98BF53C827A94CD800B8FB1A /* UnknownValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownValidators.swift; sourceTree = "<group>"; };
+		98BF53CE27A9846500B8FB1A /* RevocationValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidator.swift; sourceTree = "<group>"; };
+		98BF53D127A987F500B8FB1A /* HCertValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertValidator.swift; sourceTree = "<group>"; };
+		98BF53D427A9927C00B8FB1A /* BlackListValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackListValidator.swift; sourceTree = "<group>"; };
 		98DCD73B278C853200D4B418 /* HCert+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCert+Type.swift"; sourceTree = "<group>"; };
 		98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCert+VaccineExemptionStatement.swift"; sourceTree = "<group>"; };
 		98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineExemptionEntry.swift; sourceTree = "<group>"; };
@@ -1155,12 +1164,15 @@
 		98BF53C727A94C5200B8FB1A /* Validators */ = {
 			isa = PBXGroup;
 			children = (
-				98BF53B827A9471700B8FB1A /* MedicalValidator.swift */,
+				98BF53B827A9471700B8FB1A /* DGCValidator.swift */,
 				98BF53C427A94C3800B8FB1A /* VaccineExemptionValidators.swift */,
 				98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */,
 				98BF53BE27A94BFB00B8FB1A /* RecoveryValidators.swift */,
 				98BF53C127A94C2000B8FB1A /* TestValidators.swift */,
 				98BF53C827A94CD800B8FB1A /* UnknownValidators.swift */,
+				98BF53CE27A9846500B8FB1A /* RevocationValidator.swift */,
+				98BF53D127A987F500B8FB1A /* HCertValidator.swift */,
+				98BF53D427A9927C00B8FB1A /* BlackListValidator.swift */,
 			);
 			path = Validators;
 			sourceTree = "<group>";
@@ -1573,6 +1585,7 @@
 				98BF53C327A94C2000B8FB1A /* TestValidators.swift in Sources */,
 				9020C5E12721600D00F45CA7 /* String+Char.swift in Sources */,
 				9020C5E32721600D00F45CA7 /* UILabel+Inspectable.swift in Sources */,
+				98BF53D027A9846500B8FB1A /* RevocationValidator.swift in Sources */,
 				9020C5E42721600D00F45CA7 /* UIImageView+Inspectable.swift in Sources */,
 				9020C5E52721600D00F45CA7 /* UITableView+Dequeue.swift in Sources */,
 				9020C5E62721600D00F45CA7 /* UITableView+Nib.swift in Sources */,
@@ -1602,6 +1615,7 @@
 				65E7000226AF6E1F00715CCC /* UIStackView+ArrangedSubViews.swift in Sources */,
 				659605FA26E7A6E0008AD4E2 /* CRLProgress.swift in Sources */,
 				65021B4D26AEC889004C3D14 /* ButtonStyle.swift in Sources */,
+				98BF53D327A987F500B8FB1A /* HCertValidator.swift in Sources */,
 				65021B5126AEC88E004C3D14 /* CALayer+Shadow.swift in Sources */,
 				65E281BF2697259D00377913 /* VaccineValidityCheck.swift in Sources */,
 				65E281C02697259D00377913 /* HomeViewModel.swift in Sources */,
@@ -1669,6 +1683,7 @@
 				65E281D22697259D00377913 /* DateFormatter+Default.swift in Sources */,
 				65E281D32697259D00377913 /* HCert+Vaccine.swift in Sources */,
 				65E3C1D72716D87A004B2E98 /* Store.swift in Sources */,
+				98BF53D627A9927C00B8FB1A /* BlackListValidator.swift in Sources */,
 				90C2EB1C2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */,
 				90A2C59D276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */,
 				90A3E614273AFC3700D161BD /* Connectivity.swift in Sources */,
@@ -1688,7 +1703,7 @@
 				98DCD743278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */,
 				98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */,
 				659605F426E7911E008AD4E2 /* ProgressView.swift in Sources */,
-				98BF53BA27A9471700B8FB1A /* MedicalValidator.swift in Sources */,
+				98BF53BA27A9471700B8FB1A /* DGCValidator.swift in Sources */,
 				65EFB62A26B0BFC00081682B /* CertLogicValidator.swift in Sources */,
 				65021B5C26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
 				9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */,
@@ -1743,6 +1758,7 @@
 				65F280D426D659AC009BC452 /* Delta.swift in Sources */,
 				653F928226B00264000BE8F5 /* UITableView+Dequeue.swift in Sources */,
 				65E7000C26AF753C00715CCC /* AppView.swift in Sources */,
+				98BF53CF27A9846500B8FB1A /* RevocationValidator.swift in Sources */,
 				9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */,
 				65C3A55726AEF8F3000BBCC5 /* UIView+Borders.swift in Sources */,
 				9F4F3C5B2649D60C00F59BA2 /* AppDelegate.swift in Sources */,
@@ -1752,6 +1768,7 @@
 				65E3C1D62716D87A004B2E98 /* Store.swift in Sources */,
 				98DCD740278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */,
 				65E2819E269721ED00377913 /* String+Date.swift in Sources */,
+				98BF53D527A9927C00B8FB1A /* BlackListValidator.swift in Sources */,
 				65E281A5269721ED00377913 /* String+Localization.swift in Sources */,
 				65EFB5EE26B04D850081682B /* GatewayConnection+Certificates.swift in Sources */,
 				65E3C1D92716E05D004B2E98 /* AVCaptureDevice+Torch.swift in Sources */,
@@ -1775,6 +1792,7 @@
 				65E7001326AF7BB000715CCC /* FaqView.swift in Sources */,
 				65F280D126D658CB009BC452 /* CRL+Entity.swift in Sources */,
 				9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */,
+				98BF53D227A987F500B8FB1A /* HCertValidator.swift in Sources */,
 				659605F326E7911E008AD4E2 /* ProgressView.swift in Sources */,
 				653F928A26B00474000BE8F5 /* CountryCell.swift in Sources */,
 				90BD8F4F272C1C8A00BE816B /* Constants.swift in Sources */,
@@ -1800,7 +1818,7 @@
 				65E2816D2697217B00377913 /* VerificationViewController.swift in Sources */,
 				65F280CB26D655E3009BC452 /* CRL.swift in Sources */,
 				90A3E613273AFC3700D161BD /* Connectivity.swift in Sources */,
-				98BF53B927A9471700B8FB1A /* MedicalValidator.swift in Sources */,
+				98BF53B927A9471700B8FB1A /* DGCValidator.swift in Sources */,
 				65021B4826AEC768004C3D14 /* UIView+Shadow.swift in Sources */,
 				65021B4326AEC202004C3D14 /* UIButton+Inspectable.swift in Sources */,
 				65EFB62F26B1829E0081682B /* Link.swift in Sources */,

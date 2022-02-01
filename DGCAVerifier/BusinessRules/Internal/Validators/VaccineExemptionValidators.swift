@@ -8,7 +8,7 @@
 import Foundation
 import SwiftDGC
 
-class VaccineExemptionBaseValidator: MedicalValidator {
+class VaccineExemptionBaseValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
         guard let exemption = hcert.vaccineExemptionStatements.last else { return .notValid }

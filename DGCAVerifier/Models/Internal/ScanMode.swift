@@ -8,11 +8,11 @@
 import Foundation
 
 
-enum ScanMode {
-    case base
-    case reinforced
-    case booster
-    case school
-    case work
+enum ScanMode: String {
+    case base = "scanMode3G"
+    case reinforced = "scanMode2G"
+    case booster = "scanModeBooster"
+    case school = "scanModeSchool"
+    case work = "scanModeWork"
     
 }

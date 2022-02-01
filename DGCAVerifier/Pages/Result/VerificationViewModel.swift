@@ -34,10 +34,21 @@ class VerificationViewModel {
     
     init(payload: String, country: CountryModel?) {
         self.country = country
-        self.hCert = HCert(from: payload)
-        self.hCert?.ruleCountryCode = country?.code
-        self.status = RulesValidator.getStatus(from: hCert)
-        self.test()
+        
+        let savedScanMode: String = Store.get(key: .scanMode) ?? ""
+        
+        if let mode = ScanMode.init(rawValue: savedScanMode),
+           let hCert = HCert(from: payload),
+           let validator = DGCValidatorBuilder().scanMode(mode).build(hCert: hCert) {
+            self.status = validator.validate(hcert: hCert)
+            self.hCert = hCert
+        } else {
+            self.status = .notValid
+        }
+        
+        //self.hCert?.ruleCountryCode = country?.code
+        //self.status = RulesValidator.getStatus(from: hCert)
+        //self.test()
     }
     
     func getCountryName() -> String {
