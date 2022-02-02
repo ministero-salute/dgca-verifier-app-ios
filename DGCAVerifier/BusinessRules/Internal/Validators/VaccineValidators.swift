@@ -223,6 +223,14 @@ class VaccineBoosterValidator: VaccineBaseValidator {
 }
 
 class VaccineSchoolValidator: VaccineBaseValidator {
+	
+	override func validate(hcert: HCert) -> Status {
+		guard let preconditions = checkPreconditions(hcert) else { return .notValid }
+		let result = super.checkCertificateDate(preconditions)
+		
+		guard result == .valid else { return result }
+		return preconditions.isCurrentDoseIncomplete ? .notValid : .valid
+	}
     
     override func getStartDays(preconditions: VaccineBaseValidator.CertificatePreconditions) -> Int? {
         if preconditions.isCurrentDoseBooster {
