@@ -230,7 +230,7 @@ class VaccineSchoolValidator: VaccineBaseValidator {
         }
         
         if preconditions.isCurrentDoseIncomplete {
-            return nil
+			return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
         }
         
         if preconditions.isJJ {
@@ -246,7 +246,7 @@ class VaccineSchoolValidator: VaccineBaseValidator {
         }
         
         if preconditions.isCurrentDoseIncomplete {
-            return nil
+			return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
         }
         
         if preconditions.isJJ {
