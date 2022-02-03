@@ -56,16 +56,20 @@ class TestValidityCheckTests: XCTestCase {
     }
 
     func testValidNegativeTest() {
-        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
-        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
-        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
-        let todayDateFormatted = Date().sub(1, ofType: .day)?.toDateTimeString
-        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
-        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        
-        let isTestNegativeResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
-        XCTAssertEqual(isTestNegativeResult, .notValid)
+		let testSettingStartDay = Setting(name: Constants.rapidStartHoursKey, type: "GENERIC", value: "0")
+		let testSettingEndDay = Setting(name: Constants.rapidEndHoursKey, type: "GENERIC", value: "48")
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+		
+		bodyString = bodyString.replacingOccurrences(
+			of: "\"sc\": \"2021-05-03T12:27:15+02:00\"",
+			with: "\"sc\": \"\(Date().toDateTimeString)\""
+		)
+		hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+		
+        let isTestNegativeResult = testValidityCheck.isTestValid(hcert)
+    
+        XCTAssertEqual(isTestNegativeResult, .valid)
     }
     
     func testInvalidPositiveTest() {
@@ -107,6 +111,132 @@ class TestValidityCheckTests: XCTestCase {
         let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
 
         XCTAssertEqual(isTestDateValidResult, .notGreenPass)
+    }
+    
+    func testNotOver50YMD() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1996-01-01\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .valid)
+    }
+    
+    func testNotOver50YM() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1996-01\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .valid)
+    }
+    
+    func testNotOver50Y() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1996\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .valid)
+    }
+    
+    func testOver50YMD() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1970-01-01\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .notValid)
+    }
+    
+    func testOver50YM() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1970-01\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .notValid)
+    }
+    
+    func testOver50Y() {
+        
+        let testSettingStartDay = Setting(name: "rapid_test_start_hours", type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: "rapid_test_end_hours", type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        let todayDateFormatted = Date().toDateTimeString
+        bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
+        
+        bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1970\"")
+        Store.set(Constants.scanMode50, for: .scanMode)
+        
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+                
+        print("[TEST] \(hcert.birthDate)")
+        
+        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        XCTAssertEqual(isTestDateValidResult, .notValid)
     }
 
 }

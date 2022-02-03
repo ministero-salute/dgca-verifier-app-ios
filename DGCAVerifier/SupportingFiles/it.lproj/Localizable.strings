@@ -21,19 +21,22 @@
 "home.scan.button.mode.default" = "SCEGLI TIPOLOGIA DI VERIFICA";
 "home.scan.button.bold.3G" = "VERIFICA BASE";
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
-"home.scan.button.bold.Booster" = "VERIFICA BOOSTER";
+"home.scan.button.bold.Booster" = "VERIFICA VISITATORI RSA";
 "home.scan.button.bold.School" = "VERIFICA STUDENTI";
+"home.scan.button.bold.50" = "VERIFICA LAVORO";
 
 "home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
 "home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
-"home.scan.button.mode.Booster" = "VERIFICA BOOSTER\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
+"home.scan.button.mode.Booster" = "VERIFICA VISITATORI RSA\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
 "home.scan.button.mode.School" = "VERIFICA STUDENTI\nRICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG";
+"home.scan.button.mode.50" = "VERIFICA LAVORO\nVACCINAZIONE/GUARIGIONE";
 
 "home.scan.picker.title"   = "Tipologia verifica";
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
-"home.scan.picker.mode.Booster" = "BOOSTER (Richiamo/ciclo completo + tampone/guarigione+tampone)";
+"home.scan.picker.mode.Booster" = "VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione+tampone)";
 "home.scan.picker.mode.School" = "STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
+"home.scan.picker.mode.50" = "LAVORO (vaccinazione/guarigione)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -47,8 +50,9 @@
 
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
-"result.scan.mode.Boster" = "Tipologia verifica: BOOSTER";
+"result.scan.mode.Boster" = "Tipologia verifica: VISITATORI RSA";
 "result.scan.mode.Scuola" = "Tipologia verifica: STUDENTI";
+"result.scan.mode.50" = "Tipologia verifica: LAVORO";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
@@ -98,7 +102,7 @@
 "alert.default.action" = "OK";
 
 "alert.scan.unset.title" = "Impossibile scansionare";
-"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, BOOSTER, STUDENTI.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.\nTipologia BOOSTER: da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione insieme alla contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2. \nTipologia STUDENTI: lda utilizzare nelle classi della scuola secondaria per la didattica in presenza in presenza di due casi positivi: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni. \n\nConsulta la tabella sulle attività consentite senza o con green pass (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
+"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, VISITATORI RSA, STUDENTI.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione.\nTipologia VISITATORI RSA: da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione insieme alla contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2. \nTipologia STUDENTI: da utilizzare nelle classi della scuola secondaria per la didattica in presenza in presenza di due casi positivi: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni. \n\nConsulta la tabella sulle attività consentite senza o con green pass (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";

@@ -73,6 +73,7 @@ struct Constants {
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
     static let scanModeSchool = "scanModeSchool"
+    static let scanMode50 = "scanMode50"
     
     // Settings
     static let drlMaxRetries = "MAX_RETRY"
