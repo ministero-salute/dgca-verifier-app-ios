@@ -34,6 +34,8 @@ extension HCert {
     
     var lastName: String { body["nam"]["fn"].string ?? "" }
     
+	
+	/// Maps `HCert`'s `dob` field (yyyy-MM-dd format) to a dd/MM/yyyy format.
     var birthDate: String {
         //  TODO: use date formats to be placed inside Constants
         let dob: String = body["dob"].string ?? ""
@@ -58,23 +60,14 @@ extension HCert {
     }
     
     var age: Int? {
-        let dateFormatter = DateFormatter()
-        switch birthDate.count {
-        case 4:
-            dateFormatter.dateFormat = "yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year], from: birthdayDate, to: Date()).year
-        case 7:
-            dateFormatter.dateFormat = "MM/yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year, .month], from: birthdayDate, to: Date()).year
-        case 10:
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year
-        default:
-            return nil
-        }
+		let formatter = DateFormatter()
+		let formats: [String] = ["yyyy", "MM/yyyy", "dd/MM/yyyy"]
+		let dates: [Int] = formats.compactMap { format in
+			formatter.dateFormat = format
+			guard let date = formatter.date(from: birthDate) else { return nil }
+			return Calendar.current.dateComponents([.year, .month, .day], from: date, to: Date()).year
+		}
+		return dates.first
     }
     
 }
