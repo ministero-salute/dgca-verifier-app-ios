@@ -31,8 +31,6 @@ struct VaccineExemptionValidityCheck {
     typealias Validator = MedicalRulesValidator
     
     func isExemptionValid(_ hcert: HCert) -> Status {
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        guard scanMode != Constants.scanModeSchool else { return .notValid }
         guard let exemption = hcert.vaccineExemptionStatements.last else { return .notValid }
         guard let dateFrom = exemption.dateFrom else { return .notValid }
         guard let currentDate = Date.startOfDay else { return .notValid }
