@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized, "home.scan.picker.mode.School".localized, "home.scan.picker.mode.50".localized]
+    private var modePickerOptions = ScanMode.allCases.map{ $0.pickerOptionName }
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
@@ -213,37 +213,20 @@ class HomeViewController: UIViewController {
                 Store.remove(key: .isScanMode2G)
             }
 
-            let scanMode: String = Store.get(key: .scanMode) ?? ""
-            var localizedBaseScanModeButtonTitle: String = ""
-            var boldLocalizedText: String = ""
-            
-            switch scanMode{
-            case Constants.scanMode2G:
-                localizedBaseScanModeButtonTitle = "home.scan.button.mode.2G".localized
-                boldLocalizedText = "home.scan.button.bold.2G".localized
-            case Constants.scanMode3G:
-                localizedBaseScanModeButtonTitle = "home.scan.button.mode.3G".localized
-                boldLocalizedText = "home.scan.button.bold.3G".localized
-            case Constants.scanModeBooster:
-                localizedBaseScanModeButtonTitle = "home.scan.button.mode.Booster".localized
-                boldLocalizedText = "home.scan.button.bold.Booster".localized
-            case Constants.scanModeSchool:
-                localizedBaseScanModeButtonTitle = "home.scan.button.mode.School".localized
-                boldLocalizedText = "home.scan.button.bold.School".localized
-            case Constants.scanMode50:
-                localizedBaseScanModeButtonTitle = "home.scan.button.mode.50".localized
-                boldLocalizedText = "home.scan.button.bold.50".localized
-            default:
-                break
+            let storedScanMode: String = Store.get(key: .scanMode) ?? ""
+            if let scanMode = ScanMode.init(rawValue: storedScanMode) {
+                let localizedBaseScanModeButtonTitle = scanMode.buttonTitleName
+                let boldLocalizedText = scanMode.buttonTitleBoldName
+                let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
+                let boldRange: NSRange = (scanModeButtonTitle.string as NSString).range(of: boldLocalizedText)
+                scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
+                scanModeButton.setAttributedTitle(scanModeButtonTitle, for: .normal)
+                scanModeButton.setContentCompressionResistancePriority(.init(1000), for: .vertical)
+                scanModeButton.contentEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
+            } else {
+                scanModeButton.setTitle("home.scan.button.mode.default".localized)
             }
-            
-            let scanModeButtonTitle: NSMutableAttributedString = .init(string: localizedBaseScanModeButtonTitle, attributes: nil)
-            let boldRange: NSRange = (scanModeButtonTitle.string as NSString).range(of: boldLocalizedText)
-            
-            scanModeButtonTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)], range: boldRange)
-            scanModeButton.setAttributedTitle(scanModeButtonTitle, for: .normal)
-            scanModeButton.setContentCompressionResistancePriority(.init(1000), for: .vertical)
-            scanModeButton.contentEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
+        
         } else {
             scanModeButton.setTitle("home.scan.button.mode.default".localized)
         }
@@ -546,3 +529,4 @@ extension HomeViewController {
     }
     
 }
+
