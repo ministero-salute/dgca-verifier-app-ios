@@ -480,8 +480,10 @@ extension HomeViewController {
             pickerSelectedOption = 1
         case Constants.scanModeBooster:
             pickerSelectedOption = 2
-        case Constants.scanMode50:
+        case Constants.scanModeSchool:
             pickerSelectedOption = 3
+        case Constants.scanMode50:
+            pickerSelectedOption = 4
         default:
             break
         }
