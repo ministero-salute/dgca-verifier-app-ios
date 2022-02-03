@@ -269,7 +269,7 @@ struct VaccineValidityCheck {
 			}
             
             if preconditions.isJJ {
-                let settingName = Constants.vaccineCompleteStartDays
+                let settingName = Constants.vaccineCompleteEndDays
                 return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
             }
             return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
