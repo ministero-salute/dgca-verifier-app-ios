@@ -46,10 +46,13 @@ extension HCert {
             //  yyyy-MM
             let split = dob.split(separator: "-")
             return "\(split[1])/\(split[0])"
+        } else {
+            //  yyyy-MM-dd
+            let split = dob.split(separator: "-")
+            return "\(split[2])/\(split[1])/\(split[0])"
         }
         
-        //  yyyy-MM-dd
-        return dob.toDate?.toDateReadableString ?? ""
+        
     }
     
 }
