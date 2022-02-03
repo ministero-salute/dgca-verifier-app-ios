@@ -17,34 +17,30 @@
 */
 
 //
-//  HCert+Recovery.swift
-//  VerificaC19
+//  HCert+Statement.swift
+//  Verifier
 //
-//  Created by Andrea Prosseda on 26/06/21.
+//  Created by Ludovico Girolimini on 10/01/22.
 //
 
+import Foundation
 import SwiftDGC
+
 
 extension HCert {
     
-    private var dateFromKey         : String { "df" }
-    private var dateUntilKey        : String { "du" }
-    private var countryCodeKey      : String { "co" }
-    private var dateFirstPositive   : String { "fr" }
-    
-    var recoveryDateFrom: String? {
-        body["r"].array?.map{ $0[dateFromKey] }.first?.string
+    var vaccineExemptionStatements: [VaccineExemptionEntry] {
+        return self.body["e"]
+          .array?
+          .compactMap {
+            VaccineExemptionEntry(body: $0)
+          } ?? []
     }
     
-    var recoveryDateUntil: String? {
-        body["r"].array?.map{ $0[dateUntilKey] }.first?.string
+    var lastStatement: HCertEntry? {
+        guard self.statement == nil else { return self.statement }
+        guard !vaccineExemptionStatements.isEmpty else { return nil }
+        return vaccineExemptionStatements.last
     }
     
-    var rcountryCode: String? {
-        return body["r"].array?.map{ $0[countryCodeKey] }.first?.string
-    }
-    
-    var recoveryDateFirstPositive: String? {
-        return body["r"].array?.map{ $0[dateFirstPositive] }.first?.string
-    }
 }

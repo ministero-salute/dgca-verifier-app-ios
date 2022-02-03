@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462330727A3EA580073A323 /* HCertGenerator.swift */; };
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
@@ -292,6 +293,16 @@
 		90CDC6DA271F049A00707836 /* UIView+NibFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CDC6D8271F049A00707836 /* UIView+NibFile.swift */; };
 		90E9560A270F397600DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		90E9560B270F397700DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
+		98DCD73E278C853200D4B418 /* HCert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73B278C853200D4B418 /* HCert+Type.swift */; };
+		98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73B278C853200D4B418 /* HCert+Type.swift */; };
+		98DCD740278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */; };
+		98DCD741278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */; };
+		98DCD742278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */; };
+		98DCD743278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */; };
+		98DCD748278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */; };
+		98DCD749278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */; };
+		98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
+		98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */; };
 		98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */; };
 		9F4F3C572649D60C00F59BA2 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */; };
@@ -348,6 +359,7 @@
 /* Begin PBXFileReference section */
 		1410B20A271DBADD00F912BA /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
+		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
 		14EB4294275FAE8A006E9183 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		14EB4296275FAE9F006E9183 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -478,6 +490,11 @@
 		90CDC6B6271EB48000707836 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		90CDC6B9271EB48C00707836 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
+		98DCD73B278C853200D4B418 /* HCert+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCert+Type.swift"; sourceTree = "<group>"; };
+		98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCert+VaccineExemptionStatement.swift"; sourceTree = "<group>"; };
+		98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineExemptionEntry.swift; sourceTree = "<group>"; };
+		98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+UVCI.swift"; sourceTree = "<group>"; };
+		98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineExemptionValidityCheck.swift; sourceTree = "<group>"; };
 		98FAC8C5277B1D6F0022F3B0 /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		9F4F3C412649D60B00F59BA2 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -769,6 +786,7 @@
 				6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */,
 				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
 				65B281352697122300A9A533 /* Info.plist */,
+				1462330727A3EA580073A323 /* HCertGenerator.swift */,
 			);
 			path = DGCAVerifierTests;
 			sourceTree = "<group>";
@@ -905,11 +923,15 @@
 		65E28196269721ED00377913 /* HCert */ = {
 			isa = PBXGroup;
 			children = (
+				98DCD73B278C853200D4B418 /* HCert+Type.swift */,
+				98DCD73C278C853200D4B418 /* HCert+VaccineExemptionStatement.swift */,
+				98DCD73D278C853200D4B418 /* VaccineExemptionEntry.swift */,
 				65E28197269721ED00377913 /* HCert+Test.swift */,
 				65E28198269721ED00377913 /* HCert+Recovery.swift */,
 				65E28199269721ED00377913 /* HCert+PersonalData.swift */,
 				65E2819A269721ED00377913 /* HCert+Vaccine.swift */,
 				90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */,
+				98DCD747278D7F1C00D4B418 /* HCert+UVCI.swift */,
 			);
 			path = HCert;
 			sourceTree = "<group>";
@@ -1010,6 +1032,7 @@
 				6B155164265BE463001D19E2 /* TestValidityCheck.swift */,
 				6B155163265BE463001D19E2 /* RecoveryValidityCheck.swift */,
 				6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */,
+				98DCD74A278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1524,6 +1547,7 @@
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
 				656433B526D787C300A41590 /* RevokedDCC.swift in Sources */,
+				98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */,
 				90BED816276A4F15006225CE /* String+HTML.swift in Sources */,
 				65021B6926AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65021B5426AEC88E004C3D14 /* UIView+Shadow.swift in Sources */,
@@ -1549,6 +1573,7 @@
 				65EFB5EF26B04D850081682B /* GatewayConnection+Certificates.swift in Sources */,
 				65EFB5F226B04D900081682B /* GatewayConnection+Settings.swift in Sources */,
 				65E281C32697259D00377913 /* LocalData.swift in Sources */,
+				98DCD749278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */,
 				90CDC6DA271F049A00707836 /* UIView+NibFile.swift in Sources */,
 				65E281C42697259D00377913 /* AppDelegate.swift in Sources */,
 				90CDC6B8271EB48000707836 /* SettingsCell.swift in Sources */,
@@ -1570,6 +1595,7 @@
 				659605DF26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */,
 				65021B5226AEC88E004C3D14 /* UIButton+Set.swift in Sources */,
 				65E281C72697259D00377913 /* String+Date.swift in Sources */,
+				98DCD741278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */,
 				65E281C82697259D00377913 /* String+Localization.swift in Sources */,
 				65F280D526D659AC009BC452 /* Delta.swift in Sources */,
 				65E7001426AF7BB000715CCC /* FaqView.swift in Sources */,
@@ -1583,6 +1609,7 @@
 				65E281CA2697259D00377913 /* ResultView.swift in Sources */,
 				65E281CB2697259D00377913 /* HomeViewController.swift in Sources */,
 				658CB72326AF3B5B00B90EC0 /* Status.swift in Sources */,
+				98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				65E281CC2697259D00377913 /* Date.swift in Sources */,
 				65EFB63426B183CF0081682B /* Link+Values.swift in Sources */,
 				90BD8F50272C1C8A00BE816B /* Constants.swift in Sources */,
@@ -1616,6 +1643,7 @@
 				65E281D72697259D00377913 /* RecoveryValidityCheck.swift in Sources */,
 				14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */,
 				65C3A55F26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
+				98DCD743278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */,
 				98FAC8C7277B1D6F0022F3B0 /* String+Size.swift in Sources */,
 				659605F426E7911E008AD4E2 /* ProgressView.swift in Sources */,
 				65EFB62A26B0BFC00081682B /* CertLogicValidator.swift in Sources */,
@@ -1631,6 +1659,7 @@
 				9093B3E82758CCB50054C811 /* StatementValidityCheck.swift in Sources */,
 				6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */,
 				658CB72226AF3B5B00B90EC0 /* Status.swift in Sources */,
+				98DCD748278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */,
 				65F280C226D64AEF009BC452 /* CRLDataStorage.swift in Sources */,
 				65E281A6269721ED00377913 /* UIView+Set.swift in Sources */,
 				659605DB26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */,
@@ -1643,6 +1672,7 @@
 				65C3A55E26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
 				6570422026E9387400370B2A /* Int+String.swift in Sources */,
 				65E281A8269721ED00377913 /* HCert+Recovery.swift in Sources */,
+				98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				658CB71E26AF359100B90EC0 /* UIImage+Rotate.swift in Sources */,
 				653F928E26B00727000BE8F5 /* UITableView+Nib.swift in Sources */,
 				65E281A1269721ED00377913 /* LocalData+Setting.swift in Sources */,
@@ -1674,6 +1704,7 @@
 				6BA8B9E5266FAC150060D767 /* GatewayConnection.swift in Sources */,
 				65E281A4269721ED00377913 /* String+Int.swift in Sources */,
 				65E3C1D62716D87A004B2E98 /* Store.swift in Sources */,
+				98DCD740278C853200D4B418 /* HCert+VaccineExemptionStatement.swift in Sources */,
 				65E2819E269721ED00377913 /* String+Date.swift in Sources */,
 				65E281A5269721ED00377913 /* String+Localization.swift in Sources */,
 				65EFB5EE26B04D850081682B /* GatewayConnection+Certificates.swift in Sources */,
@@ -1717,6 +1748,7 @@
 				65021B6826AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65E281AA269721ED00377913 /* HCert+Vaccine.swift in Sources */,
 				90C2EB1B2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */,
+				98DCD742278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */,
 				65E2816D2697217B00377913 /* VerificationViewController.swift in Sources */,
 				65F280CB26D655E3009BC452 /* CRL.swift in Sources */,
 				90A3E613273AFC3700D161BD /* Connectivity.swift in Sources */,
@@ -1729,6 +1761,7 @@
 				90A2C59C276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */,
 				6B797DDA26D0528200EB2873 /* String+SHA256.swift in Sources */,
 				6B797DDD26D052B800EB2873 /* Data+SHA256.swift in Sources */,
+				98DCD73E278C853200D4B418 /* HCert+Type.swift in Sources */,
 				659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
 				65EFB63326B183CF0081682B /* Link+Values.swift in Sources */,
 				65E2819F269721ED00377913 /* Date+Utils.swift in Sources */,
@@ -1745,6 +1778,7 @@
 			files = (
 				65B28144269712BE00A9A533 /* TestValidityCheckTests.swift in Sources */,
 				65B28140269712BE00A9A533 /* VaccineValidityCheckTests.swift in Sources */,
+				1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */,
 				149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */,
 				65B28143269712BE00A9A533 /* RecoveryValidityCheckTests.swift in Sources */,
 				65B2813F269712BE00A9A533 /* LocalDataTests.swift in Sources */,
@@ -1802,7 +1836,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1826,7 +1860,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1913,7 +1947,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1938,7 +1972,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2069,7 +2103,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2094,7 +2128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2288,7 +2322,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2313,7 +2347,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

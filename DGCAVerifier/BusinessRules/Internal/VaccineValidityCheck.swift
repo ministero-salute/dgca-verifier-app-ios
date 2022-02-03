@@ -1,20 +1,20 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
-*/
+ */
 
 //
 //  VaccineValidityCheck.swift
@@ -34,50 +34,111 @@ struct VaccineValidityCheck {
         [Constants.SputnikVacineCode: [Constants.sanMarinoCode]]
     }
     
-    func isVaccineDateValid(_ hcert: HCert) -> Status {
-        guard let currentDoses = hcert.currentDosesNumber else { return .notValid }
-        guard let totalDoses = hcert.totalDosesNumber else { return .notValid }
-        guard currentDoses > 0 else { return .notValid }
-        guard totalDoses > 0 else { return .notValid }
-        let lastDose = currentDoses >= totalDoses
+    struct CertificatePreconditions {
+        let currentDoses: Int
+        let totalDoses: Int
+        let medicalProduct: String
+        let vaccineDate: Date
+        let countryCode: String
         
-        guard let product = hcert.medicalProduct else { return .notValid }
-        guard isValid(for: product) else { return .notValid }
-        guard let countryCode = hcert.countryCode else { return .notValid }
-        guard isAllowedVaccination(for: product, fromCountryWithCode: countryCode) else { return .notValid }
-
-        guard let start = getStartDays(for: product, lastDose) else { return .notGreenPass }
-        guard let end = getEndDays(for: product, lastDose) else { return .notGreenPass }
-
-        guard let dateString = hcert.vaccineDate else { return .notValid }
-        guard let date = dateString.toVaccineDate else { return .notValid }
-        guard let validityStart = date.add(start, ofType: .day) else { return .notValid }
-        guard let validityEnd = date.add(end, ofType: .day)?.startOfDay else { return .notValid }
-
+        var isIT: Bool {
+            return self.countryCode.uppercased() == Constants.ItalyCountryCode
+        }
+        
+        var isJJ: Bool {
+            return self.medicalProduct == Constants.JeJVacineCode
+        }
+        
+        var isJJBooster: Bool {
+            return self.isJJ && (self.currentDoses >= Constants.jjBoosterMinimumDosesNumber)
+        }
+        
+        var isNonJJBooster: Bool {
+            return !self.isJJ && (self.currentDoses >= Constants.boosterMinimumDosesNumber)
+        }
+        
+        var isCurrentDoseIncomplete: Bool {
+            return self.currentDoses < self.totalDoses
+        }
+        
+        var isCurrentDoseComplete: Bool {
+            return self.currentDoses == self.totalDoses && !self.isJJBooster && !self.isNonJJBooster
+        }
+        
+        /// Valid booster dose JJ or any other
+        var isCurrentDoseBooster: Bool {
+            return (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster)
+        }
+    }
+    
+    func checkPreconditions(_ hcert: HCert) -> CertificatePreconditions? {
+        guard let currentDoses = hcert.currentDosesNumber, currentDoses > 0 else { return nil }
+        guard let totalDoses = hcert.totalDosesNumber, totalDoses > 0 else { return nil }
+        guard let vaccineDate = hcert.vaccineDate?.toVaccineDate else { return nil }
+        guard let medicalProduct = hcert.medicalProduct else { return nil }
+        guard isValid(for: medicalProduct) else { return nil }
+        guard let countryCode = hcert.countryCode else { return nil }
+        guard isAllowedVaccination(for: medicalProduct, fromCountryWithCode: countryCode) else { return nil }
+        
+        return CertificatePreconditions(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode)
+    }
+    
+    func checkCertificateDate(_ preconditions: CertificatePreconditions) -> Status {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        
+        guard let start = getStartDays(scanMode: scanMode, preconditions: preconditions) else { return .notValid }
+        guard let end = getEndDays(scanMode: scanMode, preconditions: preconditions) else { return .notValid }
+        
+        guard let validityStart = preconditions.vaccineDate.add(start, ofType: .day) else { return .notValid }
+        guard let validityEnd = preconditions.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
+        
         guard let currentDate = Date.startOfDay else { return .notValid }
-
-        let isJJ = hcert.medicalProduct == Constants.JeJVacineCode
-        let isJJBooster = isJJ && isaJJBoosterDose(current: currentDoses, total: totalDoses)
-        let fromDate = isJJBooster ? date : validityStart
-
-        let result = Validator.validate(currentDate, from: fromDate, to: validityEnd)
+		
+        // J&J booster is immediately valid
+        let fromDate = preconditions.isJJBooster ? preconditions.vaccineDate : validityStart
+        
+        return Validator.validate(currentDate, from: fromDate, to: validityEnd)
+    }
+    
+    func isScanModeBooster() -> Bool {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        return scanMode == Constants.scanModeBooster
+    }
+    
+    func isScanModeSchool() -> Bool {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        return scanMode == Constants.scanModeSchool
+    }
+    
+    func checkBooster(_ preconditions: CertificatePreconditions) -> Status {
+        if preconditions.isCurrentDoseBooster { return .valid }
+        
+        return preconditions.isCurrentDoseComplete ? .verificationIsNeeded : .notValid
+    }
+    
+    func checkSchool(_ preconditions: CertificatePreconditions) -> Status {
+        return preconditions.isCurrentDoseIncomplete ? .notValid : .valid
+    }
+    
+    func isVaccineValid(_ hcert: HCert) -> Status {
+        guard let preconditions = checkPreconditions(hcert) else { return .notValid }
+        let result = checkCertificateDate(preconditions)
         
         guard result == .valid else { return result }
-
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        if scanMode == Constants.scanModeBooster {
-            let isaBoosterDose = currentDoses > totalDoses ||
-                currentDoses >= Constants.boosterMinimumDosesNumber || isJJBooster
-            
-            if isaBoosterDose { return . valid }
-            return lastDose ? .verificationIsNeeded : .notValid
+        
+        guard !isScanModeBooster() else {
+            return checkBooster(preconditions)
         }
-
+        
+        guard !isScanModeSchool() else {
+            return checkSchool(preconditions)
+        }
+        
         return result
     }
     
     private func isaJJBoosterDose(current: Int, total: Int) -> Bool {
-        return current > total || (current == total && current >= Constants.jjBoosterMinimumDosesNumber)
+        return current >= Constants.jjBoosterMinimumDosesNumber
     }
     
     private func isAllowedVaccination(for medicalProduct: String, fromCountryWithCode countryCode: String) -> Bool {
@@ -92,19 +153,138 @@ struct VaccineValidityCheck {
         let name = Constants.vaccineCompleteEndDays
         return getValue(for: name, type: medicalProduct) != nil
     }
-     
-    private func getStartDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteStartDays : Constants.vaccineIncompleteStartDays
-        return getValue(for: name, type: medicalProduct)?.intValue
+    
+    private func getStartDays(scanMode: String, preconditions: CertificatePreconditions) -> Int? {
+        switch(scanMode) {
+        case Constants.scanMode3G:
+            if preconditions.isCurrentDoseBooster {
+                let settingName: String = preconditions.isIT ? Constants.vaccineBoosterStartDays_IT : Constants.vaccineBoosterStartDays_NOT_IT
+                return self.getValue(for: settingName)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            let settingName =  preconditions.isIT ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
+            return self.getValue(for: settingName)?.intValue
+            
+        case Constants.scanMode2G:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+        
+        case Constants.scanModeBooster:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+        
+        case Constants.scanModeSchool:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+				return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
+        default:
+            return nil
+        }
     }
     
-    private func getEndDays(for medicalProduct: String, _ isLastDose: Bool) -> Int? {
-        let name = isLastDose ? Constants.vaccineCompleteEndDays : Constants.vaccineIncompleteEndDays
-        return getValue(for: name, type: medicalProduct)?.intValue
+    private func getEndDays(scanMode: String, preconditions: CertificatePreconditions) -> Int? {
+        switch(scanMode) {
+        case Constants.scanMode3G:
+            if preconditions.isCurrentDoseBooster {
+                let settingName: String = preconditions.isIT ? Constants.vaccineBoosterEndDays_IT : Constants.vaccineBoosterEndDays_NOT_IT
+                return self.getValue(for: settingName)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            let settingName =  preconditions.isIT ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
+            return self.getValue(for: settingName)?.intValue
+        
+        case Constants.scanMode2G:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
+        
+        case Constants.scanModeBooster:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
+            }
+            
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            }
+            
+            return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
+        
+        case Constants.scanModeSchool:
+            if preconditions.isCurrentDoseBooster {
+                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
+            }
+            
+			if preconditions.isCurrentDoseIncomplete {
+				return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+			}
+            
+            if preconditions.isJJ {
+                let settingName = Constants.vaccineCompleteStartDays
+                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
+            }
+            return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
+        default:
+            return nil
+        }
     }
     
     private func getValue(for name: String, type: String) -> String? {
         return LocalData.getSetting(from: name, type: type)
     }
     
+    private func getValue(for name: String) -> String? {
+        return LocalData.getSetting(from: name)
+    }
+    
 }
+

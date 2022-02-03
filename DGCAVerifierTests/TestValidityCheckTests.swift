@@ -53,7 +53,18 @@ class TestValidityCheckTests: XCTestCase {
     }
 
     func testValidNegativeTest() {
-        let isTestNegativeResult = testValidityCheck.isTestNegative(hcert)
+		let testSettingStartDay = Setting(name: Constants.rapidStartHoursKey, type: "GENERIC", value: "0")
+		let testSettingEndDay = Setting(name: Constants.rapidEndHoursKey, type: "GENERIC", value: "48")
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+		
+		bodyString = bodyString.replacingOccurrences(
+			of: "\"sc\": \"2021-05-03T12:27:15+02:00\"",
+			with: "\"sc\": \"\(Date().toDateTimeString)\""
+		)
+		hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+		
+        let isTestNegativeResult = testValidityCheck.isTestValid(hcert)
     
         XCTAssertEqual(isTestNegativeResult, .valid)
     }
@@ -61,7 +72,7 @@ class TestValidityCheckTests: XCTestCase {
     func testInvalidPositiveTest() {
         bodyString = bodyString.replacingOccurrences(of: "\"tr\": \"260415000\"", with: "\"tr\": \"260373001\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        let isTestNegativeResult = testValidityCheck.isTestNegative(hcert)
+        let isTestNegativeResult = testValidityCheck.isTestValid(hcert)
     
         XCTAssertEqual(isTestNegativeResult, .notValid)
     }
@@ -74,7 +85,7 @@ class TestValidityCheckTests: XCTestCase {
         let todayDateFormatted = Date().toDateTimeString
         bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = testValidityCheck.isTestValid(hcert)
         
         XCTAssertEqual(isTestDateValidResult, .valid)
     }
@@ -87,14 +98,14 @@ class TestValidityCheckTests: XCTestCase {
         let futureDateFormatted = Date().add(2, ofType: .hour)?.toDateTimeString ?? ""
         bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(futureDateFormatted)\"")
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = testValidityCheck.isTestValid(hcert)
         
         XCTAssertEqual(isTestDateValidResult, .notValidYet)
     }
     
     func testMissingSettingRapidTestDate() {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = testValidityCheck.isTestValid(hcert)
 
         XCTAssertEqual(isTestDateValidResult, .notGreenPass)
     }

@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var debugView: UIView!
     
-    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized, "home.scan.picker.mode.50".localized]
+    private var modePickerOptions = ["home.scan.picker.mode.3G".localized, "home.scan.picker.mode.2G".localized, "home.scan.picker.mode.Booster".localized, "home.scan.picker.mode.School".localized, "home.scan.picker.mode.50".localized]
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
@@ -227,6 +227,9 @@ class HomeViewController: UIViewController {
             case Constants.scanModeBooster:
                 localizedBaseScanModeButtonTitle = "home.scan.button.mode.Booster".localized
                 boldLocalizedText = "home.scan.button.bold.Booster".localized
+            case Constants.scanModeSchool:
+                localizedBaseScanModeButtonTitle = "home.scan.button.mode.School".localized
+                boldLocalizedText = "home.scan.button.bold.School".localized
             case Constants.scanMode50:
                 localizedBaseScanModeButtonTitle = "home.scan.button.mode.50".localized
                 boldLocalizedText = "home.scan.button.bold.50".localized
@@ -317,7 +320,8 @@ class HomeViewController: UIViewController {
     
     @objc func startSync() {
         guard Connectivity.isOnline else {
-            showAlert(key: "no.connection")
+            showCustomAlert(key: "no.connection")
+            networkStatusError()
             return
         }
         
@@ -330,7 +334,8 @@ class HomeViewController: UIViewController {
     
     @objc func resumeSync() {
         guard Connectivity.isOnline else {
-            showAlert(key: "no.connection")
+            showCustomAlert(key: "no.connection")
+            downloadPaused()
             return
         }
         sync.download()
@@ -424,6 +429,7 @@ class HomeViewController: UIViewController {
     
     private func crlDownloadNeeded() {
         progressView.fillView(with: sync.progress)
+        progressView.error(with: sync.progress, noSize: true)
         showCRL(true)
     }
     
@@ -524,8 +530,11 @@ extension HomeViewController {
             Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 3:
-            Store.set(Constants.scanMode50, for: Store.Key.scanMode)
+            Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
+		case 4:
+			Store.set(Constants.scanMode50, for: Store.Key.scanMode)
+			Store.set(true, for: .isScanModeSet)
         default:
             break
         }
