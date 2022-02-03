@@ -66,3 +66,18 @@ class TestReinforcedValidator: AlwaysNotValid {}
 class TestBoosterValidator: AlwaysNotValid {}
 
 class TestSchoolValidator: AlwaysNotValid {}
+
+class TestWorkValidator: TestBaseValidator {
+    
+    override func validate(hcert: HCert) -> Status {
+        guard !isOver50(hcert) else { return .notValid }
+        return super.validate(hcert: hcert)
+    }
+    
+    
+    private func isOver50 (_ hcert: HCert) -> Bool {
+        guard let age = hcert.age else { return false }
+        return age >= 50
+    }
+    
+}

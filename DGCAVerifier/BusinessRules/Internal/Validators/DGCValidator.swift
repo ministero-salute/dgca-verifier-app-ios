@@ -168,7 +168,18 @@ struct SchoolValidatorFactory: DCGValidatorFactory {
 struct WorkValidatorFactory: DCGValidatorFactory {
     
     func getValidator(hcert: HCert) -> DGCValidator? {
-        return nil
+        switch hcert.extendedType {
+        case .unknown:
+            return UnknownValidator()
+        case .vaccine:
+            return VaccineWorkValidator()
+        case .recovery:
+            return RecoveryWorkValidator()
+        case .test:
+            return TestWorkValidator()
+        case .vaccineExemption:
+            return VaccineExemptionWorkValidator()
+        }
     }
     
 }

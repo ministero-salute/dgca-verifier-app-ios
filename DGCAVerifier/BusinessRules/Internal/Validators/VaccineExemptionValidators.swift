@@ -34,5 +34,8 @@ class VaccineExemptionBoosterValidator: VaccineExemptionBaseValidator {
 
 }
 
-class VaccineExemptionSchoolValidator: AlwaysNotValid {}
+class VaccineExemptionSchoolValidator: VaccineExemptionBaseValidator {}
+
+class VaccineExemptionWorkValidator: VaccineExemptionBaseValidator {}
+
 
