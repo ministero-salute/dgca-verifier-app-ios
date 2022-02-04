@@ -29,80 +29,97 @@ import SwiftDGC
 struct RecoveryValidityCheck {
     
     typealias Validator = MedicalRulesValidator
-        
-    func isRecoveryValid(_ hcert: HCert) -> Status {
-        guard let validFrom = hcert.recoveryDateFrom else { return .notValid }
-        guard let validUntil = hcert.recoveryDateUntil else { return .notValid }
-        
-        guard let recoveryValidFromDate = validFrom.toRecoveryDate else { return .notValid }
-        guard let recoveryValidUntilDate = validUntil.toRecoveryDate else { return .notValid }
-        
-        var start: Int?
-        var end: Int?
-        
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        switch scanMode {
-        case Constants.scanMode2G:
-            start = getStartDays(from: hcert)
-            end = getEndDays(from: hcert)
-        case Constants.scanMode3G:
-            start = getStartDays3G(from: hcert)
-            end = getEndDays3G(from: hcert)
-        case Constants.scanModeBooster:
-            start = getStartDays(from: hcert)
-            end = getEndDays(from: hcert)
-        default:
-            return .notValid
-        }
-        
-        guard let recoveryStartDays = start else { return .notGreenPass }
-        guard let recoveryEndDays = end else { return .notGreenPass }
-        
-        guard let validityStart = recoveryValidFromDate.add(recoveryStartDays, ofType: .day) else { return .notValid }
-        let validityEnd = recoveryValidUntilDate
-        guard let validityExtension = recoveryValidFromDate.add(recoveryEndDays, ofType: .day) else { return .notValid }
 
+    private func validityEnd(_ hcert: HCert, dateFrom: Date, dateUntil: Date, additionalDays: Int) -> Date? {
+        if isSchoolScanMode() {
+            guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else { return nil }
+            guard let validityExtension = recoveryDateFirstPositive.add(additionalDays, ofType: .day) else { return nil }
+            return dateUntil < validityExtension ? dateUntil : validityExtension
+            
+        } else {
+            guard let validityExtension = dateFrom.add(additionalDays, ofType: .day) else { return nil }
+            return dateUntil > validityExtension ? dateUntil : validityExtension
+        }
+    }
+    
+    func isRecoveryValid(_ hcert: HCert) -> Status {
+       
+        guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
+        guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
+
+        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
+        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
+        
+        guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
+        guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
+        
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd, extendedTo: validityExtension)
+        let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd)
         
-        guard scanMode != Constants.scanModeBooster else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
+        guard !isBoosterScanMode() else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
         
         return recoveryStatus
     }
-    
-    private func getStartDays3G(from hcert: HCert) -> Int? {
-        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
-        let startDaysConfig: String
-        if isSpecialRecovery(hcert: hcert){
-            startDaysConfig = Constants.recoverySpecialStartDays
+
+    private func getEndDays(from hcert: HCert) -> Int? {
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        let isSpecialRecovery = isSpecialRecovery(hcert: hcert)
+        switch scanMode {
+        case Constants.scanMode2G, Constants.scanModeBooster:
+            let endDaysConfig = isSpecialRecovery ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays_IT
+            return getValue(for: endDaysConfig)?.intValue
+        case Constants.scanMode3G:
+            let isITCode = hcert.countryCode == Constants.ItalyCountryCode
+            let endDaysConfig: String
+            if isSpecialRecovery{
+                endDaysConfig = Constants.recoverySpecialEndDays
+            }
+            else {
+                endDaysConfig = isITCode ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
+            }
+            return getValue(for: endDaysConfig)?.intValue
+        case Constants.scanModeSchool:
+            let endDaysConfig = Constants.recoverySchoolEndDays
+            return getValue(for: endDaysConfig)?.intValue
+        default:
+            return nil
         }
-        else {
-            startDaysConfig = isITCode ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
-        }
-        return getValue(for: startDaysConfig)?.intValue
-    }
-    
-    private func getEndDays3G(from hcert: HCert) -> Int? {
-        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
-        let startDaysConfig: String
-        if isSpecialRecovery(hcert: hcert){
-            startDaysConfig = Constants.recoverySpecialEndDays
-        }
-        else {
-            startDaysConfig = isITCode ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
-        }
-        return getValue(for: startDaysConfig)?.intValue
     }
     
     private func getStartDays(from hcert: HCert) -> Int? {
-        let startDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays_IT
-        return getValue(for: startDaysConfig)?.intValue
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        let isSpecialRecovery = isSpecialRecovery(hcert: hcert)
+        switch scanMode {
+        case Constants.scanMode2G, Constants.scanModeBooster:
+            let startDaysConfig = isSpecialRecovery ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays_IT
+            return getValue(for: startDaysConfig)?.intValue
+        case Constants.scanMode3G:
+            let isITCode = hcert.countryCode == Constants.ItalyCountryCode
+            let startDaysConfig: String
+            if isSpecialRecovery{
+                startDaysConfig = Constants.recoverySpecialStartDays
+            }
+            else {
+                startDaysConfig = isITCode ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
+            }
+            return getValue(for: startDaysConfig)?.intValue
+        case Constants.scanModeSchool:
+            let startDaysConfig = Constants.recoveryStartDays_IT
+            return getValue(for: startDaysConfig)?.intValue
+        default:
+            return nil
+        }
     }
     
-    private func getEndDays(from hcert: HCert) -> Int? {
-        let endDaysConfig = isSpecialRecovery(hcert: hcert) ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays_IT
-        return getValue(for: endDaysConfig)?.intValue
+    private func isSchoolScanMode() -> Bool{
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        return scanMode == Constants.scanModeSchool
+    }
+    
+    private func isBoosterScanMode() -> Bool{
+        let scanMode: String = Store.get(key: .scanMode) ?? ""
+        return scanMode == Constants.scanModeBooster
     }
     
     private func isSpecialRecovery(hcert: HCert) -> Bool {

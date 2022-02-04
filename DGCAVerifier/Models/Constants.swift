@@ -48,6 +48,8 @@ struct Constants {
     static let vaccineBoosterStartDays_NOT_IT = "vaccine_start_day_booster_NOT_IT"
     static let vaccineBoosterEndDays_NOT_IT = "vaccine_end_day_booster_NOT_IT"
     
+    static let vaccineSchoolEndDays = "vaccine_end_day_school"
+    
     static let JeJVacineCode = "EU/1/20/1525"
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
@@ -61,6 +63,7 @@ struct Constants {
     static let recoveryEndDays_NOT_IT = "recovery_cert_end_day_NOT_IT"
     static let recoverySpecialStartDays = "recovery_pv_cert_start_day"
     static let recoverySpecialEndDays = "recovery_pv_cert_end_day"
+    static let recoverySchoolEndDays = "recovery_cert_end_day_school"
     static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
     static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
     static let ItalyCountryCode = "IT"
@@ -69,6 +72,7 @@ struct Constants {
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
+    static let scanModeSchool = "scanModeSchool"
     
     // Settings
     static let drlMaxRetries = "MAX_RETRY"

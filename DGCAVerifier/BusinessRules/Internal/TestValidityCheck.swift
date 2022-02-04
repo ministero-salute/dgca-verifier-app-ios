@@ -30,7 +30,7 @@ struct TestValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
-    func isTestDateValid(_ hcert: HCert) -> Status {
+    private func isTestDateValid(_ hcert: HCert) -> Status {
         guard hcert.isKnownTestType else { return .notValid }
         
         let startHours = getStartHours(for: hcert)
@@ -47,37 +47,44 @@ struct TestValidityCheck {
         return Validator.validate(Date(), from: validityStart, to: validityEnd)
     }
     
-    func isTestNegative(_ hcert: HCert) -> Status {
+    private func isTestNegative(_ hcert: HCert) -> Status {
         guard let isNegative = hcert.testNegative else { return .notValid }
         return isNegative ? .valid : .notValid
     }
     
-    func isTestValid(_ hcert: HCert) -> Status {
+    private func testStatusForScanMode(_ hcert: HCert) -> Status {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
-        guard scanMode != Constants.scanMode2G, scanMode != Constants.scanModeBooster else { return .notValid }
+        if (scanMode == Constants.scanMode2G || scanMode == Constants.scanModeBooster || scanMode == Constants.scanModeSchool) {
+            return .notValid
+        }
+        else { return .valid }
+    }
+    
+    func isTestValid(_ hcert: HCert) -> Status {
+        guard testStatusForScanMode(hcert) == .valid else { return .notValid }
         let testValidityResults = [isTestNegative(hcert), isTestDateValid(hcert)]
         return testValidityResults.first(where: {$0 != .valid}) ?? .valid
     }
     
-    func getStartHours(for hcert: HCert) -> String? {
+    private func getStartHours(for hcert: HCert) -> String? {
         if (hcert.isMolecularTest) { return molecularStartHours }
         if (hcert.isRapidTest) { return rapidStartHours }
         return nil
     }
     
-    func getEndHours(for hcert: HCert) -> String? {
+    private func getEndHours(for hcert: HCert) -> String? {
         if (hcert.isMolecularTest) { return molecularEndHours }
         if (hcert.isRapidTest) { return rapidEndHours }
         return nil
     }
    
-    func getValue(from key: String) -> String? {
+    private func getValue(from key: String) -> String? {
         LocalData.getSetting(from: key)
     }
     
-    var molecularStartHours: String? { getValue(from: Constants.molecularStartHoursKey) }
-    var molecularEndHours: String? { getValue(from: Constants.molecularEndHoursKey) }
-    var rapidStartHours: String? { getValue(from: Constants.rapidStartHoursKey) }
-    var rapidEndHours: String? { getValue(from: Constants.rapidEndHoursKey) }
+    private var molecularStartHours: String? { getValue(from: Constants.molecularStartHoursKey) }
+    private var molecularEndHours: String? { getValue(from: Constants.molecularEndHoursKey) }
+    private var rapidStartHours: String? { getValue(from: Constants.rapidStartHoursKey) }
+    private var rapidEndHours: String? { getValue(from: Constants.rapidEndHoursKey) }
    
 }
