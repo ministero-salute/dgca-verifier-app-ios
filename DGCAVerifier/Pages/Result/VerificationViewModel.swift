@@ -37,14 +37,13 @@ class VerificationViewModel {
         self.country = country
         
         let savedScanMode: String = Store.get(key: .scanMode) ?? ""
-        
         if let mode = ScanMode.init(rawValue: savedScanMode),
            let hCert = HCert(from: payload),
            let validator = DGCValidatorBuilder().scanMode(mode).build(hCert: hCert) {
             self.status = validator.validate(hcert: hCert)
             self.hCert = hCert
         } else {
-            self.status = .notValid
+            self.status = .notGreenPass
         }
         
         //self.hCert?.ruleCountryCode = country?.code

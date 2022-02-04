@@ -67,7 +67,7 @@ class TestValidityCheckTests: XCTestCase {
 		)
 		hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
 		
-        let isTestNegativeResult = testValidityCheck.isTestValid(hcert)
+        let isTestNegativeResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
     
         XCTAssertEqual(isTestNegativeResult, .valid)
     }
@@ -130,7 +130,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .valid)
     }
     
@@ -151,7 +151,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .valid)
     }
     
@@ -172,7 +172,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .valid)
     }
     
@@ -193,7 +193,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
     
@@ -214,7 +214,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
     
@@ -235,7 +235,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = testValidityCheck.isTestDateValid(hcert)
+        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
 

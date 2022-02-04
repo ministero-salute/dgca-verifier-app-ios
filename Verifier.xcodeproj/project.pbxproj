@@ -1175,10 +1175,7 @@
 			isa = PBXGroup;
 			children = (
 				98BF53B827A9471700B8FB1A /* DGCValidator.swift */,
-				98BF53C427A94C3800B8FB1A /* VaccineExemptionValidators.swift */,
-				98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */,
-				98BF53BE27A94BFB00B8FB1A /* RecoveryValidators.swift */,
-				98BF53C127A94C2000B8FB1A /* TestValidators.swift */,
+				98BF53E327AD371400B8FB1A /* Medical */,
 				98BF53C827A94CD800B8FB1A /* UnknownValidators.swift */,
 				98BF53CE27A9846500B8FB1A /* RevocationValidator.swift */,
 				98BF53D127A987F500B8FB1A /* HCertValidator.swift */,
@@ -1187,6 +1184,17 @@
 				98BF53DA27AA8A2400B8FB1A /* DGCValidatorBuilder.swift */,
 			);
 			path = Validators;
+			sourceTree = "<group>";
+		};
+		98BF53E327AD371400B8FB1A /* Medical */ = {
+			isa = PBXGroup;
+			children = (
+				98BF53C427A94C3800B8FB1A /* VaccineExemptionValidators.swift */,
+				98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */,
+				98BF53BE27A94BFB00B8FB1A /* RecoveryValidators.swift */,
+				98BF53C127A94C2000B8FB1A /* TestValidators.swift */,
+			);
+			path = Medical;
 			sourceTree = "<group>";
 		};
 		9F2AF7EE2653D27F00619B9C /* DGCAVerifier */ = {
