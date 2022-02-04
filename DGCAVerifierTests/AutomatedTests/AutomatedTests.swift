@@ -13,14 +13,12 @@ import SwiftyJSON
 class AutomatedTests: XCTestCase {
     
     var testCases = [TestCase]()
-    var resultTestCases = [TestCase]()
     
     override func setUpWithError() throws {
         guard let path = Bundle(for: AutomatedTests.self).url(forResource: "API", withExtension: "json") else { return }
         do {
             let data = try Data(contentsOf: path)
             self.testCases = try JSONDecoder().decode([TestCase].self, from: data)
-//            print("API parse result: ", self.testCases)
         }
         catch { print(error) }
     }
@@ -29,10 +27,10 @@ class AutomatedTests: XCTestCase {
         testCases = []
     }
     
-    func test(){
-        print("test")
+    func test() {
+       
         for index in testCases.indices {
-            var actualValidityArray = [ExpectedValidity]()
+            var actualValidity = [TestResult]()
             for validity in testCases[index].expectedValidity {
                 guard let hCert = HCert(from: testCases[index].payload), let scanMode = validity.parseScanMode() else {
                     continue
@@ -41,29 +39,23 @@ class AutomatedTests: XCTestCase {
                 }
                 guard let validator = getValidator(for: hCert, scanMode: scanMode) else {continue}
                 let result = validator.validate(hcert: hCert)
-                actualValidityArray.append(ExpectedValidity(mode: validity.mode, status: result))
-                print("result for test id \(testCases[index].id) and validity: \(validity.mode) :", result)
+                actualValidity.append(TestResult(mode: validity.mode, status: result))
             }
-            testCases[index].actualValidity = actualValidityArray
+            testCases[index].actualValidity = actualValidity
         }
         
-        getReport()
-        
-        for testCase in testCases{
-            XCTAssertEqual(testCase.actualValidity, testCase.expectedValidity)
+        let report = testCases.map{ $0.report() }
+        if let encodedData = try? JSONEncoder().encode(report) {
+            let json = String(data: encodedData, encoding: String.Encoding.utf8)
+            print("report = \(json ?? "{}")")
         }
         
-        print("end")
+        testCases.forEach{ XCTAssertEqual($0.actualValidity, $0.expectedValidity)}
     }
     
     func getValidator(for hCert: HCert, scanMode: ScanMode) -> DGCValidator? {
         return DGCValidatorBuilder().checkHCert(false).scanMode(scanMode).build(hCert: hCert)
     }
-    
-    func getReport(){
-        testCases.forEach { testCase in
-            print (testCase.report())
-        }
-    }
-    
+ 
+
 }

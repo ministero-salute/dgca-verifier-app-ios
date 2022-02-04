@@ -19,28 +19,36 @@ struct TestCase: Codable, Equatable {
     
     let id: String
     let description: String
-    let expectedValidity: [ExpectedValidity]
-    var actualValidity: [ExpectedValidity]?
+    let expectedValidity: [TestResult]
+    var actualValidity: [TestResult]?
     let payload: String
     
+    func report() -> TestReport {
+        guard let actualValidity = actualValidity else { return TestReport(id: self.id, passed: false, error: "") }
+        let result: [Bool] = expectedValidity.enumerated().map{ actualValidity[$0] == $1}
+        
+        guard !result.filter({!$0}).isEmpty else { return TestReport(id: self.id, passed: true, error: nil)}
     
-    func report() -> String {
-        guard let actualValidity = actualValidity else {return ""}
-        let result: [Bool] = expectedValidity.enumerated().map{actualValidity[$0] == $1}
-        let returnString = "TestCase id: \(self.id) \n"
-        guard !result.filter({!$0}).isEmpty else { return returnString + " OK "}
-        return returnString + expectedValidity.enumerated().map{ (index, validity) -> String in
-            let result = "Modalità \(validity.mode), atteso: \(validity.result), attuale:\(actualValidity[index].result)"
-            return result
-        }.joined(separator: "\n")
+        let error = expectedValidity
+            .enumerated()
+            .map {"\($1.mode): atteso = '\($1.result)' attuale = '\(actualValidity[$0].result)',"}
+            .joined(separator: " ")
+    
+        return TestReport(id: self.id, passed: false, error: error)
     }
 }
 
-struct ExpectedValidity: Codable, Equatable {
+struct TestReport: Codable {
+    let id: String
+    let passed: Bool
+    let error: String?
+}
+
+struct TestResult: Codable, Equatable {
     let mode: String
     let result: String
     
-    func parseScanMode() -> ScanMode?{
+    func parseScanMode() -> ScanMode? {
         switch self.mode {
         case "base":
             return .base
@@ -51,7 +59,7 @@ struct ExpectedValidity: Codable, Equatable {
         }
     }
     
-    init(mode: String, status: Status){
+    init(mode: String, status: Status) {
         self.mode = mode
         switch status {
         case .notGreenPass:
@@ -67,6 +75,5 @@ struct ExpectedValidity: Codable, Equatable {
         case .revokedGreenPass:
             self.result = "revokedGreenPass"
         }
-        
     }
 }
