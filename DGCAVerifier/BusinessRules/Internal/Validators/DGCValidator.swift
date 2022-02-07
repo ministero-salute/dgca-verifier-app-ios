@@ -52,7 +52,7 @@ extension DGCValidator {
         case validityStart...validityEnd:
             return .valid
         case validityEnd...validityEndExtension:
-            return .valid
+            return .verificationIsNeeded
         default:
             return .notValid
         }

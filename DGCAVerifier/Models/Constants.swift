@@ -48,6 +48,11 @@ struct Constants {
     static let vaccineBoosterStartDays_NOT_IT = "vaccine_start_day_booster_NOT_IT"
     static let vaccineBoosterEndDays_NOT_IT = "vaccine_end_day_booster_NOT_IT"
     
+    // EMA settings
+    static let vaccineIncompleteStartDays_NOT_EMA = "vaccine_start_day_not_complete_NOT_EMA"
+    static let vaccineCompleteEndDays_EMA = "vaccine_end_day_complete_EMA"
+    static let vaccineCompleteExtendedDays_EMA = "vaccine_end_day_complete_extended_EMA"
+    
     static let vaccineSchoolEndDays = "vaccine_end_day_school"
     
     static let JeJVacineCode = "EU/1/20/1525"
@@ -67,7 +72,7 @@ struct Constants {
     static let OID_RECOVERY = "1.3.6.1.4.1.1847.2021.1.3"
     static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
     static let ItalyCountryCode = "IT"
-
+    
     // SwitchScanMode
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
