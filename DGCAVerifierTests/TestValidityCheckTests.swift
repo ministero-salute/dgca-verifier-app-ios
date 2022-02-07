@@ -193,7 +193,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
+        let isTestDateValidResult = getValidator(mode: .work, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
     
@@ -214,7 +214,7 @@ class TestValidityCheckTests: XCTestCase {
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
+        let isTestDateValidResult = getValidator(mode: .work, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
     
@@ -229,13 +229,14 @@ class TestValidityCheckTests: XCTestCase {
         bodyString = bodyString.replacingOccurrences(of: "\"sc\": \"2021-05-03T12:27:15+02:00\"", with: "\"sc\": \"\(todayDateFormatted)\"")
         
         bodyString = bodyString.replacingOccurrences(of: "\"dob\": \"1977-06-16\"", with: "\"dob\": \"1970\"")
+        
         Store.set(Constants.scanMode50, for: .scanMode)
         
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
                 
         print("[TEST] \(hcert.birthDate)")
         
-        let isTestDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
+        let isTestDateValidResult = getValidator(mode: .work, hCert: hcert)?.validate(hcert: hcert)
         XCTAssertEqual(isTestDateValidResult, .notValid)
     }
 

@@ -15,7 +15,7 @@ class AutomatedTests: XCTestCase {
     var testCases = [TestCase]()
     
     override func setUpWithError() throws {
-        guard let path = Bundle(for: AutomatedTests.self).url(forResource: "API", withExtension: "json") else { return }
+        guard let path = Bundle(for: AutomatedTests.self).url(forResource: "xxx", withExtension: "json") else { return }
         do {
             let data = try Data(contentsOf: path)
             self.testCases = try JSONDecoder().decode([TestCase].self, from: data)
