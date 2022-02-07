@@ -268,10 +268,6 @@ struct VaccineValidityCheck {
 				return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
 			}
             
-            if preconditions.isJJ {
-                let settingName = Constants.vaccineCompleteStartDays
-                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-            }
             return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
         default:
             return nil

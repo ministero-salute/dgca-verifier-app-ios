@@ -30,7 +30,7 @@ struct TestValidityCheck {
     
     typealias Validator = MedicalRulesValidator
     
-    func isTestDateValid(_ hcert: HCert) -> Status {
+    private func isTestDateValid(_ hcert: HCert) -> Status {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         if scanMode == Constants.scanMode50 {
             guard !isOver50(hcert) else { return .notValid }
