@@ -52,7 +52,6 @@ extension HCert {
             return "\(split[2])/\(split[1])/\(split[0])"
         }
         
-        
     }
     
     var birthYear: Int? {
@@ -61,23 +60,14 @@ extension HCert {
     }
     
     var age: Int? {
-        let dateFormatter = DateFormatter()
-        switch birthDate.count {
-        case 4:
-            dateFormatter.dateFormat = "yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year], from: birthdayDate, to: Date()).year
-        case 7:
-            dateFormatter.dateFormat = "MM/yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year, .month], from: birthdayDate, to: Date()).year
-        case 10:
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            guard let birthdayDate = dateFormatter.date(from: birthDate) else { return nil }
-            return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year
-        default:
-            return nil
+        let dateFormatter = DateFormatter.getDefault(utc: true)
+        let formats = ["yyyy", "MM/yyyy", "dd/MM/yyyy"]
+        let dates: [Date] = formats.compactMap {
+            dateFormatter.dateFormat = $0
+            return dateFormatter.date(from: birthDate)
         }
+        guard let birthdayDate = dates.first else { return nil }
+        return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year
     }
     
 }
