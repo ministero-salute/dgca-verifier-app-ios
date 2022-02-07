@@ -23,17 +23,20 @@
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
 "home.scan.button.bold.Booster" = "VERIFICA VISITATORI RSA";
 "home.scan.button.bold.School" = "VERIFICA STUDENTI";
+"home.scan.button.bold.50" = "VERIFICA LAVORO";
 
 "home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
 "home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
 "home.scan.button.mode.Booster" = "VERIFICA VISITATORI RSA\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
 "home.scan.button.mode.School" = "VERIFICA STUDENTI\nRICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG";
+"home.scan.button.mode.50" = "VERIFICA LAVORO\nVACCINAZIONE/GUARIGIONE";
 
 "home.scan.picker.title"   = "Tipologia verifica";
 "home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
 "home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
 "home.scan.picker.mode.Booster" = "VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione+tampone)";
 "home.scan.picker.mode.School" = "STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
+"home.scan.picker.mode.50" = "LAVORO (vaccinazione/guarigione)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -49,6 +52,7 @@
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.Boster" = "Tipologia verifica: VISITATORI RSA";
 "result.scan.mode.Scuola" = "Tipologia verifica: STUDENTI";
+"result.scan.mode.50" = "Tipologia verifica: LAVORO";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";

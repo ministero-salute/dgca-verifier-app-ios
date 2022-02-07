@@ -52,7 +52,22 @@ extension HCert {
             return "\(split[2])/\(split[1])/\(split[0])"
         }
         
-        
+    }
+    
+    var birthYear: Int? {
+        guard let birthYear = Int(birthDate[4]) else { return nil }
+        return birthYear
+    }
+    
+    var age: Int? {
+        let dateFormatter = DateFormatter.getDefault(utc: true)
+        let formats = ["yyyy", "MM/yyyy", "dd/MM/yyyy"]
+        let dates: [Date] = formats.compactMap {
+            dateFormatter.dateFormat = $0
+            return dateFormatter.date(from: birthDate)
+        }
+        guard let birthdayDate = dates.first else { return nil }
+        return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year
     }
     
 }

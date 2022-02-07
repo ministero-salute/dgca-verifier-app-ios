@@ -60,14 +60,14 @@ class RevocationValidityCheckTests: XCTestCase {
         let hash: String = self.hcert.uvci.sha256()
         CRLDataStorage.add(hash: hash, on: realm)
         
-        XCTAssertTrue(RulesValidator.isRevoked(hcert))
+        XCTAssertTrue(RevocationValidator().validate(hcert: hcert) == .notValid)
     }
     
     func testNonRevokedUVCI() {
         let hash: String = "abcdefg".sha256()
         CRLDataStorage.add(hash: hash, on: realm)
         
-        XCTAssertFalse(RulesValidator.isRevoked(hcert))
+        XCTAssertTrue(RevocationValidator().validate(hcert: hcert) == .valid)
     }
     
 }
