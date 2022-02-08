@@ -7,12 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140B09CD27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09CC27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift */; };
+		140B09CE27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09CC27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift */; };
+		140B09D027B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09CF27B2CF24003A017F /* UIView+EmbedSubview.swift */; };
+		140B09D127B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09CF27B2CF24003A017F /* UIView+EmbedSubview.swift */; };
+		140B09D327B2D16F003A017F /* HeaderBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09D227B2D16F003A017F /* HeaderBar.xib */; };
+		140B09D427B2D16F003A017F /* HeaderBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09D227B2D16F003A017F /* HeaderBar.xib */; };
+		140B09D727B2D1B2003A017F /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09D627B2D1B2003A017F /* HeaderBar.swift */; };
+		140B09D827B2D1B2003A017F /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09D627B2D1B2003A017F /* HeaderBar.swift */; };
 		1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
 		1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462330727A3EA580073A323 /* HCertGenerator.swift */; };
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		14CD25E127B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */; };
+		14CD25E227B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */; };
+		14CD25E327B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */; };
+		14CD25E427B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */; };
 		14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB4294275FAE8A006E9183 /* DebugView.xib */; };
 		14EB429B275FAFFF006E9183 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4298275FAF59006E9183 /* DebugViewModel.swift */; };
 		14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4296275FAE9F006E9183 /* DebugViewController.swift */; };
@@ -386,10 +398,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140B09CC27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NSLayoutConstraint.swift"; sourceTree = "<group>"; };
+		140B09CF27B2CF24003A017F /* UIView+EmbedSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+EmbedSubview.swift"; sourceTree = "<group>"; };
+		140B09D227B2D16F003A017F /* HeaderBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderBar.xib; sourceTree = "<group>"; };
+		140B09D627B2D1B2003A017F /* HeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBar.swift; sourceTree = "<group>"; };
 		1410B20A271DBADD00F912BA /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
+		14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFBackViewController.swift; sourceTree = "<group>"; };
+		14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HFBackViewController.xib; sourceTree = "<group>"; };
 		14EB4294275FAE8A006E9183 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		14EB4296275FAE9F006E9183 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		14EB4298275FAF59006E9183 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
@@ -626,6 +644,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		140B09D527B2D1A1003A017F /* HeaderBar */ = {
+			isa = PBXGroup;
+			children = (
+				140B09D227B2D16F003A017F /* HeaderBar.xib */,
+				140B09D627B2D1B2003A017F /* HeaderBar.swift */,
+			);
+			path = HeaderBar;
+			sourceTree = "<group>";
+		};
 		1410B209271DBACD00F912BA /* PickerVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +660,15 @@
 				1410B20C271EAE6000F912BA /* PickerViewController.xib */,
 			);
 			path = PickerVC;
+			sourceTree = "<group>";
+		};
+		14CD25DE27B2B9E1007DF2A4 /* HeaderFooterBackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */,
+				14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */,
+			);
+			path = HeaderFooterBackViewController;
 			sourceTree = "<group>";
 		};
 		14EB4293275FAE6A006E9183 /* Debug */ = {
@@ -758,6 +794,8 @@
 				65C3A55626AEF8F3000BBCC5 /* UIView+Borders.swift */,
 				65E7000026AF6E1F00715CCC /* UIStackView+ArrangedSubViews.swift */,
 				90CDC6D8271F049A00707836 /* UIView+NibFile.swift */,
+				140B09CC27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift */,
+				140B09CF27B2CF24003A017F /* UIView+EmbedSubview.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1033,6 +1071,7 @@
 		65E7000726AF71AC00715CCC /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				140B09D527B2D1A1003A017F /* HeaderBar */,
 				65021B4426AEC6AE004C3D14 /* AppShadowView */,
 				65E7001126AF7BA300715CCC /* FaqView */,
 				659605F126E790EE008AD4E2 /* ProgressView */,
@@ -1137,6 +1176,7 @@
 		9020C5F12721C1FB00F45CA7 /* CustomControllers */ = {
 			isa = PBXGroup;
 			children = (
+				14CD25DE27B2B9E1007DF2A4 /* HeaderFooterBackViewController */,
 				1410B209271DBACD00F912BA /* PickerVC */,
 			);
 			path = CustomControllers;
@@ -1479,6 +1519,8 @@
 				65E281E42697259D00377913 /* VerificationViewController.xib in Resources */,
 				14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */,
 				65E281E52697259D00377913 /* Roboto-Italic.ttf in Resources */,
+				14CD25E427B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */,
+				140B09D427B2D16F003A017F /* HeaderBar.xib in Resources */,
 				65E281E62697259D00377913 /* Roboto-MediumItalic.ttf in Resources */,
 				65E281E72697259D00377913 /* TitilliumWeb-Regular.ttf in Resources */,
 				65E281E82697259D00377913 /* Roboto-Light.ttf in Resources */,
@@ -1523,6 +1565,8 @@
 				9F90C59B265E591E00B2F992 /* TitilliumWeb-ExtraLight.ttf in Resources */,
 				9F90C5A9265E591E00B2F992 /* Roboto-Black.ttf in Resources */,
 				65E2816A2697217B00377913 /* VerificationViewController.xib in Resources */,
+				14CD25E327B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */,
+				140B09D327B2D16F003A017F /* HeaderBar.xib in Resources */,
 				659605F626E7927C008AD4E2 /* ProgressView.xib in Resources */,
 				9F90C5A4265E591E00B2F992 /* Roboto-Italic.ttf in Resources */,
 				9F90C599265E591E00B2F992 /* Roboto-MediumItalic.ttf in Resources */,
@@ -1629,11 +1673,13 @@
 				9020C5E62721600D00F45CA7 /* UITableView+Nib.swift in Sources */,
 				9020C5E72721600D00F45CA7 /* CountryCell.swift in Sources */,
 				65021B4C26AEC889004C3D14 /* AppButton.swift in Sources */,
+				140B09D127B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */,
 				65E281B92697259D00377913 /* TestValidityCheck.swift in Sources */,
 				65E281BB2697259D00377913 /* HCert+PersonalData.swift in Sources */,
 				65E3C1DE2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
+				140B09CE27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */,
 				656433B526D787C300A41590 /* RevokedDCC.swift in Sources */,
 				98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */,
 				98BF53CA27A94CD800B8FB1A /* UnknownValidators.swift in Sources */,
@@ -1710,6 +1756,7 @@
 				65EFB63426B183CF0081682B /* Link+Values.swift in Sources */,
 				90BD8F50272C1C8A00BE816B /* Constants.swift in Sources */,
 				65C3A55826AEF8F3000BBCC5 /* UIView+Borders.swift in Sources */,
+				14CD25E227B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */,
 				65E281CD2697259D00377913 /* Setting.swift in Sources */,
 				65C3A55526AEF642000BBCC5 /* String+UIImage.swift in Sources */,
 				6559D94F27199A3300E0E30D /* VNBarcodeObservation+Values.swift in Sources */,
@@ -1747,6 +1794,7 @@
 				98BF53BA27A9471700B8FB1A /* DGCValidator.swift in Sources */,
 				65EFB62A26B0BFC00081682B /* CertLogicValidator.swift in Sources */,
 				65021B5C26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
+				140B09D827B2D1B2003A017F /* HeaderBar.swift in Sources */,
 				9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1789,6 +1837,7 @@
 				65021B4A26AEC7C0004C3D14 /* CALayer+Shadow.swift in Sources */,
 				658CB71B26AF27D200B90EC0 /* UIBarButtonItem+Appearance.swift in Sources */,
 				65E281662697217B00377913 /* HomeViewModel.swift in Sources */,
+				140B09CD27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */,
 				65021B3B26AEB291004C3D14 /* ButtonStyle.swift in Sources */,
 				65E2819C269721ED00377913 /* Date+String.swift in Sources */,
 				6559D947271996F300E0E30D /* VNBarcodeObservation+Allowed.swift in Sources */,
@@ -1816,6 +1865,7 @@
 				65EFB5EE26B04D850081682B /* GatewayConnection+Certificates.swift in Sources */,
 				65E3C1D92716E05D004B2E98 /* AVCaptureDevice+Torch.swift in Sources */,
 				65E281A7269721ED00377913 /* HCert+Test.swift in Sources */,
+				140B09D727B2D1B2003A017F /* HeaderBar.swift in Sources */,
 				65021B6226AEDCF3004C3D14 /* Palette.swift in Sources */,
 				658CB72526AF3C1200B90EC0 /* Status+Configuration.swift in Sources */,
 				65E2816C2697217B00377913 /* ResultView.swift in Sources */,
@@ -1828,6 +1878,7 @@
 				98BF53BC27A94BD300B8FB1A /* VaccineValidators.swift in Sources */,
 				98BF53C927A94CD800B8FB1A /* UnknownValidators.swift in Sources */,
 				65E2816B2697217B00377913 /* VerificationViewModel.swift in Sources */,
+				14CD25E127B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */,
 				65021B5926AECF59004C3D14 /* UIImageView+Inspectable.swift in Sources */,
 				65E281A2269721ED00377913 /* Cache.swift in Sources */,
 				65E281702697217B00377913 /* CameraViewController.swift in Sources */,
@@ -1853,6 +1904,7 @@
 				90BED815276A4F15006225CE /* String+HTML.swift in Sources */,
 				65EFB62926B0BFC00081682B /* CertLogicValidator.swift in Sources */,
 				98BF53E127AC3AE900B8FB1A /* ScanMode+UI.swift in Sources */,
+				140B09D027B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */,
 				90A3E616273C6B2C00D161BD /* Array+Utils.swift in Sources */,
 				659605F926E7A6E0008AD4E2 /* CRLProgress.swift in Sources */,
 				65021B6826AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,

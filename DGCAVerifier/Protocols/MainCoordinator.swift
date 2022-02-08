@@ -60,7 +60,9 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: HomeCoordinator {
     func showCamera() {
-        let controller = CameraViewController(coordinator: self)
+		let cameraViewController = CameraViewController(coordinator: self)
+		let controller = HFBackViewController()
+		controller.delegate = cameraViewController
         navigationController.pushViewController(controller, animated: true)
     }
     

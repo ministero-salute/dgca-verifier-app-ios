@@ -46,8 +46,10 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var countryButton: AppButton!
     @IBOutlet weak var flashButton: AppButton!
     @IBOutlet weak var switchButton: UIButton!
-
-    private var captureSession = AVCaptureSession()
+	
+	private var headerBar: HeaderBar?
+	
+	private var captureSession = AVCaptureSession()
     
     init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
         self.coordinator = coordinator
@@ -61,11 +63,12 @@ class CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		initializeHeaderBar()
         initializeBackButton()
         initializeFlashButton()
         initializeCountryButton()
         #if targetEnvironment(simulator)
-        found(payload: mockQRCode)
+        //found(payload: mockQRCode)
         #else
         checkPermissions()
         #endif
@@ -120,6 +123,15 @@ class CameraViewController: UIViewController {
         }
         coordinator?.validate(payload: payload, country: country, delegate: self)
     }
+	
+	@objc private func goBack() {
+		coordinator?.dismiss()
+	}
+	
+	private func initializeHeaderBar() {
+		self.headerBar = HeaderBar()
+		self.headerBar?.backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+	}
     
     private func initializeBackButton() {
         backButton.style = .minimal
@@ -195,11 +207,25 @@ class CameraViewController: UIViewController {
     }
 }
 
+extension CameraViewController: HeaderFooterDelegate {
+	public var header: UIView? {
+		return headerBar
+	}
+	
+	public var content: UIView? {
+		return self.view
+	}
+	
+	public var footer: UIView? {
+		return UIView()
+	}
+}
+
 extension CameraViewController: CameraDelegate {
 
     func startRunning() {
         #if targetEnvironment(simulator)
-        back(self)
+        //back(self)
         #else
         guard !captureSession.isRunning else { return }
         captureSession.startRunning()
