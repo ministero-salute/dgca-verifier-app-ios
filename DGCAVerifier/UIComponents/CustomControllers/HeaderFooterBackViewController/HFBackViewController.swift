@@ -8,9 +8,9 @@
 import UIKit
 
 protocol HeaderFooterDelegate {
-	var header: 	UIView? { get }
-	var content: 	UIView? { get }
-	var footer: 	UIView? { get }
+	var header: UIView? { get }
+	var contentVC: UIViewController? { get }
+	var footer: UIView? { get }
 }
 
 class HFBackViewController: UIViewController {
@@ -30,8 +30,9 @@ class HFBackViewController: UIViewController {
 			self.headerView.isHidden = true
 		}
 		
-		if let content = self.delegate?.content {
-			self.contentView.embedSubview(subview: content)
+		if let contentVC = self.delegate?.contentVC {
+            self.addChild(contentVC)
+            self.contentView.embedSubview(subview: contentVC.view)
 		}
 		
 		if let footer = self.delegate?.footer {

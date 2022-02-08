@@ -212,12 +212,12 @@ extension CameraViewController: HeaderFooterDelegate {
 		return headerBar
 	}
 	
-	public var content: UIView? {
-		return self.view
+	public var contentVC: UIViewController? {
+		return self
 	}
 	
 	public var footer: UIView? {
-		return UIView()
+		return nil
 	}
 }
 
