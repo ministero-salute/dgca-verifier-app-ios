@@ -9,7 +9,7 @@ import Foundation
 import SwiftDGC
 @testable import VerificaC19
 
-struct TestCase: Codable, Equatable {
+struct TestCase: Codable, Equatable, CustomStringConvertible {
     static func == (lhs: TestCase, rhs: TestCase) -> Bool {
         guard lhs.expectedValidity.count == rhs.expectedValidity.count else { return false }
         return lhs.expectedValidity.enumerated()
@@ -18,7 +18,7 @@ struct TestCase: Codable, Equatable {
     }
     
     let id: String
-    let description: String
+    let desc: String
     let expectedValidity: [TestResult]
     var actualValidity: [TestResult]?
     let payload: String
@@ -36,6 +36,12 @@ struct TestCase: Codable, Equatable {
     
         return TestReport(id: self.id, passed: false, error: error)
     }
+    
+    var description: String {
+        let trimIndex = payload.index(payload.startIndex, offsetBy: min(8, payload.count - 1))
+        let trimmedPayload = String(payload[..<trimIndex])
+        return "(id:\(id), desc:\(desc), payload:\(trimmedPayload), ev: \(expectedValidity) )"
+    }
 }
 
 struct TestReport: Codable {
@@ -44,21 +50,35 @@ struct TestReport: Codable {
     let error: String?
 }
 
-struct TestResult: Codable, Equatable {
+struct TestResult: Codable, Equatable, CustomStringConvertible {
     let mode: String
     let result: String
     
-    func parseScanMode() -> ScanMode? {
+    init(mode: String, result: String) {
+        self.mode = mode
+        self.result = result
+    }
+    
+    func scanMode() -> ScanMode? {
+        //"Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"
         switch self.mode {
-        case "base":
+        case "Base":
             return .base
-        case "rafforzata":
+        case "Rafforzata":
             return .reinforced
+        case "Visitatori RSA":
+            return .booster
+        case "Studenti":
+            return .school
+        case "Lavoro":
+            return .work
+        case "Ingresso in italia":
+            return .italyEntry
         default:
             return nil
         }
     }
-    
+
     init(mode: String, status: Status) {
         self.mode = mode
         switch status {
@@ -76,4 +96,9 @@ struct TestResult: Codable, Equatable {
             self.result = "revokedGreenPass"
         }
     }
+    
+    var description: String {
+        return "(mode:\(mode), result:\(result))"
+    }
+    
 }

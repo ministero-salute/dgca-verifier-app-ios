@@ -295,7 +295,6 @@
 		90E9560A270F397600DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		90E9560B270F397700DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		90F9494F27AD79CC00A9CB3E /* AutomatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */; };
-		90F9495127AD79D900A9CB3E /* API.json in Resources */ = {isa = PBXBuildFile; fileRef = 90F9495027AD79D900A9CB3E /* API.json */; };
 		98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B727A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B927A9471700B8FB1A /* DGCValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* DGCValidator.swift */; };
@@ -521,7 +520,6 @@
 		90CDC6B9271EB48C00707836 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
 		90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomatedTests.swift; sourceTree = "<group>"; };
-		90F9495027AD79D900A9CB3E /* API.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = API.json; sourceTree = "<group>"; };
 		98BF53B527A9469400B8FB1A /* ScanMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMode.swift; sourceTree = "<group>"; };
 		98BF53B827A9471700B8FB1A /* DGCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCValidator.swift; sourceTree = "<group>"; };
 		98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineValidators.swift; sourceTree = "<group>"; };
@@ -1145,7 +1143,6 @@
 		902BB46A27AD850300C397EB /* AutomatedTests */ = {
 			isa = PBXGroup;
 			children = (
-				90F9495027AD79D900A9CB3E /* API.json */,
 				90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */,
 				902BB46B27AD852400C397EB /* TestModel.swift */,
 			);
@@ -1562,7 +1559,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F9495127AD79D900A9CB3E /* API.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
