@@ -52,6 +52,7 @@
 "result.birthdate" = "Data di nascita/Birth Date";
 
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
+"result.scan.mode.italy.entry" = "Tipologia verifica: ITALY ENTRY";
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.Boster" = "Tipologia verifica: VISITATORI RSA";
 "result.scan.mode.Scuola" = "Tipologia verifica: STUDENTI";
