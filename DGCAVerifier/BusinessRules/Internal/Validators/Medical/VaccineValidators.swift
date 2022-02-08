@@ -185,15 +185,15 @@ class VaccineBaseValidator: DGCValidator {
     
     
     public func extDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        return 0
+        return endDaysForBoosterDose(vaccinationInfo)
     }
     
     public func extDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        return 0
+        return endDaysForIncompleteDose(vaccinationInfo)
     }
     
     public func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        return 0
+        return endDaysForCompleteDose(vaccinationInfo)
     }
     
 
@@ -251,7 +251,7 @@ class VaccineReinforcedValidator: VaccineBaseValidator {
  
     public override func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         if vaccinationInfo.isIT {
-            return 0
+            return endDaysForCompleteDose(vaccinationInfo)
         } else {
             return getValue(for: Constants.vaccineCompleteExtendedDays_EMA)?.intValue
         }
@@ -259,7 +259,7 @@ class VaccineReinforcedValidator: VaccineBaseValidator {
     
     public override func extDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         if vaccinationInfo.isIT {
-            return 0
+            return endDaysForBoosterDose(vaccinationInfo)
         } else {
             return getValue(for: Constants.vaccineBoosterEndDays_NOT_IT)?.intValue
         }
@@ -287,13 +287,13 @@ class VaccineBoosterValidator: VaccineReinforcedValidator {
         if vaccinationInfo.isIT {
             return getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
         } else {
-            return 0
+            return startDaysForCompleteDose(vaccinationInfo)
         }
     }
  
     public override func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         if vaccinationInfo.isIT {
-            return 0
+            return endDaysForCompleteDose(vaccinationInfo)
         } else {
             return getValue(for: Constants.vaccineCompleteEndDays_EMA)?.intValue
         }
