@@ -476,14 +476,16 @@ extension HomeViewController {
         switch scanMode{
         case Constants.scanMode3G:
             pickerSelectedOption = 0
-        case Constants.scanMode2G:
+        case Constants.scanModeItalyEntry:
             pickerSelectedOption = 1
-        case Constants.scanModeBooster:
+        case Constants.scanMode2G:
             pickerSelectedOption = 2
-        case Constants.scanModeSchool:
+        case Constants.scanModeBooster:
             pickerSelectedOption = 3
-        case Constants.scanMode50:
+        case Constants.scanModeSchool:
             pickerSelectedOption = 4
+        case Constants.scanMode50:
+            pickerSelectedOption = 5
         default:
             break
         }
@@ -509,15 +511,18 @@ extension HomeViewController {
             Store.set(Constants.scanMode3G, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 1:
-            Store.set(Constants.scanMode2G, for: Store.Key.scanMode)
+            Store.set(Constants.scanModeItalyEntry, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 2:
-            Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
+            Store.set(Constants.scanMode2G, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
         case 3:
+            Store.set(Constants.scanModeBooster, for: Store.Key.scanMode)
+            Store.set(true, for: .isScanModeSet)
+        case 4:
             Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
-		case 4:
+		case 5:
 			Store.set(Constants.scanMode50, for: Store.Key.scanMode)
 			Store.set(true, for: .isScanModeSet)
         default:
