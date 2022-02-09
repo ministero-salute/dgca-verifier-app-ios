@@ -174,7 +174,7 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
 		
 		guard let currentDate = Date.startOfDay else { return .notValid }
 		
-		return Validator.validate(currentDate, from: validityStart, to: validityEnd)
+		return self.validate(currentDate, from: validityStart, to: validityEnd)
 	}
     
     override func getEndDays(from hcert: HCert) -> Int? {
