@@ -50,6 +50,7 @@ struct Constants {
     
     // EMA settings
     static let vaccineIncompleteStartDays_NOT_EMA = "vaccine_start_day_not_complete_NOT_EMA"
+	static let vaccineIncompleteEndDays_NOT_EMA = "vaccine_end_day_not_complete_NOT_EMA"
     static let vaccineCompleteEndDays_EMA = "vaccine_end_day_complete_EMA"
     static let vaccineCompleteExtendedDays_EMA = "vaccine_end_day_complete_extended_EMA"
     

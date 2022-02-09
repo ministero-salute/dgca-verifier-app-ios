@@ -229,6 +229,30 @@ class VaccineBaseValidator: DGCValidator {
 
 
 class VaccineReinforcedValidator: VaccineBaseValidator {
+	
+	// Not-EMA vaccines are not invalid a priori in reinforced scan mode.
+	public override func validate(hcert: HCert) -> Status {
+		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		return checkVaccinationInterval(vaccinationInfo)
+	}
+	
+	// IT, not-EMA
+	public override func startDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
+		guard vaccinationInfo.isIT && !vaccinationInfo.isEMAProduct else {
+			return super.startDaysForIncompleteDose(vaccinationInfo)
+		}
+		
+		return self.getValue(for: Constants.vaccineIncompleteStartDays_NOT_EMA)?.intValue
+	}
+	
+	// IT, not-EMA
+	public override func endDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
+		guard vaccinationInfo.isIT && !vaccinationInfo.isEMAProduct else {
+			return super.endDaysForIncompleteDose(vaccinationInfo)
+		}
+		
+		return self.getValue(for: Constants.vaccineIncompleteEndDays_NOT_EMA)?.intValue
+	}
     
     public override func startDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
@@ -325,6 +349,30 @@ class VaccineSchoolValidator: VaccineBaseValidator {
 
 
 class VaccineWorkValidator: VaccineReinforcedValidator {
+	
+	public override func validate(hcert: HCert) -> Status {
+		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		// < 50 years of age => behave like "base" scan mode; not EMA => not valid a priori.
+		if !vaccinationInfo.patientOver50 && !vaccinationInfo.isEMAProduct { return .notValid }
+		let vaccinationIntervalCheck = checkVaccinationInterval(vaccinationInfo)
+		return vaccinationIntervalCheck == .valid ? .verificationIsNeeded : vaccinationIntervalCheck
+	}
+	
+	public override func startDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
+		guard vaccinationInfo.patientOver50 && !vaccinationInfo.isEMAProduct else {
+			return super.startDaysForIncompleteDose(vaccinationInfo)
+		}
+		
+		return getValue(for: Constants.vaccineIncompleteStartDays_NOT_EMA)?.intValue
+	}
+	
+	public override func endDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
+		guard vaccinationInfo.patientOver50 && !vaccinationInfo.isEMAProduct else {
+			return super.endDaysForIncompleteDose(vaccinationInfo)
+		}
+		
+		return getValue(for: Constants.vaccineIncompleteEndDays_NOT_EMA)?.intValue
+	}
     
     public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         if (vaccinationInfo.isIT) {
@@ -342,6 +390,7 @@ class VaccineItalyEntryValidator: VaccineBaseValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		guard vaccinationInfo.isEMAProduct else { return .notValid }
         let result = super.checkVaccinationInterval(vaccinationInfo)
         guard result == .valid else { return result }
         return .notValid
