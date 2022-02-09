@@ -161,6 +161,21 @@ class RecoveryBoosterValidator: RecoveryReinforcedValidator {
 }
 
 class RecoverySchoolValidator: RecoveryBaseValidator {
+	
+	override func validate(hcert: HCert) -> Status {
+		
+		guard let validityFrom = hcert.recoveryDateFirstPositive?.toRecoveryDate else { return .notValid }
+		
+		guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
+		guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
+		
+		guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
+		guard let validityEnd = validityFrom.add(recoveryEndDays, ofType: .day) else { return .notValid }
+		
+		guard let currentDate = Date.startOfDay else { return .notValid }
+		
+		return Validator.validate(currentDate, from: validityStart, to: validityEnd)
+	}
     
     override func getEndDays(from hcert: HCert) -> Int? {
         var endDaysConfig = Constants.recoverySchoolEndDays
