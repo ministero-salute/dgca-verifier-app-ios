@@ -33,9 +33,9 @@ class VaccineExemptionBaseValidator: DGCValidator {
         guard let dateFrom = exemption.dateFrom else { return .notValid }
         guard let currentDate = Date.startOfDay else { return .notValid }
         guard let dateUntil = exemption.dateUntil else {
-            return VaccineExemptionBaseValidator.validate(currentDate, from: dateFrom)
+            return self.validate(currentDate, from: dateFrom)
         }
-        return VaccineExemptionBaseValidator.validate(currentDate, from: dateFrom, to: dateUntil)
+        return self.validate(currentDate, from: dateFrom, to: dateUntil)
     }
  
 }

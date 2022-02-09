@@ -14,18 +14,18 @@ protocol DCGValidatorFactory {
 }
 
 protocol DGCValidator {
-    static func validate(_ current: Date, from validityStart: Date) -> Status
+    func validate(_ current: Date, from validityStart: Date) -> Status
     
-    static func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status
     
-    static func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status
     
     func validate(hcert: HCert) -> Status
 }
 
 extension DGCValidator {
     
-    static func validate(_ current: Date, from validityStart: Date) -> Status {
+    func validate(_ current: Date, from validityStart: Date) -> Status {
         switch current {
         case ..<validityStart:
             return .notValidYet
@@ -34,7 +34,7 @@ extension DGCValidator {
         }
     }
     
-    static func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
         switch current {
         case ..<validityStart:
             return .notValidYet
@@ -45,7 +45,7 @@ extension DGCValidator {
         }
     }
     
-    static func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
         switch current {
         case ..<validityStart:
             return .notValidYet
@@ -113,11 +113,12 @@ struct BaseValidatorFactory: DCGValidatorFactory {
 struct ReinforcedValidatorFactory: DCGValidatorFactory {
     
     func getValidator(hcert: HCert) -> DGCValidator? {
+        let isIT = hcert.countryCode == Constants.ItalyCountryCode
         switch hcert.extendedType {
         case .unknown:
             return UnknownValidator()
         case .vaccine:
-            return VaccineReinforcedValidator()
+            return isIT ? VaccineReinforcedValidator() : VaccineReinforcedValidatorNotItaly()
         case .recovery:
             return RecoveryReinforcedValidator()
         case .test:
@@ -132,11 +133,12 @@ struct ReinforcedValidatorFactory: DCGValidatorFactory {
 struct BoosterValidatorFactory: DCGValidatorFactory {
     
     func getValidator(hcert: HCert) -> DGCValidator? {
+        let isIT = hcert.countryCode == Constants.ItalyCountryCode
         switch hcert.extendedType {
         case .unknown:
             return UnknownValidator()
         case .vaccine:
-            return VaccineBoosterValidator()
+            return isIT ? VaccineBoosterValidator() : VaccineBoosterValidatorNotItaly()
         case .recovery:
             return RecoveryBoosterValidator()
         case .test:
@@ -170,11 +172,12 @@ struct SchoolValidatorFactory: DCGValidatorFactory {
 struct WorkValidatorFactory: DCGValidatorFactory {
     
     func getValidator(hcert: HCert) -> DGCValidator? {
+        let isIT = hcert.countryCode == Constants.ItalyCountryCode
         switch hcert.extendedType {
         case .unknown:
             return UnknownValidator()
         case .vaccine:
-            return VaccineWorkValidator()
+            return isIT ? VaccineWorkValidator() : VaccineWorkValidatorNotIt()
         case .recovery:
             return RecoveryWorkValidator()
         case .test:

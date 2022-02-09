@@ -42,7 +42,7 @@ class TestBaseValidator: DGCValidator {
         guard let validityStart = dateTime.add(start, ofType: .hour) else { return .notValid }
         guard let validityEnd = dateTime.add(end, ofType: .hour) else { return .notValid }
     
-        return TestBaseValidator.validate(Date(), from: validityStart, to: validityEnd)
+        return self.validate(Date(), from: validityStart, to: validityEnd)
     }
     
     private func isTestNegative(_ hcert: HCert) -> Status {
