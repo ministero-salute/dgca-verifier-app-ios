@@ -92,7 +92,6 @@ class TestWorkValidator: TestBaseValidator {
         return super.validate(hcert: hcert)
     }
     
-    
     private func isOver50 (_ hcert: HCert) -> Bool {
         guard let age = hcert.age else { return false }
         return age >= 50

@@ -56,4 +56,4 @@ class VaccineExemptionSchoolValidator: VaccineExemptionBaseValidator {}
 
 class VaccineExemptionWorkValidator: VaccineExemptionBaseValidator {}
 
-class VaccineExemptionItalyEntryValidator: VaccineExemptionBaseValidator {}
+class VaccineExemptionItalyEntryValidator: AlwaysNotValid {}

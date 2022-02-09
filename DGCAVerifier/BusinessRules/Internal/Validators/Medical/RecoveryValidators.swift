@@ -26,12 +26,42 @@
 import Foundation
 import SwiftDGC
 
+struct RecoveryInfo {
+	
+	private var hcert: HCert!
+	
+	public var isCBIS: Bool {
+		guard self.hcert.rcountryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
+		guard let signedCerficate = self.hcert.signedCerficate else { return false }
+		let extendedKeyUsage = signedCerficate.extendedKeyUsage
+		let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT }
+		return !validKeysUsages.isEmpty
+	}
+	
+	public var isIT: Bool {
+		return self.hcert.countryCode == Constants.ItalyCountryCode
+	}
+	
+	var patientOver50: Bool {
+		guard let age = self.hcert.age else { return false }
+		return age >= 50
+	}
+	
+	public static func from(hcert: HCert) -> RecoveryInfo {
+		return RecoveryInfo(hcert: hcert)
+	}
+	
+}
+
 class RecoveryBaseValidator: DGCValidator {
     
     typealias Validator = RecoveryBaseValidator
+	
+	fileprivate var recoveryInfo: RecoveryInfo!
     
     func validate(hcert: HCert) -> Status {
-        
+		self.recoveryInfo = RecoveryInfo.from(hcert: hcert)
+		
         guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
         guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
 
@@ -89,27 +119,48 @@ class RecoveryBaseValidator: DGCValidator {
     
 }
 
-
-class RecoveryReinforcedValidator: RecoveryBaseValidator {}
-
-
-class RecoveryBoosterValidator: RecoveryBaseValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        let baseValidation = super.validate(hcert: hcert)
-        guard baseValidation == .valid else { return baseValidation }
-        return .verificationIsNeeded
-    }
-    
+class RecoveryReinforcedValidator: RecoveryBaseValidator {
+	
+	override func getStartDays(from hcert: HCert) -> Int? {
+		let startDaysConfig: String
+		if isSpecialRecovery(hcert: hcert) {
+			startDaysConfig = Constants.recoverySpecialStartDays
+		}
+		else {
+			startDaysConfig = Constants.recoveryStartDays_IT
+		}
+		return getValue(for: startDaysConfig)?.intValue
+	}
+	
+	override func getEndDays(from hcert: HCert) -> Int? {
+		let endDaysConfig: String
+		if isSpecialRecovery(hcert: hcert) {
+			endDaysConfig = Constants.recoverySpecialEndDays
+		}
+		else {
+			endDaysConfig = Constants.recoveryEndDays_IT
+		}
+		return getValue(for: endDaysConfig)?.intValue
+	}
+	
 }
 
+class RecoveryBoosterValidator: RecoveryReinforcedValidator {
+	
+	func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+		switch current {
+			case ..<validityStart:
+				return .notValidYet
+			case validityStart...validityEnd:
+				return self.recoveryInfo.isCBIS ? .valid : .verificationIsNeeded
+			default:
+				return .notValid
+		}
+	}
+	
+}
 
 class RecoverySchoolValidator: RecoveryBaseValidator {
-    
-    override func getStartDays(from hcert: HCert) -> Int? {
-        let startDaysConfig = Constants.recoveryStartDays_IT
-        return getValue(for: startDaysConfig)?.intValue
-    }
     
     override func getEndDays(from hcert: HCert) -> Int? {
         var endDaysConfig = Constants.recoverySchoolEndDays
@@ -133,7 +184,22 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
     
 }
 
-class RecoveryWorkValidator: RecoveryReinforcedValidator {}
-
+class RecoveryWorkValidator: RecoveryBaseValidator {
+	
+	override func getStartDays(from hcert: HCert) -> Int? {
+		guard !self.recoveryInfo.isIT else { return super.getStartDays(from: hcert) }
+		
+		let settingName: String = self.recoveryInfo.patientOver50 ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
+		return getValue(for: settingName)?.intValue
+	}
+	
+	override func getEndDays(from hcert: HCert) -> Int? {
+		guard !self.recoveryInfo.isIT else { return super.getEndDays(from: hcert) }
+		
+		let settingName: String = self.recoveryInfo.patientOver50 ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
+		return getValue(for: settingName)?.intValue
+	}
+	
+}
 
 class RecoveryItalyEntryValidator: RecoveryBaseValidator {}
