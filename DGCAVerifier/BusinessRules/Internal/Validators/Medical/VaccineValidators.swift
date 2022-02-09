@@ -39,6 +39,10 @@ struct VaccinationInfo {
         return age >= 50
     }
     
+    var emaAllProducts: [String]?{
+        return LocalData.getSetting(from: "EMA_vaccines")?.split(separator: ";").map{ String($0) }
+    }
+    
     var isIT: Bool { self.countryCode.uppercased() == Constants.ItalyCountryCode }
     var isJJ: Bool { self.medicalProduct == Constants.JeJVacineCode }
     
@@ -50,8 +54,8 @@ struct VaccinationInfo {
     var isCurrentDoseBooster: Bool { (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster) }
     
     var isEMAProduct: Bool {
-        let emaAllProducts = ["EU/1/20/1525", "EU/1/20/1507", "EU/1/20/1528", "EU/1/21/1529", "Covishield", "R-COVI", "Covid-19-recombinant"]
-        if emaAllProducts.contains(medicalProduct) // (Sputnik-V solo se emesso da San marino ovvero co="SM")
+//        let emaAllProducts = ["EU/1/20/1525", "EU/1/20/1507", "EU/1/20/1528", "EU/1/21/1529", "Covishield", "R-COVI", "Covid-19-recombinant"]
+        if (emaAllProducts?.contains(medicalProduct) ?? false) // (Sputnik-V solo se emesso da San marino ovvero co="SM")
             || (countryCode == Constants.sanMarinoCode && medicalProduct == Constants.SputnikVacineCode) {
             return true
         }
@@ -73,6 +77,7 @@ class VaccineBaseValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+        guard vaccinationInfo.isEMAProduct else { return .notValid }
         return checkVaccinationInterval(vaccinationInfo)
     }
     
@@ -137,7 +142,7 @@ class VaccineBaseValidator: DGCValidator {
     }
     
     public func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = vaccinationInfo.isIT ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
+        let setting = Constants.vaccineCompleteStartDays_IT
         return self.getValue(for: setting)?.intValue
     }
     
@@ -167,7 +172,7 @@ class VaccineBaseValidator: DGCValidator {
     }
     
     public func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = vaccinationInfo.isIT ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
+        let setting = Constants.vaccineCompleteEndDays_IT
         return self.getValue(for: setting)?.intValue
     }
     
