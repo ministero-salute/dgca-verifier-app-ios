@@ -43,7 +43,7 @@ class RecoveryBaseValidator: DGCValidator {
         
         guard let currentDate = Date.startOfDay else { return .notValid }
         
-        return Validator.validate(currentDate, from: validityStart, to: validityEnd)
+        return self.validate(currentDate, from: validityStart, to: validityEnd)
     }
     
     public func validityEnd(_ hcert: HCert, dateFrom: Date, dateUntil: Date, additionalDays: Int) -> Date? {
