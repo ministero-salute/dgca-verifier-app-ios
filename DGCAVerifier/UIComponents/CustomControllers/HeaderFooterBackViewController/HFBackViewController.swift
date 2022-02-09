@@ -31,6 +31,8 @@ class HFBackViewController: UIViewController {
 		}
 		
 		if let contentVC = self.delegate?.contentVC {
+//			contentVC.view.frame = self.contentView.frame
+			
             self.addChild(contentVC)
             self.contentView.embedSubview(subview: contentVC.view)
 		}

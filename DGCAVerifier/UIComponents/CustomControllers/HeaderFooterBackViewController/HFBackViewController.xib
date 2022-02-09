@@ -24,43 +24,43 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lU3-01-2P1">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wdp-1N-K74" userLabel="Container">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-ME-WPu" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="120" id="L2J-YO-hu1"/>
+                                <constraint firstAttribute="height" constant="58" id="L2J-YO-hu1"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqP-f8-P8S" userLabel="Content">
-                            <rect key="frame" x="0.0" y="120" width="414" height="578"/>
+                        <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="tqP-f8-P8S" userLabel="Content">
+                            <rect key="frame" x="0.0" y="58" width="414" height="704"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32b-He-6i2" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="698" width="414" height="120"/>
+                            <rect key="frame" x="0.0" y="762" width="414" height="90"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="120" id="mHj-Zj-A7x"/>
+                                <constraint firstAttribute="height" constant="90" id="mHj-Zj-A7x"/>
                             </constraints>
                         </view>
                     </subviews>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="lU3-01-2P1" secondAttribute="trailing" id="0od-6j-Zt5"/>
                 <constraint firstItem="lU3-01-2P1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ATM-fn-trS"/>
-                <constraint firstItem="lU3-01-2P1" firstAttribute="leading" secondItem="Wdp-1N-K74" secondAttribute="leading" id="B4a-Tf-lLp"/>
                 <constraint firstItem="Wdp-1N-K74" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="LaV-3W-khS"/>
                 <constraint firstItem="Wdp-1N-K74" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OJf-tN-oi1"/>
+                <constraint firstItem="lU3-01-2P1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="QzE-Db-yrh"/>
                 <constraint firstAttribute="bottom" secondItem="lU3-01-2P1" secondAttribute="bottom" id="W9m-cN-78c"/>
                 <constraint firstItem="Wdp-1N-K74" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hAc-5Y-Yqr"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wdp-1N-K74" secondAttribute="bottom" id="nYJ-fM-93m"/>
+                <constraint firstAttribute="bottom" secondItem="Wdp-1N-K74" secondAttribute="bottom" id="nYJ-fM-93m"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>
         </view>

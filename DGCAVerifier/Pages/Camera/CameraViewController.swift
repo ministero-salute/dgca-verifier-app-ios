@@ -48,6 +48,7 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var switchButton: UIButton!
 	
 	private var headerBar: HeaderBar?
+	private var footerBar: FooterBar?
 	
 	private var captureSession = AVCaptureSession()
     
@@ -55,6 +56,9 @@ class CameraViewController: UIViewController {
         self.coordinator = coordinator
         self.country = country
         super.init(nibName: "CameraViewController", bundle: nil)
+		
+		self.initializeHeaderBar()
+		self.initializeFooterBar()
     }
 
     required init?(coder: NSCoder) {
@@ -63,7 +67,6 @@ class CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		initializeHeaderBar()
         initializeBackButton()
         initializeFlashButton()
         initializeCountryButton()
@@ -132,6 +135,12 @@ class CameraViewController: UIViewController {
 		self.headerBar = HeaderBar()
 		self.headerBar?.backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
 	}
+	
+	private func initializeFooterBar() {
+		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goBack))
+		self.footerBar = FooterBar()
+		self.footerBar?.closeView.addGestureRecognizer(gestureRecognizer)
+	}
     
     private func initializeBackButton() {
         backButton.style = .minimal
@@ -165,7 +174,7 @@ class CameraViewController: UIViewController {
     private func setupCamera() {
         cleanSession()
         captureSession.setup(self, with: currentCameraMode)
-        let layer = captureSession.getPreviewLayer(for: view)
+		let layer = captureSession.getPreviewLayer(for: view)
         cameraView.layer.insertSublayer(layer, at: 0)
     }
     
@@ -209,7 +218,7 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController: HeaderFooterDelegate {
 	public var header: UIView? {
-		return headerBar
+		return self.headerBar
 	}
 	
 	public var contentVC: UIViewController? {
@@ -217,7 +226,7 @@ extension CameraViewController: HeaderFooterDelegate {
 	}
 	
 	public var footer: UIView? {
-		return nil
+		return self.footerBar
 	}
 }
 

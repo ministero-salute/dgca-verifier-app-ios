@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-63-dcr">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fca-1J-Ax2">
@@ -242,7 +242,7 @@
             <constraints>
                 <constraint firstItem="Gnb-63-dcr" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="7By-Qj-1wX"/>
                 <constraint firstItem="e6Z-DK-O5Q" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="32" id="8Ud-Y1-2Cn"/>
-                <constraint firstAttribute="bottom" secondItem="Gnb-63-dcr" secondAttribute="bottom" id="Azm-7Z-BYO"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="Gnb-63-dcr" secondAttribute="bottom" id="Azm-7Z-BYO"/>
                 <constraint firstItem="fca-1J-Ax2" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="IJ5-Gp-v5u"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="e6Z-DK-O5Q" secondAttribute="trailing" constant="32" id="PdX-ot-ZY3"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="width" secondItem="T8R-UI-qcI" secondAttribute="width" multiplier="0.676329" id="THz-1F-dwe"/>
@@ -254,6 +254,11 @@
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="centerY" secondItem="T8R-UI-qcI" secondAttribute="centerY" id="oSZ-MJ-nLH"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="centerX" secondItem="T8R-UI-qcI" secondAttribute="centerX" id="tHH-vC-OYa"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="fca-1J-Ax2"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-1643.4782608695652" y="-1570.3125"/>
         </view>
     </objects>

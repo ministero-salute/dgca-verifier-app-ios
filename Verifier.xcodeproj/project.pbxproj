@@ -15,6 +15,10 @@
 		140B09D427B2D16F003A017F /* HeaderBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09D227B2D16F003A017F /* HeaderBar.xib */; };
 		140B09D727B2D1B2003A017F /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09D627B2D1B2003A017F /* HeaderBar.swift */; };
 		140B09D827B2D1B2003A017F /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09D627B2D1B2003A017F /* HeaderBar.swift */; };
+		140B09E027B41C69003A017F /* FooterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09DF27B41C69003A017F /* FooterBar.swift */; };
+		140B09E127B41C69003A017F /* FooterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140B09DF27B41C69003A017F /* FooterBar.swift */; };
+		140B09E327B41C91003A017F /* FooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09E227B41C91003A017F /* FooterBar.xib */; };
+		140B09E427B41C91003A017F /* FooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09E227B41C91003A017F /* FooterBar.xib */; };
 		1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
 		1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462330727A3EA580073A323 /* HCertGenerator.swift */; };
@@ -402,6 +406,8 @@
 		140B09CF27B2CF24003A017F /* UIView+EmbedSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+EmbedSubview.swift"; sourceTree = "<group>"; };
 		140B09D227B2D16F003A017F /* HeaderBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderBar.xib; sourceTree = "<group>"; };
 		140B09D627B2D1B2003A017F /* HeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBar.swift; sourceTree = "<group>"; };
+		140B09DF27B41C69003A017F /* FooterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterBar.swift; sourceTree = "<group>"; };
+		140B09E227B41C91003A017F /* FooterBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterBar.xib; sourceTree = "<group>"; };
 		1410B20A271DBADD00F912BA /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
@@ -651,6 +657,15 @@
 				140B09D627B2D1B2003A017F /* HeaderBar.swift */,
 			);
 			path = HeaderBar;
+			sourceTree = "<group>";
+		};
+		140B09DB27B41BF9003A017F /* FooterBar */ = {
+			isa = PBXGroup;
+			children = (
+				140B09DF27B41C69003A017F /* FooterBar.swift */,
+				140B09E227B41C91003A017F /* FooterBar.xib */,
+			);
+			path = FooterBar;
 			sourceTree = "<group>";
 		};
 		1410B209271DBACD00F912BA /* PickerVC */ = {
@@ -1071,6 +1086,7 @@
 		65E7000726AF71AC00715CCC /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				140B09DB27B41BF9003A017F /* FooterBar */,
 				140B09D527B2D1A1003A017F /* HeaderBar */,
 				65021B4426AEC6AE004C3D14 /* AppShadowView */,
 				65E7001126AF7BA300715CCC /* FaqView */,
@@ -1511,6 +1527,7 @@
 				9020C5E82721601E00F45CA7 /* CountryCell.xib in Resources */,
 				14EB42A1275FE2B3006E9183 /* DebugCell.xib in Resources */,
 				149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */,
+				140B09E427B41C91003A017F /* FooterBar.xib in Resources */,
 				65E281DF2697259D00377913 /* TitilliumWeb-SemiBoldItalic.ttf in Resources */,
 				65E281E02697259D00377913 /* Roboto-ThinItalic.ttf in Resources */,
 				65E281E12697259D00377913 /* Roboto-LightItalic.ttf in Resources */,
@@ -1567,6 +1584,7 @@
 				65E2816A2697217B00377913 /* VerificationViewController.xib in Resources */,
 				14CD25E327B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */,
 				140B09D327B2D16F003A017F /* HeaderBar.xib in Resources */,
+				140B09E327B41C91003A017F /* FooterBar.xib in Resources */,
 				659605F626E7927C008AD4E2 /* ProgressView.xib in Resources */,
 				9F90C5A4265E591E00B2F992 /* Roboto-Italic.ttf in Resources */,
 				9F90C599265E591E00B2F992 /* Roboto-MediumItalic.ttf in Resources */,
@@ -1757,6 +1775,7 @@
 				90BD8F50272C1C8A00BE816B /* Constants.swift in Sources */,
 				65C3A55826AEF8F3000BBCC5 /* UIView+Borders.swift in Sources */,
 				14CD25E227B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */,
+				140B09E127B41C69003A017F /* FooterBar.swift in Sources */,
 				65E281CD2697259D00377913 /* Setting.swift in Sources */,
 				65C3A55526AEF642000BBCC5 /* String+UIImage.swift in Sources */,
 				6559D94F27199A3300E0E30D /* VNBarcodeObservation+Values.swift in Sources */,
@@ -1881,6 +1900,7 @@
 				14CD25E127B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */,
 				65021B5926AECF59004C3D14 /* UIImageView+Inspectable.swift in Sources */,
 				65E281A2269721ED00377913 /* Cache.swift in Sources */,
+				140B09E027B41C69003A017F /* FooterBar.swift in Sources */,
 				65E281702697217B00377913 /* CameraViewController.swift in Sources */,
 				90C421CC2729A60900B50ABC /* Int+Bytes.swift in Sources */,
 				65E7001326AF7BB000715CCC /* FaqView.swift in Sources */,
