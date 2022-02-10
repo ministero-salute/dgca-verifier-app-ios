@@ -37,7 +37,7 @@ extension HCert {
         let fullName: String = lastName + " " + firstName
         let stdfullName: String = stdlastName + " " + stdfirstName + " " + firstName
         
-        if lastname.isEmpty {
+        if lastName.isEmpty {
             return stdfullName
         } else {
             return fullName
