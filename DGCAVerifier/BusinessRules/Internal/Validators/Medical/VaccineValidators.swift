@@ -231,19 +231,7 @@ class VaccineBaseValidator: DGCValidator {
 
 class VaccineReinforcedValidator: VaccineBaseValidator {
 	override func validate(hcert: HCert) -> Status {
-		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-		self.vaccinationInfo = vaccinationInfo
-		return checkVaccinationInterval(vaccinationInfo)
-	}
-	
-	override public func startDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-		guard !vaccinationInfo.isEMAProduct else { return super.startDaysForIncompleteDose(vaccinationInfo) }
-		return getValue(for: Constants.vaccineIncompleteStartDays_NOT_EMA)?.intValue
-	}
-	
-	override public func endDaysForIncompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-		guard !vaccinationInfo.isEMAProduct else { return super.endDaysForIncompleteDose(vaccinationInfo) }
-		return getValue(for: Constants.vaccineIncompleteEndDays_NOT_EMA)?.intValue
+        super.validate(hcert: hcert)
 	}
 }
 
@@ -336,6 +324,13 @@ class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
 	
     public override func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         return getValue(for: Constants.vaccineCompleteExtendedDays_EMA)?.intValue
+    }
+    
+    public override func validate(hcert: HCert) -> Status {
+        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+        self.vaccinationInfo = vaccinationInfo
+        guard vaccinationInfo.isEMAProduct || !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
+        return checkVaccinationInterval(vaccinationInfo)
     }
     
     func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
