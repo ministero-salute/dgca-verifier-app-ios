@@ -82,25 +82,23 @@ class RecoveryBaseValidator: DGCValidator {
     }
  
     func getEndDays(from hcert: HCert) -> Int? {
-        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
         let endDaysConfig: String
         if isSpecialRecovery(hcert: hcert) {
             endDaysConfig = Constants.recoverySpecialEndDays
         }
         else {
-            endDaysConfig = isITCode ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
+            endDaysConfig = Constants.recoveryEndDays_IT
         }
         return getValue(for: endDaysConfig)?.intValue
     }
     
     func getStartDays(from hcert: HCert) -> Int? {
-        let isITCode = hcert.countryCode == Constants.ItalyCountryCode
         let startDaysConfig: String
         if isSpecialRecovery(hcert: hcert) {
             startDaysConfig = Constants.recoverySpecialStartDays
         }
         else {
-            startDaysConfig = isITCode ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
+            startDaysConfig = Constants.recoveryStartDays_IT
         }
         return getValue(for: startDaysConfig)?.intValue
     }
@@ -202,19 +200,35 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
 class RecoveryWorkValidator: RecoveryBaseValidator {
 	
 	override func getStartDays(from hcert: HCert) -> Int? {
-		guard !self.recoveryInfo.isIT else { return super.getStartDays(from: hcert) }
-		
-		let settingName: String = self.recoveryInfo.patientOver50 ? Constants.recoveryStartDays_IT : Constants.recoveryStartDays_NOT_IT
-		return getValue(for: settingName)?.intValue
+		return super.getStartDays(from: hcert)
 	}
 	
 	override func getEndDays(from hcert: HCert) -> Int? {
-		guard !self.recoveryInfo.isIT else { return super.getEndDays(from: hcert) }
-		
-		let settingName: String = self.recoveryInfo.patientOver50 ? Constants.recoveryEndDays_IT : Constants.recoveryEndDays_NOT_IT
-		return getValue(for: settingName)?.intValue
+        return super.getEndDays(from: hcert)
 	}
 	
 }
 
-class RecoveryItalyEntryValidator: RecoveryBaseValidator {}
+class RecoveryItalyEntryValidator: RecoveryBaseValidator {
+    override func getStartDays(from hcert: HCert) -> Int? {
+        let startDaysConfig: String
+        if isSpecialRecovery(hcert: hcert) {
+            startDaysConfig = Constants.recoverySpecialStartDays
+        }
+        else {
+            startDaysConfig = Constants.recoveryStartDays_NOT_IT
+        }
+        return getValue(for: startDaysConfig)?.intValue
+    }
+    
+    override func getEndDays(from hcert: HCert) -> Int? {
+        let endDaysConfig: String
+        if isSpecialRecovery(hcert: hcert) {
+            endDaysConfig = Constants.recoverySpecialEndDays
+        }
+        else {
+            endDaysConfig = Constants.recoveryEndDays_NOT_IT
+        }
+        return getValue(for: endDaysConfig)?.intValue
+    }
+}
