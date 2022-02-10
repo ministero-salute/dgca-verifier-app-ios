@@ -288,14 +288,15 @@ class VaccineWorkValidator: VaccineReinforcedValidator {
 	
 	override func validate(hcert: HCert) -> Status {
 		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-		self.vaccinationInfo = vaccinationInfo
 		
-        if vaccinationInfo.patientOver50 {
-            return (self as VaccineReinforcedValidator).validate(hcert: hcert)
-        } else {
-            return (self as VaccineBaseValidator).validate(hcert: hcert)
-        }
+		if vaccinationInfo.patientOver50 {
+			return super.validate(hcert: hcert)
+		} else {
+			return VaccineBaseValidator().validate(hcert: hcert)
+		}
 	}
+	
+	
 	
 }
 
