@@ -60,6 +60,7 @@
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
+"result.title.expired" = "Certificazione scaduta";
 "result.title.not.valid.yet" = "Certificazione non ancora valida";
 "result.title.not.green.pass" = "Errore di lettura del QR Code, oppure non è il Certificato verde COVID-19";
 "result.title.revoked.green.pass" = "Certificazione revocata";
