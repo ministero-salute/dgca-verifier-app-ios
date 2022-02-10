@@ -28,11 +28,22 @@ import SwiftDGC
 
 extension HCert {
     
-    var name: String { lastName + " " + firstName }
-    
-    var firstName: String { body["nam"]["gn"].string ?? "" }
-    
-    var lastName: String { body["nam"]["fn"].string ?? "" }
+    var name: String {
+        let firstName: String = body["nam"]["gn"].string ?? ""
+        let lastName: String = body["nam"]["fn"].string ?? ""
+        let stdfirstName: String = body["nam"]["gnt"].string ?? ""
+        let stdlastName: String = body["nam"]["fnt"].string ?? ""
+        
+        let fullName: String = lastName + " " + firstName
+        let stdfullName: String = stdlastName + " " + stdfirstName + " " + firstName
+        
+        if lastname.isEmpty {
+            return stdfullName
+        } else {
+            return fullName
+        }
+        
+    }
     
     var birthDate: String {
         //  TODO: use date formats to be placed inside Constants
