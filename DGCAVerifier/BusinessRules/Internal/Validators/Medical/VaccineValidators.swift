@@ -296,8 +296,6 @@ class VaccineWorkValidator: VaccineReinforcedValidator {
 		}
 	}
 	
-	
-	
 }
 
 class VaccineItalyEntryValidator: VaccineBaseValidator {
@@ -384,7 +382,7 @@ class VaccineWorkValidatorNotIt: VaccineReinforcedValidatorNotItaly {
 		self.vaccinationInfo = vaccinationInfo
 		
         if vaccinationInfo.patientOver50 {
-            return VaccineReinforcedValidatorNotItaly().validate(hcert: hcert)
+            return super.validate(hcert: hcert)
         } else {
             return VaccineBaseValidator().validate(hcert: hcert)
         }

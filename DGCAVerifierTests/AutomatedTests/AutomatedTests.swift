@@ -45,10 +45,22 @@ class AutomatedTests: XCTestCase {
         guard let array = try? JSONDecoder().decode([TestCase].self, from: data) else { return [] }
         return array
     }
+	
+	private func loadMockedSettings() {
+		guard let mockedSettingsURL = Bundle(for: AutomatedTests.self).url(forResource: "mockedSettings", withExtension: "json") else { return }
+		guard let mockedSettingsData = try? Data(contentsOf: mockedSettingsURL) else { return }
+		guard let mockedSettings = try? JSONDecoder().decode([Setting].self, from: mockedSettingsData) else { return }
+		
+		mockedSettings.forEach{ mockedSetting in
+			SettingDataStorage.sharedInstance.addOrUpdateSettings(mockedSetting)
+		}
+	}
         
     override func setUpWithError() throws {
         guard let url = Bundle(for: AutomatedTests.self).url(forResource: "CasiDiTest", withExtension: "csv") else { return }
         self.testCases = loadTestArrayfromCSV(fromURL: url, rowSeparator: "\n")
+		
+		self.loadMockedSettings()
     }
 
     override func tearDownWithError() throws {
@@ -56,33 +68,30 @@ class AutomatedTests: XCTestCase {
     }
     
     func test() {
-        
-		let emaVaccines = Setting(name: "EMA_vaccines", type: "GENERIC", value: ["EU/1/20/1525", "EU/1/20/1507", "EU/1/20/1528", "EU/1/21/1529", "Covishield", "R-COVI", "Covid-19-recombinant"].joined(separator: ";"))
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(emaVaccines)
 		
-		let loadedSettingsExpectation = XCTestExpectation(description: "Download settings from remote back-end server")
-		
-		GatewayConnection.shared.settings { _ in
-			for index in self.testCases.indices {
-				var actualValidity = [TestResult]()
-				guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
-				
-				for validity in self.testCases[index].expectedValidity {
-					guard let scanMode = validity.scanMode() else { continue }
-					guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else {continue}
-					let result = validator.validate(hcert: hCert)
-					actualValidity.append(TestResult(mode: validity.mode, status: result))
+		for index in self.testCases.indices {
+			// Set this to the test case ID you would like to debug to filter out any other case
+			let debugTestCaseID: String? = nil
+			
+			if debugTestCaseID != nil {
+				if self.testCases[index].id != debugTestCaseID {
+					continue
 				}
-				self.testCases[index].actualValidity = actualValidity
 			}
-			print(self.printTestsReport())
-			loadedSettingsExpectation.fulfill()
+			
+			var actualValidity = [TestResult]()
+			guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
+			
+			for validity in self.testCases[index].expectedValidity {
+				guard let scanMode = validity.scanMode() else { continue }
+				guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else {continue}
+				let result = validator.validate(hcert: hCert)
+				actualValidity.append(TestResult(mode: validity.mode, status: result))
+			}
+			self.testCases[index].actualValidity = actualValidity
 		}
 		
-		// Remove to execute tests
-		loadedSettingsExpectation.fulfill()
-		
-		wait(for: [loadedSettingsExpectation], timeout: 30.0)
+		print(self.printTestsReport())
 		
     }
     

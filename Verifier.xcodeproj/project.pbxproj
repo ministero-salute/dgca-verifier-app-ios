@@ -16,6 +16,9 @@
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		14D4F19627B575E7002B2F00 /* mockedSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 14D4F19527B57458002B2F00 /* mockedSettings.json */; };
+		14D4F19727B575E8002B2F00 /* mockedSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 14D4F19527B57458002B2F00 /* mockedSettings.json */; };
+		14D4F19827B575E8002B2F00 /* mockedSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = 14D4F19527B57458002B2F00 /* mockedSettings.json */; };
 		14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB4294275FAE8A006E9183 /* DebugView.xib */; };
 		14EB429B275FAFFF006E9183 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4298275FAF59006E9183 /* DebugViewModel.swift */; };
 		14EB429C275FAFFF006E9183 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4296275FAE9F006E9183 /* DebugViewController.swift */; };
@@ -393,6 +396,7 @@
 		145CC08A27B5155B00F2D01F /* CasiDiTest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CasiDiTest.csv; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
+		14D4F19527B57458002B2F00 /* mockedSettings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockedSettings.json; sourceTree = "<group>"; };
 		14EB4294275FAE8A006E9183 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
 		14EB4296275FAE9F006E9183 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		14EB4298275FAF59006E9183 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
@@ -835,6 +839,8 @@
 				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
 				65B281352697122300A9A533 /* Info.plist */,
 				1462330727A3EA580073A323 /* HCertGenerator.swift */,
+				14D4F19527B57458002B2F00 /* mockedSettings.json */,
+				145CC08A27B5155B00F2D01F /* CasiDiTest.csv */,
 			);
 			path = DGCAVerifierTests;
 			sourceTree = "<group>";
@@ -1301,7 +1307,6 @@
 		CEA6D6DF261F8D2700715333 = {
 			isa = PBXGroup;
 			children = (
-				145CC08A27B5155B00F2D01F /* CasiDiTest.csv */,
 				9F2AF7EE2653D27F00619B9C /* DGCAVerifier */,
 				65B281322697122300A9A533 /* DGCAVerifierTests */,
 				65B2812F2697122200A9A533 /* DGCAVerifierUITests */,
@@ -1497,6 +1502,7 @@
 				65E281EF2697259D00377913 /* TitilliumWeb-Black.ttf in Resources */,
 				65E281F02697259D00377913 /* CameraViewController.xib in Resources */,
 				659605E626E763F5008AD4E2 /* AppAlertViewController.xib in Resources */,
+				14D4F19727B575E8002B2F00 /* mockedSettings.json in Resources */,
 				65E281F12697259D00377913 /* TitilliumWeb-Light.ttf in Resources */,
 				65E281F22697259D00377913 /* Assets.xcassets in Resources */,
 				65E281F32697259D00377913 /* Roboto-BoldItalic.ttf in Resources */,
@@ -1558,6 +1564,7 @@
 				9F90C59A265E591E00B2F992 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				9F90C5A5265E591E00B2F992 /* Roboto-BlackItalic.ttf in Resources */,
 				9F90C59C265E591E00B2F992 /* TitilliumWeb-BoldItalic.ttf in Resources */,
+				14D4F19627B575E7002B2F00 /* mockedSettings.json in Resources */,
 				9F90C593265E591D00B2F992 /* Roboto-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1567,6 +1574,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				145CC08D27B5156200F2D01F /* CasiDiTest.csv in Resources */,
+				14D4F19827B575E8002B2F00 /* mockedSettings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
