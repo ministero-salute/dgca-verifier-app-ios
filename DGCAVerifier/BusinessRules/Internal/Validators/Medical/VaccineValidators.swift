@@ -91,7 +91,6 @@ class VaccineBaseValidator: DGCValidator {
         guard let medicalProduct = hcert.medicalProduct else { return nil }
         guard isValid(for: medicalProduct) else { return nil }
         guard let countryCode = hcert.countryCode else { return nil }
-        guard isAllowedVaccination(for: medicalProduct, fromCountryWithCode: countryCode) else { return nil }
         
         return VaccinationInfo(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode, patientAge: hcert.age)
     }
