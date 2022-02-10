@@ -376,10 +376,13 @@ class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
 class VaccineWorkValidatorNotIt: VaccineReinforcedValidatorNotItaly {
     
     override func validate(hcert: HCert) -> Status {
+		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		self.vaccinationInfo = vaccinationInfo
+		
         if vaccinationInfo.patientOver50 {
-            return (self as VaccineReinforcedValidatorNotItaly).validate(hcert: hcert)
+            return VaccineReinforcedValidatorNotItaly().validate(hcert: hcert)
         } else {
-            return (self as VaccineBaseValidator).validate(hcert: hcert)
+            return VaccineBaseValidator().validate(hcert: hcert)
         }
     }
 }

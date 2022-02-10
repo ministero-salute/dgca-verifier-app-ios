@@ -9,7 +9,6 @@ import XCTest
 @testable import VerificaC19
 @testable import SwiftDGC
 import SwiftyJSON
-import SwiftUI
 
 class AutomatedTests: XCTestCase {
     
@@ -17,14 +16,15 @@ class AutomatedTests: XCTestCase {
     
     let scanModeCols = ["Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"]
     
-    //Descrizione;ID;Payload;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in italia
     private func loadTestArrayfromCSV(fromURL url: URL, rowSeparator: String = "\r", colSeparator: String = ";") -> [TestCase] {
         guard let csv = try? String(contentsOf: url, encoding: .utf8) else { return [] }
         let rows = csv.components(separatedBy: rowSeparator)
         guard rows.count > 1 else { return [] }
 
         let rowsWithoutHeader = Array<String>(rows[1..<rows.count])
-        return rowsWithoutHeader.map{
+        return rowsWithoutHeader.compactMap {
+			guard $0 != "" else { return nil }
+			
             let fields = $0.components(separatedBy: colSeparator)
             let desc = fields[0]
             let id = fields[1]
@@ -48,8 +48,7 @@ class AutomatedTests: XCTestCase {
         
     override func setUpWithError() throws {
         guard let url = Bundle(for: AutomatedTests.self).url(forResource: "CasiDiTest", withExtension: "csv") else { return }
-        self.testCases = loadTestArrayfromCSV(fromURL: url)
-        //self.testCases = loadTestArrayfromJSON(fromURL: url)
+        self.testCases = loadTestArrayfromCSV(fromURL: url, rowSeparator: "\n")
     }
 
     override func tearDownWithError() throws {
@@ -58,34 +57,45 @@ class AutomatedTests: XCTestCase {
     
     func test() {
         
-        for index in testCases.indices {
-            var actualValidity = [TestResult]()
-            guard let hCert = HCert(from: testCases[index].payload) else { continue }
-            
-            for validity in testCases[index].expectedValidity {
-                guard let scanMode = validity.scanMode() else { continue }
-                guard let validator = getValidator(for: hCert, scanMode: scanMode) else {continue}
-                let result = validator.validate(hcert: hCert)
-                actualValidity.append(TestResult(mode: validity.mode, status: result))
-            }
-            testCases[index].actualValidity = actualValidity
-        }
-        printTestsReport()
-//
-//        testCases.forEach{ XCTAssertEqual($0.actualValidity, $0.expectedValidity)}
+		let emaVaccines = Setting(name: "EMA_vaccines", type: "GENERIC", value: ["EU/1/20/1525", "EU/1/20/1507", "EU/1/20/1528", "EU/1/21/1529", "Covishield", "R-COVI", "Covid-19-recombinant"].joined(separator: ";"))
+		SettingDataStorage.sharedInstance.addOrUpdateSettings(emaVaccines)
+		
+		let loadedSettingsExpectation = XCTestExpectation(description: "Download settings from remote back-end server")
+		
+		GatewayConnection.shared.settings { _ in
+			for index in self.testCases.indices {
+				var actualValidity = [TestResult]()
+				guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
+				
+				for validity in self.testCases[index].expectedValidity {
+					guard let scanMode = validity.scanMode() else { continue }
+					guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else {continue}
+					let result = validator.validate(hcert: hCert)
+					actualValidity.append(TestResult(mode: validity.mode, status: result))
+				}
+				self.testCases[index].actualValidity = actualValidity
+			}
+			print(self.printTestsReport())
+			loadedSettingsExpectation.fulfill()
+		}
+		
+		// Remove to execute tests
+		loadedSettingsExpectation.fulfill()
+		
+		wait(for: [loadedSettingsExpectation], timeout: 30.0)
+		
     }
     
     func printTestsReport() {
-        //let reports = testCases.map{ $0.report() }
-//        if let encodedData = try? JSONEncoder().encode(report) {
-//            let json = String(data: encodedData, encoding: String.Encoding.utf8)
-//            print("report = \(json ?? "{}")")
-//        }
         
-        //Descrizione;ID;Payload;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in italia
+        print("Descrizione;ID;Payload;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in italia\n")
         testCases.map{ testCase in
             let results = scanModeCols.map{ scanMode in
-                testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
+				let actualValidity = testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
+				let expectedValidity = testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? ""
+				let result = (actualValidity == expectedValidity) ? "[OK]" : "[KO]"
+				let shouldEchoResult = !(["", " "].contains(expectedValidity))
+				return shouldEchoResult ? "\(result) \(expectedValidity) -> \(actualValidity)" : ""
             }.joined(separator: ";")
             
             return "\(testCase.desc);\(testCase.id);...;\(results)"
