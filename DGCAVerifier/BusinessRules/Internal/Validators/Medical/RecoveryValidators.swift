@@ -71,6 +71,7 @@ class RecoveryBaseValidator: DGCValidator {
         guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
         guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
         
+        
         guard let currentDate = Date.startOfDay else { return .notValid }
         
         return self.validate(currentDate, from: validityStart, to: validityEnd)
@@ -144,6 +145,23 @@ class RecoveryReinforcedValidator: RecoveryBaseValidator {
 }
 
 class RecoveryBoosterValidator: RecoveryReinforcedValidator {
+    
+    override func validate(hcert: HCert) -> Status {
+        self.recoveryInfo = RecoveryInfo.from(hcert: hcert)
+        
+        guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
+        guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
+
+        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
+        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
+        
+        guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
+        guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
+        
+        guard let currentDate = Date.startOfDay else { return .notValid }
+        
+        return validate(currentDate, from: validityStart, to: validityEnd)
+    }
 	
 	func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
 		switch current {
@@ -152,7 +170,7 @@ class RecoveryBoosterValidator: RecoveryReinforcedValidator {
 			case validityStart...validityEnd:
 				return self.recoveryInfo.isCBIS ? .valid : .verificationIsNeeded
 			default:
-				return .notValid
+				return .expired
 		}
 	}
 	
