@@ -240,7 +240,6 @@ class VaccineBoosterValidator: VaccineBaseValidator {
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
-		
         let result = super.checkVaccinationInterval(vaccinationInfo)
         guard result == .valid else { return result }
 		
@@ -257,9 +256,8 @@ class VaccineBoosterValidator: VaccineBaseValidator {
 class VaccineSchoolValidator: VaccineBaseValidator {
 	
 	override func validate(hcert: HCert) -> Status {
-        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+        guard let vaccinationInfo = getVaccinationData(hcert), !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
-		
 		let result = super.checkVaccinationInterval(vaccinationInfo)
 		guard result == .valid else { return result }
 		
@@ -276,7 +274,7 @@ class VaccineWorkValidator: VaccineReinforcedValidator {
 	
 	override func validate(hcert: HCert) -> Status {
 		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-		
+        self.vaccinationInfo = vaccinationInfo
 		if vaccinationInfo.patientOver50 {
 			return super.validate(hcert: hcert)
 		} else {
@@ -290,12 +288,10 @@ class VaccineItalyEntryValidator: VaccineBaseValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-		guard vaccinationInfo.isEMAProduct else { return .notValid }
-		
+        guard vaccinationInfo.isEMAProduct, !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
+        self.vaccinationInfo = vaccinationInfo
         let result = super.checkVaccinationInterval(vaccinationInfo)
-        guard result == .valid else { return result }
-		
-        return .notValid
+        return result
     }
 	
 	public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {

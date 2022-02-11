@@ -28,7 +28,7 @@ import SwiftDGC
 
 class TestBaseValidator: DGCValidator {
     
-    private func isTestDateValid(_ hcert: HCert) -> Status {
+    fileprivate func isTestDateValid(_ hcert: HCert) -> Status {
         guard hcert.isKnownTestType else { return .notValid }
         
         let startHours = getStartHours(for: hcert)
@@ -79,11 +79,24 @@ class TestBaseValidator: DGCValidator {
     
 }
 
-class TestReinforcedValidator: AlwaysNotValid {}
+class TestReinforcedValidator: TestBaseValidator {
+    
+    override func validate(hcert: HCert) -> Status {
+        let result = isTestDateValid(hcert)
+        switch result {
+        case .expired:
+            return .expired
+        case .notValidYet:
+            return .notValidYet
+        default:
+            return .notValid
+        }
+    }
+}
 
-class TestBoosterValidator: AlwaysNotValid {}
+class TestBoosterValidator: TestReinforcedValidator {}
 
-class TestSchoolValidator: AlwaysNotValid {}
+class TestSchoolValidator: TestReinforcedValidator {}
 
 class TestWorkValidator: TestBaseValidator {
     
