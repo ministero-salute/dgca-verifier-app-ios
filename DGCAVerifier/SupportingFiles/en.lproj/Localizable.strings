@@ -20,7 +20,7 @@
 
 "home.scan.button.mode.default" = "SCEGLI TIPOLOGIA DI VERIFICA";
 "home.scan.button.bold.3G" = "VERIFICA BASE";
-"home.scan.button.bold.italy.entry" = "VERIFICA INGRESSO IN ITALIA TEST";
+"home.scan.button.bold.italy.entry" = "VERIFICA INGRESSO IT";
 "home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
 "home.scan.button.bold.Booster" = "VERIFICA VISITATORI RSA";
 "home.scan.button.bold.School" = "VERIFICA STUDENTI";
