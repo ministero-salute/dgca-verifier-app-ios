@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class AutomatedTests: XCTestCase {
     
+	var plainResults: Bool = false
     var testCases = [TestCase]()
     
     let scanModeCols = ["Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"]
@@ -24,15 +25,14 @@ class AutomatedTests: XCTestCase {
         let rowsWithoutHeader = Array<String>(rows[1..<rows.count])
         return rowsWithoutHeader.compactMap {
 			guard $0 != "" else { return nil }
-			
+	
             let fields = $0.components(separatedBy: colSeparator)
             let desc = fields[0]
             let id = fields[1]
             let payload = fields[2]
-            let expectedValidity: [TestResult] = Array<String>(fields[3..<fields.count])
+			let expectedValidity: [TestResult] = Array<String>(fields[3...8])
                 .enumerated()
-                .compactMap{
-                    guard $1.count > 0 else { return nil }
+                .map{
                     return TestResult(mode: scanModeCols[$0], result: $1)
                 }
             
@@ -91,26 +91,35 @@ class AutomatedTests: XCTestCase {
 			self.testCases[index].actualValidity = actualValidity
 		}
 		
-		print(self.printTestsReport())
+		self.printTestsReport()
 		
     }
     
     func printTestsReport() {
-        
-        print("Descrizione;ID;Payload;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in italia\n")
-        testCases.map{ testCase in
-            let results = scanModeCols.map{ scanMode in
-				let actualValidity = testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
-				let expectedValidity = testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? ""
-				let result = (actualValidity == expectedValidity) ? "[OK]" : "[KO]"
-				let shouldEchoResult = !(["", " "].contains(expectedValidity))
-				return shouldEchoResult ? "\(result) \(expectedValidity) -> \(actualValidity)" : ""
+		
+		var resultsCSVString: String = "TEST ID;Base;Ex. Base;Rafforzata;Ex. Rafforzata;Visitatori RSA;Ex. Visitatori RSA;Studenti;Ex. Studenti;Lavoro;Ex. Lavoro;Ingresso in Italia;Ex. Ingresso in Italia;\n"
+		
+		if plainResults {
+			resultsCSVString = "TEST ID;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in Italia;\n"
+		}
+		
+		testCases.map{ testCase in
+			let results: String = scanModeCols.map{ scanMode in
+				let actualValidity: String 		= testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
+				var expectedValidity: String 	= testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? "-"
+				expectedValidity = (expectedValidity == " " || expectedValidity == "") ? "-" : expectedValidity
+				
+				return self.plainResults ? "\(actualValidity)" : "\(actualValidity);\(expectedValidity)"
             }.joined(separator: ";")
             
-            return "\(testCase.desc);\(testCase.id);...;\(results)"
+            return "\(testCase.id);\(results)"
         }
-        .forEach{ print($0)}
-        
+		.forEach{ resultsCSVString += $0 + "\n" }
+		
+		let resultsCSVAttachment = XCTAttachment(string: resultsCSVString)
+		resultsCSVAttachment.lifetime = .keepAlways
+		self.add(resultsCSVAttachment)
+		
     }
     
     func getValidator(for hCert: HCert, scanMode: ScanMode) -> DGCValidator? {
