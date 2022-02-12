@@ -519,9 +519,6 @@ extension HomeViewController {
         case 3:
             Store.set(Constants.scanMode50, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
-		case 3:
-			Store.set(Constants.scanMode50, for: Store.Key.scanMode)
-			Store.set(true, for: .isScanModeSet)
         case 4:
             Store.set(Constants.scanModeItalyEntry, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)

@@ -82,7 +82,7 @@ class VaccineValidityCheckTests: XCTestCase {
         hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
         let isVaccineDateValidResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         
-        XCTAssertEqual(isVaccineDateValidResult, .valid)
+        XCTAssertEqual(isVaccineDateValidResult, .notValid)
     }
     
     func testFutureVaccineDate() {
@@ -115,7 +115,7 @@ class VaccineValidityCheckTests: XCTestCase {
 		SettingDataStorage.sharedInstance.addOrUpdateSettings(vaccineSettingEndDay)
         let isVaccineDateValidResultWithWrongVaccineType = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
         
-        XCTAssertEqual(isVaccineDateValidResultWithWrongVaccineType, .notValid)
+        XCTAssertEqual(isVaccineDateValidResultWithWrongVaccineType, .expired)
     }
 
 }
