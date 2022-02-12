@@ -84,7 +84,7 @@ class AutomatedTests: XCTestCase {
 			
 			for validity in self.testCases[index].expectedValidity {
 				guard let scanMode = validity.scanMode() else { continue }
-				guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else {continue}
+				guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else { continue }
 				let result = validator.validate(hcert: hCert)
 				actualValidity.append(TestResult(mode: validity.mode, status: result))
 			}

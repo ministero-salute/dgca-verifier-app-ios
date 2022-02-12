@@ -80,8 +80,17 @@ class VaccineBaseValidator: DGCValidator {
     func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
+		let result = checkVaccinationInterval(vaccinationInfo)
+		
+		guard result == .valid else { return result }
 		guard vaccinationInfo.isEMAProduct else { return .notValid }
-        return checkVaccinationInterval(vaccinationInfo)
+		
+        return result
     }
     
     func getVaccinationData(_ hcert: HCert) -> VaccinationInfo? {
@@ -233,6 +242,11 @@ class VaccineBoosterValidator: VaccineBaseValidator {
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
         let result = super.checkVaccinationInterval(vaccinationInfo)
         guard result == .valid else { return result }
 		
@@ -249,8 +263,13 @@ class VaccineBoosterValidator: VaccineBaseValidator {
 class VaccineSchoolValidator: VaccineBaseValidator {
 	
 	override func validate(hcert: HCert) -> Status {
-        guard let vaccinationInfo = getVaccinationData(hcert), !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
+        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
 		let result = super.checkVaccinationInterval(vaccinationInfo)
 		guard result == .valid else { return result }
 		
@@ -268,6 +287,11 @@ class VaccineWorkValidator: VaccineReinforcedValidator {
 	override func validate(hcert: HCert) -> Status {
 		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
 		if vaccinationInfo.patientOver50 {
 			return super.validate(hcert: hcert)
 		} else {
@@ -281,9 +305,20 @@ class VaccineItalyEntryValidator: VaccineBaseValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-        guard vaccinationInfo.isEMAProduct, !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
+        
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
         self.vaccinationInfo = vaccinationInfo
         let result = super.checkVaccinationInterval(vaccinationInfo)
+		
+		guard result == .valid else { return result }
+		
+		if !vaccinationInfo.isEMAProduct || vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
         return result
     }
 	
@@ -318,8 +353,17 @@ class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
     public override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
+		let result = checkVaccinationInterval(vaccinationInfo)
+		
+		guard result == .valid else { return result }
         guard vaccinationInfo.isEMAProduct || !vaccinationInfo.isCurrentDoseIncomplete else { return .notValid }
-        return checkVaccinationInterval(vaccinationInfo)
+        
+		return result
     }
     
     override func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
@@ -380,6 +424,10 @@ class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
 		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
 		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
 		let result = self.checkVaccinationInterval(vaccinationInfo)
 		
 		guard result == .valid || result == .verificationIsNeeded else { return result }
@@ -411,10 +459,19 @@ class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
 class VaccineSchoolValidatorNotItaly: VaccineSchoolValidator {
 	
 	override func validate(hcert: HCert) -> Status {
-		guard let vaccinationInfo = self.getVaccinationData(hcert) else { return .notValid }
+		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
+		
+		let result = super.checkVaccinationInterval(vaccinationInfo)
+		
+		guard result == .valid else { return result }
 		guard vaccinationInfo.isEMAProduct else { return .notValid }
 		
-		return super.validate(hcert: hcert)
+		return vaccinationInfo.isCurrentDoseIncomplete ? .notValid : .valid
 	}
 	
 }
@@ -424,6 +481,10 @@ class VaccineWorkValidatorNotIt: VaccineReinforcedValidatorNotItaly {
     override func validate(hcert: HCert) -> Status {
 		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
 		self.vaccinationInfo = vaccinationInfo
+		
+		if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
+			return .notValid
+		}
 		
         if vaccinationInfo.patientOver50 {
             return super.validate(hcert: hcert)
