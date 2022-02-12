@@ -357,8 +357,41 @@ class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
 }
 
 class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
+	
+	override func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
+		
+		guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
+		guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
+		guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
+		
+		guard let validityStart = vaccinationInfo.vaccineDate.add(start, ofType: .day) else { return .notValid }
+		guard let validityEnd = vaccinationInfo.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
+		guard let validityExt = vaccinationInfo.vaccineDate.add(ext, ofType: .day)?.startOfDay else { return .notValid }
+		
+		guard let currentDate = Date.startOfDay else { return .notValid }
+		
+		// J&J booster is immediately valid
+		let fromDate = vaccinationInfo.isJJBooster ? vaccinationInfo.vaccineDate : validityStart
+		
+		return self.validate(currentDate, from: fromDate, to: validityEnd, extendedTo: validityExt)
+	}
+	
+	override func validate(hcert: HCert) -> Status {
+		guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
+		self.vaccinationInfo = vaccinationInfo
+		
+		let result = self.checkVaccinationInterval(vaccinationInfo)
+		
+		guard result == .valid || result == .verificationIsNeeded else { return result }
+		
+		if vaccinationInfo.isCurrentDoseBooster {
+			return vaccinationInfo.isEMAProduct ? .valid : .verificationIsNeeded
+		}
+		
+		return vaccinationInfo.isCurrentDoseComplete ? .verificationIsNeeded : .notValid
+	}
     
-    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+	func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
         let result: Status = { switch current {
         case ..<validityStart:
             return .notValidYet
@@ -369,12 +402,21 @@ class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
         default:
             return .expired
         } }()
-        
-        guard result == .valid, result == .verificationIsNeeded else { return result }
-        
-        return super.checkBooster(vaccinationInfo)
+		
+		return result
     }
     
+}
+
+class VaccineSchoolValidatorNotItaly: VaccineSchoolValidator {
+	
+	override func validate(hcert: HCert) -> Status {
+		guard let vaccinationInfo = self.getVaccinationData(hcert) else { return .notValid }
+		guard vaccinationInfo.isEMAProduct else { return .notValid }
+		
+		return super.validate(hcert: hcert)
+	}
+	
 }
 
 class VaccineWorkValidatorNotIt: VaccineReinforcedValidatorNotItaly {
