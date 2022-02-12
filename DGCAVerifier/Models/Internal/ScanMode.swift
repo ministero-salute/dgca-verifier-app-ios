@@ -9,12 +9,11 @@ import Foundation
 
 
 enum ScanMode: String, CaseIterable {
-    
     case base = "scanMode3G"
-    case italyEntry = "scanModeItalyEntry"
     case reinforced = "scanMode2G"
     case booster = "scanModeBooster"
-    case school = "scanModeSchool"
     case work = "scanMode50"
+	case italyEntry = "scanModeItalyEntry"
+	case school = "scanModeSchool"
 }
 
