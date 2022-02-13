@@ -68,6 +68,7 @@ extension Status {
         case .valid:                return "result.description.valid"
         case .notValidYet:          return "result.description.not.valid"
         case .notValid:             return "result.description.not.valid"
+        case .expired:               return "result.description.not.valid"
         case .revokedGreenPass:     return "result.description.revoked"
         case .verificationIsNeeded: return "result.description.need.verification"
         default:                    return nil
@@ -79,6 +80,7 @@ extension Status {
         case .valid:                return true
         case .notValidYet:          return true
         case .notValid:             return true
+        case .expired:              return true
         case .revokedGreenPass:     return true
         case .verificationIsNeeded: return true
         default:                    return false
@@ -90,6 +92,7 @@ extension Status {
         case .valid:                return true
         case .notValidYet:          return true
         case .notValid:             return true
+        case .expired:             return true
         case .revokedGreenPass:     return true
         case .verificationIsNeeded: return true
         default:                    return false
