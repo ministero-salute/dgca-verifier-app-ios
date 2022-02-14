@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-63-dcr">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-63-dcr" userLabel="CameraView">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -107,7 +107,7 @@
                         <action selector="back:" destination="-1" eventType="touchUpInside" id="TCF-cF-cJS"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRW-o2-aBb">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRW-o2-aBb" userLabel="PointerView">
                     <rect key="frame" x="67" y="308" width="280" height="280"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNf-5j-n13">
@@ -242,7 +242,6 @@
             <constraints>
                 <constraint firstItem="Gnb-63-dcr" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="7By-Qj-1wX"/>
                 <constraint firstItem="e6Z-DK-O5Q" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" constant="32" id="8Ud-Y1-2Cn"/>
-                <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="Gnb-63-dcr" secondAttribute="bottom" id="Azm-7Z-BYO"/>
                 <constraint firstItem="fca-1J-Ax2" firstAttribute="top" secondItem="KfD-9R-RDC" secondAttribute="top" id="IJ5-Gp-v5u"/>
                 <constraint firstItem="KfD-9R-RDC" firstAttribute="trailing" secondItem="e6Z-DK-O5Q" secondAttribute="trailing" constant="32" id="PdX-ot-ZY3"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="width" secondItem="T8R-UI-qcI" secondAttribute="width" multiplier="0.676329" id="THz-1F-dwe"/>
@@ -250,6 +249,7 @@
                 <constraint firstItem="Gnb-63-dcr" firstAttribute="leading" secondItem="KfD-9R-RDC" secondAttribute="leading" id="fxV-ru-4Uh"/>
                 <constraint firstAttribute="trailing" secondItem="fca-1J-Ax2" secondAttribute="trailing" id="j5X-vR-fek"/>
                 <constraint firstItem="fca-1J-Ax2" firstAttribute="leading" secondItem="T8R-UI-qcI" secondAttribute="leading" id="kBB-ra-vzj"/>
+                <constraint firstItem="KfD-9R-RDC" firstAttribute="bottom" secondItem="Gnb-63-dcr" secondAttribute="bottom" id="m0O-qk-VKP"/>
                 <constraint firstItem="Gnb-63-dcr" firstAttribute="trailing" secondItem="KfD-9R-RDC" secondAttribute="trailing" id="nYe-2I-MOw"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="centerY" secondItem="T8R-UI-qcI" secondAttribute="centerY" id="oSZ-MJ-nLH"/>
                 <constraint firstItem="uRW-o2-aBb" firstAttribute="centerX" secondItem="T8R-UI-qcI" secondAttribute="centerX" id="tHH-vC-OYa"/>

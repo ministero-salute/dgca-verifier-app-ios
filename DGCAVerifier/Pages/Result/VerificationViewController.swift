@@ -50,12 +50,16 @@ class VerificationViewController: UIViewController {
     
     var timer: Timer?
     
+    private var headerBar: HeaderBar?
+    
     init(coordinator: VerificationCoordinator, delegate: CameraDelegate, viewModel: VerificationViewModel) {
         self.coordinator = coordinator
         self.delegate = delegate
         self.viewModel = viewModel
         
         super.init(nibName: "VerificationViewController", bundle: nil)
+        
+        self.initializeHeaderBar()
     }
     
     required init?(coder: NSCoder) {
@@ -165,7 +169,6 @@ class VerificationViewController: UIViewController {
     }
     
     private func setLastFetch() {
-        lastFetchLabel.textColor = Palette.white
         let text = "result.last.fetch".localized + " "
         let date = Date().toDateTimeReadableString
         lastFetchLabel.text = text + date
@@ -194,6 +197,26 @@ class VerificationViewController: UIViewController {
         guard isTotemModeActive else { return }
         guard status.isValidState else { return }
         timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(dismissVC), userInfo: nil, repeats: false)
+    }
+    
+    private func initializeHeaderBar() {
+        self.headerBar = HeaderBar()
+        self.headerBar?.flashButton.isHidden = true
+        self.headerBar?.switchCameraButton.isHidden = true
+    }
+}
+
+extension VerificationViewController: HeaderFooterDelegate {
+    public var header: UIView? {
+        return self.headerBar
+    }
+    
+    public var contentVC: UIViewController? {
+        return self
+    }
+    
+    public var footer: UIView? {
+        return nil
     }
 }
 

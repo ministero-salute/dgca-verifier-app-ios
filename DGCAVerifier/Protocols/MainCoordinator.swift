@@ -91,7 +91,11 @@ extension MainCoordinator: HomeCoordinator {
 extension MainCoordinator: CameraCoordinator {
     func validate(payload: String, country: CountryModel?, delegate: CameraDelegate) {
         let vm = VerificationViewModel(payload: payload, country: country)
-        let controller = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        let verificationController = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        verificationController.modalPresentationStyle = .overFullScreen
+        verificationController.modalTransitionStyle = .crossDissolve
+        let controller = HFBackViewController()
+        controller.delegate = verificationController
         controller.modalPresentationStyle = .overFullScreen
         controller.modalTransitionStyle = .crossDissolve
         navigationController.present(controller, animated: true)

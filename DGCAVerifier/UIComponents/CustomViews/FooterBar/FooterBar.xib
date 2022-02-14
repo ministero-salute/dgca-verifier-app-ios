@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,10 +25,10 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="126"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="eoj-Yv-GGz">
-                            <rect key="frame" x="0.0" y="16" width="414" height="94"/>
+                            <rect key="frame" x="0.0" y="8" width="414" height="110"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="CHIUDI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69c-Ea-7nL" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="179" y="0.0" width="56.5" height="80"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="CHIUDI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69c-Ea-7nL" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="179" y="0.0" width="56.5" height="96"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -41,8 +41,8 @@
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="uppercased" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow-up" translatesAutoresizingMaskIntoConstraints="NO" id="bZP-w4-XTm">
-                                    <rect key="frame" x="201" y="82" width="12" height="12"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="icon_arrow-up" translatesAutoresizingMaskIntoConstraints="NO" id="bZP-w4-XTm">
+                                    <rect key="frame" x="201" y="98" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="bZP-w4-XTm" secondAttribute="height" multiplier="1:1" id="MYT-V0-zU8"/>
                                         <constraint firstAttribute="height" constant="12" id="mmM-p3-YrF"/>
@@ -54,8 +54,8 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="eoj-Yv-GGz" firstAttribute="leading" secondItem="kqq-AK-pDH" secondAttribute="leading" id="Rfj-KV-tJs"/>
-                        <constraint firstItem="eoj-Yv-GGz" firstAttribute="top" secondItem="kqq-AK-pDH" secondAttribute="top" constant="16" id="aIN-Ca-Bfc"/>
-                        <constraint firstAttribute="bottom" secondItem="eoj-Yv-GGz" secondAttribute="bottom" constant="16" id="b0S-kP-eiC"/>
+                        <constraint firstItem="eoj-Yv-GGz" firstAttribute="top" secondItem="kqq-AK-pDH" secondAttribute="top" constant="8" id="aIN-Ca-Bfc"/>
+                        <constraint firstAttribute="bottom" secondItem="eoj-Yv-GGz" secondAttribute="bottom" constant="8" id="b0S-kP-eiC"/>
                         <constraint firstAttribute="trailing" secondItem="eoj-Yv-GGz" secondAttribute="trailing" id="qHF-dM-qR2"/>
                     </constraints>
                 </view>

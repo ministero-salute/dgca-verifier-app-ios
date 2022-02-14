@@ -67,6 +67,12 @@
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
 "result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 
+"top.bar.scan.mode.2G" = "R - RAFFORZATA";
+"top.bar.scan.mode.3G" = "B - BASE";
+"top.bar.scan.mode.Boster" = "V - VISITATORI RSA";
+"top.bar.scan.mode.Scuola" = "S - STUDENTI";
+"top.bar.scan.mode.50" = "L - LAVORO";
+
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
 
