@@ -64,7 +64,16 @@ extension HCert {
         let formats = ["yyyy", "MM/yyyy", "dd/MM/yyyy"]
         let dates: [Date] = formats.compactMap {
             dateFormatter.dateFormat = $0
-            return dateFormatter.date(from: birthDate)
+			
+			if $0 == "yyyy" {
+				return dateFormatter.date(from: birthDate)?.endOfYear()
+			}
+			
+			if $0 == "MM/yyyy" {
+				return dateFormatter.date(from: birthDate)?.endOfMonth()
+			}
+			
+			return dateFormatter.date(from: birthDate)
         }
         guard let birthdayDate = dates.first else { return nil }
         return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year

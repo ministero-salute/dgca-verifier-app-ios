@@ -1,14 +1,14 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import SwiftDGC
 
 class TestBaseValidator: DGCValidator {
     
-    private func isTestDateValid(_ hcert: HCert) -> Status {
+    fileprivate func isTestDateValid(_ hcert: HCert) -> Status {
         guard hcert.isKnownTestType else { return .notValid }
         
         let startHours = getStartHours(for: hcert)
@@ -42,7 +42,7 @@ class TestBaseValidator: DGCValidator {
         guard let validityStart = dateTime.add(start, ofType: .hour) else { return .notValid }
         guard let validityEnd = dateTime.add(end, ofType: .hour) else { return .notValid }
     
-        return TestBaseValidator.validate(Date(), from: validityStart, to: validityEnd)
+        return self.validate(Date(), from: validityStart, to: validityEnd)
     }
     
     private func isTestNegative(_ hcert: HCert) -> Status {
@@ -79,19 +79,34 @@ class TestBaseValidator: DGCValidator {
     
 }
 
-class TestReinforcedValidator: AlwaysNotValid {}
+class TestReinforcedValidator: TestBaseValidator {
+    
+    override func validate(hcert: HCert) -> Status {
+        let result = isTestDateValid(hcert)
+        switch result {
+        case .expired:
+            return .expired
+        case .notValidYet:
+            return .notValidYet
+        default:
+            return .notValid
+        }
+    }
+}
 
-class TestBoosterValidator: AlwaysNotValid {}
+class TestBoosterValidator: TestReinforcedValidator {}
 
-class TestSchoolValidator: AlwaysNotValid {}
+class TestSchoolValidator: TestReinforcedValidator {}
 
 class TestWorkValidator: TestBaseValidator {
     
     override func validate(hcert: HCert) -> Status {
+        let result = super.validate(hcert: hcert)
+        guard result != .expired else { return .expired }
+        guard result != .notValidYet else { return .notValidYet }
         guard !isOver50(hcert) else { return .notValid }
-        return super.validate(hcert: hcert)
+        return result
     }
-    
     
     private func isOver50 (_ hcert: HCert) -> Bool {
         guard let age = hcert.age else { return false }
@@ -99,3 +114,5 @@ class TestWorkValidator: TestBaseValidator {
     }
     
 }
+
+class TestItalyEntryValidator: TestBaseValidator {}
