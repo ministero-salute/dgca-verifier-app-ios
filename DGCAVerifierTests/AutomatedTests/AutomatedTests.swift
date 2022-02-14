@@ -1,3 +1,21 @@
+/*
+ *  license-start
+ *  
+ *  Copyright (C) 2021 Ministero della Salute and all other contributors
+ *  
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *  
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+*/
+
 //
 //  AutomatedTests.swift
 //  VerifierTests
@@ -60,7 +78,7 @@ class AutomatedTests: XCTestCase {
         guard let url = Bundle(for: AutomatedTests.self).url(forResource: "CasiDiTest", withExtension: "csv") else { return }
         self.testCases = loadTestArrayfromCSV(fromURL: url, rowSeparator: "\n")
 		
-		self.loadMockedSettings()
+		    self.loadMockedSettings()
     }
 
     override func tearDownWithError() throws {
@@ -69,29 +87,29 @@ class AutomatedTests: XCTestCase {
     
     func test() {
 		
-		for index in self.testCases.indices {
-			// Set this to the test case ID you would like to debug to filter out any other case
-			let debugTestCaseID: String? = nil
+		  for index in self.testCases.indices {
+			  // Set this to the test case ID you would like to debug to filter out any other case
+			  let debugTestCaseID: String? = nil
 			
-			if debugTestCaseID != nil {
-				if self.testCases[index].id != debugTestCaseID {
-					continue
-				}
-			}
+			  if debugTestCaseID != nil {
+				  if self.testCases[index].id != debugTestCaseID {
+					  continue
+				  }
+			  }
 			
-			var actualValidity = [TestResult]()
-			guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
+			  var actualValidity = [TestResult]()
+			  guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
 			
-			for validity in self.testCases[index].expectedValidity {
-				guard let scanMode = validity.scanMode() else { continue }
-				guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else { continue }
-				let result = validator.validate(hcert: hCert)
-				actualValidity.append(TestResult(mode: validity.mode, status: result))
-			}
-			self.testCases[index].actualValidity = actualValidity
-		}
+			  for validity in self.testCases[index].expectedValidity {
+				  guard let scanMode = validity.scanMode() else { continue }
+				  guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else { continue }
+				  let result = validator.validate(hcert: hCert)
+				  actualValidity.append(TestResult(mode: validity.mode, status: result))
+			  }
+			  self.testCases[index].actualValidity = actualValidity
+		  }
 		
-		self.printTestsReport()
+		  self.printTestsReport()
 		
     }
     

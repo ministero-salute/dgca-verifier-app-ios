@@ -54,7 +54,6 @@ struct VaccinationInfo {
     var isCurrentDoseBooster: Bool { (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster) }
     
     var isEMAProduct: Bool {
-//        let emaAllProducts = ["EU/1/20/1525", "EU/1/20/1507", "EU/1/20/1528", "EU/1/21/1529", "Covishield", "R-COVI", "Covid-19-recombinant"]
         if (emaAllProducts?.contains(medicalProduct) ?? false) // (Sputnik-V solo se emesso da San marino ovvero co="SM")
             || (countryCode == Constants.sanMarinoCode && medicalProduct == Constants.SputnikVacineCode) {
             return true

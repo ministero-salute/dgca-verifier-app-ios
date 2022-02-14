@@ -522,9 +522,9 @@ extension HomeViewController {
         case 4:
             Store.set(Constants.scanModeItalyEntry, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
-		case 5:
-			Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
-			Store.set(true, for: .isScanModeSet)
+		    case 5:
+			      Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
+			      Store.set(true, for: .isScanModeSet)
         default:
             break
         }

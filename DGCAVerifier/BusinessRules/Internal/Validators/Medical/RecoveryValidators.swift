@@ -70,8 +70,7 @@ class RecoveryBaseValidator: DGCValidator {
         
         guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
         guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
-        
-        
+                
         guard let currentDate = Date.startOfDay else { return .notValid }
         
         return self.validate(currentDate, from: validityStart, to: validityEnd)
