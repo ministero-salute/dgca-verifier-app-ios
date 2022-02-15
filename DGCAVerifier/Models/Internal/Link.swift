@@ -33,5 +33,6 @@ enum Link {
     case whyQrNotValid
     case qrValidityRange
     case whichQrScan
+    case whyVerificationNeeded
 }
 

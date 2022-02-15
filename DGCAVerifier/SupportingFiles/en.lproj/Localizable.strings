@@ -121,6 +121,7 @@
 "links.read.privacy.policy" = "Leggi la Privacy policy";
 "links.what.can.be.done" = "Cosa si può fare con la Certificazione verde COVID-19?";
 "links.why.qr.code.not.valid" = "Quali sono i motivi di non validità?";
+"links.why.qr.code.verification.needed" = "Perché è richiesto il tampone seppur valida?";
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 

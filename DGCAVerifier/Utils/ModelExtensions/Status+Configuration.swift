@@ -113,7 +113,7 @@ extension Status {
         case .notValid:             return [.whyQrNotValid]
 		case .expired:				return [.whyQrNotValid]
         case .notGreenPass:         return [.whichQrScan]
-        case .verificationIsNeeded: return [.whyQrNotValid]
+        case .verificationIsNeeded: return [.whyVerificationNeeded]
         case .revokedGreenPass:     return []
         }
     }
