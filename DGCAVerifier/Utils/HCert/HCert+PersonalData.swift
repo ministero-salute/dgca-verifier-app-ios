@@ -28,11 +28,22 @@ import SwiftDGC
 
 extension HCert {
     
-    var name: String { lastName + " " + firstName }
-    
-    var firstName: String { body["nam"]["gn"].string ?? "" }
-    
-    var lastName: String { body["nam"]["fn"].string ?? "" }
+    var name: String {
+        let firstName: String = body["nam"]["gn"].string ?? ""
+        let lastName: String = body["nam"]["fn"].string ?? ""
+        let stdfirstName: String = body["nam"]["gnt"].string ?? ""
+        let stdlastName: String = body["nam"]["fnt"].string ?? ""
+        
+        let fullName: String = lastName + " " + firstName
+        let stdfullName: String = stdlastName + " " + stdfirstName + " " + firstName
+        
+        if lastName.isEmpty {
+            return stdfullName
+        } else {
+            return fullName
+        }
+        
+    }
     
     var birthDate: String {
         //  TODO: use date formats to be placed inside Constants
@@ -64,7 +75,16 @@ extension HCert {
         let formats = ["yyyy", "MM/yyyy", "dd/MM/yyyy"]
         let dates: [Date] = formats.compactMap {
             dateFormatter.dateFormat = $0
-            return dateFormatter.date(from: birthDate)
+			
+			if $0 == "yyyy" {
+				return dateFormatter.date(from: birthDate)?.endOfYear()
+			}
+			
+			if $0 == "MM/yyyy" {
+				return dateFormatter.date(from: birthDate)?.endOfMonth()
+			}
+			
+			return dateFormatter.date(from: birthDate)
         }
         guard let birthdayDate = dates.first else { return nil }
         return Calendar.current.dateComponents([.year, .month, .day], from: birthdayDate, to: Date()).year

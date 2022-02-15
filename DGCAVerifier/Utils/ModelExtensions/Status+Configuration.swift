@@ -42,6 +42,7 @@ extension Status {
         switch self {
         case .valid:                return "icon_valid".image
         case .notValid:             return "icon_not-valid".image
+		case .expired:				return "icon_not-valid".image
         case .notValidYet:          return "icon_not-valid-yet".image
         case .notGreenPass:         return "icon_not-green-pass".image
         case .revokedGreenPass:     return "icon_not-green-pass".image
@@ -53,6 +54,7 @@ extension Status {
         switch self {
         case .valid:                return "result.title.valid"
         case .notValid:             return "result.title.not.valid"
+		case .expired:				return "result.title.expired"
         case .notValidYet:          return "result.title.not.valid.yet"
         case .notGreenPass:         return "result.title.not.green.pass"
         case .revokedGreenPass:     return "result.title.revoked.green.pass"
@@ -66,6 +68,7 @@ extension Status {
         case .valid:                return "result.description.valid"
         case .notValidYet:          return "result.description.not.valid"
         case .notValid:             return "result.description.not.valid"
+        case .expired:               return "result.description.not.valid"
         case .revokedGreenPass:     return "result.description.revoked"
         case .verificationIsNeeded: return "result.description.need.verification"
         default:                    return nil
@@ -77,6 +80,7 @@ extension Status {
         case .valid:                return true
         case .notValidYet:          return true
         case .notValid:             return true
+        case .expired:              return true
         case .revokedGreenPass:     return true
         case .verificationIsNeeded: return true
         default:                    return false
@@ -88,6 +92,7 @@ extension Status {
         case .valid:                return true
         case .notValidYet:          return true
         case .notValid:             return true
+        case .expired:             return true
         case .revokedGreenPass:     return true
         case .verificationIsNeeded: return true
         default:                    return false
@@ -106,6 +111,7 @@ extension Status {
         case .valid:                return [.whatCanBeDone]
         case .notValidYet:          return [.qrValidityRange]
         case .notValid:             return [.whyQrNotValid]
+		case .expired:				return [.whyQrNotValid]
         case .notGreenPass:         return [.whichQrScan]
         case .verificationIsNeeded: return [.whyQrNotValid]
         case .revokedGreenPass:     return []

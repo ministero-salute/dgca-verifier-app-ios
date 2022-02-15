@@ -158,6 +158,8 @@ class VerificationViewController: UIViewController {
         switch scanMode{
         case Constants.scanMode2G:
             mode = "result.scan.mode.2G".localized
+        case Constants.scanModeItalyEntry:
+            mode = "result.scan.mode.italy.entry".localized
         case Constants.scanMode3G:
             mode = "result.scan.mode.3G".localized
         case Constants.scanModeBooster:
