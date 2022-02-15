@@ -69,7 +69,12 @@ class VerificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeViews()
-        validate(viewModel.status)
+		#if targetEnvironment(simulator)
+		let status: Status = .notValidYet
+		validate(status)
+		#else
+		validate(viewModel.status)
+		#endif
     }
     
     private func validate(_ status: Status) {
