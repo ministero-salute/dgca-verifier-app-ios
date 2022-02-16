@@ -43,12 +43,15 @@ public class AppAlertViewController: UIViewController {
     
     @IBOutlet private weak var alertView: UIView!
     @IBOutlet private weak var titleLabel: AppLabel!
-    @IBOutlet private weak var messageLabel: AppLabel!
+    @IBOutlet private weak var messageTextView: UITextView!
     @IBOutlet private weak var confirmButton: AppButton!
     @IBOutlet private weak var cancelButton: AppLabelUrl!
 
     private lazy var content: AlertContent = .init()
-
+    
+    private var fontSize: CGFloat = 12
+    private var bold: Bool = false
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         animatePresentingAlert()
@@ -68,16 +71,26 @@ public class AppAlertViewController: UIViewController {
     }
     
     private func setMessage() {
-        guard let message = content.message else {
-            messageLabel.isHidden = content.message == nil
+        
+        let font = Font.getFont(size: fontSize, style: .regular)
+        messageTextView.font = font
+        
+        guard let message = content.message, let isHTMLBased = content.isHTMLBased else {
+            messageTextView.isHidden = content.message == nil
+            return
+        }
+                
+        messageTextView.isHidden = false
+                
+        guard !isHTMLBased else {
+            let attributedMessage = try? NSMutableAttributedString(data: message.data(using: .utf8) ?? Data(), options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+            messageTextView.attributedText = attributedMessage
             return
         }
         
-        messageLabel.isHidden = false
-        
         let linkRanges = message.extractLinksRange()
         guard !linkRanges.isEmpty else {
-            messageLabel.text = message
+            messageTextView.text = message
             return
         }
         
@@ -87,9 +100,7 @@ public class AppAlertViewController: UIViewController {
             let urlRange = message.nsRange(from: range)
             attributedString.addAttribute(NSAttributedString.Key.link, value: url, range: urlRange)
         }
-        messageLabel.attributedText = attributedString
-        messageLabel.containsLinks = true
-        
+        messageTextView.attributedText = attributedString
     }
     
     private func setCancelButton() {

@@ -33,6 +33,7 @@ class AppLabel: UILabel {
     @IBInspectable var containsLinks: Bool = false
     
     override var text: String? { didSet { toUppercase() } }
+    override var attributedText: NSAttributedString? { didSet { toUppercase() } }
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
