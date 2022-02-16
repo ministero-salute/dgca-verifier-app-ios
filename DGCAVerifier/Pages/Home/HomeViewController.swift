@@ -216,7 +216,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func showInfoAlert(){
-        showCustomAlert(key: "scan.unset", isHTMLBased: true)
+        showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
     }
     
     private func setInfoButton() {
