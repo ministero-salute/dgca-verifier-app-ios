@@ -187,7 +187,7 @@ class HomeViewController: UIViewController {
         let boldLocalizedText = "home.title.bold".localized
         let homeTitle: NSMutableAttributedString = .init(string: localizedBaseHomeTitle, attributes: nil)
         let boldRange: NSRange = (homeTitle.string as NSString).range(of: boldLocalizedText)
-        homeTitle.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30)], range: boldRange)
+		homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
         titleLabel.attributedText = homeTitle
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.minimumScaleFactor = 0.2
