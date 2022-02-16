@@ -76,6 +76,12 @@ extension MainCoordinator: HomeCoordinator {
         controller.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(controller, animated: true)
     }
+	
+	func openCustomPicker() {
+		let controller = CustomPickerController(coordinator: self)
+		controller.modalPresentationStyle = .pageSheet
+		navigationController.present(controller, animated: true)
+	}
     
     func openDebug() {
         #if DEBUG
@@ -117,6 +123,12 @@ extension MainCoordinator: SettingsCoordinator {
     func openWebURL(url: URL){
         UIApplication.shared.open(url)
     }
+}
+
+extension MainCoordinator: CustomPickerCoordinator {
+	func dismissCustomPicker(completion: (() -> Void)?) {
+		navigationController.popViewController(animated: false)
+	}
 }
 
 #if DEBUG

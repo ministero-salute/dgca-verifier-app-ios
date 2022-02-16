@@ -33,6 +33,7 @@ protocol HomeCoordinator: Coordinator {
     func showCountries()
     func openSettings()
     func openDebug()
+	func openCustomPicker()
 }
 
 class HomeViewController: UIViewController {
@@ -385,7 +386,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-        modeViewDidTap()
+		coordinator?.openCustomPicker()
     }
     
     @IBAction func scan(_ sender: Any) {
