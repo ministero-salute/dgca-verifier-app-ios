@@ -49,6 +49,8 @@ class HeaderBar: AppView {
             mode = "top.bar.scan.mode.Scuola".localized
         case Constants.scanMode50:
             mode = "top.bar.scan.mode.50".localized
+		case Constants.scanModeItalyEntry:
+				mode = "top.bar.scan.mode.itEntry".localized
         default:
             break
         }

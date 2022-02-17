@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -273,10 +273,10 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceE-Ux-hv0" userLabel="Info Button">
-                                    <rect key="frame" x="97.5" y="22" width="20" height="20"/>
+                                    <rect key="frame" x="97.5" y="12" width="30" height="30"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="3Aa-kR-V6B"/>
-                                        <constraint firstAttribute="width" constant="20" id="lG0-r2-kMh"/>
+                                        <constraint firstAttribute="height" constant="30" id="3Aa-kR-V6B"/>
+                                        <constraint firstAttribute="width" constant="30" id="lG0-r2-kMh"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="info_circle" backgroundImage="info_circle"/>
