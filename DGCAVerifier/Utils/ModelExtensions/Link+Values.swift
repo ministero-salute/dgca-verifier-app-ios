@@ -26,7 +26,7 @@
 import Foundation
 
 private let PRIVACY_POLICIES            = "https://www.dgc.gov.it/web/pn.html"
-private let FAQ                         = "https://www.dgc.gov.it/web/faq.html#verifica19"
+private let FAQ                         = "https://www.dgc.gov.it/web/app.html"
 private let HOW_TO                      = "https://www.dgc.gov.it/web/faq.html#verifica19"
 private let WHY_NOT_VALID               = "https://www.dgc.gov.it/web/faq.html#verifica19"
 private let VALIDITY_RANGE              = "https://www.dgc.gov.it/web/faq.html#verifica19"
