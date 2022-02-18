@@ -272,14 +272,18 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceE-Ux-hv0" userLabel="Info Button">
-                                    <rect key="frame" x="105.5" y="12" width="30" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceE-Ux-hv0" userLabel="Info Button" customClass="ExtendedUIButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="105.5" y="20" width="22" height="22"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="3Aa-kR-V6B"/>
-                                        <constraint firstAttribute="width" constant="30" id="lG0-r2-kMh"/>
+                                        <constraint firstAttribute="height" constant="22" id="3Aa-kR-V6B"/>
+                                        <constraint firstAttribute="width" constant="22" id="lG0-r2-kMh"/>
                                     </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="info_circle" backgroundImage="info_circle"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="extendedTappableMargin">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
