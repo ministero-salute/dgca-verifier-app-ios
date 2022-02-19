@@ -11,7 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPickerController" customModule="VerificaC19" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="R9M-UA-B3g" id="s67-uR-T6E"/>
+                <outlet property="closeButton" destination="xre-B0-o53" id="VTG-dp-Ckz"/>
+                <outlet property="optionsStackView" destination="He7-Nh-ajR" id="4ws-H4-Dij"/>
+                <outlet property="titleLabel" destination="VyR-Fp-crM" id="xrr-ED-re7"/>
+                <outlet property="titleLabelBold" destination="A5x-yv-YHx" id="t3M-nd-utz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,34 +23,61 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="R9M-UA-B3g">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Py-xg-NSW" userLabel="Header View">
+                    <rect key="frame" x="16" y="16" width="382" height="150"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xre-B0-o53" userLabel="Close">
+                            <rect key="frame" x="327" y="16" width="39" height="38"/>
+                            <buttonConfiguration key="configuration" style="plain" image="icon_back"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modalità di verifica della" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-Fp-crM" userLabel="Title (modalità verifica ...)" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="16" y="70" width="350" height="36"/>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificazione" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5x-yv-YHx" userLabel="Title (certificazione)" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="16" y="98" width="350" height="36"/>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0XJ-Ae-5eQ">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="j6f-Xh-feq"/>
-                        <outlet property="delegate" destination="-1" id="XOV-iW-oGD"/>
-                    </connections>
-                </collectionView>
+                    <constraints>
+                        <constraint firstItem="xre-B0-o53" firstAttribute="top" secondItem="7Py-xg-NSW" secondAttribute="top" constant="16" id="1fM-NO-0QB"/>
+                        <constraint firstItem="VyR-Fp-crM" firstAttribute="top" secondItem="xre-B0-o53" secondAttribute="bottom" constant="16" id="5Qz-YY-xa1"/>
+                        <constraint firstAttribute="trailing" secondItem="xre-B0-o53" secondAttribute="trailing" constant="16" id="97S-xE-u5n"/>
+                        <constraint firstItem="A5x-yv-YHx" firstAttribute="top" secondItem="VyR-Fp-crM" secondAttribute="bottom" constant="-8" id="LM9-DJ-OYg"/>
+                        <constraint firstItem="A5x-yv-YHx" firstAttribute="leading" secondItem="7Py-xg-NSW" secondAttribute="leading" constant="16" id="SGF-Ji-HZV"/>
+                        <constraint firstAttribute="height" constant="150" id="eTh-hH-VDU"/>
+                        <constraint firstAttribute="trailing" secondItem="VyR-Fp-crM" secondAttribute="trailing" constant="16" id="p1R-BN-8nf"/>
+                        <constraint firstItem="VyR-Fp-crM" firstAttribute="leading" secondItem="7Py-xg-NSW" secondAttribute="leading" constant="16" id="qui-62-Xll"/>
+                        <constraint firstAttribute="trailing" secondItem="A5x-yv-YHx" secondAttribute="trailing" constant="16" id="zYp-Gi-52e"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="He7-Nh-ajR" userLabel="Options Stack View">
+                    <rect key="frame" x="0.0" y="166" width="414" height="642"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="R9M-UA-B3g" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="59I-y2-PTQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="R9M-UA-B3g" secondAttribute="trailing" id="6w8-Ti-Ajk"/>
-                <constraint firstItem="R9M-UA-B3g" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NTY-9z-Yj9"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="R9M-UA-B3g" secondAttribute="bottom" id="VIL-m1-sdq"/>
+                <constraint firstItem="He7-Nh-ajR" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="41A-ZF-IY2"/>
+                <constraint firstItem="7Py-xg-NSW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="4sM-sa-Ebm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7Py-xg-NSW" secondAttribute="trailing" constant="16" id="K3h-zN-PPW"/>
+                <constraint firstItem="He7-Nh-ajR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yic-wc-5K0"/>
+                <constraint firstItem="7Py-xg-NSW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ZNG-5b-a5V"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="He7-Nh-ajR" secondAttribute="bottom" id="dZ8-uz-5gm"/>
+                <constraint firstItem="He7-Nh-ajR" firstAttribute="top" secondItem="7Py-xg-NSW" secondAttribute="bottom" id="ku6-g7-18z"/>
             </constraints>
             <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="137.68115942028987" y="217.63392857142856"/>
         </view>
     </objects>
     <resources>
+        <image name="icon_back" width="15" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

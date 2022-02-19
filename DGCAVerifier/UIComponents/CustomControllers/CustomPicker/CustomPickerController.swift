@@ -15,7 +15,10 @@ class CustomPickerController: UIViewController {
 	
 	private weak var coordinator: Coordinator?
 	
-	@IBOutlet weak var collectionView: UICollectionView!
+	@IBOutlet weak var closeButton: UIButton!
+	@IBOutlet weak var titleLabel: AppLabel!
+	@IBOutlet weak var titleLabelBold: AppLabel!
+	@IBOutlet weak var optionsStackView: UIStackView!
 	
 	public init(coordinator: Coordinator) {
 		super.init(nibName: "CustomPickerController", bundle: nil)
@@ -30,22 +33,34 @@ class CustomPickerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.collectionView.dataSource = self
-		self.collectionView.delegate = self
-//		self.collectionView.register(UINib(nibName: "ScanModeCell", bundle: nil), forCellWithReuseIdentifier: "scanModeCell")
-		self.collectionView.register(ScanModeCell.self, forCellWithReuseIdentifier: "scanModeCell")
+		self.setupTitleLabel()
+		self.setupStackView()
     }
-
-}
-
-extension CustomPickerController: UICollectionViewDelegate, UICollectionViewDataSource {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 4
+	
+	private func setupTitleLabel() -> Void {
+		self.titleLabel.font = Font.getFont(size: 30, style: .regular)
+		self.titleLabelBold.font = Font.getFont(size: 30, style: .bold)
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "scanModeCell", for: indexPath) as! ScanModeCell
-		cell.backgroundColor = .black
-		return cell
+	private func setupStackView() -> Void {
+		let colors = [UIColor.yellow, UIColor.red, UIColor.black, UIColor.green, UIColor.blue, UIColor.brown, UIColor.purple, UIColor.orange]
+		
+		for _ in 0...2 {
+			let pickerOption = CustomPickerOption()
+			pickerOption.backgroundColor = colors.randomElement()
+			pickerOption.setContentHuggingPriority(.required, for: .vertical)
+			pickerOption.setContentCompressionResistancePriority(.required, for: .vertical)
+			
+			self.optionsStackView.addArrangedSubview(pickerOption)
+		}
+		
+		let spacerView = UIView()
+		spacerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 1).isActive = true
+//		spacerView.setContentHuggingPriority(.defaultLow, for: .vertical)
+//		spacerView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+//		spacerView.backgroundColor = .cyan
+
+		self.optionsStackView.addArrangedSubview(spacerView)
 	}
+
 }
