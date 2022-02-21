@@ -36,10 +36,6 @@
 		14C3B3CF27BD47CC00C2C2A7 /* CustomPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */; };
 		14C3B3D027BD47CC00C2C2A7 /* CustomPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */; };
 		14C3B3D127BD47CC00C2C2A7 /* CustomPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */; };
-		14C3B3D327BD5C8900C2C2A7 /* ScanModeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C3B3D227BD5C8900C2C2A7 /* ScanModeCell.xib */; };
-		14C3B3D427BD5C8900C2C2A7 /* ScanModeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C3B3D227BD5C8900C2C2A7 /* ScanModeCell.xib */; };
-		14C3B3D627BD5DB600C2C2A7 /* ScanModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3B3D527BD5DB600C2C2A7 /* ScanModeCell.swift */; };
-		14C3B3D727BD5DB600C2C2A7 /* ScanModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3B3D527BD5DB600C2C2A7 /* ScanModeCell.swift */; };
 		14CD25E127B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */; };
 		14CD25E227B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */; };
 		14CD25E327B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */; };
@@ -434,8 +430,6 @@
 		14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerOption.xib; sourceTree = "<group>"; };
 		14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerController.swift; sourceTree = "<group>"; };
 		14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerController.xib; sourceTree = "<group>"; };
-		14C3B3D227BD5C8900C2C2A7 /* ScanModeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanModeCell.xib; sourceTree = "<group>"; };
-		14C3B3D527BD5DB600C2C2A7 /* ScanModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanModeCell.swift; sourceTree = "<group>"; };
 		14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFBackViewController.swift; sourceTree = "<group>"; };
 		14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HFBackViewController.xib; sourceTree = "<group>"; };
 		14D4F19527B57458002B2F00 /* mockedSettings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockedSettings.json; sourceTree = "<group>"; };
@@ -716,8 +710,6 @@
 				14B94A4F27BEB0A100B2B906 /* CustomPickerOption */,
 				14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */,
 				14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */,
-				14C3B3D227BD5C8900C2C2A7 /* ScanModeCell.xib */,
-				14C3B3D527BD5DB600C2C2A7 /* ScanModeCell.swift */,
 			);
 			path = CustomPicker;
 			sourceTree = "<group>";
@@ -1617,7 +1609,6 @@
 				65E281FC2697259D00377913 /* testaka4-sogei-it.der in Resources */,
 				65E281FD2697259D00377913 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				65E281FE2697259D00377913 /* Roboto-Medium.ttf in Resources */,
-				14C3B3D427BD5C8900C2C2A7 /* ScanModeCell.xib in Resources */,
 				14B94A5527BEB13200B2B906 /* CustomPickerOption.xib in Resources */,
 				653F928F26B007B5000BE8F5 /* HomeViewController.xib in Resources */,
 			);
@@ -1670,7 +1661,6 @@
 				6B24E85C266275920003808F /* get-dgc-gov-it.der in Resources */,
 				9F90C59A265E591E00B2F992 /* TitilliumWeb-SemiBold.ttf in Resources */,
 				9F90C5A5265E591E00B2F992 /* Roboto-BlackItalic.ttf in Resources */,
-				14C3B3D327BD5C8900C2C2A7 /* ScanModeCell.xib in Resources */,
 				9F90C59C265E591E00B2F992 /* TitilliumWeb-BoldItalic.ttf in Resources */,
 				14D4F19627B575E7002B2F00 /* mockedSettings.json in Resources */,
 				9F90C593265E591D00B2F992 /* Roboto-Medium.ttf in Resources */,
@@ -1859,7 +1849,6 @@
 				65E281D52697259D00377913 /* UIViewController+Alert.swift in Sources */,
 				65021B6626AEE30F004C3D14 /* UIColor+RGB.swift in Sources */,
 				659DE89226B2D75B0026A39A /* Font.swift in Sources */,
-				14C3B3D727BD5DB600C2C2A7 /* ScanModeCell.swift in Sources */,
 				659605FD26E7A868008AD4E2 /* UIApplication+TopViewController.swift in Sources */,
 				65E281D62697259D00377913 /* Date+Utils.swift in Sources */,
 				65E7000D26AF753C00715CCC /* AppView.swift in Sources */,
@@ -1954,7 +1943,6 @@
 				90BED818276A570E006225CE /* String+Link.swift in Sources */,
 				65E281682697217B00377913 /* HomeViewController.swift in Sources */,
 				65E2819B269721ED00377913 /* Date.swift in Sources */,
-				14C3B3D627BD5DB600C2C2A7 /* ScanModeCell.swift in Sources */,
 				656150E02726A9C40076BAE4 /* String+Bool.swift in Sources */,
 				6B155169265BE463001D19E2 /* Setting.swift in Sources */,
 				98BF53BC27A94BD300B8FB1A /* VaccineValidators.swift in Sources */,

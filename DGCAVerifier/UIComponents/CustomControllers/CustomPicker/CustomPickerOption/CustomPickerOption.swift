@@ -13,7 +13,6 @@ class CustomPickerOption: UIView {
 	private var selected: Bool = false
 
 	@IBOutlet weak var optionContainerView: UIView!
-	var _optionContainerViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var optionContainerViewBottomConstraint: NSLayoutConstraint!
 	
 	@IBOutlet weak var scanModeTitleLabel: UILabel!
@@ -28,8 +27,9 @@ class CustomPickerOption: UIView {
 	@IBOutlet var descriptionViewTopConstraint: NSLayoutConstraint!
 	@IBOutlet var descriptionViewLeadingConstraint: NSLayoutConstraint!
 	@IBOutlet var descriptionViewBottomConstraint: NSLayoutConstraint!
-	
-	private var _descriptionViewConstraints: [NSLayoutConstraint]!
+		
+	@IBOutlet weak var radioButtonOuter: UIView!
+	@IBOutlet weak var radioButtonInner: UIView!
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -39,12 +39,22 @@ class CustomPickerOption: UIView {
 		
 		let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTap))
 		self.nibView.addGestureRecognizer(tapRecognizer)
+		
+		self.setupRadioButton()
 
 		self.addSubview(self.nibView)
 	}
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
+	}
+	
+	private func setupRadioButton() {
+		self.radioButtonInner.backgroundColor = Palette.blueDark
+		
+		self.radioButtonOuter.backgroundColor = Palette.white
+		self.radioButtonOuter.borderWidth = 1
+		self.radioButtonOuter.borderColor = Palette.blueDark
 	}
 	
 	@objc private func onTap() {

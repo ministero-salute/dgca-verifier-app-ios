@@ -18,7 +18,8 @@
                 <outlet property="descriptionViewTrailingConstraint" destination="4st-wA-Ztc" id="voV-fJ-a3w"/>
                 <outlet property="optionContainerView" destination="KgR-au-t1w" id="keV-uq-eqI"/>
                 <outlet property="optionContainerViewBottomConstraint" destination="5F2-yW-7qT" id="MS7-6i-Bwx"/>
-                <outlet property="radiusImage" destination="G4K-go-pVJ" id="rBc-te-P2p"/>
+                <outlet property="radioButtonInner" destination="WbN-Xo-gMz" id="bo5-YG-FVX"/>
+                <outlet property="radioButtonOuter" destination="niZ-Qx-qSE" id="SwC-6I-Lsd"/>
                 <outlet property="scanModeSubtitleLabel" destination="LQc-Yo-uYX" id="UVd-SC-uh0"/>
                 <outlet property="scanModeTitleLabel" destination="VPl-fC-Acg" id="TfS-Y2-vYI"/>
             </connections>
@@ -59,21 +60,58 @@
                                 <constraint firstAttribute="trailing" secondItem="LQc-Yo-uYX" secondAttribute="trailing" id="fGs-zZ-PtC"/>
                             </constraints>
                         </view>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo" translatesAutoresizingMaskIntoConstraints="NO" id="G4K-go-pVJ">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTs-7Z-JNg" userLabel="Radio Button Container">
                             <rect key="frame" x="785" y="24" width="32" height="32"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niZ-Qx-qSE" userLabel="Radio Button Outer">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                    <color key="backgroundColor" systemColor="linkColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="32" id="2QL-wf-iVM"/>
+                                        <constraint firstAttribute="height" constant="32" id="bWC-sM-7PF"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="16"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbN-Xo-gMz" userLabel="Radio Button Inner">
+                                    <rect key="frame" x="3" y="3" width="26" height="26"/>
+                                    <color key="backgroundColor" systemColor="labelColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="26" id="HqD-TU-AKE"/>
+                                        <constraint firstAttribute="height" constant="26" id="ZUO-FO-Ic3"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="13"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="SLI-no-MIO"/>
-                                <constraint firstAttribute="height" constant="32" id="jbD-Rm-0sZ"/>
+                                <constraint firstAttribute="height" constant="32" id="1pd-Fw-lYJ"/>
+                                <constraint firstAttribute="width" constant="32" id="2sq-uO-Bbe"/>
+                                <constraint firstItem="niZ-Qx-qSE" firstAttribute="leading" secondItem="oTs-7Z-JNg" secondAttribute="leading" id="5hr-4i-7Wu"/>
+                                <constraint firstAttribute="bottom" secondItem="WbN-Xo-gMz" secondAttribute="bottom" constant="3" id="Bci-mQ-dmq"/>
+                                <constraint firstAttribute="bottom" secondItem="niZ-Qx-qSE" secondAttribute="bottom" id="UWx-BK-QaX"/>
+                                <constraint firstItem="WbN-Xo-gMz" firstAttribute="leading" secondItem="oTs-7Z-JNg" secondAttribute="leading" constant="3" id="Xd7-DS-7ca"/>
+                                <constraint firstItem="WbN-Xo-gMz" firstAttribute="top" secondItem="oTs-7Z-JNg" secondAttribute="top" constant="3" id="icN-Nd-cBS"/>
+                                <constraint firstAttribute="trailing" secondItem="niZ-Qx-qSE" secondAttribute="trailing" id="l41-KO-Fua"/>
+                                <constraint firstItem="niZ-Qx-qSE" firstAttribute="top" secondItem="oTs-7Z-JNg" secondAttribute="top" id="lCs-uI-U1L"/>
+                                <constraint firstAttribute="trailing" secondItem="WbN-Xo-gMz" secondAttribute="trailing" constant="3" id="uTb-HI-7xa"/>
                             </constraints>
-                        </imageView>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="oTs-7Z-JNg" secondAttribute="trailing" constant="16" id="3Rh-9Y-3EX"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="LVH-JD-lGm"/>
                         <constraint firstItem="V4e-P9-eGX" firstAttribute="centerY" secondItem="KgR-au-t1w" secondAttribute="centerY" id="VJ1-RH-NAu"/>
                         <constraint firstAttribute="height" constant="80" id="XdM-ko-A7z"/>
-                        <constraint firstAttribute="trailing" secondItem="G4K-go-pVJ" secondAttribute="trailing" constant="16" id="cd4-wf-bMb"/>
-                        <constraint firstItem="G4K-go-pVJ" firstAttribute="centerY" secondItem="KgR-au-t1w" secondAttribute="centerY" id="oR4-Mf-wPo"/>
+                        <constraint firstItem="oTs-7Z-JNg" firstAttribute="centerY" secondItem="KgR-au-t1w" secondAttribute="centerY" id="qoo-he-Npb"/>
                         <constraint firstItem="V4e-P9-eGX" firstAttribute="leading" secondItem="KgR-au-t1w" secondAttribute="leading" constant="16" id="w73-E9-MM4"/>
                     </constraints>
                 </view>
@@ -89,6 +127,10 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="999" constant="150" id="GrI-ro-KoM"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="100" id="R4L-QE-eSd"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,7 +149,12 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_logo" width="37" height="37"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

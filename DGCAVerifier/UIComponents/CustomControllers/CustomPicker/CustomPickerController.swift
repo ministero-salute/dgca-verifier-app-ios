@@ -45,7 +45,7 @@ class CustomPickerController: UIViewController {
 	private func setupStackView() -> Void {
 		let colors = [UIColor.yellow, UIColor.red, UIColor.black, UIColor.green, UIColor.blue, UIColor.brown, UIColor.purple, UIColor.orange]
 		
-		for _ in 0...2 {
+		for _ in 0...4 {
 			let pickerOption = CustomPickerOption()
 			pickerOption.backgroundColor = colors.randomElement()
 			pickerOption.setContentHuggingPriority(.required, for: .vertical)
@@ -53,14 +53,10 @@ class CustomPickerController: UIViewController {
 			
 			self.optionsStackView.addArrangedSubview(pickerOption)
 		}
+	}
+	
+	@objc private func didSelect(gestureRecognizer: UITapGestureRecognizer) {
 		
-		let spacerView = UIView()
-		spacerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 1).isActive = true
-//		spacerView.setContentHuggingPriority(.defaultLow, for: .vertical)
-//		spacerView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-//		spacerView.backgroundColor = .cyan
-
-		self.optionsStackView.addArrangedSubview(spacerView)
 	}
 
 }

@@ -56,21 +56,37 @@
                         <constraint firstAttribute="trailing" secondItem="A5x-yv-YHx" secondAttribute="trailing" constant="16" id="zYp-Gi-52e"/>
                     </constraints>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="He7-Nh-ajR" userLabel="Options Stack View">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uV-Ub-Acn">
                     <rect key="frame" x="0.0" y="166" width="414" height="642"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </stackView>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="He7-Nh-ajR" userLabel="Options Stack View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="642"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="width" secondItem="7uV-Ub-Acn" secondAttribute="width" id="0ck-lS-qaA"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="trailing" secondItem="a6d-iW-Jh9" secondAttribute="trailing" id="51X-vo-1kr"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="bottom" secondItem="a6d-iW-Jh9" secondAttribute="bottom" id="DB9-pp-gcq"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="height" secondItem="a6d-iW-Jh9" secondAttribute="height" id="IAY-HM-pMt"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="bottom" secondItem="1ey-Kl-DAp" secondAttribute="bottom" priority="500" id="JdX-hT-a5v"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="top" secondItem="a6d-iW-Jh9" secondAttribute="top" id="ifh-es-BtE"/>
+                        <constraint firstItem="He7-Nh-ajR" firstAttribute="leading" secondItem="a6d-iW-Jh9" secondAttribute="leading" id="of6-6y-U7N"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="a6d-iW-Jh9"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="1ey-Kl-DAp"/>
+                </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="He7-Nh-ajR" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="41A-ZF-IY2"/>
                 <constraint firstItem="7Py-xg-NSW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="4sM-sa-Ebm"/>
+                <constraint firstItem="7uV-Ub-Acn" firstAttribute="top" secondItem="7Py-xg-NSW" secondAttribute="bottom" id="6HJ-aN-ZLg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7Py-xg-NSW" secondAttribute="trailing" constant="16" id="K3h-zN-PPW"/>
-                <constraint firstItem="He7-Nh-ajR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yic-wc-5K0"/>
+                <constraint firstItem="7uV-Ub-Acn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VQB-zk-lLq"/>
                 <constraint firstItem="7Py-xg-NSW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ZNG-5b-a5V"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="He7-Nh-ajR" secondAttribute="bottom" id="dZ8-uz-5gm"/>
-                <constraint firstItem="He7-Nh-ajR" firstAttribute="top" secondItem="7Py-xg-NSW" secondAttribute="bottom" id="ku6-g7-18z"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7uV-Ub-Acn" secondAttribute="bottom" id="wJR-wh-xDd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7uV-Ub-Acn" secondAttribute="trailing" id="xw3-WL-gpY"/>
             </constraints>
             <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="137.68115942028987" y="217.63392857142856"/>
