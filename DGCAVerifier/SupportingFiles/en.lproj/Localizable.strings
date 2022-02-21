@@ -14,7 +14,7 @@
 "home.or" = "oppure";
 "home.loading" = "Aggiornamento in corso...";
 "home.not.available" = "N/A";
-"home.version" = "Versione";
+"home.version" = "versione";
 "home.update.now" = "Aggiorna ora";
 "home.show.more" = "Leggi di più";
 
@@ -40,7 +40,6 @@
 "home.scan.picker.mode.50" = "L - LAVORO (base <50 anni - rafforzata >= 50 anni)";
 "home.scan.picker.mode.italy.entry" = "I - INGRESSO IT (richiamo/ciclo completo <=270gg/guarigione/tampone)";
 "home.scan.picker.mode.School" = "S - STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
-"home.scan.picker.mode.50" = "L - LAVORO (vaccinazione/guarigione)";
 
 "camera.back.home" = "Torna all'inizio";
 
