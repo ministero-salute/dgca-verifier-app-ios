@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct CustomPickerOptionContent {
+	var scanModeName: String
+	var scanModeDescription: String
+	var scanModeDetails: String
+}
+
 class CustomPickerOption: UIView {
 	
 	private var nibView: UIView!
@@ -37,9 +43,6 @@ class CustomPickerOption: UIView {
 		self.nibView = UINib(nibName: "CustomPickerOption", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView
 		self.nibView.frame = self.frame
 		
-		let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTap))
-		self.nibView.addGestureRecognizer(tapRecognizer)
-		
 		self.setupRadioButton()
 
 		self.addSubview(self.nibView)
@@ -47,6 +50,20 @@ class CustomPickerOption: UIView {
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
+	}
+	
+	public func fill(with content: CustomPickerOptionContent) {
+		self.scanModeTitleLabel.text = content.scanModeName
+		self.scanModeSubtitleLabel.text = content.scanModeDescription
+		self.descriptionLabel.text = content.scanModeDetails
+	}
+	
+	public func didSelect() {
+		self.onTap()
+	}
+	
+	public func reset() {
+		self.hideDescriptionView()
 	}
 	
 	private func setupRadioButton() {
@@ -58,13 +75,7 @@ class CustomPickerOption: UIView {
 	}
 	
 	@objc private func onTap() {
-		if self.selected {
-			self.hideDescriptionView()
-		} else {
-			self.showDescriptionView()
-		}
-		
-		self.selected = !self.selected
+		self.showDescriptionView()
 	}
 	
 	private func showDescriptionView() {
@@ -74,6 +85,8 @@ class CustomPickerOption: UIView {
 	}
 	
 	private func hideDescriptionView() {
+		guard !self.descriptionView.isHidden else { return }
+		
 		self.descriptionView.isHidden = true
 		descriptionViewConstraints.forEach{ $0.isActive = false }
 		self.optionContainerViewBottomConstraint.priority = .required

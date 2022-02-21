@@ -20,6 +20,9 @@ class CustomPickerController: UIViewController {
 	@IBOutlet weak var titleLabelBold: AppLabel!
 	@IBOutlet weak var optionsStackView: UIStackView!
 	
+	private var optionViews: [CustomPickerOption] = []
+	private var optionContents: [CustomPickerOptionContent] = []
+	
 	public init(coordinator: Coordinator) {
 		super.init(nibName: "CustomPickerController", bundle: nil)
 		
@@ -33,9 +36,20 @@ class CustomPickerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.setupPickerOptionContents()
 		self.setupTitleLabel()
 		self.setupStackView()
     }
+	
+	private func setupPickerOptionContents() -> Void {
+		ScanMode.allCases.forEach{
+			self.optionContents.append(.init(
+				scanModeName: $0.buttonTitleName,
+				scanModeDescription: $0.buttonTitleBoldName,
+				scanModeDetails: $0.pickerOptionName
+			))
+		}
+	}
 	
 	private func setupTitleLabel() -> Void {
 		self.titleLabel.font = Font.getFont(size: 30, style: .regular)
@@ -45,18 +59,24 @@ class CustomPickerController: UIViewController {
 	private func setupStackView() -> Void {
 		let colors = [UIColor.yellow, UIColor.red, UIColor.black, UIColor.green, UIColor.blue, UIColor.brown, UIColor.purple, UIColor.orange]
 		
-		for _ in 0...4 {
+		for index in 0...4 {
 			let pickerOption = CustomPickerOption()
 			pickerOption.backgroundColor = colors.randomElement()
-			pickerOption.setContentHuggingPriority(.required, for: .vertical)
-			pickerOption.setContentCompressionResistancePriority(.required, for: .vertical)
+			pickerOption.tag = index
+			pickerOption.fill(with: self.optionContents[index])
+			
+			let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.didSelect(gestureRecognizer:)))
+			pickerOption.addGestureRecognizer(tapGR)
+			
+			self.optionViews.append(pickerOption)
 			
 			self.optionsStackView.addArrangedSubview(pickerOption)
 		}
 	}
 	
-	@objc private func didSelect(gestureRecognizer: UITapGestureRecognizer) {
-		
+	@objc private func didSelect(gestureRecognizer: UITapGestureRecognizer) -> Void {
+		self.optionViews.forEach{ $0.reset() }
+		(gestureRecognizer.view as! CustomPickerOption).didSelect()
 	}
 
 }
