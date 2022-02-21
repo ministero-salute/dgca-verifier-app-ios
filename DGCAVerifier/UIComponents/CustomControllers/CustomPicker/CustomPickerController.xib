@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPickerController" customModule="VerificaC19" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="xre-B0-o53" id="VTG-dp-Ckz"/>
+                <outlet property="headerView" destination="7Py-xg-NSW" id="9Ie-S3-Xfg"/>
                 <outlet property="optionsStackView" destination="He7-Nh-ajR" id="4ws-H4-Dij"/>
                 <outlet property="titleLabel" destination="VyR-Fp-crM" id="xrr-ED-re7"/>
                 <outlet property="titleLabelBold" destination="A5x-yv-YHx" id="t3M-nd-utz"/>
@@ -59,9 +60,9 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uV-Ub-Acn">
                     <rect key="frame" x="0.0" y="166" width="414" height="642"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="He7-Nh-ajR" userLabel="Options Stack View">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="He7-Nh-ajR" userLabel="Options Stack View">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="642"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                     </subviews>
                     <constraints>

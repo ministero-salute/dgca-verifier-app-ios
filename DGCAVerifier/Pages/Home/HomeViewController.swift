@@ -33,7 +33,7 @@ protocol HomeCoordinator: Coordinator {
     func showCountries()
     func openSettings()
     func openDebug()
-	func openCustomPicker()
+	func openCustomPicker(delegate: CustomPickerDelegate)
 }
 
 class HomeViewController: UIViewController {
@@ -386,7 +386,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-		coordinator?.openCustomPicker()
+		coordinator?.openCustomPicker(delegate: self)
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -495,6 +495,18 @@ extension HomeViewController: CRLSynchronizationDelegate {
         case .statusNetworkError:   networkStatusError()
         }
     }
+}
+
+extension HomeViewController: CustomPickerDelegate {
+	
+	func didSetScanMode(scanMode: ScanMode) {
+		Store.set(scanMode.rawValue, for: .scanMode)
+		Store.set(true, for: .isScanModeSet)
+		
+		setScanModeButton()
+		updateScanButtonStatus()
+	}
+	
 }
 
 extension HomeViewController {

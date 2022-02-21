@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPickerOption" customModule="VerificaC19" customModuleProvider="target">
             <connections>
+                <outlet property="borderView" destination="aWp-xH-NV1" id="o3o-mg-RqD"/>
                 <outlet property="descriptionLabel" destination="qTy-vC-32q" id="Byv-Dc-vuc"/>
                 <outlet property="descriptionView" destination="Dfj-Ao-Jkv" id="dB7-B3-vvC"/>
                 <outlet property="descriptionViewBottomConstraint" destination="mNU-uT-nMT" id="3JH-N3-eGX"/>
@@ -30,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgR-au-t1w" userLabel="Option View">
-                    <rect key="frame" x="0.0" y="0.0" width="833" height="80"/>
+                    <rect key="frame" x="16" y="0.0" width="801" height="80"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4e-P9-eGX">
                             <rect key="frame" x="16" y="11.5" width="323" height="57"/>
@@ -48,7 +49,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="VPl-fC-Acg" firstAttribute="leading" secondItem="V4e-P9-eGX" secondAttribute="leading" id="0Tk-1h-7vU"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="VPl-fC-Acg" secondAttribute="trailing" constant="20" id="1xh-yq-shf"/>
@@ -61,7 +62,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTs-7Z-JNg" userLabel="Radio Button Container">
-                            <rect key="frame" x="785" y="24" width="32" height="32"/>
+                            <rect key="frame" x="753" y="24" width="32" height="32"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niZ-Qx-qSE" userLabel="Radio Button Outer">
                                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -90,7 +91,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="1pd-Fw-lYJ"/>
                                 <constraint firstAttribute="width" constant="32" id="2sq-uO-Bbe"/>
@@ -116,9 +117,9 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dfj-Ao-Jkv" userLabel="Description View">
-                    <rect key="frame" x="16" y="96" width="801" height="348"/>
+                    <rect key="frame" x="32" y="96" width="769" height="348"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTy-vC-32q" userLabel="Scan Mode Info Label">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTy-vC-32q" userLabel="Scan Mode Info Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                             <rect key="frame" x="16" y="16" width="323" height="20.5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -132,16 +133,26 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="100" id="R4L-QE-eSd"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWp-xH-NV1" userLabel="Border View">
+                    <rect key="frame" x="16" y="459" width="801" height="1"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="116-eK-ILx"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="KgR-au-t1w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2uo-n1-Zps"/>
-                <constraint firstAttribute="trailing" secondItem="Dfj-Ao-Jkv" secondAttribute="trailing" constant="16" id="4st-wA-Ztc"/>
+                <constraint firstAttribute="trailing" secondItem="Dfj-Ao-Jkv" secondAttribute="trailing" constant="32" id="4st-wA-Ztc"/>
                 <constraint firstItem="KgR-au-t1w" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" priority="500" id="5F2-yW-7qT"/>
-                <constraint firstItem="Dfj-Ao-Jkv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="AC1-1G-QFC"/>
-                <constraint firstAttribute="trailing" secondItem="KgR-au-t1w" secondAttribute="trailing" id="MU2-t8-xUM"/>
+                <constraint firstItem="Dfj-Ao-Jkv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="AC1-1G-QFC"/>
+                <constraint firstAttribute="bottom" secondItem="aWp-xH-NV1" secondAttribute="bottom" id="D1R-K9-72k"/>
+                <constraint firstAttribute="trailing" secondItem="aWp-xH-NV1" secondAttribute="trailing" constant="16" id="E8y-F0-zoQ"/>
+                <constraint firstItem="aWp-xH-NV1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="FWD-v1-RsD"/>
+                <constraint firstAttribute="trailing" secondItem="KgR-au-t1w" secondAttribute="trailing" constant="16" id="MU2-t8-xUM"/>
                 <constraint firstAttribute="bottom" secondItem="Dfj-Ao-Jkv" secondAttribute="bottom" constant="16" id="mNU-uT-nMT"/>
-                <constraint firstItem="KgR-au-t1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="v8N-Zg-66M"/>
+                <constraint firstItem="KgR-au-t1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="v8N-Zg-66M"/>
                 <constraint firstItem="Dfj-Ao-Jkv" firstAttribute="top" secondItem="KgR-au-t1w" secondAttribute="bottom" constant="16" id="vGf-Xs-Gy3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

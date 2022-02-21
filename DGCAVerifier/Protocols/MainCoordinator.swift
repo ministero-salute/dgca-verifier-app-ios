@@ -77,8 +77,8 @@ extension MainCoordinator: HomeCoordinator {
         navigationController.pushViewController(controller, animated: true)
     }
 	
-	func openCustomPicker() {
-		let controller = CustomPickerController(coordinator: self)
+	func openCustomPicker(delegate: CustomPickerDelegate) {
+		let controller = CustomPickerController(coordinator: self, customPickerDelegate: delegate)
 		controller.modalPresentationStyle = .pageSheet
 		navigationController.present(controller, animated: true)
 	}

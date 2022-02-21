@@ -11,9 +11,15 @@ protocol CustomPickerCoordinator {
 	func dismissCustomPicker(completion: (() -> Void)?)
 }
 
+protocol CustomPickerDelegate {
+	func didSetScanMode(scanMode: ScanMode)
+}
+
 class CustomPickerController: UIViewController {
 	
 	private weak var coordinator: Coordinator?
+	
+	@IBOutlet weak var headerView: UIView!
 	
 	@IBOutlet weak var closeButton: UIButton!
 	@IBOutlet weak var titleLabel: AppLabel!
@@ -23,10 +29,13 @@ class CustomPickerController: UIViewController {
 	private var optionViews: [CustomPickerOption] = []
 	private var optionContents: [CustomPickerOptionContent] = []
 	
-	public init(coordinator: Coordinator) {
+	private var customPickerDelegate: CustomPickerDelegate?
+	
+	public init(coordinator: Coordinator, customPickerDelegate: CustomPickerDelegate?) {
 		super.init(nibName: "CustomPickerController", bundle: nil)
 		
 		self.coordinator = coordinator
+		self.customPickerDelegate = customPickerDelegate
 	}
 	
 	required init?(coder: NSCoder) {
@@ -36,14 +45,19 @@ class CustomPickerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.view.backgroundColor = Palette.gray
+		self.headerView.backgroundColor = Palette.gray
+		
 		self.setupPickerOptionContents()
 		self.setupTitleLabel()
 		self.setupStackView()
+		self.setupInitiallySelectedOption()
     }
 	
 	private func setupPickerOptionContents() -> Void {
 		ScanMode.allCases.forEach{
 			self.optionContents.append(.init(
+				scanMode: $0,
 				scanModeName: $0.buttonTitleName,
 				scanModeDescription: $0.buttonTitleBoldName,
 				scanModeDetails: $0.pickerOptionName
@@ -57,13 +71,10 @@ class CustomPickerController: UIViewController {
 	}
 	
 	private func setupStackView() -> Void {
-		let colors = [UIColor.yellow, UIColor.red, UIColor.black, UIColor.green, UIColor.blue, UIColor.brown, UIColor.purple, UIColor.orange]
-		
-		for index in 0...4 {
+		self.optionContents.forEach{ content in
 			let pickerOption = CustomPickerOption()
-			pickerOption.backgroundColor = colors.randomElement()
-			pickerOption.tag = index
-			pickerOption.fill(with: self.optionContents[index])
+			pickerOption.delegate = self.customPickerDelegate
+			pickerOption.fill(with: content)
 			
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.didSelect(gestureRecognizer:)))
 			pickerOption.addGestureRecognizer(tapGR)
@@ -74,9 +85,22 @@ class CustomPickerController: UIViewController {
 		}
 	}
 	
+	private func setupInitiallySelectedOption() -> Void {
+		guard let rawScanMode: String = Store.get(key: .scanMode) else { return }
+		
+		let scanMode = ScanMode.init(rawValue: rawScanMode)
+		self.optionViews.filter{ $0.scanMode == scanMode }.first?.didSelect()
+	}
+	
 	@objc private func didSelect(gestureRecognizer: UITapGestureRecognizer) -> Void {
 		self.optionViews.forEach{ $0.reset() }
-		(gestureRecognizer.view as! CustomPickerOption).didSelect()
+		
+		let pickerOption: CustomPickerOption = gestureRecognizer.view as! CustomPickerOption
+		pickerOption.didSelect()
+		
+		guard let scanMode = pickerOption.scanMode else { return }
+		Store.set(scanMode.rawValue, for: .scanMode)
+		Store.set(true, for: .isScanModeSet)
 	}
 
 }

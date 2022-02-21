@@ -8,6 +8,7 @@
 import UIKit
 
 struct CustomPickerOptionContent {
+	var scanMode: ScanMode
 	var scanModeName: String
 	var scanModeDescription: String
 	var scanModeDetails: String
@@ -16,18 +17,17 @@ struct CustomPickerOptionContent {
 class CustomPickerOption: UIView {
 	
 	private var nibView: UIView!
-	private var selected: Bool = false
 
 	@IBOutlet weak var optionContainerView: UIView!
 	@IBOutlet var optionContainerViewBottomConstraint: NSLayoutConstraint!
 	
-	@IBOutlet weak var scanModeTitleLabel: UILabel!
-	@IBOutlet weak var scanModeSubtitleLabel: UILabel!
+	@IBOutlet weak var scanModeTitleLabel: AppLabel!
+	@IBOutlet weak var scanModeSubtitleLabel: AppLabel!
 	
 	@IBOutlet weak var descriptionView: UIView!
-	@IBOutlet weak var descriptionLabel: UILabel!
-	
-	@IBOutlet weak var radiusImage: UIImageView!
+	@IBOutlet weak var descriptionLabel: AppLabel!
+		
+	@IBOutlet weak var borderView: UIView!
 	
 	@IBOutlet var descriptionViewTrailingConstraint: NSLayoutConstraint!
 	@IBOutlet var descriptionViewTopConstraint: NSLayoutConstraint!
@@ -37,13 +37,22 @@ class CustomPickerOption: UIView {
 	@IBOutlet weak var radioButtonOuter: UIView!
 	@IBOutlet weak var radioButtonInner: UIView!
 	
+	public var scanMode: ScanMode!
+	public var delegate: CustomPickerDelegate?
+	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 
 		self.nibView = UINib(nibName: "CustomPickerOption", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView
 		self.nibView.frame = self.frame
 		
-		self.setupRadioButton()
+		self.nibView.backgroundColor = Palette.gray
+		self.optionContainerView.backgroundColor = Palette.gray
+		
+		self.setupLabels()
+		self.setRadioButtonSelected(selected: false)
+		self.borderView.backgroundColor = Palette.blue
+		self.hideDescriptionView()
 
 		self.addSubview(self.nibView)
 	}
@@ -52,30 +61,39 @@ class CustomPickerOption: UIView {
 		super.init(coder: coder)
 	}
 	
-	public func fill(with content: CustomPickerOptionContent) {
-		self.scanModeTitleLabel.text = content.scanModeName
-		self.scanModeSubtitleLabel.text = content.scanModeDescription
-		self.descriptionLabel.text = content.scanModeDetails
-	}
-	
-	public func didSelect() {
-		self.onTap()
-	}
-	
-	public func reset() {
-		self.hideDescriptionView()
-	}
-	
-	private func setupRadioButton() {
-		self.radioButtonInner.backgroundColor = Palette.blueDark
+	private func setupLabels() {
 		
-		self.radioButtonOuter.backgroundColor = Palette.white
+	}
+	
+	private func setRadioButtonSelected(selected: Bool) {
+		self.radioButtonInner.backgroundColor = selected ? Palette.blueDark : Palette.gray
+		
+		self.radioButtonOuter.backgroundColor = Palette.gray
 		self.radioButtonOuter.borderWidth = 1
 		self.radioButtonOuter.borderColor = Palette.blueDark
 	}
 	
-	@objc private func onTap() {
+	public func fill(with content: CustomPickerOptionContent) {
+		self.scanMode = content.scanMode
+		
+		self.scanModeTitleLabel.text = content.scanModeName
+		self.scanModeSubtitleLabel.text = content.scanModeDescription
+		self.descriptionLabel.text = content.scanModeDetails
+		self.descriptionLabel.sizeToFit()
+	}
+	
+	public func didSelect() {
 		self.showDescriptionView()
+		self.setRadioButtonSelected(selected: true)
+		
+		guard let scanMode = self.scanMode else { return }
+		
+		self.delegate?.didSetScanMode(scanMode: scanMode)
+	}
+	
+	public func reset() {
+		self.hideDescriptionView()
+		self.setRadioButtonSelected(selected: false)
 	}
 	
 	private func showDescriptionView() {
