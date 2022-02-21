@@ -62,7 +62,10 @@ class CustomPickerOption: UIView {
 	}
 	
 	private func setupLabels() {
-		
+		self.scanModeTitleLabel.bold 		= true
+		self.scanModeTitleLabel.size 		= 15
+		self.scanModeSubtitleLabel.size 	= 15
+		self.descriptionLabel.bold 			= true
 	}
 	
 	private func setRadioButtonSelected(selected: Bool) {
