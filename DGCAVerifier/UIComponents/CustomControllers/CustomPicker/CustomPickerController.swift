@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CustomPickerCoordinator {
+protocol CustomPickerCoordinator: Coordinator {
 	func dismissCustomPicker(completion: (() -> Void)?)
 }
 
@@ -17,21 +17,23 @@ protocol CustomPickerDelegate {
 
 class CustomPickerController: UIViewController {
 	
-	private weak var coordinator: Coordinator?
+	private weak var coordinator: CustomPickerCoordinator?
 	
+	@IBOutlet weak var shadowViewContainer: AppShadowView!
 	@IBOutlet weak var headerView: UIView!
 	
 	@IBOutlet weak var closeButton: UIButton!
+	@IBOutlet weak var confirmButton: AppButton!
 	@IBOutlet weak var titleLabel: AppLabel!
-	@IBOutlet weak var titleLabelBold: AppLabel!
 	@IBOutlet weak var optionsStackView: UIStackView!
 	
 	private var optionViews: [CustomPickerOption] = []
 	private var optionContents: [CustomPickerOptionContent] = []
+	private var selectedScanMode: ScanMode?
 	
 	private var customPickerDelegate: CustomPickerDelegate?
 	
-	public init(coordinator: Coordinator, customPickerDelegate: CustomPickerDelegate?) {
+	public init(coordinator: CustomPickerCoordinator, customPickerDelegate: CustomPickerDelegate?) {
 		super.init(nibName: "CustomPickerController", bundle: nil)
 		
 		self.coordinator = coordinator
@@ -45,15 +47,17 @@ class CustomPickerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.view.backgroundColor = Palette.gray
+		self.view.backgroundColor = Palette.black.withAlphaComponent(0.65)
+		self.shadowViewContainer.backgroundColor = Palette.gray
 		self.headerView.backgroundColor = Palette.gray
 		
 		self.setupPickerOptionContents()
 		self.setupTitleLabel()
+		self.setupConfirmButton()
 		self.setupStackView()
 		self.setupInitiallySelectedOption()
     }
-	
+
 	private func setupPickerOptionContents() -> Void {
 		ScanMode.allCases.forEach{
 			self.optionContents.append(.init(
@@ -66,15 +70,21 @@ class CustomPickerController: UIViewController {
 	}
 	
 	private func setupTitleLabel() -> Void {
-		self.titleLabel.font = Font.getFont(size: 30, style: .regular)
-		self.titleLabelBold.font = Font.getFont(size: 30, style: .bold)
+		self.titleLabel.font = Font.getFont(size: 22, style: .regular)
+	}
+	
+	private func setupConfirmButton() -> Void {
+		self.confirmButton.contentHorizontalAlignment = .center
 	}
 	
 	private func setupStackView() -> Void {
-		self.optionContents.forEach{ content in
+		self.optionContents.enumerated().forEach{ (index, content) in
 			let pickerOption = CustomPickerOption()
-			pickerOption.delegate = self.customPickerDelegate
 			pickerOption.fill(with: content)
+			
+			if index == self.optionContents.count - 1 {
+				pickerOption.borderView.isHidden = true
+			}
 			
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.didSelect(gestureRecognizer:)))
 			pickerOption.addGestureRecognizer(tapGR)
@@ -98,9 +108,21 @@ class CustomPickerController: UIViewController {
 		let pickerOption: CustomPickerOption = gestureRecognizer.view as! CustomPickerOption
 		pickerOption.didSelect()
 		
-		guard let scanMode = pickerOption.scanMode else { return }
-		Store.set(scanMode.rawValue, for: .scanMode)
+		self.selectedScanMode = pickerOption.scanMode
+	}
+	
+	@IBAction func didTapConfirm(_ sender: Any) {
+		guard let selectedScanMode = self.selectedScanMode else { return }
+		
+		Store.set(selectedScanMode.rawValue, for: .scanMode)
 		Store.set(true, for: .isScanModeSet)
+		
+		self.coordinator?.dismissCustomPicker(completion: nil)
+		self.customPickerDelegate?.didSetScanMode(scanMode: selectedScanMode)
+	}
+	
+	@IBAction func didTapClose(_ sender: Any) {
+		self.coordinator?.dismissCustomPicker(completion: nil)
 	}
 
 }

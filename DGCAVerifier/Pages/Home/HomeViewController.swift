@@ -500,9 +500,6 @@ extension HomeViewController: CRLSynchronizationDelegate {
 extension HomeViewController: CustomPickerDelegate {
 	
 	func didSetScanMode(scanMode: ScanMode) {
-		Store.set(scanMode.rawValue, for: .scanMode)
-		Store.set(true, for: .isScanModeSet)
-		
 		setScanModeButton()
 		updateScanButtonStatus()
 	}

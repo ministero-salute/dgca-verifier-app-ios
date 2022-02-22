@@ -38,7 +38,6 @@ class CustomPickerOption: UIView {
 	@IBOutlet weak var radioButtonInner: UIView!
 	
 	public var scanMode: ScanMode!
-	public var delegate: CustomPickerDelegate?
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -48,10 +47,11 @@ class CustomPickerOption: UIView {
 		
 		self.nibView.backgroundColor = Palette.gray
 		self.optionContainerView.backgroundColor = Palette.gray
+		self.descriptionView.backgroundColor = Palette.grayDark
 		
 		self.setupLabels()
 		self.setRadioButtonSelected(selected: false)
-		self.borderView.backgroundColor = Palette.blue
+		self.borderView.backgroundColor = Palette.blueDark.withAlphaComponent(0.3)
 		self.hideDescriptionView()
 
 		self.addSubview(self.nibView)
@@ -88,10 +88,6 @@ class CustomPickerOption: UIView {
 	public func didSelect() {
 		self.showDescriptionView()
 		self.setRadioButtonSelected(selected: true)
-		
-		guard let scanMode = self.scanMode else { return }
-		
-		self.delegate?.didSetScanMode(scanMode: scanMode)
 	}
 	
 	public func reset() {

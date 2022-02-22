@@ -79,7 +79,7 @@ extension MainCoordinator: HomeCoordinator {
 	
 	func openCustomPicker(delegate: CustomPickerDelegate) {
 		let controller = CustomPickerController(coordinator: self, customPickerDelegate: delegate)
-		controller.modalPresentationStyle = .pageSheet
+		controller.modalPresentationStyle = .overFullScreen
 		navigationController.present(controller, animated: true)
 	}
     
@@ -127,7 +127,7 @@ extension MainCoordinator: SettingsCoordinator {
 
 extension MainCoordinator: CustomPickerCoordinator {
 	func dismissCustomPicker(completion: (() -> Void)?) {
-		navigationController.popViewController(animated: false)
+		navigationController.dismiss(animated: true, completion: nil)
 	}
 }
 

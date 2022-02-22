@@ -28,12 +28,12 @@
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
-		14B94A5727BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
-		14B94A5827BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
 		14B94A5127BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5227BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5427BEB13200B2B906 /* CustomPickerOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */; };
 		14B94A5527BEB13200B2B906 /* CustomPickerOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */; };
+		14B94A5727BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
+		14B94A5827BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
 		14C3B3CE27BD47CC00C2C2A7 /* CustomPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */; };
 		14C3B3CF27BD47CC00C2C2A7 /* CustomPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */; };
 		14C3B3D027BD47CC00C2C2A7 /* CustomPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */; };
@@ -430,9 +430,9 @@
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
 		14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerOption.swift; sourceTree = "<group>"; };
 		14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerOption.xib; sourceTree = "<group>"; };
+		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
 		14C3B3CC27BD47CC00C2C2A7 /* CustomPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerController.swift; sourceTree = "<group>"; };
 		14C3B3CD27BD47CC00C2C2A7 /* CustomPickerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerController.xib; sourceTree = "<group>"; };
-		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
 		14CD25DF27B2BA6B007DF2A4 /* HFBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFBackViewController.swift; sourceTree = "<group>"; };
 		14CD25E027B2BA6B007DF2A4 /* HFBackViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HFBackViewController.xib; sourceTree = "<group>"; };
 		14D4F19527B57458002B2F00 /* mockedSettings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockedSettings.json; sourceTree = "<group>"; };
