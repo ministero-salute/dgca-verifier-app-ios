@@ -106,8 +106,8 @@ struct Constants {
     static let verificationNeededFaqLink = "verification_needed_faq_link"
     static let notValidYetFaqText = "not_valid_yet_faq_text"
     static let notValidYetFaqLink = "not_valid_yet_faq_link"
-    static let notDGCFaqText = "not_dgc_faq_text"
-    static let notDGCFaqLink = "not_dgc_faq_link"
+    static let notDGCFaqText = "not_eu_dgc_faq_text"
+    static let notDGCFaqLink = "not_eu_dgc_faq_link"
     
     static let boosterMinimumDosesNumber = 3
     static let jjBoosterMinimumDosesNumber = 2
