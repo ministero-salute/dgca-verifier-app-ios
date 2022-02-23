@@ -14,7 +14,7 @@
                 <outlet property="alertView" destination="YIM-Fs-0ZT" id="Y4l-2g-Jug"/>
                 <outlet property="cancelButton" destination="Xtc-3X-ldM" id="ZOW-iX-Atx"/>
                 <outlet property="confirmButton" destination="LyC-d4-NRu" id="dVd-Oe-KJA"/>
-                <outlet property="messageLabel" destination="4DA-XF-bYZ" id="80b-GF-YFg"/>
+                <outlet property="messageTextView" destination="zzW-2K-EYs" id="6hU-FI-3GI"/>
                 <outlet property="titleLabel" destination="JiI-5C-sGj" id="1e5-Xf-J7t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,13 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YIM-Fs-0ZT" userLabel="Alert View">
-                    <rect key="frame" x="41.5" y="383" width="331" height="140"/>
+                    <rect key="frame" x="41.5" y="276.5" width="331" height="353"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-e4-2IM">
-                            <rect key="frame" x="24" y="16" width="283" height="57"/>
+                            <rect key="frame" x="24" y="16" width="283" height="270"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1er-V4-JGH">
-                                    <rect key="frame" x="0.0" y="0.0" width="283" height="57"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="283" height="270"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiI-5C-sGj" userLabel="Title Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="283" height="20.5"/>
@@ -42,12 +42,14 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <label opaque="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="LabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DA-XF-bYZ" userLabel="Message Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="36.5" width="283" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zzW-2K-EYs">
+                                            <rect key="frame" x="0.0" y="36.5" width="283" height="233.5"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -61,7 +63,7 @@
                             </constraints>
                         </scrollView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="p5M-re-Ueq">
-                            <rect key="frame" x="24" y="89" width="283" height="35"/>
+                            <rect key="frame" x="24" y="302" width="283" height="35"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Più tardi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtc-3X-ldM" userLabel="Cancel Button" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
@@ -110,6 +112,9 @@
         </view>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

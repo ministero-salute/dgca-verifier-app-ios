@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +14,7 @@
                 <outlet property="countriesButton" destination="w6r-or-WKE" id="ZOK-Qw-yAB"/>
                 <outlet property="debugView" destination="fmH-Ai-Bva" id="Tsf-HD-0TE"/>
                 <outlet property="faqLabel" destination="u8T-GU-inN" id="vfH-MP-0VT"/>
+                <outlet property="infoButton" destination="ceE-Ux-hv0" id="RDA-F5-naN"/>
                 <outlet property="lastFetchContainer" destination="I6Z-bN-OQY" id="Qgg-zl-eFA"/>
                 <outlet property="lastFetchLabel" destination="qed-03-Mb1" id="z4T-Bc-kYd"/>
                 <outlet property="privacyPolicyLabel" destination="u2K-iQ-XAX" id="BWP-7u-Jrk"/>
@@ -22,6 +23,7 @@
                 <outlet property="scanButton" destination="GO1-as-LpM" id="zuk-ev-Cwj"/>
                 <outlet property="scanModeButton" destination="29A-Co-TOQ" id="UGD-9U-Ez8"/>
                 <outlet property="settingsView" destination="fLh-X8-Yfz" id="dds-gF-N9T"/>
+                <outlet property="titleLabel" destination="uny-g3-Hap" id="2bx-40-p5y"/>
                 <outlet property="updateNowButton" destination="69a-03-GkF" id="5WT-6P-EvP"/>
                 <outlet property="versionLabel" destination="39z-HB-0ZJ" id="SZ9-SZ-D2I"/>
                 <outlet property="view" destination="T8R-UI-qcI" id="8R1-82-1s7"/>
@@ -67,7 +69,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Versione 1.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39z-HB-0ZJ" customClass="AppLabelUrl" customModule="VerificaC19" customModuleProvider="target">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Versione 1.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39z-HB-0ZJ" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
                                     <rect key="frame" x="196.5" y="0.0" width="105.5" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -254,40 +256,47 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="5bx-Gg-eaB">
-                    <rect key="frame" x="32" y="717" width="350" height="129"/>
+                    <rect key="frame" x="32" y="708" width="350" height="138"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Cy2-hK-jJT">
-                            <rect key="frame" x="0.0" y="0.0" width="350" height="41"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7GN-Og-TO3">
+                            <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Verifica una" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uny-g3-Hap" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Verifica una" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uny-g3-Hap" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="89.5" height="50"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.title"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="size">
                                             <real key="value" value="30"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Certificazione verde COVID-19" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyN-YW-0rM" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="20.5" width="350" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceE-Ux-hv0" userLabel="Info Button" customClass="ExtendedUIButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="105.5" y="20" width="22" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="22" id="3Aa-kR-V6B"/>
+                                        <constraint firstAttribute="width" constant="22" id="lG0-r2-kMh"/>
+                                    </constraints>
+                                    <state key="normal" image="info_circle" backgroundImage="info_circle"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="home.title.bold"/>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="size">
-                                            <real key="value" value="30"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="extendedTappableMargin">
+                                            <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="bold" value="YES"/>
                                     </userDefinedRuntimeAttributes>
-                                </label>
+                                </button>
                             </subviews>
-                        </stackView>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="uny-g3-Hap" secondAttribute="bottom" id="5Uj-ew-b5i"/>
+                                <constraint firstAttribute="bottom" secondItem="ceE-Ux-hv0" secondAttribute="bottom" constant="8" id="AFe-Qv-7GE"/>
+                                <constraint firstItem="uny-g3-Hap" firstAttribute="top" secondItem="7GN-Og-TO3" secondAttribute="top" id="Bew-qN-eOH"/>
+                                <constraint firstItem="uny-g3-Hap" firstAttribute="leading" secondItem="7GN-Og-TO3" secondAttribute="leading" id="PTk-iu-vki"/>
+                                <constraint firstItem="ceE-Ux-hv0" firstAttribute="leading" secondItem="uny-g3-Hap" secondAttribute="trailing" constant="16" id="mEZ-qe-7tb"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29A-Co-TOQ" userLabel="ScanModeButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="55" width="350" height="30"/>
+                            <rect key="frame" x="0.0" y="64" width="350" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="750" constant="30" id="KfR-k8-3ta"/>
                             </constraints>
@@ -298,7 +307,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GO1-as-LpM" userLabel="ScanButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="99" width="350" height="30"/>
+                            <rect key="frame" x="0.0" y="108" width="350" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="30" id="Ktm-aY-uux"/>
                             </constraints>
@@ -311,7 +320,7 @@
                             </connections>
                         </button>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="oppure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO5-cr-3N3" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="129" width="350" height="0.0"/>
+                            <rect key="frame" x="0.0" y="138" width="350" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -321,7 +330,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6r-or-WKE" userLabel="CountryButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="129" width="350" height="0.0"/>
+                            <rect key="frame" x="0.0" y="138" width="350" height="0.0"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="30" id="JEg-Ck-llB"/>
                             </constraints>
@@ -354,8 +363,14 @@
             <point key="canvasLocation" x="-1643.4782608695652" y="-1570.3125"/>
         </view>
     </objects>
+    <designables>
+        <designable name="ceE-Ux-hv0">
+            <size key="intrinsicContentSize" width="20" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="icon_logo" width="37" height="37"/>
+        <image name="info_circle" width="20" height="20"/>
         <image name="ladybug" catalog="system" width="128" height="128"/>
         <image name="settings" width="16" height="16"/>
         <systemColor name="labelColor">

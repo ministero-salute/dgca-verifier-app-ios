@@ -36,6 +36,8 @@ public struct AlertContent {
     public var confirmActionTitle: String?
     public var cancelAction: Action?
     public var cancelActionTitle: String?
+    public var isHTMLBased: Bool? = false
+
     
     public init (
         title: String? = nil,
@@ -43,7 +45,8 @@ public struct AlertContent {
         confirmAction: Action? = nil,
         confirmActionTitle: String? = nil,
         cancelAction: Action? = nil,
-        cancelActionTitle: String? = nil
+        cancelActionTitle: String? = nil,
+        isHTMLBased: Bool? = nil
     ) {
         self.title = title?.localized
         self.message = message?.localized
@@ -51,5 +54,6 @@ public struct AlertContent {
         self.confirmActionTitle = confirmActionTitle?.localized
         self.cancelAction = cancelAction
         self.cancelActionTitle = cancelActionTitle?.localized
+        self.isHTMLBased = isHTMLBased
     }
 }

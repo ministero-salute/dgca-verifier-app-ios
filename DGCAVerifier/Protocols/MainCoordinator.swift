@@ -60,7 +60,9 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: HomeCoordinator {
     func showCamera() {
-        let controller = CameraViewController(coordinator: self)
+		let cameraViewController = CameraViewController(coordinator: self)
+		let controller = HFBackViewController()
+		controller.delegate = cameraViewController
         navigationController.pushViewController(controller, animated: true)
     }
     
@@ -89,7 +91,11 @@ extension MainCoordinator: HomeCoordinator {
 extension MainCoordinator: CameraCoordinator {
     func validate(payload: String, country: CountryModel?, delegate: CameraDelegate) {
         let vm = VerificationViewModel(payload: payload, country: country)
-        let controller = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        let verificationController = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        verificationController.modalPresentationStyle = .overFullScreen
+        verificationController.modalTransitionStyle = .crossDissolve
+        let controller = HFBackViewController()
+        controller.delegate = verificationController
         controller.modalPresentationStyle = .overFullScreen
         controller.modalTransitionStyle = .crossDissolve
         navigationController.present(controller, animated: true)

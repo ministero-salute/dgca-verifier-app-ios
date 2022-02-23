@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderBar" customModule="VerificaC19" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="bzr-hJ-hdX" id="uHd-cg-b3h"/>
+                <outlet property="flashButton" destination="4yC-gZ-0Wd" id="Bqi-3a-IvN"/>
+                <outlet property="scanModeLabel" destination="zCv-63-od3" id="zjA-av-F5F"/>
+                <outlet property="switchCameraButton" destination="0CV-6k-ooo" id="Dgz-bn-Nx6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMv-K8-Sxk">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPv-jS-abm" userLabel="Header">
+                            <rect key="frame" x="0.0" y="2.5" width="414" height="58"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CV-6k-ooo" userLabel="SwitchCameraButton">
+                                    <rect key="frame" x="320" y="19" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="WLz-F3-ALX"/>
+                                        <constraint firstAttribute="width" constant="20" id="aZw-AK-Udq"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="switch-camera"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzr-hJ-hdX" userLabel="ButtonBack" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="0.0" width="207" height="58"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="58" id="dfx-Z1-c79"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="camera.back.home"/>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-gZ-0Wd" userLabel="FlashButton" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="348" y="0.0" width="58" height="58"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="58" id="6Zd-a9-2EZ"/>
+                                        <constraint firstAttribute="width" constant="58" id="hAN-zd-S8i"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="flash-camera"/>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCv-63-od3" userLabel="ScanModeLabel" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="0.0" width="207" height="58"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="58" id="j66-xw-5wf"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="4yC-gZ-0Wd" firstAttribute="leading" secondItem="0CV-6k-ooo" secondAttribute="trailing" constant="8" id="3fJ-Zd-hNs"/>
+                                <constraint firstItem="4yC-gZ-0Wd" firstAttribute="centerY" secondItem="cPv-jS-abm" secondAttribute="centerY" id="4v9-tQ-Hsn"/>
+                                <constraint firstItem="zCv-63-od3" firstAttribute="width" secondItem="cPv-jS-abm" secondAttribute="width" multiplier="0.5" id="6Ek-SN-Vsl"/>
+                                <constraint firstAttribute="height" constant="58" id="WjR-Da-0cJ"/>
+                                <constraint firstItem="0CV-6k-ooo" firstAttribute="centerY" secondItem="cPv-jS-abm" secondAttribute="centerY" id="ZNt-eD-sdL"/>
+                                <constraint firstAttribute="bottom" secondItem="zCv-63-od3" secondAttribute="bottom" id="aU0-yQ-s72"/>
+                                <constraint firstAttribute="bottom" secondItem="bzr-hJ-hdX" secondAttribute="bottom" id="aUT-jW-Gv6"/>
+                                <constraint firstItem="bzr-hJ-hdX" firstAttribute="leading" secondItem="cPv-jS-abm" secondAttribute="leading" constant="16" id="fi9-cc-kWi"/>
+                                <constraint firstAttribute="trailing" secondItem="4yC-gZ-0Wd" secondAttribute="trailing" constant="8" id="fmJ-0o-c9u"/>
+                                <constraint firstItem="bzr-hJ-hdX" firstAttribute="width" secondItem="cPv-jS-abm" secondAttribute="width" multiplier="0.5" id="iZf-JA-ndh"/>
+                                <constraint firstItem="zCv-63-od3" firstAttribute="leading" secondItem="cPv-jS-abm" secondAttribute="leading" constant="16" id="r6d-Kk-B8t"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="bzr-hJ-hdX"/>
+                                </mask>
+                            </variation>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="cPv-jS-abm" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="JMv-K8-Sxk" secondAttribute="bottom" id="3cu-c5-z95"/>
+                        <constraint firstItem="cPv-jS-abm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JMv-K8-Sxk" secondAttribute="top" id="B27-Bw-UY5"/>
+                        <constraint firstItem="cPv-jS-abm" firstAttribute="centerY" secondItem="JMv-K8-Sxk" secondAttribute="centerY" id="WK1-2G-dMb"/>
+                        <constraint firstItem="cPv-jS-abm" firstAttribute="leading" secondItem="JMv-K8-Sxk" secondAttribute="leading" id="ZtP-B2-Brv"/>
+                        <constraint firstAttribute="trailing" secondItem="cPv-jS-abm" secondAttribute="trailing" id="v21-E4-rAw"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JMv-K8-Sxk" secondAttribute="bottom" id="9go-Sp-Ldd"/>
+                <constraint firstAttribute="trailing" secondItem="JMv-K8-Sxk" secondAttribute="trailing" id="MOT-dW-I6c"/>
+                <constraint firstItem="JMv-K8-Sxk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ncl-vk-dMU"/>
+                <constraint firstItem="JMv-K8-Sxk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sR2-AW-bwU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-189.17410714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="flash-camera" width="24" height="24"/>
+        <image name="switch-camera" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

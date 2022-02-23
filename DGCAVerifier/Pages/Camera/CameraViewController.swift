@@ -35,7 +35,7 @@ protocol CameraDelegate {
     func startOperations()
 }
 
-let mockQRCode = "<add your mock qr code here>"
+let mockQRCode = "HC1:6BFOXN%TS3DHPVO13J /G-/2YRVA.Q/R82JD2FCJG96V75DOW%IY17EIHY P8L6IWM$S4U45P84HW6U/4:84LC6 YM::QQHIZC4.OI1RM8ZA.A5:S9MKN4NN3F85QNCY0O%0VZ001HOC9JU0D0HT0HB2PL/IB*09B9LW4T*8+DCMH0LDK2%KI*V AQ2%KYZPQV6YP8722XOE7:8IPC2L4U/6H1D31BLOETI0K/4VMA/.6LOE:/8IL882B+SGK*R3T3+7A.N88J4R$F/MAITHW$P7S3-G9++9-G9+E93ZM$96TV6QRR 1JI7JSTNCA7G6MXYQYYQQKRM64YVQB95326FW4AJOMKMV35U:7-Z7QT499RLHPQ15O+4/Z6E 6U963X7$8Q$HMCP63HU$*GT*Q3-Q4+O7F6E%CN4D74DWZJ$7K+ CZEDB2M$9C1QD7+2K3475J%6VAYCSP0VSUY8WU9SG43A-RALVMO8+-VD2PRPTB7S015SSFW/BE1S1EV*2Q396Q*4TVNAZHJ7N471FPL-CA+2KG-6YPPB7C%40F18N4"
 
 class CameraViewController: UIViewController {
     weak var coordinator: CameraCoordinator?
@@ -46,13 +46,20 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var countryButton: AppButton!
     @IBOutlet weak var flashButton: AppButton!
     @IBOutlet weak var switchButton: UIButton!
-
-    private var captureSession = AVCaptureSession()
+	
+	private var headerBar: HeaderBar?
+	private var footerBar: FooterBar?
+	
+	private var captureSession = AVCaptureSession()
+    private var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
     init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
         self.coordinator = coordinator
         self.country = country
         super.init(nibName: "CameraViewController", bundle: nil)
+		
+		self.initializeHeaderBar()
+		self.initializeFooterBar()
     }
 
     required init?(coder: NSCoder) {
@@ -80,6 +87,13 @@ class CameraViewController: UIViewController {
         super.viewWillAppear(animated)
         startOperations()
     }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        DispatchQueue.main.async {
+            self.cameraPreviewLayer?.frame = self.cameraView.frame
+        }
+    }
     
     public func startOperations() {
         setupCamera()
@@ -96,11 +110,23 @@ class CameraViewController: UIViewController {
         Store.set(AVCaptureDevice.isTorchActive, for: .isTorchActive)
     }
     
+    @objc private func flashSwitchAction() {
+        AVCaptureDevice.switchTorch()
+        Store.set(AVCaptureDevice.isTorchActive, for: .isTorchActive)
+    }
+    
     @IBAction func backToRoot(_ sender: Any) {
         coordinator?.dismissToRoot()
     }
 
     @IBAction func switchCamera(_ sender: Any) {
+        changeCameraMode()
+        setupCamera()
+        startRunning()
+        setupFlash()
+    }
+    
+    @objc private func switchCameraAction() {
         changeCameraMode()
         setupCamera()
         startRunning()
@@ -120,6 +146,23 @@ class CameraViewController: UIViewController {
         }
         coordinator?.validate(payload: payload, country: country, delegate: self)
     }
+	
+	@objc private func goBack() {
+		coordinator?.dismiss()
+	}
+	
+	private func initializeHeaderBar() {
+		self.headerBar = HeaderBar()
+		self.headerBar?.backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        self.headerBar?.switchCameraButton.addTarget(self, action: #selector(switchCameraAction), for: .touchUpInside)
+        self.headerBar?.flashButton.addTarget(self, action: #selector(flashSwitchAction), for: .touchUpInside)
+	}
+	
+	private func initializeFooterBar() {
+		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goBack))
+		self.footerBar = FooterBar()
+		self.footerBar?.closeView.addGestureRecognizer(gestureRecognizer)
+	}
     
     private func initializeBackButton() {
         backButton.style = .minimal
@@ -127,10 +170,10 @@ class CameraViewController: UIViewController {
     }
     
     private func initializeFlashButton() {
-        flashButton.cornerRadius = 30.0
-        flashButton.backgroundColor = .clear
-        flashButton.setImage(UIImage(named: "flash-camera"))
-        flashButton.isHidden = Store.getBool(key: .isFrontCameraActive)
+        self.headerBar?.flashButton.cornerRadius = 30.0
+        self.headerBar?.flashButton.backgroundColor = .clear
+        self.headerBar?.flashButton.setImage(UIImage(named: "flash-camera"))
+        self.headerBar?.flashButton.isHidden = Store.getBool(key: .isFrontCameraActive)
     }
     
     private func initializeCountryButton() {
@@ -147,14 +190,14 @@ class CameraViewController: UIViewController {
     private func changeCameraMode() {
         let frontCameraActive = Store.getBool(key: .isFrontCameraActive)
         Store.set(!frontCameraActive, for: .isFrontCameraActive)
-        flashButton.isHidden = !frontCameraActive
+        self.headerBar?.flashButton.isHidden = !frontCameraActive
     }
     
     private func setupCamera() {
         cleanSession()
         captureSession.setup(self, with: currentCameraMode)
-        let layer = captureSession.getPreviewLayer(for: view)
-        cameraView.layer.insertSublayer(layer, at: 0)
+        cameraPreviewLayer = captureSession.getPreviewLayer(for: cameraView)
+        cameraView.layer.insertSublayer(cameraPreviewLayer!, at: 0)
     }
     
     private func cleanSession() {
@@ -193,6 +236,20 @@ class CameraViewController: UIViewController {
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
     }
+}
+
+extension CameraViewController: HeaderFooterDelegate {
+	public var header: UIView? {
+		return self.headerBar
+	}
+	
+	public var contentVC: UIViewController? {
+		return self
+	}
+	
+	public var footer: UIView? {
+		return self.footerBar
+	}
 }
 
 extension CameraViewController: CameraDelegate {

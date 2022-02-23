@@ -5,7 +5,7 @@
   
 */
 
-"home.title" = "Verifica una";
+"home.title" = "Verifica una\nCertificazione\nverde COVID-19";
 "home.title.bold" = "Certificazione\nverde COVID-19";
 "home.scan" = "Scansiona il QR Code";
 "home.choose.country" = "Scegli paese di destinazione";
@@ -14,35 +14,32 @@
 "home.or" = "oppure";
 "home.loading" = "Aggiornamento in corso...";
 "home.not.available" = "N/A";
-"home.version" = "Versione";
+"home.version" = "versione";
 "home.update.now" = "Aggiorna ora";
 "home.show.more" = "Leggi di più";
 
 "home.scan.button.mode.default" = "SCEGLI TIPOLOGIA DI VERIFICA";
-"home.scan.button.bold.3G" = "VERIFICA BASE";
-"home.scan.button.bold.2G" = "VERIFICA RAFFORZATA";
-"home.scan.button.bold.Booster" = "VERIFICA VISITATORI RSA";
-"home.scan.button.bold.50" = "VERIFICA LAVORO";
-"home.scan.button.bold.italy.entry" = "VERIFICA INGRESSO IT";
-"home.scan.button.bold.School" = "VERIFICA STUDENTI";
-"home.scan.button.bold.50" = "VERIFICA LAVORO";
+"home.scan.button.bold.3G" = "B - BASE";
+"home.scan.button.bold.2G" = "R - RAFFORZATA";
+"home.scan.button.bold.Booster" = "V - VISITATORI RSA";
+"home.scan.button.bold.50" = "L - LAVORO";
+"home.scan.button.bold.italy.entry" = "I - INGRESSO IT";
+"home.scan.button.bold.School" = "S - STUDENTI";
 
-"home.scan.button.mode.3G" = "VERIFICA BASE\nVACCINAZIONE/GUARIGIONE/TAMPONE";
-"home.scan.button.mode.2G" = "VERIFICA RAFFORZATA\nVACCINAZIONE/GUARIGIONE";
-"home.scan.button.mode.Booster" = "VERIFICA VISITATORI RSA\nRICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE";
-"home.scan.button.mode.50" = "VERIFICA LAVORO\nBASE <50 ANNI - RAFFORZATA >= 50 ANNI";
-"home.scan.button.mode.italy.entry" = "VERIFICA INGRESSO IT\nRICHIAMO/CICLO COMPLETO <=270GG/GUARIGIONE/TAMPONE";
-"home.scan.button.mode.School" = "VERIFICA STUDENTI\nRICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG";
-"home.scan.button.mode.50" = "VERIFICA LAVORO\nVACCINAZIONE/GUARIGIONE";
+"home.scan.button.mode.3G" = "B - BASE\n(VACCINAZIONE/GUARIGIONE/TAMPONE)";
+"home.scan.button.mode.2G" = "R - RAFFORZATA\n(VACCINAZIONE/GUARIGIONE)";
+"home.scan.button.mode.Booster" = "V - VISITATORI RSA\n(RICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE)";
+"home.scan.button.mode.50" = "L - LAVORO\n(BASE <50 ANNI - RAFFORZATA >= 50 ANNI)";
+"home.scan.button.mode.italy.entry" = "I - INGRESSO IT\n(RICHIAMO/CICLO COMPLETO <=270GG/GUARIGIONE/TAMPONE)";
+"home.scan.button.mode.School" = "S - STUDENTI\n(RICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG)";
 
 "home.scan.picker.title"   = "Tipologia verifica";
-"home.scan.picker.mode.3G" = "BASE (vaccinazione/guarigione/tampone)";
-"home.scan.picker.mode.2G" = "RAFFORZATA (vaccinazione/guarigione)";
-"home.scan.picker.mode.Booster" = "VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione + tampone)";
-"home.scan.picker.mode.50" = "LAVORO (base <50 anni - rafforzata >= 50 anni)";
-"home.scan.picker.mode.italy.entry" = "INGRESSO IT (richiamo/ciclo completo <=270gg/guarigione/tampone)";
-"home.scan.picker.mode.School" = "STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
-"home.scan.picker.mode.50" = "LAVORO (vaccinazione/guarigione)";
+"home.scan.picker.mode.3G" = "B - BASE (vaccinazione/guarigione/tampone)";
+"home.scan.picker.mode.2G" = "R - RAFFORZATA (vaccinazione/guarigione)";
+"home.scan.picker.mode.Booster" = "V - VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione + tampone)";
+"home.scan.picker.mode.50" = "L - LAVORO (base <50 anni - rafforzata >= 50 anni)";
+"home.scan.picker.mode.italy.entry" = "I - INGRESSO IT (richiamo/ciclo completo <=270gg/guarigione/tampone)";
+"home.scan.picker.mode.School" = "S - STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -75,6 +72,13 @@
 "result.description.revoked" = "La certificazione risulta essere revocata";
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
 "result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
+
+"top.bar.scan.mode.2G" = "R - RAFFORZATA";
+"top.bar.scan.mode.3G" = "B - BASE";
+"top.bar.scan.mode.Boster" = "V - VISITATORI RSA";
+"top.bar.scan.mode.Scuola" = "S - STUDENTI";
+"top.bar.scan.mode.50" = "L - LAVORO";
+"top.bar.scan.mode.itEntry" = "I - INGRESSO IT";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";
@@ -111,12 +115,16 @@
 "alert.default.action" = "OK";
 
 "alert.scan.unset.title" = "Impossibile scansionare";
-"alert.scan.unset.message" = "Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: BASE, RAFFORZATA, VISITATORI RSA, LAVORO, INGRESSO IT, STUDENTI.\nTipologia BASE: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione.\nTipologia RAFFORZATA: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione.\nTipologia VISITATORI RSA: da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione insieme alla contestuale presentazione di un documento, cartaceo o digitale, che attesti l’esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti. \nTipologia LAVORO - da utilizzare per l’accesso ai luoghi di lavoro dal 15 febbraio: fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione. \nTipologia INGRESSO IT - da utilizzare all’atto dell'ingresso in Italia dall'estero: la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. Sulla base del tipo di vaccino o ciclo completato da più di 180gg e fino a 270gg può richiedere la contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti \nTipologia STUDENTI: da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni e le certificazioni di esenzione dalla vaccinazione. \n\nConsulta la tabella sulle attività consentite senza o con green pass (link https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf)";
+"alert.scan.unset.message" = "<p style=\"font-family: TitilliumWeb-Regular, Helvetica-Neue; color: rgb(0, 69, 107);\">Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: <b>BASE, RAFFORZATA, VISITATORI RSA, LAVORO, INGRESSO IT, STUDENTI.</b></br></br><b>Tipologia BASE (B) - </b> <i>da utilizzare dove è richiesto il green pass base</i>: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia RAFFORZATA (R)</b> - <i>da utilizzare dove è richiesto il green pass rafforzato</i>: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia VISITATORI RSA (V):</b> <i>da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione oppure le certificazioni di esenzione dalla vaccinazione, in tutti e tre i casi insieme alla contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti.</br><b>Tipologia LAVORO (L):</b> <i>da utilizzare per l’accesso ai luoghi di lavoro dal 15 febbraio:</i> fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia INGRESSO IT (I):</b> <i>da utilizzare all’atto dell'ingresso in Italia dall'estero:</i> la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. In caso di vaccini non autorizzati EMA o non riconosciuti equivalenti, l’App richiede la contestuale presentazione dell'esito di un test rapido negativo eseguito nelle 48 ore precedenti oppure un test molecolare negativo eseguito nelle 72 ore.</br><b>Tipologia STUDENTI (S):</b> <i>da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni e le certificazioni di esenzione dalla vaccinazione.</br></br>Consulta la tabella sulle attività consentite senza/ o con green pass base  rafforzato (link <a href=\"https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf\">https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf</a>)</p>";
+
+"alert.scan.mode.info.title" = "Quali sono le tipologie di verifica";
+"alert.scan.mode.info.message" = "<p style=\"font-family: TitilliumWeb-Regular, Helvetica-Neue; color: rgb(0, 69, 107);\">Le tipologie di verifica della Certificazione verde Covid-19 sono: <b>BASE, RAFFORZATA, VISITATORI RSA, LAVORO, INGRESSO IT, STUDENTI.</b></br></br><b>Tipologia BASE (B) - </b> <i>da utilizzare dove è richiesto il green pass base</i>: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia RAFFORZATA (R)</b> - <i>da utilizzare dove è richiesto il green pass rafforzato</i>: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia VISITATORI RSA (V):</b> <i>da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione oppure le certificazioni di esenzione dalla vaccinazione, in tutti e tre i casi insieme alla contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti.</br><b>Tipologia LAVORO (L):</b> <i>da utilizzare per l’accesso ai luoghi di lavoro dal 15 febbraio:</i> fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione.</br><b>Tipologia INGRESSO IT (I):</b> <i>da utilizzare all’atto dell'ingresso in Italia dall'estero:</i> la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. In caso di vaccini non autorizzati EMA o non riconosciuti equivalenti, l’App richiede la contestuale presentazione dell'esito di un test rapido negativo eseguito nelle 48 ore precedenti oppure un test molecolare negativo eseguito nelle 72 ore.</br><b>Tipologia STUDENTI (S):</b> <i>da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni e le certificazioni di esenzione dalla vaccinazione.</br></br>Consulta la tabella sulle attività consentite senza/ o con green pass base  rafforzato (link <a href=\"https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf\">https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf</a>)</p>";
 
 "links.read.faq" = "Leggi le domande frequenti";
 "links.read.privacy.policy" = "Leggi la Privacy policy";
 "links.what.can.be.done" = "Cosa si può fare con la Certificazione verde COVID-19?";
 "links.why.qr.code.not.valid" = "Quali sono i motivi di non validità?";
+"links.why.qr.code.verification.needed" = "Perché è richiesto il tampone seppur valida?";
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 

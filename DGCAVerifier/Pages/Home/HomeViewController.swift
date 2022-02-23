@@ -24,6 +24,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftyJSON
 
 typealias Tap = UITapGestureRecognizer
 
@@ -47,6 +48,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var countriesButton: AppButton!
     @IBOutlet weak var updateNowButton: AppButton!
     @IBOutlet weak var debugInfoButton: UIButton!
+    @IBOutlet weak var titleLabel: AppLabel!
+    @IBOutlet weak var infoButton: UIButton!
     
     @IBOutlet weak var lastFetchContainer: UIView!
     @IBOutlet weak var progressContainer: UIView!
@@ -86,15 +89,22 @@ class HomeViewController: UIViewController {
         setScanModeButtonText()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        view.reloadInputViews()
+    }
+    
     private func initialize() {
         bindScanEnabled()
         setUpSettingsAction()
+        setHomeTitle()
         setFAQ()
         setPrivacyPolicy()
         setVersion()
         setScanModeButton()
         setScanButton()
         setCountriesButton()
+        setInfoButton()
         setDebugView()
         updateLastFetch(isLoading: viewModel.isLoading.value ?? false)
         updateNowButton.contentHorizontalAlignment = .center
@@ -172,6 +182,17 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func setHomeTitle(){
+        let localizedBaseHomeTitle = "home.title".localized
+        let boldLocalizedText = "home.title.bold".localized
+        let homeTitle: NSMutableAttributedString = .init(string: localizedBaseHomeTitle, attributes: nil)
+        let boldRange: NSRange = (homeTitle.string as NSString).range(of: boldLocalizedText)
+		homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
+        titleLabel.attributedText = homeTitle
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.2
+    }
+    
     private func setFAQ() {
         let title = Link.faq.title.localized
         let tap = Tap(target: self, action: #selector(faqDidTap))
@@ -192,6 +213,14 @@ class HomeViewController: UIViewController {
     private func setScanModeButton() {
         setScanModeButtonStyle()
         setScanModeButtonText()
+    }
+    
+    @objc func showInfoAlert(){
+        showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
+    }
+    
+    private func setInfoButton() {
+        infoButton.addTarget(self, action: #selector(showInfoAlert), for: .touchUpInside)
     }
     
     private func setScanModeButtonStyle() {
@@ -334,14 +363,15 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func showCustomAlert(key: String) {
+    private func showCustomAlert(key: String, isHTMLBased: Bool = false) {
         AppAlertViewController.present(for: self, with: .init(
             title: "alert.\(key).title".localized,
             message: "alert.\(key).message".localized,
             confirmAction: {},
             confirmActionTitle: "alert.default.action".localized,
             cancelAction: {},
-            cancelActionTitle: nil))
+            cancelActionTitle: nil,
+            isHTMLBased: isHTMLBased))
     }
     
     private func disableScanButton(){
@@ -369,7 +399,7 @@ class HomeViewController: UIViewController {
         let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
         let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
         
-        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset") }
+        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset", isHTMLBased: true) }
         
         guard certFetchUpdated else {
             showCustomAlert(key: "no.keys")
