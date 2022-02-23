@@ -11,7 +11,7 @@ struct CustomPickerOptionContent {
 	var scanMode: ScanMode
 	var scanModeName: String
 	var scanModeDescription: String
-	var scanModeDetails: String
+	var scanModeDetails: String?
 }
 
 class CustomPickerOption: UIView {

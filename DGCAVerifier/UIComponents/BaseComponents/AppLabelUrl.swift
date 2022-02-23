@@ -28,10 +28,10 @@ import UIKit
 class AppLabelUrl: AppLabel {
     
     public struct Content {
-        public var text: String
+        public var text: String?
         public var onTap: UITapGestureRecognizer?
         
-        public init(text: String, onTap: UITapGestureRecognizer? = nil) {
+        public init(text: String?, onTap: UITapGestureRecognizer? = nil) {
             self.text = text
             self.onTap = onTap
         }
@@ -40,7 +40,8 @@ class AppLabelUrl: AppLabel {
     
     public func fillView(with content: Content) {
         initialize()
-        text = content.text.localized
+        guard let contentText = content.text else { return }
+        text = contentText.localized
         add(content.onTap)
     }
     

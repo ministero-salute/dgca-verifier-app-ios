@@ -64,7 +64,7 @@ class CustomPickerController: UIViewController {
 				scanMode: $0,
 				scanModeName: $0.buttonTitleName,
 				scanModeDescription: $0.buttonTitleBoldName,
-				scanModeDetails: $0.pickerOptionName
+				scanModeDetails: $0.associatedPickerDescriptionScanMode
 			))
 		}
 	}

@@ -29,10 +29,5 @@ enum Link {
     case faq
     case privacyPolicy
     case store
-    case whatCanBeDone
-    case whyQrNotValid
-    case qrValidityRange
-    case whichQrScan
-    case whyVerificationNeeded
 }
 

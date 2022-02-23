@@ -106,18 +106,6 @@ extension Status {
         }
     }
     
-    var faqs: [Link] {
-        switch self {
-        case .valid:                return [.whatCanBeDone]
-        case .notValidYet:          return [.qrValidityRange]
-        case .notValid:             return [.whyQrNotValid]
-		case .expired:				return [.whyQrNotValid]
-        case .notGreenPass:         return [.whichQrScan]
-        case .verificationIsNeeded: return [.whyVerificationNeeded]
-        case .revokedGreenPass:     return []
-        }
-    }
-    
     var isValidState: Bool {
         switch self {
         case .valid:            return true

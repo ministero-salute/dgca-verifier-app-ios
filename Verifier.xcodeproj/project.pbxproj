@@ -326,6 +326,8 @@
 		90CDC6DA271F049A00707836 /* UIView+NibFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CDC6D8271F049A00707836 /* UIView+NibFile.swift */; };
 		90E9560A270F397600DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
 		90E9560B270F397700DAA963 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */; };
+		90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
+		90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
 		90F9494F27AD79CC00A9CB3E /* AutomatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */; };
 		98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B727A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
@@ -566,6 +568,7 @@
 		90CDC6B6271EB48000707836 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		90CDC6B9271EB48C00707836 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
+		90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+FAQ.swift"; sourceTree = "<group>"; };
 		90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomatedTests.swift; sourceTree = "<group>"; };
 		98BF53B527A9469400B8FB1A /* ScanMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMode.swift; sourceTree = "<group>"; };
 		98BF53B827A9471700B8FB1A /* DGCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCValidator.swift; sourceTree = "<group>"; };
@@ -1190,6 +1193,7 @@
 				658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */,
 				65EFB63226B183CF0081682B /* Link+Values.swift */,
 				65F280D026D658CB009BC452 /* CRL+Entity.swift */,
+				90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */,
 			);
 			path = ModelExtensions;
 			sourceTree = "<group>";
@@ -1745,6 +1749,7 @@
 				65021B4C26AEC889004C3D14 /* AppButton.swift in Sources */,
 				140B09D127B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */,
 				65E281B92697259D00377913 /* TestValidityCheck.swift in Sources */,
+				90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
 				65E281BB2697259D00377913 /* HCert+PersonalData.swift in Sources */,
 				65E3C1DE2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
@@ -1946,6 +1951,7 @@
 				658CB72526AF3C1200B90EC0 /* Status+Configuration.swift in Sources */,
 				65E2816C2697217B00377913 /* ResultView.swift in Sources */,
 				9037A0A6270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */,
+				90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
 				90BED818276A570E006225CE /* String+Link.swift in Sources */,
 				65E281682697217B00377913 /* HomeViewController.swift in Sources */,
 				65E2819B269721ED00377913 /* Date.swift in Sources */,
