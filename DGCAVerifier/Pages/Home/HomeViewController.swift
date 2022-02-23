@@ -217,6 +217,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func showInfoAlert(){
+        guard !viewModel.isInfoSettingOutdated() else { return showCustomAlert(key: "version.outdated") }
         showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
     }
     
@@ -386,6 +387,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
+        guard !viewModel.isScanSettingOutdated() else { return showCustomAlert(key: "version.outdated") }
 		coordinator?.openCustomPicker(delegate: self)
     }
     

@@ -72,6 +72,18 @@ class HomeViewModel {
         return version.compare(minVersion, options: .numeric) == .orderedAscending
     }
     
+    public func isInfoSettingOutdated() -> Bool {
+        // TODO: Update infoSetting name
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: "INFO_SETTING") == nil { return true }
+        return false
+    }
+    
+    public func isScanSettingOutdated() -> Bool {
+        // TODO: Update scanSetting name
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: "SCAN_SETTING") == nil { return true }
+        return false
+    }
+    
     public func currentVersion() -> String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }

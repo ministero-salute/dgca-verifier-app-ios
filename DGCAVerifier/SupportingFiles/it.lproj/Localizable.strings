@@ -26,20 +26,20 @@
 "home.scan.button.bold.italy.entry" = "I - INGRESSO IT";
 "home.scan.button.bold.School" = "S - STUDENTI";
 
-"home.scan.button.mode.3G" = "B - BASE\n(VACCINAZIONE/GUARIGIONE/TAMPONE)";
-"home.scan.button.mode.2G" = "R - RAFFORZATA\n(VACCINAZIONE/GUARIGIONE)";
-"home.scan.button.mode.Booster" = "V - VISITATORI RSA\n(RICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE)";
-"home.scan.button.mode.50" = "L - LAVORO\n(BASE <50 ANNI - RAFFORZATA >= 50 ANNI)";
-"home.scan.button.mode.italy.entry" = "I - INGRESSO IT\n(RICHIAMO/CICLO COMPLETO <=270GG/GUARIGIONE/TAMPONE)";
-"home.scan.button.mode.School" = "S - STUDENTI\n(RICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG)";
+"home.scan.button.mode.3G" = "B - BASE";
+"home.scan.button.mode.2G" = "R - RAFFORZATA";
+"home.scan.button.mode.Booster" = "V - VISITATORI RSA";
+"home.scan.button.mode.50" = "L - LAVORO";
+"home.scan.button.mode.italy.entry" = "I - INGRESSO IT";
+"home.scan.button.mode.School" = "S - STUDENTI";
 
 "home.scan.picker.title"   = "Tipologia verifica";
-"home.scan.picker.mode.3G" = "B - BASE (vaccinazione/guarigione/tampone)";
-"home.scan.picker.mode.2G" = "R - RAFFORZATA (vaccinazione/guarigione)";
-"home.scan.picker.mode.Booster" = "V - VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione + tampone)";
-"home.scan.picker.mode.50" = "L - LAVORO (base <50 anni - rafforzata >= 50 anni)";
-"home.scan.picker.mode.italy.entry" = "I - INGRESSO IT (richiamo/ciclo completo <=270gg/guarigione/tampone)";
-"home.scan.picker.mode.School" = "S - STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
+"home.scan.picker.mode.3G" = "B - BASE";
+"home.scan.picker.mode.2G" = "R - RAFFORZATA";
+"home.scan.picker.mode.Booster" = "V - VISITATORI RSA";
+"home.scan.picker.mode.50" = "L - LAVORO";
+"home.scan.picker.mode.italy.entry" = "I - INGRESSO IT";
+"home.scan.picker.mode.School" = "S - STUDENTI";
 
 "camera.back.home" = "Torna all'inizio";
 
