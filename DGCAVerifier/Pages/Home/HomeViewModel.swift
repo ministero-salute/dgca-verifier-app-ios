@@ -73,14 +73,12 @@ class HomeViewModel {
     }
     
     public func isInfoSettingOutdated() -> Bool {
-        // TODO: Update infoSetting name
-        if SettingDataStorage.sharedInstance.getFirstSetting(withName: "INFO_SETTING") == nil { return true }
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.infoScanModePopup) == nil { return true }
         return false
     }
     
     public func isScanSettingOutdated() -> Bool {
-        // TODO: Update scanSetting name
-        if SettingDataStorage.sharedInstance.getFirstSetting(withName: "SCAN_SETTING") == nil { return true }
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.errorScanModePopup) == nil { return true }
         return false
     }
     
