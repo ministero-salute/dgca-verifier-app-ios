@@ -106,7 +106,7 @@ class CustomPickerOption: UIView {
 		
 		self.descriptionView.isHidden = true
 		descriptionViewConstraints.forEach{ $0.isActive = false }
-		self.optionContainerViewBottomConstraint.priority = .required
+		self.optionContainerViewBottomConstraint.priority = UILayoutPriority(999.0)
 	}
 	
 	private var descriptionViewConstraints: [NSLayoutConstraint] {
