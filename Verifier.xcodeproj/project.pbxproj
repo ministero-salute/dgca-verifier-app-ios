@@ -28,6 +28,8 @@
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		14B94A5727BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
+		14B94A5827BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
 		14B94A5127BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5227BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5427BEB13200B2B906 /* CustomPickerOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */; };
@@ -430,6 +432,7 @@
 		145CC08A27B5155B00F2D01F /* CasiDiTest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CasiDiTest.csv; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
+		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
 		14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerOption.swift; sourceTree = "<group>"; };
 		14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerOption.xib; sourceTree = "<group>"; };
 		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
