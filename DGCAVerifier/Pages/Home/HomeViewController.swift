@@ -217,7 +217,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func showInfoAlert(){
-        guard !viewModel.isInfoSettingOutdated() else { return showCustomAlert(key: "version.outdated") }
+        guard !viewModel.isInfoSettingOutdated() else { return showCustomAlert(key: "no.keys") }
         showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
     }
     
