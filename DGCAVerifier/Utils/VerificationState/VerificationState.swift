@@ -11,12 +11,10 @@ import SwiftDGC
 class VerificationState {
     
     static let shared = VerificationState()
+	
+	private init() {}
     
-    var hCertPayload: String?
-    
-    enum DoubleScanState {
-        case initial
-        case testScan
-    }
-    
+    var hCert: HCert?
+	var isFollowUpScan: Bool = false
+
 }

@@ -26,7 +26,7 @@ import UIKit
 import RealmSwift
 
 protocol VerificationCoordinator: Coordinator {
-    func dismissVerification(completion: (()->())?)
+	func dismissVerification(animated: Bool, completion: (()->())?)
 }
 
 class VerificationViewController: UIViewController {
@@ -73,6 +73,7 @@ class VerificationViewController: UIViewController {
 		let status: Status = .notValidYet
 		validate(status)
 		#else
+		viewModel.status = .verificationIsNeeded
 		validate(viewModel.status)
 		#endif
     }
@@ -87,6 +88,10 @@ class VerificationViewController: UIViewController {
         setFaq(for: status)
         setPersonalData(for: status)
         setTimerIfNeeded(for: status)
+		
+		if status == .verificationIsNeeded {
+			VerificationState.shared.hCert = self.viewModel.hCert
+		}
     }
     
     private func setFaq(for status: Status) {
@@ -145,7 +150,7 @@ class VerificationViewController: UIViewController {
     @objc func dismissVC() {
         hapticFeedback()
         timer?.invalidate()
-        coordinator?.dismissVerification(completion: nil)
+		coordinator?.dismissVerification(animated: !VerificationState.shared.isFollowUpScan, completion: nil)
         delegate?.startOperations()
     }
     

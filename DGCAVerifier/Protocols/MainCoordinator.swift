@@ -30,7 +30,7 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
 
     func start()
-    func dismiss()
+	func dismiss(animated: Bool)
     func dismissToRoot()
 }
 
@@ -48,7 +48,7 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(controller, animated: true)
     }
     
-    func dismiss() {
+	func dismiss(animated: Bool = true) {
         navigationController.popViewController(animated: true)
     }
     
@@ -106,25 +106,12 @@ extension MainCoordinator: CameraCoordinator {
         controller.modalTransitionStyle = .crossDissolve
         navigationController.present(controller, animated: true)
     }
-    
-    func doubleValidate(country: CountryModel?, delegate: CameraDelegate){
-        guard let payload = VerificationState.shared.hCertPayload else { return }
-        let vm = VerificationViewModel(payload: payload, country: country)
-        let verificationController = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
-        verificationController.modalPresentationStyle = .overFullScreen
-        verificationController.modalTransitionStyle = .crossDissolve
-        let controller = HFBackViewController()
-        controller.delegate = verificationController
-        controller.modalPresentationStyle = .overFullScreen
-        controller.modalTransitionStyle = .crossDissolve
-        navigationController.present(controller, animated: true)
-    }
 }
 
 
 extension MainCoordinator: VerificationCoordinator {
-    func dismissVerification(completion: (()->())?) {
-        navigationController.dismiss(animated: true, completion: completion)
+	func dismissVerification(animated: Bool, completion: (()->())?) {
+        navigationController.dismiss(animated: animated, completion: completion)
     }
 }
 

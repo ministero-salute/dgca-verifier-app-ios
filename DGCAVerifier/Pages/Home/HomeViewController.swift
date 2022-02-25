@@ -420,7 +420,8 @@ class HomeViewController: UIViewController {
             }
         }
         
-        coordinator?.showCamera()
+		VerificationState.shared.isFollowUpScan = false
+		coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {

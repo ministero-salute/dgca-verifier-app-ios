@@ -53,9 +53,10 @@ class CameraViewController: UIViewController {
 	private var captureSession = AVCaptureSession()
     private var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
+	init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
         self.coordinator = coordinator
         self.country = country
+		
         super.init(nibName: "CameraViewController", bundle: nil)
 		
 		self.initializeHeaderBar()
@@ -102,7 +103,7 @@ class CameraViewController: UIViewController {
     }
 
     @IBAction func back(_ sender: Any) {
-        coordinator?.dismiss()
+		coordinator?.dismiss(animated: true)
     }
     
     @IBAction func flashSwitch(_ sender: Any) {
@@ -148,7 +149,13 @@ class CameraViewController: UIViewController {
     }
 	
 	@objc private func goBack() {
-		coordinator?.dismiss()
+		if VerificationState.shared.isFollowUpScan {
+			guard let hcert = VerificationState.shared.hCert else { return }
+			self.coordinator?.dismiss(animated: false)
+			self.coordinator?.validate(payload: hcert.payloadString, country: self.country, delegate: self)
+		} else {
+			coordinator?.dismiss(animated: true)
+		}
 	}
 	
 	private func initializeHeaderBar() {
@@ -231,7 +238,7 @@ class CameraViewController: UIViewController {
             preferredStyle: .alert
         )
         let alertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-            self?.coordinator?.dismiss()
+			self?.coordinator?.dismiss(animated: true)
         }
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
