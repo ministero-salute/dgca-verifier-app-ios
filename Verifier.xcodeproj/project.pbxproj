@@ -28,8 +28,6 @@
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
-		14B94A5727BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
-		14B94A5827BFB40700B2B906 /* ExtendedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */; };
 		14B94A5127BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5227BEB11C00B2B906 /* CustomPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */; };
 		14B94A5427BEB13200B2B906 /* CustomPickerOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */; };
@@ -296,6 +294,8 @@
 		9037A0A7270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */; };
 		9037A0A9270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
 		9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
+		90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
+		90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
 		9093B3E72758CCA40054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		9093B3E82758CCB50054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		90A2C59C276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */; };
@@ -432,7 +432,6 @@
 		145CC08A27B5155B00F2D01F /* CasiDiTest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CasiDiTest.csv; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
-		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
 		14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerOption.swift; sourceTree = "<group>"; };
 		14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerOption.xib; sourceTree = "<group>"; };
 		14B94A5627BFB40700B2B906 /* ExtendedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIButton.swift; sourceTree = "<group>"; };
@@ -558,6 +557,7 @@
 		9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		90878EFD27C8EDCE00A25D71 /* VerificationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationState.swift; sourceTree = "<group>"; };
 		90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Certificate.swift"; sourceTree = "<group>"; };
 		90A3E612273AFC3700D161BD /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		90A3E615273C6B2C00D161BD /* Array+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
@@ -1014,6 +1014,7 @@
 		65E28186269721ED00377913 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				90878EFC27C8EDA800A25D71 /* VerificationState */,
 				90A3E611273AFC2A00D161BD /* Connectivity */,
 				65E2818F269721ED00377913 /* Observable */,
 				65E28187269721ED00377913 /* Date */,
@@ -1266,6 +1267,14 @@
 				9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		90878EFC27C8EDA800A25D71 /* VerificationState */ = {
+			isa = PBXGroup;
+			children = (
+				90878EFD27C8EDCE00A25D71 /* VerificationState.swift */,
+			);
+			path = VerificationState;
 			sourceTree = "<group>";
 		};
 		90A3E611273AFC2A00D161BD /* Connectivity */ = {
@@ -1827,6 +1836,7 @@
 				65F280D826D66777009BC452 /* PerformanceLog.swift in Sources */,
 				65F280C326D64AEF009BC452 /* CRLDataStorage.swift in Sources */,
 				65E281C92697259D00377913 /* HCert+Test.swift in Sources */,
+				90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
 				65E281CA2697259D00377913 /* ResultView.swift in Sources */,
 				65E281CB2697259D00377913 /* HomeViewController.swift in Sources */,
 				658CB72326AF3B5B00B90EC0 /* Status.swift in Sources */,
@@ -1899,6 +1909,7 @@
 				65E281A9269721ED00377913 /* HCert+PersonalData.swift in Sources */,
 				90CDC6D9271F049A00707836 /* UIView+NibFile.swift in Sources */,
 				98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */,
+				90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
 				65021B6526AEE30F004C3D14 /* UIColor+RGB.swift in Sources */,
 				65021B5B26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
 				65E3C1DD2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,

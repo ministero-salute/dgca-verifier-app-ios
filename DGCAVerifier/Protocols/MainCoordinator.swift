@@ -106,6 +106,19 @@ extension MainCoordinator: CameraCoordinator {
         controller.modalTransitionStyle = .crossDissolve
         navigationController.present(controller, animated: true)
     }
+    
+    func doubleValidate(country: CountryModel?, delegate: CameraDelegate){
+        guard let payload = VerificationState.shared.hCertPayload else { return }
+        let vm = VerificationViewModel(payload: payload, country: country)
+        let verificationController = VerificationViewController(coordinator: self, delegate: delegate, viewModel: vm)
+        verificationController.modalPresentationStyle = .overFullScreen
+        verificationController.modalTransitionStyle = .crossDissolve
+        let controller = HFBackViewController()
+        controller.delegate = verificationController
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController.present(controller, animated: true)
+    }
 }
 
 
