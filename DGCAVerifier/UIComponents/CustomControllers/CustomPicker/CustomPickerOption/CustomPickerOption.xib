@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,6 @@
                 <outlet property="optionContainerViewBottomConstraint" destination="5F2-yW-7qT" id="MS7-6i-Bwx"/>
                 <outlet property="radioButtonInner" destination="WbN-Xo-gMz" id="bo5-YG-FVX"/>
                 <outlet property="radioButtonOuter" destination="niZ-Qx-qSE" id="SwC-6I-Lsd"/>
-                <outlet property="scanModeSubtitleLabel" destination="LQc-Yo-uYX" id="UVd-SC-uh0"/>
                 <outlet property="scanModeTitleLabel" destination="VPl-fC-Acg" id="TfS-Y2-vYI"/>
             </connections>
         </placeholder>
@@ -34,16 +33,10 @@
                     <rect key="frame" x="16" y="0.0" width="801" height="80"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4e-P9-eGX">
-                            <rect key="frame" x="16" y="21.5" width="323" height="37"/>
+                            <rect key="frame" x="16" y="30" width="240" height="20.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B - BASE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPl-fC-Acg" userLabel="Scan Mode Title Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="303" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQc-Yo-uYX" userLabel="Scan Mode Description Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="16.5" width="323" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -54,11 +47,8 @@
                                 <constraint firstItem="VPl-fC-Acg" firstAttribute="leading" secondItem="V4e-P9-eGX" secondAttribute="leading" id="0Tk-1h-7vU"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="VPl-fC-Acg" secondAttribute="trailing" constant="20" id="1xh-yq-shf"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="9RK-Qg-aAh"/>
-                                <constraint firstItem="LQc-Yo-uYX" firstAttribute="leading" secondItem="V4e-P9-eGX" secondAttribute="leading" id="9c3-B5-rvn"/>
                                 <constraint firstItem="VPl-fC-Acg" firstAttribute="top" secondItem="V4e-P9-eGX" secondAttribute="top" id="CAt-sj-n0D"/>
-                                <constraint firstItem="LQc-Yo-uYX" firstAttribute="top" secondItem="VPl-fC-Acg" secondAttribute="bottom" constant="-4" id="IGB-Rb-Lum"/>
-                                <constraint firstAttribute="bottom" secondItem="LQc-Yo-uYX" secondAttribute="bottom" id="VqU-PA-y3K"/>
-                                <constraint firstAttribute="trailing" secondItem="LQc-Yo-uYX" secondAttribute="trailing" id="fGs-zZ-PtC"/>
+                                <constraint firstItem="VPl-fC-Acg" firstAttribute="centerY" secondItem="V4e-P9-eGX" secondAttribute="centerY" id="ru1-lS-IJG"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTs-7Z-JNg" userLabel="Radio Button Container">

@@ -22,7 +22,6 @@ class CustomPickerOption: UIView {
 	@IBOutlet var optionContainerViewBottomConstraint: NSLayoutConstraint!
 	
 	@IBOutlet weak var scanModeTitleLabel: AppLabel!
-	@IBOutlet weak var scanModeSubtitleLabel: AppLabel!
 	
 	@IBOutlet weak var descriptionView: UIView!
 	@IBOutlet weak var descriptionLabel: AppLabel!
@@ -45,9 +44,9 @@ class CustomPickerOption: UIView {
 		self.nibView = UINib(nibName: "CustomPickerOption", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView
 		self.nibView.frame = self.frame
 		
-		self.nibView.backgroundColor = Palette.gray
-		self.optionContainerView.backgroundColor = Palette.gray
-		self.descriptionView.backgroundColor = Palette.grayDark
+		self.nibView.backgroundColor = Palette.white
+		self.optionContainerView.backgroundColor = Palette.white
+		self.descriptionView.backgroundColor = Palette.scanModeGray
 		
 		self.setupLabels()
 		self.setRadioButtonSelected(selected: false)
@@ -64,14 +63,13 @@ class CustomPickerOption: UIView {
 	private func setupLabels() {
 		self.scanModeTitleLabel.bold 		= true
 		self.scanModeTitleLabel.size 		= 15
-		self.scanModeSubtitleLabel.size 	= 15
 		self.descriptionLabel.bold 			= true
 	}
 	
 	private func setRadioButtonSelected(selected: Bool) {
-		self.radioButtonInner.backgroundColor = selected ? Palette.blueDark : Palette.gray
+		self.radioButtonInner.backgroundColor = selected ? Palette.blueDark : Palette.white
 		
-		self.radioButtonOuter.backgroundColor = Palette.gray
+		self.radioButtonOuter.backgroundColor = Palette.white
 		self.radioButtonOuter.borderWidth = 1
 		self.radioButtonOuter.borderColor = Palette.blueDark
 	}
@@ -80,7 +78,6 @@ class CustomPickerOption: UIView {
 		self.scanMode = content.scanMode
 		
 		self.scanModeTitleLabel.text = content.scanModeName
-		self.scanModeSubtitleLabel.text = content.scanModeDescription
 		self.descriptionLabel.text = content.scanModeDetails
 		self.descriptionLabel.sizeToFit()
 	}
