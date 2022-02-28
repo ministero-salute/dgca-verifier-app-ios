@@ -217,8 +217,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func showInfoAlert(){
-        guard !viewModel.isInfoSettingOutdated() else { return showCustomAlert(key: "no.keys") }
-        showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
+        guard !viewModel.isInfoPopupTextSettingMissing() else { return showCustomAlert(key: "no.keys") }
+        showCustomAlert(key: "scan.mode.info", isHTMLBased: true, messagefromSetting: Constants.infoScanModePopup)
     }
     
     private func setInfoButton() {
@@ -365,10 +365,10 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func showCustomAlert(key: String, isHTMLBased: Bool = false) {
+    private func showCustomAlert(key: String, isHTMLBased: Bool = false, messagefromSetting withName: String = "") {
         AppAlertViewController.present(for: self, with: .init(
             title: "alert.\(key).title".localized,
-            message: "alert.\(key).message".localized,
+            message: SettingDataStorage.sharedInstance.getFirstSetting(withName: withName) ?? "alert.\(key).message".localized,
             confirmAction: {},
             confirmActionTitle: "alert.default.action".localized,
             cancelAction: {},
@@ -387,7 +387,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-        guard !viewModel.isScanSettingOutdated() else { return showCustomAlert(key: "no.keys") }
 		coordinator?.openCustomPicker(delegate: self)
     }
     
@@ -407,7 +406,9 @@ class HomeViewController: UIViewController {
             return
         }
         
-        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset", isHTMLBased: true) }
+        guard Store.getBool(key: .isScanModeSet) else {
+            return viewModel.isScanModeNotChosenPopupTextMissing() ? showCustomAlert(key: "scan.no.keys") : showCustomAlert(key: "scan.unset", isHTMLBased: true, messagefromSetting: Constants.errorScanModePopup)
+        }
         
         if isCRLAllowed {
             guard !crlFetchOutdated else {
