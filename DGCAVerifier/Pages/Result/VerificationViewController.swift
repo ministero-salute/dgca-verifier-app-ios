@@ -37,7 +37,8 @@ class VerificationViewController: UIViewController {
     
     @IBOutlet weak var resultImageHeight: NSLayoutConstraint!
     @IBOutlet weak var resultImageView: UIImageView!
-
+    @IBOutlet weak var tickStackView: UIStackView!
+    
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var titleLabel: AppLabel!
     @IBOutlet weak var descriptionLabel: AppLabel!
@@ -73,9 +74,33 @@ class VerificationViewController: UIViewController {
 		let status: Status = .notValidYet
 		validate(status)
 		#else
+        // TODO: REMOVE
 		viewModel.status = .verificationIsNeeded
 		validate(viewModel.status)
 		#endif
+        
+        testUI()
+    }
+        
+    func testUI(){
+        let view1 = VerificationTickView()
+        let view2 = VerificationTickView()
+        let view3 = VerificationTickView()
+        
+        view1.tickImageView.image = UIImage(named: "icon_valid")
+        view2.tickImageView.image = UIImage(named: "icon_valid")
+        view3.tickImageView.image = UIImage(named: "icon_not-valid")
+
+        view1.tickLabel.text = "CIAO1"
+        view2.tickLabel.text = "CIAO2"
+        view3.tickLabel.text = "CIAO3"
+        
+        tickStackView.removeAllArrangedSubViews()
+        
+        tickStackView.addArrangedSubview(view1)
+        tickStackView.addArrangedSubview(view2)
+        tickStackView.addArrangedSubview(view3)
+
     }
     
     private func validate(_ status: Status) {

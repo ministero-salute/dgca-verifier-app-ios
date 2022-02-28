@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +19,7 @@
                 <outlet property="personalDataStackView" destination="cUa-ER-OWe" id="uvQ-8C-a2R"/>
                 <outlet property="resultImageHeight" destination="gC8-BI-seK" id="T2s-3M-34g"/>
                 <outlet property="resultImageView" destination="PTF-G7-lvy" id="qkV-HD-V3Q"/>
+                <outlet property="tickStackView" destination="ohX-MK-8Hl" id="O1X-Zi-u6k"/>
                 <outlet property="titleLabel" destination="ldu-CB-JRg" id="OPR-s5-x9A"/>
                 <outlet property="view" destination="2ox-tZ-GfJ" id="gDB-Bm-fdt"/>
             </connections>
@@ -50,11 +51,22 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eo6-qj-uTC">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eo6-qj-uTC" userLabel="Faq Stack View">
                             <rect key="frame" x="0.0" y="180.5" width="390" height="20.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dummy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6V-Xp-kXR">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ohX-MK-8Hl" userLabel="Tick Stack View">
+                            <rect key="frame" x="23" y="217" width="344" height="20.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dummy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqe-Na-Y0m" userLabel="dummy">
+                                    <rect key="frame" x="0.0" y="0.0" width="344" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -160,7 +172,10 @@
                         <constraint firstItem="Eo6-qj-uTC" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" id="DxB-0y-zWK"/>
                         <constraint firstItem="PTF-G7-lvy" firstAttribute="top" secondItem="NUp-UK-zcR" secondAttribute="top" priority="750" constant="32" id="EZ6-0b-nOd"/>
                         <constraint firstItem="Cmg-hz-CeH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ugs-uU-O9p" secondAttribute="bottom" constant="4" id="GHe-4c-zC5"/>
+                        <constraint firstAttribute="trailing" secondItem="ohX-MK-8Hl" secondAttribute="trailing" constant="23" id="H1O-di-myv"/>
+                        <constraint firstItem="ohX-MK-8Hl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Eo6-qj-uTC" secondAttribute="bottom" constant="4" id="MEP-CB-wjS"/>
                         <constraint firstItem="Eo6-qj-uTC" firstAttribute="top" secondItem="ldu-CB-JRg" secondAttribute="bottom" priority="999" constant="16" id="MHU-IQ-tRr"/>
+                        <constraint firstItem="ohX-MK-8Hl" firstAttribute="top" secondItem="Eo6-qj-uTC" secondAttribute="bottom" priority="999" constant="16" id="Mgm-sM-kFP"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="top" secondItem="PTF-G7-lvy" secondAttribute="bottom" priority="750" constant="32" id="QZj-88-Gtz"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="24" id="SHC-xF-ugm"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Cmg-hz-CeH" secondAttribute="trailing" id="UW8-zx-RjL"/>
@@ -172,7 +187,8 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CzN-ar-iBD" secondAttribute="trailing" id="kXR-Wn-cS5"/>
                         <constraint firstItem="Cmg-hz-CeH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NUp-UK-zcR" secondAttribute="leading" id="ndg-cd-b9Y"/>
                         <constraint firstItem="Cmg-hz-CeH" firstAttribute="top" secondItem="ugs-uU-O9p" secondAttribute="bottom" priority="999" constant="20" id="orR-38-2XL"/>
-                        <constraint firstItem="ugs-uU-O9p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Eo6-qj-uTC" secondAttribute="bottom" constant="4" id="puS-LU-Jst"/>
+                        <constraint firstItem="ugs-uU-O9p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ohX-MK-8Hl" secondAttribute="bottom" constant="4" id="puS-LU-Jst"/>
+                        <constraint firstItem="ohX-MK-8Hl" firstAttribute="leading" secondItem="NUp-UK-zcR" secondAttribute="leading" constant="23" id="sg5-fl-tAh"/>
                         <constraint firstItem="ldu-CB-JRg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PTF-G7-lvy" secondAttribute="bottom" priority="999" constant="6" id="uV6-ri-2df"/>
                         <constraint firstAttribute="bottom" secondItem="CzN-ar-iBD" secondAttribute="bottom" constant="16" id="wTK-qt-0kS"/>
                         <constraint firstItem="PTF-G7-lvy" firstAttribute="centerX" secondItem="NUp-UK-zcR" secondAttribute="centerX" id="yCY-GL-gPX"/>
