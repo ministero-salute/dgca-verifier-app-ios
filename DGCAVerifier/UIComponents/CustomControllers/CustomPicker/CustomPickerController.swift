@@ -48,14 +48,14 @@ class CustomPickerController: UIViewController {
         super.viewDidLoad()
 		
 		self.view.backgroundColor = Palette.black.withAlphaComponent(0.65)
-		self.shadowViewContainer.backgroundColor = Palette.gray
-		self.headerView.backgroundColor = Palette.gray
+		self.shadowViewContainer.backgroundColor = Palette.white
+		self.headerView.backgroundColor = Palette.white
 		
 		self.setupPickerOptionContents()
 		self.setupTitleLabel()
-		self.setupConfirmButton()
 		self.setupStackView()
 		self.setupInitiallySelectedOption()
+        self.setupConfirmButtonInitialState()
     }
 
 	private func setupPickerOptionContents() -> Void {
@@ -71,10 +71,6 @@ class CustomPickerController: UIViewController {
 	
 	private func setupTitleLabel() -> Void {
 		self.titleLabel.font = Font.getFont(size: 22, style: .regular)
-	}
-	
-	private func setupConfirmButton() -> Void {
-		self.confirmButton.contentHorizontalAlignment = .center
 	}
 	
 	private func setupStackView() -> Void {
@@ -101,6 +97,22 @@ class CustomPickerController: UIViewController {
 		let scanMode = ScanMode.init(rawValue: rawScanMode)
 		self.optionViews.filter{ $0.scanMode == scanMode }.first?.didSelect()
 	}
+    
+    private func setupConfirmButtonInitialState() -> Void {
+        Store.get(key: .scanMode) == nil ? disableConfirmButton() : enableConfirmButton()
+    }
+    
+    private func disableConfirmButton(){
+        self.confirmButton.style = .disabled
+        self.confirmButton.alpha = 0.8
+        self.confirmButton.contentHorizontalAlignment = .center
+    }
+
+    public func enableConfirmButton() {
+        self.confirmButton.style = .blue
+        self.confirmButton.alpha = 1
+        self.confirmButton.contentHorizontalAlignment = .center
+    }
 	
 	@objc private func didSelect(gestureRecognizer: UITapGestureRecognizer) -> Void {
 		self.optionViews.forEach{ $0.reset() }
@@ -109,6 +121,7 @@ class CustomPickerController: UIViewController {
 		pickerOption.didSelect()
 		
 		self.selectedScanMode = pickerOption.scanMode
+        enableConfirmButton()
 	}
 	
 	@IBAction func didTapConfirm(_ sender: Any) {

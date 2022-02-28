@@ -387,7 +387,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-        guard !viewModel.isScanSettingOutdated() else { return showCustomAlert(key: "version.outdated") }
+        guard !viewModel.isScanSettingOutdated() else { return showCustomAlert(key: "no.keys") }
 		coordinator?.openCustomPicker(delegate: self)
     }
     
@@ -401,13 +401,13 @@ class HomeViewController: UIViewController {
         
         let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
         let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
-        
-        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset", isHTMLBased: true) }
-        
+                
         guard certFetchUpdated else {
             showCustomAlert(key: "no.keys")
             return
         }
+        
+        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset", isHTMLBased: true) }
         
         if isCRLAllowed {
             guard !crlFetchOutdated else {
