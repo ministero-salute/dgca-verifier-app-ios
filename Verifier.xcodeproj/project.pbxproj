@@ -296,6 +296,10 @@
 		9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
 		90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
 		90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
+		90878F0227C9398600A25D71 /* VerificationTickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90878F0127C9398600A25D71 /* VerificationTickView.xib */; };
+		90878F0327C9398600A25D71 /* VerificationTickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90878F0127C9398600A25D71 /* VerificationTickView.xib */; };
+		90878F0527C93AB600A25D71 /* VerificationTickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878F0427C93AB600A25D71 /* VerificationTickView.swift */; };
+		90878F0627C93AB600A25D71 /* VerificationTickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878F0427C93AB600A25D71 /* VerificationTickView.swift */; };
 		9093B3E72758CCA40054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		9093B3E82758CCB50054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		90A2C59C276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */; };
@@ -558,6 +562,8 @@
 		9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		90878EFD27C8EDCE00A25D71 /* VerificationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationState.swift; sourceTree = "<group>"; };
+		90878F0127C9398600A25D71 /* VerificationTickView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerificationTickView.xib; sourceTree = "<group>"; };
+		90878F0427C93AB600A25D71 /* VerificationTickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationTickView.swift; sourceTree = "<group>"; };
 		90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Certificate.swift"; sourceTree = "<group>"; };
 		90A3E612273AFC3700D161BD /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		90A3E615273C6B2C00D161BD /* Array+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
@@ -1136,6 +1142,7 @@
 		65E7000726AF71AC00715CCC /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				90878F0027C9397400A25D71 /* VerificationTickView */,
 				140B09DB27B41BF9003A017F /* FooterBar */,
 				140B09D527B2D1A1003A017F /* HeaderBar */,
 				65021B4426AEC6AE004C3D14 /* AppShadowView */,
@@ -1275,6 +1282,15 @@
 				90878EFD27C8EDCE00A25D71 /* VerificationState.swift */,
 			);
 			path = VerificationState;
+			sourceTree = "<group>";
+		};
+		90878F0027C9397400A25D71 /* VerificationTickView */ = {
+			isa = PBXGroup;
+			children = (
+				90878F0127C9398600A25D71 /* VerificationTickView.xib */,
+				90878F0427C93AB600A25D71 /* VerificationTickView.swift */,
+			);
+			path = VerificationTickView;
 			sourceTree = "<group>";
 		};
 		90A3E611273AFC2A00D161BD /* Connectivity */ = {
@@ -1618,6 +1634,7 @@
 				65E281F22697259D00377913 /* Assets.xcassets in Resources */,
 				65E281F32697259D00377913 /* Roboto-BoldItalic.ttf in Resources */,
 				14C3B3D127BD47CC00C2C2A7 /* CustomPickerController.xib in Resources */,
+				90878F0327C9398600A25D71 /* VerificationTickView.xib in Resources */,
 				65E281F42697259D00377913 /* LaunchScreen.storyboard in Resources */,
 				65E281F52697259D00377913 /* TitilliumWeb-Italic.ttf in Resources */,
 				90C2EB1E2726BA9B00E06A5F /* SettingsHeaderCell.xib in Resources */,
@@ -1653,6 +1670,7 @@
 				9F90C5A4265E591E00B2F992 /* Roboto-Italic.ttf in Resources */,
 				9F90C599265E591E00B2F992 /* Roboto-MediumItalic.ttf in Resources */,
 				9F90C597265E591E00B2F992 /* TitilliumWeb-Regular.ttf in Resources */,
+				90878F0227C9398600A25D71 /* VerificationTickView.xib in Resources */,
 				9F90C595265E591E00B2F992 /* Roboto-Light.ttf in Resources */,
 				1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */,
 				9F4F3C612649D71F00F59BA2 /* Localizable.strings in Resources */,
@@ -1807,6 +1825,7 @@
 				65EFB62726B0BFB90081682B /* MedicalRulesValidator.swift in Sources */,
 				65E281C52697259D00377913 /* GatewayConnection.swift in Sources */,
 				65EFB62D26B0C2390081682B /* Validator.swift in Sources */,
+				90878F0627C93AB600A25D71 /* VerificationTickView.swift in Sources */,
 				98BF53BD27A94BD300B8FB1A /* VaccineValidators.swift in Sources */,
 				6559D94B271998FC00E0E30D /* VNBarcodeObservation+Allowed.swift in Sources */,
 				659605D926E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
@@ -1989,6 +2008,7 @@
 				653F928A26B00474000BE8F5 /* CountryCell.swift in Sources */,
 				90BD8F4F272C1C8A00BE816B /* Constants.swift in Sources */,
 				90CDC6B7271EB48000707836 /* SettingsCell.swift in Sources */,
+				90878F0527C93AB600A25D71 /* VerificationTickView.swift in Sources */,
 				65EFB62C26B0C2390081682B /* Validator.swift in Sources */,
 				98FAC8C6277B1D6F0022F3B0 /* String+Size.swift in Sources */,
 				659605EC26E77B40008AD4E2 /* Double+String.swift in Sources */,
