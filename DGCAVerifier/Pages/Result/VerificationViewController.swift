@@ -38,6 +38,7 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var resultImageHeight: NSLayoutConstraint!
     @IBOutlet weak var resultImageView: UIImageView!
     @IBOutlet weak var tickStackView: UIStackView!
+    @IBOutlet weak var buttonStackView: UIStackView!
     
     @IBOutlet weak var lastFetchLabel: AppLabel!
     @IBOutlet weak var titleLabel: AppLabel!
@@ -59,6 +60,7 @@ class VerificationViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: "VerificationViewController", bundle: nil)
+        VerificationState.shared.isFollowUpScan = false
         
         self.initializeHeaderBar()
     }
@@ -71,36 +73,72 @@ class VerificationViewController: UIViewController {
         super.viewDidLoad()
         initializeViews()
 		#if targetEnvironment(simulator)
-		let status: Status = .notValidYet
+        let status: Status = .verificationIsNeeded
 		validate(status)
 		#else
-        // TODO: REMOVE
-		viewModel.status = .verificationIsNeeded
 		validate(viewModel.status)
 		#endif
         
-        testUI()
+        setupTickView(viewModel.status)
     }
         
-    func testUI(){
-        let view1 = VerificationTickView()
-        let view2 = VerificationTickView()
-        let view3 = VerificationTickView()
-        
-        view1.tickImageView.image = UIImage(named: "icon_valid")
-        view2.tickImageView.image = UIImage(named: "icon_valid")
-        view3.tickImageView.image = UIImage(named: "icon_not-valid")
-
-        view1.tickLabel.text = "CIAO1"
-        view2.tickLabel.text = "CIAO2"
-        view3.tickLabel.text = "CIAO3"
-        
+    func setupTickView(_ status: Status){
         tickStackView.removeAllArrangedSubViews()
+        buttonStackView.removeAllArrangedSubViews()
         
-        tickStackView.addArrangedSubview(view1)
-        tickStackView.addArrangedSubview(view2)
-        tickStackView.addArrangedSubview(view3)
+        guard VerificationState.shared.isFollowUpScan else {
+            addSecondScanButton()
+            return
+        }
+        addTickView(status)
+    }
+    
+    private func addSecondScanButton() {
+        
+        let secondScanButton = AppButton()
+        let noTestAvailableButton = AppButton()
+        
+        secondScanButton.setRightImage(named: "icon_qr-code")
+        secondScanButton.setTitle("Scansiona il tampone".localized)
+        
+        noTestAvailableButton.setRightImage(named: "icon_arrow-right")
+        noTestAvailableButton.setTitle("Nessun tampone disponibile".localized)
+//        noTestAvailableButton.style = .clear
+        
+        buttonStackView.addArrangedSubview(secondScanButton)
+        buttonStackView.addArrangedSubview(noTestAvailableButton)
+    }
+    
+    private func addTickView(_ status: Status) {
 
+        let firstScanView = VerificationTickView()
+        let secondScanView = VerificationTickView()
+        let personalDataCheckView = VerificationTickView()
+
+        firstScanView.tickImageView.image = UIImage(named: "icon_valid")
+        firstScanView.tickLabel.text = "Certificazione valida"
+        
+        personalDataCheckView.tickImageView.image = UIImage(named: "icon_not-valid")
+        personalDataCheckView.tickLabel.text = "Dati anagrafici non congruenti"
+        
+        switch status {
+        case .valid:
+            secondScanView.tickImageView.image = UIImage(named: "icon_valid")
+            secondScanView.tickLabel.text = "Certificazione tampone valida"
+        default:
+            secondScanView.tickImageView.image = UIImage(named: "icon_not-valid")
+            secondScanView.tickLabel.text = "Certificazione tampone non valida"
+        }
+        
+        tickStackView.addArrangedSubview(firstScanView)
+        tickStackView.addArrangedSubview(secondScanView)
+        if checkPersonalDataTickView() {
+            tickStackView.addArrangedSubview(personalDataCheckView)
+        }
+    }
+    
+    private func checkPersonalDataTickView() -> Bool {
+        return true
     }
     
     private func validate(_ status: Status) {
