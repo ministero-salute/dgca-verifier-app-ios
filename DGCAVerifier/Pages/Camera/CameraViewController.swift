@@ -150,10 +150,13 @@ class CameraViewController: UIViewController {
 	
 	@objc private func goBack() {
 		if VerificationState.shared.isFollowUpScan {
+			print("[DEBUG] Follow up scan. Dismissing current camera and presenting old `.verificationIsNeeded` screen.")
 			guard let hcert = VerificationState.shared.hCert else { return }
+			VerificationState.shared.userCanceledSecondScan = true
 			self.coordinator?.dismiss(animated: false)
 			self.coordinator?.validate(payload: hcert.payloadString, country: self.country, delegate: self)
 		} else {
+			print("[DEBUG] Dismissing camera, animated.")
 			coordinator?.dismiss(animated: true)
 		}
 	}
@@ -298,8 +301,9 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func processBarcodesRequest(_ request: VNRequest) {
         guard let payload = request.results?.allowedValues.first else { return }
         
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let `self` = self else { return }
+			self.stopRunning()
             self.found(payload: payload)
         }
     }

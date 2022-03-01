@@ -27,6 +27,7 @@ import RealmSwift
 
 protocol VerificationCoordinator: Coordinator {
 	func dismissVerification(animated: Bool, completion: (()->())?)
+	func showCamera(animated: Bool)
 }
 
 class VerificationViewController: UIViewController {
@@ -34,6 +35,7 @@ class VerificationViewController: UIViewController {
     private weak var coordinator: VerificationCoordinator?
     private var delegate: CameraDelegate?
     private var viewModel: VerificationViewModel
+	private var isPersonalDataValid: Bool = false
     
     @IBOutlet weak var resultImageHeight: NSLayoutConstraint!
     @IBOutlet weak var resultImageView: UIImageView!
@@ -60,7 +62,6 @@ class VerificationViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: "VerificationViewController", bundle: nil)
-        VerificationState.shared.isFollowUpScan = false
         
         self.initializeHeaderBar()
     }
@@ -71,6 +72,7 @@ class VerificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.isPersonalDataValid = self.validatePersonalData()
         initializeViews()
 		#if targetEnvironment(simulator)
         let status: Status = .verificationIsNeeded
@@ -80,17 +82,20 @@ class VerificationViewController: UIViewController {
 		#endif
         
         setupTickView(viewModel.status)
+		
+		VerificationState.shared.userCanceledSecondScan = false
     }
         
-    func setupTickView(_ status: Status){
+    func setupTickView(_ status: Status) {
         tickStackView.removeAllArrangedSubViews()
         buttonStackView.removeAllArrangedSubViews()
-        
-        guard VerificationState.shared.isFollowUpScan else {
+
+		if !VerificationState.shared.followUpTestScanned {
+			guard status == .verificationIsNeeded else { return }
             addSecondScanButton()
-            return
-        }
-        addTickView(status)
+		} else if VerificationState.shared.isFollowUpScan {
+			addTickView(status)
+		}
     }
     
     private func addSecondScanButton() {
@@ -100,9 +105,12 @@ class VerificationViewController: UIViewController {
         
         secondScanButton.setRightImage(named: "icon_qr-code")
         secondScanButton.setTitle("Scansiona il tampone".localized)
+		secondScanButton.addTarget(self, action: #selector(self.secondScanDidTap), for: .touchUpInside)
         
         noTestAvailableButton.setRightImage(named: "icon_arrow-right")
         noTestAvailableButton.setTitle("Nessun tampone disponibile".localized)
+		noTestAvailableButton.addTarget(self, action: #selector(self.noTestAvailableDidTap), for: .touchUpInside)
+		// TODO
 //        noTestAvailableButton.style = .clear
         
         buttonStackView.addArrangedSubview(secondScanButton)
@@ -115,42 +123,62 @@ class VerificationViewController: UIViewController {
         let secondScanView = VerificationTickView()
         let personalDataCheckView = VerificationTickView()
 
-        firstScanView.tickImageView.image = UIImage(named: "icon_valid")
+		let iconValid = UIImage(named: "icon_valid")
+		let iconNotValid = UIImage(named: "icon_not-valid")
+		
+        firstScanView.tickImageView.image = iconValid
         firstScanView.tickLabel.text = "Certificazione valida"
         
-        personalDataCheckView.tickImageView.image = UIImage(named: "icon_not-valid")
-        personalDataCheckView.tickLabel.text = "Dati anagrafici non congruenti"
+		if self.checkPersonalDataTickView() {
+			personalDataCheckView.tickImageView.image = iconValid
+			personalDataCheckView.tickLabel.text = "Dati anagrafici congruenti"
+		} else {
+			personalDataCheckView.tickImageView.image = iconNotValid
+			personalDataCheckView.tickLabel.text = "Dati anagrafici non congruenti"
+		}
         
         switch status {
         case .valid:
-            secondScanView.tickImageView.image = UIImage(named: "icon_valid")
+            secondScanView.tickImageView.image = iconValid
             secondScanView.tickLabel.text = "Certificazione tampone valida"
         default:
-            secondScanView.tickImageView.image = UIImage(named: "icon_not-valid")
+            secondScanView.tickImageView.image = iconNotValid
             secondScanView.tickLabel.text = "Certificazione tampone non valida"
         }
         
         tickStackView.addArrangedSubview(firstScanView)
         tickStackView.addArrangedSubview(secondScanView)
-        if checkPersonalDataTickView() {
-            tickStackView.addArrangedSubview(personalDataCheckView)
-        }
+		if status != .notValid {
+			tickStackView.addArrangedSubview(personalDataCheckView)
+		}
     }
     
     private func checkPersonalDataTickView() -> Bool {
-        return true
+		return self.viewModel.hCert?.fullName == VerificationState.shared.hCert?.fullName
     }
+	
+	private func validatePersonalData() -> Bool {
+		if VerificationState.shared.followUpTestScanned {
+			return self.checkPersonalDataTickView()
+		}
+		return false
+	}
     
-    private func validate(_ status: Status) {
-        view.backgroundColor = status.backgroundColor
-        resultImageView.image = status.mainImage
-        titleLabel.text = status.title.localizeWith(getTitleArguments(status))
-        descriptionLabel.text = status.description?.localized
-        descriptionLabel.sizeToFit()
-        lastFetchLabel.isHidden = !status.showLastFetch
-        setFaq(for: status)
-        setPersonalData(for: status)
-        setTimerIfNeeded(for: status)
+	private func validate(_ status: Status) {
+		var statusWithValidIdentity: Status = status
+		if !self.isPersonalDataValid && VerificationState.shared.followUpTestScanned {
+			statusWithValidIdentity = .notValid
+		}
+		
+		view.backgroundColor = statusWithValidIdentity.backgroundColor
+		resultImageView.image = statusWithValidIdentity.mainImage
+		titleLabel.text = statusWithValidIdentity.title.localizeWith(getTitleArguments(statusWithValidIdentity))
+		descriptionLabel.text = statusWithValidIdentity.description?.localized
+		descriptionLabel.sizeToFit()
+		lastFetchLabel.isHidden = !statusWithValidIdentity.showLastFetch
+		setFaq(for: statusWithValidIdentity)
+		setPersonalData(for: statusWithValidIdentity)
+		setTimerIfNeeded(for: statusWithValidIdentity)
 		
 		if status == .verificationIsNeeded {
 			VerificationState.shared.hCert = self.viewModel.hCert
@@ -210,12 +238,38 @@ class VerificationViewController: UIViewController {
         UIApplication.shared.open(url)
     }
     
-    @objc func dismissVC() {
+	@objc func dismissVC() {
+		if VerificationState.shared.followUpTestScanned {
+			//	End of second scan path: reset VerificationState.
+			VerificationState.shared.reset()
+		}
+		
         hapticFeedback()
         timer?.invalidate()
 		coordinator?.dismissVerification(animated: !VerificationState.shared.isFollowUpScan, completion: nil)
         delegate?.startOperations()
     }
+	
+	@objc func secondScanDidTap() {
+		print("[DEBUG MODE] Second scan tapped.")
+		
+		VerificationState.shared.isFollowUpScan = true
+		self.dismissVC()
+	}
+	
+	@objc func noTestAvailableDidTap() {
+		print("[DEBUG MODE] No test available tapped.")
+		
+		self.viewModel.status = .notValid
+		VerificationState.shared.isFollowUpScan = true
+		VerificationState.shared.followUpTestScanned = true
+		
+		UIView.transition(with: self.view, duration: 0.33,
+						  options: [.curveEaseOut],
+						  animations: { self.viewDidLoad() },
+						  completion: nil
+		)
+	}
     
     private func setScanMode() {
         modeLabel.textColor = Palette.white
@@ -257,6 +311,13 @@ class VerificationViewController: UIViewController {
     }
     
     private func setCloseView() {
+		self.closeView.isHidden = false
+		
+		guard self.viewModel.status != .verificationIsNeeded else {
+			self.closeView.isHidden = true
+			return
+		}
+		
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissVC))
         closeView.addGestureRecognizer(tap)
     }
