@@ -104,14 +104,14 @@ class VerificationViewController: UIViewController {
         let noTestAvailableButton = AppButton()
         
         secondScanButton.setRightImage(named: "icon_qr-code")
-        secondScanButton.setTitle("Scansiona il tampone".localized)
+        secondScanButton.setTitle("result.scan.button.second".localized)
 		secondScanButton.addTarget(self, action: #selector(self.secondScanDidTap), for: .touchUpInside)
         
+		noTestAvailableButton.setTitle("result.scan.button.no.test".localized)
+		noTestAvailableButton.setTitleColor(Palette.blue, for: .normal)
+		noTestAvailableButton.style = .white
         noTestAvailableButton.setRightImage(named: "icon_arrow-right")
-        noTestAvailableButton.setTitle("Nessun tampone disponibile".localized)
 		noTestAvailableButton.addTarget(self, action: #selector(self.noTestAvailableDidTap), for: .touchUpInside)
-		// TODO
-//        noTestAvailableButton.style = .clear
         
         buttonStackView.addArrangedSubview(secondScanButton)
         buttonStackView.addArrangedSubview(noTestAvailableButton)
@@ -127,23 +127,23 @@ class VerificationViewController: UIViewController {
 		let iconNotValid = UIImage(named: "icon_not-valid")
 		
         firstScanView.tickImageView.image = iconValid
-        firstScanView.tickLabel.text = "Certificazione valida"
+		firstScanView.tickLabel.text = "result.tick.valid".localized
         
 		if self.checkPersonalDataTickView() {
 			personalDataCheckView.tickImageView.image = iconValid
-			personalDataCheckView.tickLabel.text = "Dati anagrafici congruenti"
+			personalDataCheckView.tickLabel.text = "result.tick.congruent.personal.data".localized
 		} else {
 			personalDataCheckView.tickImageView.image = iconNotValid
-			personalDataCheckView.tickLabel.text = "Dati anagrafici non congruenti"
+			personalDataCheckView.tickLabel.text = "result.tick.not.congruent.personal.data".localized
 		}
         
         switch status {
         case .valid:
             secondScanView.tickImageView.image = iconValid
-            secondScanView.tickLabel.text = "Certificazione tampone valida"
+				secondScanView.tickLabel.text = "result.tick.test.valid".localized
         default:
             secondScanView.tickImageView.image = iconNotValid
-            secondScanView.tickLabel.text = "Certificazione tampone non valida"
+            secondScanView.tickLabel.text = "result.tick.test.not.valid".localized
         }
         
         tickStackView.addArrangedSubview(firstScanView)

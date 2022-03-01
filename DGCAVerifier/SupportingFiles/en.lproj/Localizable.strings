@@ -73,6 +73,14 @@
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
 "result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 
+"result.scan.button.second" = "Scansiona il tampone";
+"result.scan.button.no.test" = "Nessun tampone disponibile";
+"result.tick.valid" = "Certificazione valida";
+"result.tick.congruent.personal.data" = "Dati anagrafici congruenti";
+"result.tick.not.congruent.personal.data" = "Dati anagrafici non congruenti";
+"result.tick.test.valid" = "Certificazione tampone valida";
+"result.tick.test.not.valid" = "Certificazione tampone non valida";
+
 "top.bar.scan.mode.2G" = "R - RAFFORZATA";
 "top.bar.scan.mode.3G" = "B - BASE";
 "top.bar.scan.mode.Boster" = "V - VISITATORI RSA";
