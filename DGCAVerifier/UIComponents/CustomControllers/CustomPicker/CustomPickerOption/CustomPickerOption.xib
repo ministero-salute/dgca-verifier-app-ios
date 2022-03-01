@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,12 +106,11 @@
                         <constraint firstItem="V4e-P9-eGX" firstAttribute="leading" secondItem="KgR-au-t1w" secondAttribute="leading" constant="16" id="w73-E9-MM4"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dfj-Ao-Jkv" userLabel="Description View">
+                <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Dfj-Ao-Jkv" userLabel="Description View">
                     <rect key="frame" x="32" y="96" width="769" height="348"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTy-vC-32q" userLabel="Scan Mode Info Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="16" y="16" width="323" height="20.5"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTy-vC-32q" userLabel="Scan Mode Info Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
+                            <rect key="frame" x="16" y="0.0" width="737" height="348"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -119,8 +118,11 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="999" constant="150" id="GrI-ro-KoM"/>
+                        <constraint firstAttribute="bottom" secondItem="qTy-vC-32q" secondAttribute="bottom" id="4i0-tQ-JMR"/>
+                        <constraint firstItem="qTy-vC-32q" firstAttribute="top" secondItem="Dfj-Ao-Jkv" secondAttribute="top" id="Bqy-Ad-653"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="100" id="R4L-QE-eSd"/>
+                        <constraint firstAttribute="trailing" secondItem="qTy-vC-32q" secondAttribute="trailing" constant="16" id="btf-d1-0F3"/>
+                        <constraint firstItem="qTy-vC-32q" firstAttribute="leading" secondItem="Dfj-Ao-Jkv" secondAttribute="leading" constant="16" id="uXv-6w-1ut"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWp-xH-NV1" userLabel="Border View">

@@ -25,7 +25,7 @@ class CustomPickerOption: UIView {
 	
 	@IBOutlet weak var descriptionView: UIView!
 	@IBOutlet weak var descriptionLabel: AppLabel!
-		
+	
 	@IBOutlet weak var borderView: UIView!
 	
 	@IBOutlet var descriptionViewTrailingConstraint: NSLayoutConstraint!
@@ -80,11 +80,16 @@ class CustomPickerOption: UIView {
 		self.scanModeTitleLabel.text = content.scanModeName
 		self.descriptionLabel.text = content.scanModeDetails
 		self.descriptionLabel.sizeToFit()
+		
+		// Research & fix
+		self.descriptionView.heightAnchor.constraint(equalToConstant: self.descriptionLabel.frame.height * 3 + 32.0).isActive = true
 	}
 	
 	public func didSelect() {
 		self.showDescriptionView()
 		self.setRadioButtonSelected(selected: true)
+		self.setNeedsLayout()
+		self.layoutIfNeeded()
 	}
 	
 	public func reset() {
@@ -113,6 +118,17 @@ class CustomPickerOption: UIView {
 			self.descriptionViewLeadingConstraint,
 			self.descriptionViewTrailingConstraint
 		]
+	}
+	
+	private func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
+		let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+		label.numberOfLines = 0
+		label.lineBreakMode = NSLineBreakMode.byWordWrapping
+		label.font = font
+		label.text = text
+		
+		label.sizeToFit()
+		return label.frame.height
 	}
 	
 }
