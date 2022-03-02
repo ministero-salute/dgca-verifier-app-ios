@@ -28,10 +28,10 @@ import SwiftDGC
 
 class DGCValidatorBuilder {
     
-    var checkHCert: Bool 			= true
-    var checkBlackList: Bool 		= true
-    var checkRevocationList: Bool 	= true
-	var checkTestOnly: Bool 		= false
+    var checkHCert: Bool = true
+    var checkBlackList: Bool = true
+    var checkRevocationList: Bool = true
+	var checkTestOnly: Bool = false
     var mode: ScanMode?
 
     func checkHCert(_ check: Bool) -> Self {
