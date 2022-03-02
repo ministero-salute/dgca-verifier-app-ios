@@ -25,6 +25,7 @@
 		143EEC7927CCD9E200446964 /* TestOnlyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7727CCD9E100446964 /* TestOnlyValidator.swift */; };
 		143EEC7B27CCDF4B00446964 /* ScanMode+LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */; };
 		143EEC7C27CCDF4B00446964 /* ScanMode+LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */; };
+		143EEC8227CFCE6500446964 /* UIView+WTFAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC8127CFCE6500446964 /* UIView+WTFAutoLayout.swift */; };
 		145CC08B27B5155B00F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
 		145CC08C27B5156100F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
 		145CC08D27B5156200F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
@@ -439,6 +440,7 @@
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		143EEC7727CCD9E100446964 /* TestOnlyValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOnlyValidator.swift; sourceTree = "<group>"; };
 		143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanMode+LocalSettings.swift"; sourceTree = "<group>"; };
+		143EEC8127CFCE6500446964 /* UIView+WTFAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+WTFAutoLayout.swift"; sourceTree = "<group>"; };
 		145CC08A27B5155B00F2D01F /* CasiDiTest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CasiDiTest.csv; sourceTree = "<group>"; };
 		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
@@ -714,6 +716,14 @@
 				1410B20C271EAE6000F912BA /* PickerViewController.xib */,
 			);
 			path = PickerVC;
+			sourceTree = "<group>";
+		};
+		143EEC8027CFCE4D00446964 /* UIConstraint */ = {
+			isa = PBXGroup;
+			children = (
+				143EEC8127CFCE6500446964 /* UIView+WTFAutoLayout.swift */,
+			);
+			path = UIConstraint;
 			sourceTree = "<group>";
 		};
 		14B94A4F27BEB0A100B2B906 /* CustomPickerOption */ = {
@@ -1026,6 +1036,7 @@
 		65E28186269721ED00377913 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				143EEC8027CFCE4D00446964 /* UIConstraint */,
 				90878EFC27C8EDA800A25D71 /* VerificationState */,
 				90A3E611273AFC2A00D161BD /* Connectivity */,
 				65E2818F269721ED00377913 /* Observable */,
@@ -2007,6 +2018,7 @@
 				65E2816B2697217B00377913 /* VerificationViewModel.swift in Sources */,
 				14CD25E127B2BA6B007DF2A4 /* HFBackViewController.swift in Sources */,
 				65021B5926AECF59004C3D14 /* UIImageView+Inspectable.swift in Sources */,
+				143EEC8227CFCE6500446964 /* UIView+WTFAutoLayout.swift in Sources */,
 				65E281A2269721ED00377913 /* Cache.swift in Sources */,
 				140B09E027B41C69003A017F /* FooterBar.swift in Sources */,
 				65E281702697217B00377913 /* CameraViewController.swift in Sources */,

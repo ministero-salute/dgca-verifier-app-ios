@@ -23,37 +23,40 @@ class CustomPickerOption: UIView {
 	
 	@IBOutlet weak var scanModeTitleLabel: AppLabel!
 	
-	@IBOutlet weak var descriptionView: UIView!
-	@IBOutlet weak var descriptionLabel: AppLabel!
-	
 	@IBOutlet weak var borderView: UIView!
-	
-	@IBOutlet var descriptionViewTrailingConstraint: NSLayoutConstraint!
-	@IBOutlet var descriptionViewTopConstraint: NSLayoutConstraint!
-	@IBOutlet var descriptionViewLeadingConstraint: NSLayoutConstraint!
-	@IBOutlet var descriptionViewBottomConstraint: NSLayoutConstraint!
 		
 	@IBOutlet weak var radioButtonOuter: UIView!
 	@IBOutlet weak var radioButtonInner: UIView!
 	
-	public var scanMode: ScanMode!
+	private var pDescriptionView: UIView!
+	private var content: CustomPickerOptionContent!
+	
+	public var scanMode: ScanMode {
+		return self.content.scanMode
+	}
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 
 		self.nibView = UINib(nibName: "CustomPickerOption", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView
-		self.nibView.frame = self.frame
+		self.nibView.translatesAutoresizingMaskIntoConstraints = false
 		
 		self.nibView.backgroundColor = Palette.white
 		self.optionContainerView.backgroundColor = Palette.white
-		self.descriptionView.backgroundColor = Palette.scanModeGray
 		
 		self.setupLabels()
 		self.setRadioButtonSelected(selected: false)
 		self.borderView.backgroundColor = Palette.blueDark.withAlphaComponent(0.3)
-		self.hideDescriptionView()
 
 		self.addSubview(self.nibView)
+		
+		self.nibView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+		self.nibView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+		self.nibView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+		self.nibView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+		
+		self.setContentCompressionResistancePriority(.required, for: .vertical)
+		self.nibView.setContentCompressionResistancePriority(.required, for: .vertical)
 	}
 	
 	required init?(coder: NSCoder) {
@@ -61,9 +64,8 @@ class CustomPickerOption: UIView {
 	}
 	
 	private func setupLabels() {
-		self.scanModeTitleLabel.bold 		= true
-		self.scanModeTitleLabel.size 		= 15
-		self.descriptionLabel.bold 			= true
+		self.scanModeTitleLabel.bold = true
+		self.scanModeTitleLabel.size = 15
 	}
 	
 	private func setRadioButtonSelected(selected: Bool) {
@@ -75,21 +77,15 @@ class CustomPickerOption: UIView {
 	}
 	
 	public func fill(with content: CustomPickerOptionContent) {
-		self.scanMode = content.scanMode
-		
+		self.content = content
 		self.scanModeTitleLabel.text = content.scanModeName
-		self.descriptionLabel.text = content.scanModeDetails
-		self.descriptionLabel.sizeToFit()
 		
-		// Research & fix
-		self.descriptionView.heightAnchor.constraint(equalToConstant: self.descriptionLabel.frame.height * 3 + 32.0).isActive = true
+		self.pDescriptionView = self.makeDescriptionView()
 	}
 	
 	public func didSelect() {
 		self.showDescriptionView()
 		self.setRadioButtonSelected(selected: true)
-		self.setNeedsLayout()
-		self.layoutIfNeeded()
 	}
 	
 	public func reset() {
@@ -98,37 +94,50 @@ class CustomPickerOption: UIView {
 	}
 	
 	private func showDescriptionView() {
-		self.descriptionView.isHidden = false
-		self.optionContainerViewBottomConstraint.priority = UILayoutPriority(500.0)
-		descriptionViewConstraints.forEach{ $0.isActive = true }
+		self.nibView.addSubview(self.pDescriptionView)
+
+		self.pDescriptionView.setContentCompressionResistancePriority(.required, for: .vertical)
+		
+		self.pDescriptionView.widthAnchor.constraint(equalTo: self.optionContainerView.widthAnchor, constant: -32.0).isActive = true
+		self.pDescriptionView.centerXAnchor.constraint(equalTo: self.nibView.centerXAnchor).isActive = true
+		self.pDescriptionView.topAnchor.constraint(equalTo: self.optionContainerView.bottomAnchor).isActive = true
+				
+		let labelRef: UILabel = self.pDescriptionView.subviews.filter{ $0 is UILabel }.first! as! UILabel
+		labelRef.setContentCompressionResistancePriority(.required, for: .vertical)
+		
+		labelRef.centerYAnchor.constraint(equalTo: self.pDescriptionView.centerYAnchor).isActive = true
+		labelRef.centerXAnchor.constraint(equalTo: self.pDescriptionView.centerXAnchor).isActive = true
+		labelRef.widthAnchor.constraint(equalTo: self.pDescriptionView.widthAnchor, constant: -32.0).isActive = true
+		
+		self.pDescriptionView.heightAnchor.constraint(greaterThanOrEqualTo: labelRef.heightAnchor, constant: 32.0).isActive = true
+		self.borderView.topAnchor.constraint(equalTo: self.pDescriptionView.bottomAnchor, constant: 16.0).isActive = true
+		
+		self.pDescriptionView.needsUpdateConstraints()
 	}
 	
 	private func hideDescriptionView() {
-		guard !self.descriptionView.isHidden else { return }
-		
-		self.descriptionView.isHidden = true
-		descriptionViewConstraints.forEach{ $0.isActive = false }
 		self.optionContainerViewBottomConstraint.priority = UILayoutPriority(999.0)
+		self.pDescriptionView.removeFromSuperview()
 	}
 	
-	private var descriptionViewConstraints: [NSLayoutConstraint] {
-		return [
-			self.descriptionViewBottomConstraint,
-			self.descriptionViewTopConstraint,
-			self.descriptionViewLeadingConstraint,
-			self.descriptionViewTrailingConstraint
-		]
-	}
-	
-	private func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
-		let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-		label.numberOfLines = 0
-		label.lineBreakMode = NSLineBreakMode.byWordWrapping
-		label.font = font
-		label.text = text
+	private func makeDescriptionView() -> UIView {
+		let descriptionView: UIView = UIView()
+		descriptionView.translatesAutoresizingMaskIntoConstraints = false
+		descriptionView.backgroundColor = Palette.scanModeGray
 		
-		label.sizeToFit()
-		return label.frame.height
+		let descriptionLabel: AppLabel = {
+			let label = AppLabel()
+			label.translatesAutoresizingMaskIntoConstraints = false
+			label.bold = true
+			label.lineBreakMode = .byWordWrapping
+			label.numberOfLines = 0
+			label.text = self.content.scanModeDetails
+			return label
+		}()
+		
+		descriptionView.addSubview(descriptionLabel)
+		
+		return descriptionView
 	}
 	
 }

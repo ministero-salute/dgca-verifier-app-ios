@@ -11,12 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPickerOption" customModule="VerificaC19" customModuleProvider="target">
             <connections>
                 <outlet property="borderView" destination="aWp-xH-NV1" id="o3o-mg-RqD"/>
-                <outlet property="descriptionLabel" destination="qTy-vC-32q" id="Byv-Dc-vuc"/>
-                <outlet property="descriptionView" destination="Dfj-Ao-Jkv" id="dB7-B3-vvC"/>
-                <outlet property="descriptionViewBottomConstraint" destination="mNU-uT-nMT" id="3JH-N3-eGX"/>
-                <outlet property="descriptionViewLeadingConstraint" destination="AC1-1G-QFC" id="h4F-eZ-tT0"/>
-                <outlet property="descriptionViewTopConstraint" destination="vGf-Xs-Gy3" id="tEG-I4-Lnb"/>
-                <outlet property="descriptionViewTrailingConstraint" destination="4st-wA-Ztc" id="voV-fJ-a3w"/>
                 <outlet property="optionContainerView" destination="KgR-au-t1w" id="keV-uq-eqI"/>
                 <outlet property="optionContainerViewBottomConstraint" destination="5F2-yW-7qT" id="MS7-6i-Bwx"/>
                 <outlet property="radioButtonInner" destination="WbN-Xo-gMz" id="bo5-YG-FVX"/>
@@ -106,25 +100,6 @@
                         <constraint firstItem="V4e-P9-eGX" firstAttribute="leading" secondItem="KgR-au-t1w" secondAttribute="leading" constant="16" id="w73-E9-MM4"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Dfj-Ao-Jkv" userLabel="Description View">
-                    <rect key="frame" x="32" y="96" width="769" height="348"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(VACCINAZIONE/GUARIGIONE/TAMPONE)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTy-vC-32q" userLabel="Scan Mode Info Label" customClass="AppLabel" customModule="VerificaC19" customModuleProvider="target">
-                            <rect key="frame" x="16" y="0.0" width="737" height="348"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="qTy-vC-32q" secondAttribute="bottom" id="4i0-tQ-JMR"/>
-                        <constraint firstItem="qTy-vC-32q" firstAttribute="top" secondItem="Dfj-Ao-Jkv" secondAttribute="top" id="Bqy-Ad-653"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="100" id="R4L-QE-eSd"/>
-                        <constraint firstAttribute="trailing" secondItem="qTy-vC-32q" secondAttribute="trailing" constant="16" id="btf-d1-0F3"/>
-                        <constraint firstItem="qTy-vC-32q" firstAttribute="leading" secondItem="Dfj-Ao-Jkv" secondAttribute="leading" constant="16" id="uXv-6w-1ut"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWp-xH-NV1" userLabel="Border View">
                     <rect key="frame" x="16" y="459" width="801" height="1"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -136,16 +111,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="KgR-au-t1w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2uo-n1-Zps"/>
-                <constraint firstAttribute="trailing" secondItem="Dfj-Ao-Jkv" secondAttribute="trailing" constant="32" id="4st-wA-Ztc"/>
-                <constraint firstItem="KgR-au-t1w" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" priority="500" id="5F2-yW-7qT"/>
-                <constraint firstItem="Dfj-Ao-Jkv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="AC1-1G-QFC"/>
+                <constraint firstItem="KgR-au-t1w" firstAttribute="bottom" secondItem="aWp-xH-NV1" secondAttribute="bottom" priority="500" id="5F2-yW-7qT"/>
                 <constraint firstAttribute="bottom" secondItem="aWp-xH-NV1" secondAttribute="bottom" id="D1R-K9-72k"/>
                 <constraint firstAttribute="trailing" secondItem="aWp-xH-NV1" secondAttribute="trailing" constant="16" id="E8y-F0-zoQ"/>
                 <constraint firstItem="aWp-xH-NV1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="FWD-v1-RsD"/>
                 <constraint firstAttribute="trailing" secondItem="KgR-au-t1w" secondAttribute="trailing" constant="16" id="MU2-t8-xUM"/>
-                <constraint firstAttribute="bottom" secondItem="Dfj-Ao-Jkv" secondAttribute="bottom" constant="16" id="mNU-uT-nMT"/>
                 <constraint firstItem="KgR-au-t1w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="v8N-Zg-66M"/>
-                <constraint firstItem="Dfj-Ao-Jkv" firstAttribute="top" secondItem="KgR-au-t1w" secondAttribute="bottom" constant="16" id="vGf-Xs-Gy3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="441.304347826087" y="351.5625"/>

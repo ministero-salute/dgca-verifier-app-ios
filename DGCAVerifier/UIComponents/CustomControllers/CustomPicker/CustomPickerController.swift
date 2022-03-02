@@ -54,8 +54,10 @@ class CustomPickerController: UIViewController {
 		self.setupPickerOptionContents()
 		self.setupTitleLabel()
 		self.setupStackView()
-		self.setupInitiallySelectedOption()
         self.setupConfirmButtonInitialState()
+		
+		self.optionViews.forEach{ $0.reset() }
+		self.setupInitiallySelectedOption()
     }
 
 	private func setupPickerOptionContents() -> Void {
