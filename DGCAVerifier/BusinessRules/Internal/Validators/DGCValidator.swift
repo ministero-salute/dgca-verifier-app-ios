@@ -171,13 +171,13 @@ struct BoosterValidatorFactory: DCGValidatorFactory {
 struct SchoolValidatorFactory: DCGValidatorFactory {
     
     func getValidator(hcert: HCert) -> DGCValidator? {
-		let isIT = hcert.countryCode == Constants.ItalyCountryCode
-		
+        let isIT = hcert.countryCode == Constants.ItalyCountryCode
+        
         switch hcert.extendedType {
         case .unknown:
             return UnknownValidator()
         case .vaccine:
-			return isIT ? VaccineSchoolValidator() : VaccineSchoolValidatorNotItaly()
+            return isIT ? VaccineSchoolValidator() : VaccineSchoolValidatorNotItaly()
         case .recovery:
             return RecoverySchoolValidator()
         case .test:

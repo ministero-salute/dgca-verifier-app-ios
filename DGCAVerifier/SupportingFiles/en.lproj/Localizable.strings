@@ -26,20 +26,20 @@
 "home.scan.button.bold.italy.entry" = "I - INGRESSO IT";
 "home.scan.button.bold.School" = "S - STUDENTI";
 
-"home.scan.button.mode.3G" = "B - BASE\n(VACCINAZIONE/GUARIGIONE/TAMPONE)";
-"home.scan.button.mode.2G" = "R - RAFFORZATA\n(VACCINAZIONE/GUARIGIONE)";
-"home.scan.button.mode.Booster" = "V - VISITATORI RSA\n(RICHIAMO/CICLO COMPLETO + TAMPONE/GUARIGIONE + TAMPONE)";
-"home.scan.button.mode.50" = "L - LAVORO\n(BASE <50 ANNI - RAFFORZATA >= 50 ANNI)";
-"home.scan.button.mode.italy.entry" = "I - INGRESSO IT\n(RICHIAMO/CICLO COMPLETO <=270GG/GUARIGIONE/TAMPONE)";
-"home.scan.button.mode.School" = "S - STUDENTI\n(RICHIAMO/CICLO COMPLETO E GUARIGIONE <120GG)";
+"home.scan.button.mode.3G" = "B - BASE";
+"home.scan.button.mode.2G" = "R - RAFFORZATA";
+"home.scan.button.mode.Booster" = "V - VISITATORI RSA";
+"home.scan.button.mode.50" = "L - LAVORO";
+"home.scan.button.mode.italy.entry" = "I - INGRESSO IT";
+"home.scan.button.mode.School" = "S - STUDENTI";
 
 "home.scan.picker.title"   = "Tipologia verifica";
-"home.scan.picker.mode.3G" = "B - BASE (vaccinazione/guarigione/tampone)";
-"home.scan.picker.mode.2G" = "R - RAFFORZATA (vaccinazione/guarigione)";
-"home.scan.picker.mode.Booster" = "V - VISITATORI RSA (Richiamo/ciclo completo + tampone/guarigione + tampone)";
-"home.scan.picker.mode.50" = "L - LAVORO (base <50 anni - rafforzata >= 50 anni)";
-"home.scan.picker.mode.italy.entry" = "I - INGRESSO IT (richiamo/ciclo completo <=270gg/guarigione/tampone)";
-"home.scan.picker.mode.School" = "S - STUDENTI (richiamo/ciclo completo e guarigione <120gg)";
+"home.scan.picker.mode.3G" = "B - BASE";
+"home.scan.picker.mode.2G" = "R - RAFFORZATA";
+"home.scan.picker.mode.Booster" = "V - VISITATORI RSA";
+"home.scan.picker.mode.50" = "L - LAVORO";
+"home.scan.picker.mode.italy.entry" = "I - INGRESSO IT";
+"home.scan.picker.mode.School" = "S - STUDENTI";
 
 "camera.back.home" = "Torna all'inizio";
 
@@ -72,6 +72,14 @@
 "result.description.revoked" = "La certificazione risulta essere revocata";
 "result.scan.mode" = "La modalità di scansione impostata è:" ;
 "result.description.need.verification" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
+
+"result.scan.button.second" = "Scansiona il tampone";
+"result.scan.button.no.test" = "Nessun tampone disponibile";
+"result.tick.valid" = "Certificazione valida";
+"result.tick.congruent.personal.data" = "Dati anagrafici congruenti";
+"result.tick.not.congruent.personal.data" = "Dati anagrafici non congruenti";
+"result.tick.test.valid" = "Certificazione tampone valida";
+"result.tick.test.not.valid" = "Certificazione tampone non valida";
 
 "top.bar.scan.mode.2G" = "R - RAFFORZATA";
 "top.bar.scan.mode.3G" = "B - BASE";

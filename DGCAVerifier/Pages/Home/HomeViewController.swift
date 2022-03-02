@@ -33,6 +33,7 @@ protocol HomeCoordinator: Coordinator {
     func showCountries()
     func openSettings()
     func openDebug()
+    func openCustomPicker(delegate: CustomPickerDelegate)
 }
 
 class HomeViewController: UIViewController {
@@ -187,7 +188,7 @@ class HomeViewController: UIViewController {
         let boldLocalizedText = "home.title.bold".localized
         let homeTitle: NSMutableAttributedString = .init(string: localizedBaseHomeTitle, attributes: nil)
         let boldRange: NSRange = (homeTitle.string as NSString).range(of: boldLocalizedText)
-		homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
+        homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
         titleLabel.attributedText = homeTitle
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.minimumScaleFactor = 0.2
@@ -216,7 +217,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func showInfoAlert(){
-        showCustomAlert(key: "scan.mode.info", isHTMLBased: true)
+        guard !viewModel.isInfoPopupTextSettingMissing() else { return showCustomAlert(key: "no.keys") }
+        showCustomAlert(key: "scan.mode.info", isHTMLBased: true, messagefromSetting: Constants.infoScanModePopup)
     }
     
     private func setInfoButton() {
@@ -363,10 +365,10 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func showCustomAlert(key: String, isHTMLBased: Bool = false) {
+    private func showCustomAlert(key: String, isHTMLBased: Bool = false, messagefromSetting withName: String = "") {
         AppAlertViewController.present(for: self, with: .init(
             title: "alert.\(key).title".localized,
-            message: "alert.\(key).message".localized,
+            message: SettingDataStorage.sharedInstance.getFirstSetting(withName: withName) ?? "alert.\(key).message".localized,
             confirmAction: {},
             confirmActionTitle: "alert.default.action".localized,
             cancelAction: {},
@@ -385,7 +387,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-        modeViewDidTap()
+        coordinator?.openCustomPicker(delegate: self)
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -398,12 +400,14 @@ class HomeViewController: UIViewController {
         
         let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
         let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
-        
-        guard Store.getBool(key: .isScanModeSet) else { return showCustomAlert(key: "scan.unset", isHTMLBased: true) }
-        
+                
         guard certFetchUpdated else {
             showCustomAlert(key: "no.keys")
             return
+        }
+        
+        guard Store.getBool(key: .isScanModeSet) else {
+            return viewModel.isScanModeNotChosenPopupTextMissing() ? showCustomAlert(key: "scan.no.keys") : showCustomAlert(key: "scan.unset", isHTMLBased: true, messagefromSetting: Constants.errorScanModePopup)
         }
         
         if isCRLAllowed {
@@ -417,6 +421,7 @@ class HomeViewController: UIViewController {
             }
         }
         
+        VerificationState.shared.isFollowUpScan = false
         coordinator?.showCamera()
     }
     
@@ -496,6 +501,15 @@ extension HomeViewController: CRLSynchronizationDelegate {
     }
 }
 
+extension HomeViewController: CustomPickerDelegate {
+    
+    func didSetScanMode(scanMode: ScanMode) {
+        setScanModeButton()
+        updateScanButtonStatus()
+    }
+    
+}
+
 extension HomeViewController {
     
     func modeViewDidTap() {
@@ -506,17 +520,17 @@ extension HomeViewController {
         switch scanMode{
         case Constants.scanMode3G:
             pickerSelectedOption = 0
-		case Constants.scanMode2G:
-			pickerSelectedOption = 1
+        case Constants.scanMode2G:
+            pickerSelectedOption = 1
         case Constants.scanModeBooster:
             pickerSelectedOption = 2
-		case Constants.scanMode50:
-			pickerSelectedOption = 3
-		case Constants.scanModeItalyEntry:
-			pickerSelectedOption = 4
+        case Constants.scanMode50:
+            pickerSelectedOption = 3
+        case Constants.scanModeItalyEntry:
+            pickerSelectedOption = 4
         case Constants.scanModeSchool:
             pickerSelectedOption = 5
-		default:
+        default:
             break
         }
         
@@ -552,9 +566,9 @@ extension HomeViewController {
         case 4:
             Store.set(Constants.scanModeItalyEntry, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
-		    case 5:
-			      Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
-			      Store.set(true, for: .isScanModeSet)
+            case 5:
+                  Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
+                  Store.set(true, for: .isScanModeSet)
         default:
             break
         }

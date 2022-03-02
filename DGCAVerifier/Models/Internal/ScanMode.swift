@@ -31,7 +31,7 @@ enum ScanMode: String, CaseIterable {
     case reinforced = "scanMode2G"
     case booster = "scanModeBooster"
     case work = "scanMode50"
-	  case italyEntry = "scanModeItalyEntry"
-	  case school = "scanModeSchool"
+    case italyEntry = "scanModeItalyEntry"
+    case school = "scanModeSchool"
 }
 

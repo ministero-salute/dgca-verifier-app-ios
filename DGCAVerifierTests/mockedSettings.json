@@ -1,317 +1,397 @@
 [
-	{
-		"name": "molecular_test_start_hours",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "rapid_test_start_hours",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "ios",
-		"type": "APP_MIN_VERSION",
-		"value": "1.2.0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "EU/1/20/1507",
-		"value": "180"
-	},
-	{
-		"name": "recovery_cert_start_day",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "android",
-		"type": "APP_MIN_VERSION",
-		"value": "1.2.0"
-	},
-	{
-		"name": "molecular_test_end_hours",
-		"type": "GENERIC",
-		"value": "72"
-	},
-	{
-		"name": "rapid_test_end_hours",
-		"type": "GENERIC",
-		"value": "48"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "EU/1/20/1528",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "EU/1/21/1529",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "EU/1/21/1529",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "EU/1/20/1525",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "EU/1/20/1525",
-		"value": "180"
-	},
-	{
-		"name": "recovery_cert_end_day",
-		"type": "GENERIC",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "EU/1/20/1528",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "EU/1/20/1507",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "EU/1/20/1507",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "EU/1/20/1528",
-		"value": "42"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "EU/1/21/1529",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "EU/1/20/1507",
-		"value": "42"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "EU/1/20/1525",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "EU/1/20/1525",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "EU/1/21/1529",
-		"value": "84"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "EU/1/20/1528",
-		"value": "15"
-	},
-	{
-		"name": "sdk",
-		"type": "SDK_MIN_VERSION",
-		"value": "1.0.0"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "Covishield",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "Covishield",
-		"value": "84"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "Covishield",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "Covishield",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "R-COVI",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "R-COVI",
-		"value": "84"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "R-COVI",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "R-COVI",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "Covid-19-recombinant",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "Covid-19-recombinant",
-		"value": "84"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "Covid-19-recombinant",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "Covid-19-recombinant",
-		"value": "180"
-	},
-	{
-		"name": "black_list_uvci",
-		"type": "black_list_uvci",
-		"value": "URN:UVCI:01:PL:1/2A992C33754A4D379A7F61089485BB75;"
-	},
-	{
-		"name": "vaccine_start_day_not_complete",
-		"type": "Sputnik-V",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete",
-		"type": "Sputnik-V",
-		"value": "21"
-	},
-	{
-		"name": "vaccine_start_day_complete",
-		"type": "Sputnik-V",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete",
-		"type": "Sputnik-V",
-		"value": "180"
-	},
-	{
-		"name": "recovery_pv_cert_start_day",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "recovery_pv_cert_end_day",
-		"type": "GENERIC",
-		"value": "540"
-	},
-	{
-		"name": "DRL_SYNC_ACTIVE",
-		"type": "GENERICO",
-		"value": "true"
-	},
-	{
-		"name": "recovery_cert_end_day_school",
-		"type": "GENERICO",
-		"value": "120"
-	},
-	{
-		"name": "vaccine_end_day_school",
-		"type": "GENERICO",
-		"value": "120"
-	},
-	{
-		"name": "recovery_cert_start_day_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "recovery_cert_end_day_IT",
-		"type": "GENERIC",
-		"value": "180"
-	},
-	{
-		"name": "recovery_cert_start_day_NOT_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "recovery_cert_end_day_NOT_IT",
-		"type": "GENERIC",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_complete_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete_IT",
-		"type": "GENERIC",
-		"value": "180"
-	},
-	{
-		"name": "vaccine_start_day_booster_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_booster_IT",
-		"type": "GENERIC",
-		"value": "540"
-	},
-	{
-		"name": "vaccine_start_day_complete_NOT_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_complete_NOT_IT",
-		"type": "GENERIC",
-		"value": "270"
-	},
-	{
-		"name": "vaccine_start_day_booster_NOT_IT",
-		"type": "GENERIC",
-		"value": "0"
-	},
-	{
-		"name": "vaccine_end_day_booster_NOT_IT",
-		"type": "GENERIC",
-		"value": "540"
-	},
-	{
-		"name": "vaccine_start_day_not_complete_NOT_EMA",
-		"type": "GENERIC",
-		"value": "15"
-	},
-	{
-		"name": "vaccine_end_day_not_complete_NOT_EMA",
-		"type": "GENERIC",
-		"value": "42"
-	},
-	{
-		"name": "vaccine_end_day_complete_extended_EMA",
-		"type": "GENERIC",
-		"value": "270"
-	},
-	{
-		"name": "EMA_vaccines",
-		"type": "GENERIC",
-		"value": "EU/1/20/1525;EU/1/20/1507;EU/1/20/1528;EU/1/21/1529;Covishield;R-COVI;Covid-19-recombinant"
-	}
+    {
+        "name":"molecular_test_start_hours",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"rapid_test_start_hours",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"ios",
+        "type":"APP_MIN_VERSION",
+        "value":"1.2.0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"EU/1/20/1507",
+        "value":"180"
+    },
+    {
+        "name":"recovery_cert_start_day",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"android",
+        "type":"APP_MIN_VERSION",
+        "value":"1.2.0"
+    },
+    {
+        "name":"molecular_test_end_hours",
+        "type":"GENERIC",
+        "value":"72"
+    },
+    {
+        "name":"rapid_test_end_hours",
+        "type":"GENERIC",
+        "value":"48"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"EU/1/20/1528",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"EU/1/21/1529",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"EU/1/21/1529",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"EU/1/20/1525",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"EU/1/20/1525",
+        "value":"180"
+    },
+    {
+        "name":"recovery_cert_end_day",
+        "type":"GENERIC",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"EU/1/20/1528",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"EU/1/20/1507",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"EU/1/20/1507",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"EU/1/20/1528",
+        "value":"42"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"EU/1/21/1529",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"EU/1/20/1507",
+        "value":"42"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"EU/1/20/1525",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"EU/1/20/1525",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"EU/1/21/1529",
+        "value":"84"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"EU/1/20/1528",
+        "value":"15"
+    },
+    {
+        "name":"sdk",
+        "type":"SDK_MIN_VERSION",
+        "value":"1.0.0"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"Covishield",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"Covishield",
+        "value":"84"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"Covishield",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"Covishield",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"R-COVI",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"R-COVI",
+        "value":"84"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"R-COVI",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"R-COVI",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"Covid-19-recombinant",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"Covid-19-recombinant",
+        "value":"84"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"Covid-19-recombinant",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"Covid-19-recombinant",
+        "value":"180"
+    },
+    {
+        "name":"black_list_uvci",
+        "type":"black_list_uvci",
+        "value":"URN:UVCI:01:PL:1/2A992C33754A4D379A7F61089485BB75;"
+    },
+    {
+        "name":"vaccine_start_day_not_complete",
+        "type":"Sputnik-V",
+        "value":"15"
+    },
+    {
+        "name":"vaccine_end_day_not_complete",
+        "type":"Sputnik-V",
+        "value":"21"
+    },
+    {
+        "name":"vaccine_start_day_complete",
+        "type":"Sputnik-V",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete",
+        "type":"Sputnik-V",
+        "value":"180"
+    },
+    {
+        "name":"recovery_pv_cert_start_day",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"recovery_pv_cert_end_day",
+        "type":"GENERIC",
+        "value":"540"
+    },
+    {
+        "name":"DRL_SYNC_ACTIVE",
+        "type":"GENERICO",
+        "value":"true"
+    },
+    {
+        "name":"recovery_cert_end_day_school",
+        "type":"GENERICO",
+        "value":"120"
+    },
+    {
+        "name":"vaccine_end_day_school",
+        "type":"GENERICO",
+        "value":"120"
+    },
+    {
+        "name":"recovery_cert_start_day_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"recovery_cert_end_day_IT",
+        "type":"GENERIC",
+        "value":"180"
+    },
+    {
+        "name":"recovery_cert_start_day_NOT_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"recovery_cert_end_day_NOT_IT",
+        "type":"GENERIC",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_complete_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete_IT",
+        "type":"GENERIC",
+        "value":"180"
+    },
+    {
+        "name":"vaccine_start_day_booster_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_booster_IT",
+        "type":"GENERIC",
+        "value":"540"
+    },
+    {
+        "name":"vaccine_start_day_complete_NOT_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_complete_NOT_IT",
+        "type":"GENERIC",
+        "value":"270"
+    },
+    {
+        "name":"vaccine_start_day_booster_NOT_IT",
+        "type":"GENERIC",
+        "value":"0"
+    },
+    {
+        "name":"vaccine_end_day_booster_NOT_IT",
+        "type":"GENERIC",
+        "value":"540"
+    },
+    {
+        "name":"vaccine_end_day_complete_extended_EMA",
+        "type":"GENERIC",
+        "value":"270"
+    },
+    {
+        "name":"EMA_vaccines",
+        "type":"GENERIC",
+        "value":"EU/1/20/1525;EU/1/20/1507;EU/1/20/1528;EU/1/21/1529;Covishield;R-COVI;Covid-19-recombinant"
+    },
+    {
+        "name":"3G_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare dove è richiesto il green pass base: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione."
+    },
+    {
+        "name":"2G_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare dove è richiesto il green pass rafforzato: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione."
+    },
+    {
+        "name":"booster_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione oppure le certificazioni di esenzione dalla vaccinazione, in tutti e tre i casi insieme alla contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti."
+    },
+    {
+        "name":"work_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare per l’accesso ai luoghi di lavoro: fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione."
+    },
+    {
+        "name":"italy_entry_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare all’atto dell'ingresso in Italia dall'estero: la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. In caso di vaccini non autorizzati EMA o non riconosciuti equivalenti, l’App richiede la contestuale presentazione dell'esito di un test rapido negativo eseguito nelle 48 ore precedenti oppure un test molecolare negativo eseguito nelle 72 ore."
+    },
+    {
+        "name":"school_scan_mode_description",
+        "type":"IT",
+        "value":"da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati: la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni, e le certificazioni di esenzione dalla vaccinazione."
+    },
+    {
+        "name":"info_scan_mode_popup",
+        "type":"IT",
+        "value":"<p style=\"font-family: TitilliumWeb-Regular, Helvetica-Neue; color: rgb(0, 69, 107);\">Le tipologie di verifica della Certificazione verde Covid-19 sono: <b>BASE, RAFFORZATA, VISITATORI RSA, LAVORO, INGRESSO IT, STUDENTI.</b><br><br><b>Tipologia BASE (B) - </b> <i>da utilizzare dove è richiesto il green pass base</i>: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia RAFFORZATA (R)</b> - <i>da utilizzare dove è richiesto il green pass rafforzato</i>: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia VISITATORI RSA (V):</b> <i>da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione oppure le certificazioni di esenzione dalla vaccinazione, in tutti e tre i casi insieme alla contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti.<br><b>Tipologia LAVORO (L):</b> <i>da utilizzare per l’accesso ai luoghi di lavoro dal 15 febbraio:</i> fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia INGRESSO IT (I):</b> <i>da utilizzare all’atto dell'ingresso in Italia dall'estero:</i> la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. In caso di vaccini non autorizzati EMA o non riconosciuti equivalenti, l’App richiede la contestuale presentazione dell'esito di un test rapido negativo eseguito nelle 48 ore precedenti oppure un test molecolare negativo eseguito nelle 72 ore.<br><b>Tipologia STUDENTI (S):</b> <i>da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni e le certificazioni di esenzione dalla vaccinazione.<br><br>Consulta la tabella sulle attività consentite senza/ o con green pass base  rafforzato (link <a href=\"https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf\">https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf</a>)</p>"
+    },
+    {
+        "name":"error_scan_mode_popup",
+        "type":"IT",
+        "value":"<p style=\"font-family: TitilliumWeb-Regular, Helvetica-Neue; color: rgb(0, 69, 107);\">Per procedere alla scansione selezionare una delle tipologie di verifica della Certificazione verde Covid-19: <b>BASE, RAFFORZATA, VISITATORI RSA, LAVORO, INGRESSO IT, STUDENTI.</b><br><br><b>Tipologia BASE (B) - </b> <i>da utilizzare dove è richiesto il green pass base</i>: la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione, da tampone e le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia RAFFORZATA (R)</b> - <i>da utilizzare dove è richiesto il green pass rafforzato</i>: la app considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione e le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia VISITATORI RSA (V):</b> <i>da utilizzare per l'accesso di visitatori alle strutture residenziali, socio-assistenziali, socio-sanitarie e hospice:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo. Considera valide, inoltre, le certificazioni verdi generate da vaccinazione con ciclo primario completato o guarigione oppure le certificazioni di esenzione dalla vaccinazione, in tutti e tre i casi insieme alla contestuale presentazione di un esito negativo di un test al SARS-CoV-2 eseguito nelle 48 ore precedenti.<br><b>Tipologia LAVORO (L):</b> <i>da utilizzare per l’accesso ai luoghi di lavoro dal 15 febbraio:</i> fino ai 49 anni di età la app considera valide le certificazioni verdi generate da vaccinazione, da guarigione o da tampone. Dai 50 anni compiuti in su, considera valide solo le certificazioni verdi generate da vaccinazione o da guarigione. La app considera comunque valide le certificazioni di esenzione dalla vaccinazione.<br><b>Tipologia INGRESSO IT (I):</b> <i>da utilizzare all’atto dell'ingresso in Italia dall'estero:</i> la app considera valide tutte le tipologie di certificazione verde COVID-19 (vaccinazione, guarigione o tampone) secondo le regole di validazione europee per la circolazione tra gli Stati Membri. In caso di vaccini non autorizzati EMA o non riconosciuti equivalenti, l’App richiede la contestuale presentazione dell'esito di un test rapido negativo eseguito nelle 48 ore precedenti oppure un test molecolare negativo eseguito nelle 72 ore.<br><b>Tipologia STUDENTI (S):</b> <i>da utilizzare nelle classi della scuola primaria e secondaria per la didattica in presenza, in classi con casi di positività accertati:</i> la app considera valide le certificazioni verdi generate da vaccinazione con dose di richiamo e quelle con ciclo primario o guarigione, se emesse da meno di 120 giorni e le certificazioni di esenzione dalla vaccinazione.<br><br>Consulta la tabella sulle attività consentite senza/ o con green pass base  rafforzato (link <a href=\"https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf\">https://www.governo.it/sites/governo.it/files/documenti/documenti/Notizie-allegati/tabella_attivita_consentite.pdf</a>)</p>"
+    },
+    {
+        "name":"valid_faq_text",
+        "type":"IT",
+        "value":"Cosa si può fare con la Certificazione verde COVID-19?"
+    },
+    {
+        "name":"valid_faq_link",
+        "type":"IT",
+        "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    },
+    {
+        "name":"not_valid_faq_text",
+        "type":"IT",
+        "value":"Quali sono i motivi di non validità?"
+    },
+    {
+        "name":"not_valid_faq_link",
+        "type":"IT",
+        "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    },
+    {
+        "name":"verification_needed_faq_text",
+        "type":"IT",
+        "value":"Perché è richiesto il tampone seppur valida?"
+    },
+    {
+        "name":"verification_needed_faq_link",
+        "type":"IT",
+        "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    },
+    {
+        "name":"not_valid_yet_faq_text",
+        "type":"IT",
+        "value":"Quali sono i tempi di inizio validità?"
+    },
+    {
+        "name":"not_valid_yet_faq_link",
+        "type":"IT",
+        "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    },
+    {
+        "name":"not_eu_dgc_faq_text",
+        "type":"IT",
+        "value":"Quale QR Code scansionare?"
+    },
+    {
+        "name":"not_eu_dgc_faq_link",
+        "type":"IT",
+        "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    }
 ]

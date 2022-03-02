@@ -72,6 +72,16 @@ class HomeViewModel {
         return version.compare(minVersion, options: .numeric) == .orderedAscending
     }
     
+    public func isInfoPopupTextSettingMissing() -> Bool {
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.infoScanModePopup) == nil { return true }
+        return false
+    }
+    
+    public func isScanModeNotChosenPopupTextMissing() -> Bool {
+        if SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.errorScanModePopup) == nil { return true }
+        return false
+    }
+    
     public func currentVersion() -> String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }

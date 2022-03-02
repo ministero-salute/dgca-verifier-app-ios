@@ -31,8 +31,8 @@ class DGCValidatorBuilder {
     var checkHCert: Bool = true
     var checkBlackList: Bool = true
     var checkRevocationList: Bool = true
+    var checkTestOnly: Bool = false
     var mode: ScanMode?
-
 
     func checkHCert(_ check: Bool) -> Self {
         self.checkHCert = check
@@ -49,6 +49,11 @@ class DGCValidatorBuilder {
         return self
     }
     
+    func checkTestOnly(_ check: Bool) -> Self {
+        self.checkTestOnly = check
+        return self
+    }
+    
     func scanMode(_ mode: ScanMode) -> Self {
         self.mode = mode
         return self
@@ -56,19 +61,24 @@ class DGCValidatorBuilder {
     
     func build(hCert: HCert) -> DGCValidator? {
         var validators: [DGCValidator] = []
-        if checkHCert {
+        
+        if self.checkHCert {
             validators.append(HCertValidator())
         }
         
-        if checkBlackList {
+        if self.checkBlackList {
             validators.append(BlackListValidator())
         }
         
-        if (checkRevocationList) {
+        if self.checkRevocationList {
             validators.append(RevocationValidator())
         }
+        
+        if self.checkTestOnly {
+            validators.append(TestOnlyValidator())
+        }
 
-        if let scanMode = mode {
+        if let scanMode = mode, !self.checkTestOnly {
             let factory = ValidatorProducer.getProducer(scanMode: scanMode)
             if let validator = factory?.getValidator(hcert: hCert) {
                 validators.append(validator)

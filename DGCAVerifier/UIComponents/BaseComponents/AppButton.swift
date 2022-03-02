@@ -50,6 +50,7 @@ class AppButton: UIButton {
     internal func initialize() {
         contentHorizontalAlignment = .left
         titleLabel?.font = Font.getFont(size: 14, style: .bold)
+        titleLabel?.textColor = style.tintColor
         backgroundColor = style.backgroundColor
         tintColor = style.tintColor
         cornerRadius = CORNER_RADIUS
@@ -84,14 +85,14 @@ class AppButton: UIButton {
     func setRightImage(_ image: UIImage?) {
         removeImages()
         guard let image = getImage(image) else { return }
-        guard let label = titleLabel else { return }
+//        guard let label = titleLabel else { return }
         let view = UIImageView(image: image)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         
         NSLayoutConstraint.activate([
             view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            view.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0)
+            view.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0)
         ])
 
     }

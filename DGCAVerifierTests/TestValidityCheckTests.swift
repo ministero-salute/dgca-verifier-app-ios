@@ -56,17 +56,17 @@ class TestValidityCheckTests: XCTestCase {
     }
 
     func testValidNegativeTest() {
-		let testSettingStartDay = Setting(name: Constants.rapidStartHoursKey, type: "GENERIC", value: "0")
-		let testSettingEndDay = Setting(name: Constants.rapidEndHoursKey, type: "GENERIC", value: "48")
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
-		
-		bodyString = bodyString.replacingOccurrences(
-			of: "\"sc\": \"2021-05-03T12:27:15+02:00\"",
-			with: "\"sc\": \"\(Date().toDateTimeString)\""
-		)
-		hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
-		
+        let testSettingStartDay = Setting(name: Constants.rapidStartHoursKey, type: "GENERIC", value: "0")
+        let testSettingEndDay = Setting(name: Constants.rapidEndHoursKey, type: "GENERIC", value: "48")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(testSettingEndDay)
+        
+        bodyString = bodyString.replacingOccurrences(
+            of: "\"sc\": \"2021-05-03T12:27:15+02:00\"",
+            with: "\"sc\": \"\(Date().toDateTimeString)\""
+        )
+        hcert.body = JSON(parseJSON: bodyString)[ClaimKey.hCert.rawValue][ClaimKey.euDgcV1.rawValue]
+        
         let isTestNegativeResult = getValidator(mode: .base, hCert: hcert)?.validate(hcert: hcert)
     
         XCTAssertEqual(isTestNegativeResult, .valid)

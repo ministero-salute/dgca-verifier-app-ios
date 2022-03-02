@@ -27,13 +27,13 @@ import Foundation
 
 struct Constants {
     
-    // TestValidityCheck
+    // MARK: TestValidityCheck
     static let rapidStartHoursKey = "rapid_test_start_hours"
     static let rapidEndHoursKey = "rapid_test_end_hours"
     static let molecularStartHoursKey = "molecular_test_start_hours"
     static let molecularEndHoursKey = "molecular_test_end_hours"
     
-    // VaccineValidityCheck
+    // MARK: VaccineValidityCheck
     static let vaccineIncompleteStartDays = "vaccine_start_day_not_complete"
     static let vaccineIncompleteEndDays = "vaccine_end_day_not_complete"
     static let vaccineCompleteStartDays = "vaccine_start_day_complete"
@@ -48,7 +48,7 @@ struct Constants {
     static let vaccineBoosterStartDays_NOT_IT = "vaccine_start_day_booster_NOT_IT"
     static let vaccineBoosterEndDays_NOT_IT = "vaccine_end_day_booster_NOT_IT"
     
-    // EMA settings
+    // MARK: EMA settings
     static let vaccineCompleteEndDays_EMA = "vaccine_end_day_complete_EMA"
     static let vaccineCompleteExtendedDays_EMA = "vaccine_end_day_complete_extended_EMA"
     static let vaccineBoosterEndDays_EMA = "vaccine_end_day_booster_EMA"
@@ -60,7 +60,7 @@ struct Constants {
     static let SputnikVacineCode = "Sputnik-V"
     static let sanMarinoCode = "SM"
     
-    // RecoveryValidityCheck
+    // MARK: RecoveryValidityCheck
     static let recoveryStartDays = "recovery_cert_start_day"
     static let recoveryEndDays = "recovery_cert_end_day"
     static let recoveryStartDays_IT = "recovery_cert_start_day_IT"
@@ -74,7 +74,7 @@ struct Constants {
     static let OID_RECOVERY_ALT = "1.3.6.1.4.1.0.1847.2021.1.3"
     static let ItalyCountryCode = "IT"
     
-    // SwitchScanMode
+    // MARK: SwitchScanMode
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
@@ -82,8 +82,32 @@ struct Constants {
     static let scanMode50 = "scanMode50"
     static let scanModeItalyEntry = "scanModeItalyEntry"
     
-    // Settings
+    // MARK: Settings
     static let drlMaxRetries = "MAX_RETRY"
+    
+    // MARK: Settings Home View
+    static let scanModeDescription3G = "3G_scan_mode_description"
+    static let scanModeDescription2G = "2G_scan_mode_description"
+    static let scanModeDescriptionBooster = "booster_scan_mode_description"
+    static let scanModeDescriptionItalyEntry = "italy_entry_scan_mode_description"
+    static let scanModeDescriptionSchool = "school_scan_mode_description"
+    static let scanModeDescriptionWork = "work_scan_mode_description"
+    
+    // MARK: Settings Scan Mode Popup
+    static let infoScanModePopup = "info_scan_mode_popup"
+    static let errorScanModePopup = "error_scan_mode_popup"
+    
+    // MARK: Settings Faq
+    static let validFaqText = "valid_faq_text"
+    static let validFaqLink = "valid_faq_link"
+    static let notValidFaqText = "not_valid_faq_text"
+    static let notValidFaqLink = "not_valid_faq_link"
+    static let verificationNeededFaqText = "verification_needed_faq_text"
+    static let verificationNeededFaqLink = "verification_needed_faq_link"
+    static let notValidYetFaqText = "not_valid_yet_faq_text"
+    static let notValidYetFaqLink = "not_valid_yet_faq_link"
+    static let notDGCFaqText = "not_eu_dgc_faq_text"
+    static let notDGCFaqLink = "not_eu_dgc_faq_link"
     
     static let boosterMinimumDosesNumber = 3
     static let jjBoosterMinimumDosesNumber = 2
