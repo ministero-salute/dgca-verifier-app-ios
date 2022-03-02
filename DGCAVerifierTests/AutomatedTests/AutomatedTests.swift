@@ -30,7 +30,7 @@ import SwiftyJSON
 
 class AutomatedTests: XCTestCase {
     
-	var plainResults: Bool = false
+    var plainResults: Bool = false
     var testCases = [TestCase]()
     
     var scanModeCols = ["Base", "Ingresso in italia", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro"]
@@ -42,13 +42,13 @@ class AutomatedTests: XCTestCase {
 
         let rowsWithoutHeader = Array<String>(rows[1..<rows.count])
         return rowsWithoutHeader.compactMap {
-			guard $0 != "" else { return nil }
-	
+            guard $0 != "" else { return nil }
+    
             let fields = $0.components(separatedBy: colSeparator)
             let desc = fields[0]
             let id = fields[1]
             let payload = fields[2]
-			let expectedValidity: [TestResult] = Array<String>(fields[3...8])
+            let expectedValidity: [TestResult] = Array<String>(fields[3...8])
                 .enumerated()
                 .map{
                     return TestResult(mode: scanModeCols[$0], result: $1)
@@ -63,22 +63,22 @@ class AutomatedTests: XCTestCase {
         guard let array = try? JSONDecoder().decode([TestCase].self, from: data) else { return [] }
         return array
     }
-	
-	private func loadMockedSettings() {
-		guard let mockedSettingsURL = Bundle(for: AutomatedTests.self).url(forResource: "mockedSettings", withExtension: "json") else { return }
-		guard let mockedSettingsData = try? Data(contentsOf: mockedSettingsURL) else { return }
-		guard let mockedSettings = try? JSONDecoder().decode([Setting].self, from: mockedSettingsData) else { return }
-		
-		mockedSettings.forEach{ mockedSetting in
-			SettingDataStorage.sharedInstance.addOrUpdateSettings(mockedSetting)
-		}
-	}
+    
+    private func loadMockedSettings() {
+        guard let mockedSettingsURL = Bundle(for: AutomatedTests.self).url(forResource: "mockedSettings", withExtension: "json") else { return }
+        guard let mockedSettingsData = try? Data(contentsOf: mockedSettingsURL) else { return }
+        guard let mockedSettings = try? JSONDecoder().decode([Setting].self, from: mockedSettingsData) else { return }
+        
+        mockedSettings.forEach{ mockedSetting in
+            SettingDataStorage.sharedInstance.addOrUpdateSettings(mockedSetting)
+        }
+    }
         
     override func setUpWithError() throws {
         guard let url = Bundle(for: AutomatedTests.self).url(forResource: "CasiDiTest", withExtension: "csv") else { return }
         self.testCases = loadTestArrayfromCSV(fromURL: url, rowSeparator: "\n")
-		
-		    self.loadMockedSettings()
+        
+        self.loadMockedSettings()
     }
 
     override func tearDownWithError() throws {
@@ -86,61 +86,61 @@ class AutomatedTests: XCTestCase {
     }
     
     func test() {
-		
-		  for index in self.testCases.indices {
-			  // Set this to the test case ID you would like to debug to filter out any other case
-			  let debugTestCaseID: String? = nil
-			
-			  if debugTestCaseID != nil {
-				  if self.testCases[index].id != debugTestCaseID {
-					  continue
-				  }
-			  }
-			
-			  var actualValidity = [TestResult]()
-			  guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
-			
-			  for validity in self.testCases[index].expectedValidity {
-				  guard let scanMode = validity.scanMode() else { continue }
-				  guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else { continue }
-				  let result = validator.validate(hcert: hCert)
-				  actualValidity.append(TestResult(mode: validity.mode, status: result))
-			  }
-			  self.testCases[index].actualValidity = actualValidity
-		  }
-		
-		  self.printTestsReport()
-		
+        
+          for index in self.testCases.indices {
+              // Set this to the test case ID you would like to debug to filter out any other case
+              let debugTestCaseID: String? = nil
+            
+              if debugTestCaseID != nil {
+                  if self.testCases[index].id != debugTestCaseID {
+                      continue
+                  }
+              }
+            
+              var actualValidity = [TestResult]()
+              guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
+            
+              for validity in self.testCases[index].expectedValidity {
+                  guard let scanMode = validity.scanMode() else { continue }
+                  guard let validator = self.getValidator(for: hCert, scanMode: scanMode) else { continue }
+                  let result = validator.validate(hcert: hCert)
+                  actualValidity.append(TestResult(mode: validity.mode, status: result))
+              }
+              self.testCases[index].actualValidity = actualValidity
+          }
+        
+          self.printTestsReport()
+        
     }
     
     func printTestsReport() {
-		
-		var resultsCSVString: String = "TEST ID;Base;Ex. Base;Rafforzata;Ex. Rafforzata;Visitatori RSA;Ex. Visitatori RSA;Studenti;Ex. Studenti;Lavoro;Ex. Lavoro;Ingresso in Italia;Ex. Ingresso in Italia;\n"
-		
-		if plainResults {
-			resultsCSVString = "TEST ID;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in Italia;\n"
-		}
-		
-		testCases.map{ testCase in
-			// Re-order scanModeCols to generate the CSV with columns aligned with Android
-			self.scanModeCols = ["Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"]
-			
-			let results: String = scanModeCols.map{ scanMode in
-				let actualValidity: String 		= testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
-				var expectedValidity: String 	= testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? "-"
-				expectedValidity = (expectedValidity == " " || expectedValidity == "") ? "-" : expectedValidity
-				
-				return self.plainResults ? "\(actualValidity)" : "\(actualValidity);\(expectedValidity)"
+        
+        var resultsCSVString: String = "TEST ID;Base;Ex. Base;Rafforzata;Ex. Rafforzata;Visitatori RSA;Ex. Visitatori RSA;Studenti;Ex. Studenti;Lavoro;Ex. Lavoro;Ingresso in Italia;Ex. Ingresso in Italia;\n"
+        
+        if plainResults {
+            resultsCSVString = "TEST ID;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in Italia;\n"
+        }
+        
+        testCases.map{ testCase in
+            // Re-order scanModeCols to generate the CSV with columns aligned with Android
+            self.scanModeCols = ["Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"]
+            
+            let results: String = scanModeCols.map{ scanMode in
+                let actualValidity: String         = testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
+                var expectedValidity: String     = testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? "-"
+                expectedValidity = (expectedValidity == " " || expectedValidity == "") ? "-" : expectedValidity
+                
+                return self.plainResults ? "\(actualValidity)" : "\(actualValidity);\(expectedValidity)"
             }.joined(separator: ";")
             
             return "\(testCase.id);\(results)"
         }
-		.forEach{ resultsCSVString += $0 + "\n" }
-		
-		let resultsCSVAttachment = XCTAttachment(string: resultsCSVString)
-		resultsCSVAttachment.lifetime = .keepAlways
-		self.add(resultsCSVAttachment)
-		
+        .forEach{ resultsCSVString += $0 + "\n" }
+        
+        let resultsCSVAttachment = XCTAttachment(string: resultsCSVString)
+        resultsCSVAttachment.lifetime = .keepAlways
+        self.add(resultsCSVAttachment)
+        
     }
     
     func getValidator(for hCert: HCert, scanMode: ScanMode) -> DGCValidator? {

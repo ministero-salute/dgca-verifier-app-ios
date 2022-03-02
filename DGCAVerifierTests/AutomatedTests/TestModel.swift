@@ -104,8 +104,8 @@ struct TestResult: Codable, Equatable, CustomStringConvertible {
             self.result = "notGreenPass"
         case .notValid:
             self.result = "notValid"
-		case .expired:
-			self.result = "expired"
+        case .expired:
+            self.result = "expired"
         case .valid:
             self.result = "valid"
         case .notValidYet:

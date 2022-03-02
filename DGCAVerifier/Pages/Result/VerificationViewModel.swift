@@ -36,31 +36,31 @@ class VerificationViewModel {
     init(payload: String, country: CountryModel?) {
         self.country = country
         
-		guard
-			let scanMode = ScanMode.fetchFromLocalSettings(),
-			let hCert = HCert(from: payload) else {
-				self.status = .notGreenPass
-				return
-		}
-		
-		var validator: DGCValidator!
-		var validatorBuilder = DGCValidatorBuilder()
-		#if DEBUG
-		validatorBuilder = validatorBuilder.checkHCert(false)
-		#endif
-		
-		if VerificationState.shared.shouldValidateTestOnly() {
-			print("[DEBUG MODE] Checking test only.")
-			validator = validatorBuilder.checkTestOnly(true).build(hCert: hCert)
-			
-			VerificationState.shared.followUpTestScanned = true
-		} else {
-			print("[DEBUG MODE] Checking against scan mode.")
-			validator = validatorBuilder.scanMode(scanMode).build(hCert: hCert)
-		}
-		
-		self.hCert = hCert
-		self.status = validator.validate(hcert: hCert)
+        guard
+            let scanMode = ScanMode.fetchFromLocalSettings(),
+            let hCert = HCert(from: payload) else {
+                self.status = .notGreenPass
+                return
+        }
+        
+        var validator: DGCValidator!
+        var validatorBuilder = DGCValidatorBuilder()
+        #if DEBUG
+        validatorBuilder = validatorBuilder.checkHCert(false)
+        #endif
+        
+        if VerificationState.shared.shouldValidateTestOnly() {
+            print("[DEBUG MODE] Checking test only.")
+            validator = validatorBuilder.checkTestOnly(true).build(hCert: hCert)
+            
+            VerificationState.shared.followUpTestScanned = true
+        } else {
+            print("[DEBUG MODE] Checking against scan mode.")
+            validator = validatorBuilder.scanMode(scanMode).build(hCert: hCert)
+        }
+        
+        self.hCert = hCert
+        self.status = validator.validate(hcert: hCert)
         
         //self.hCert?.ruleCountryCode = country?.code
         //self.status = RulesValidator.getStatus(from: hCert)

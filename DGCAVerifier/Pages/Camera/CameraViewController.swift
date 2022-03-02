@@ -46,21 +46,21 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var countryButton: AppButton!
     @IBOutlet weak var flashButton: AppButton!
     @IBOutlet weak var switchButton: UIButton!
-	
-	private var headerBar: HeaderBar?
-	private var footerBar: FooterBar?
-	
-	private var captureSession = AVCaptureSession()
+    
+    private var headerBar: HeaderBar?
+    private var footerBar: FooterBar?
+    
+    private var captureSession = AVCaptureSession()
     private var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
-	init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
+    init(coordinator: CameraCoordinator, country: CountryModel? = nil) {
         self.coordinator = coordinator
         self.country = country
-		
+        
         super.init(nibName: "CameraViewController", bundle: nil)
-		
-		self.initializeHeaderBar()
-		self.initializeFooterBar()
+        
+        self.initializeHeaderBar()
+        self.initializeFooterBar()
     }
 
     required init?(coder: NSCoder) {
@@ -103,7 +103,7 @@ class CameraViewController: UIViewController {
     }
 
     @IBAction func back(_ sender: Any) {
-		coordinator?.dismiss(animated: true)
+        coordinator?.dismiss(animated: true)
     }
     
     @IBAction func flashSwitch(_ sender: Any) {
@@ -147,32 +147,32 @@ class CameraViewController: UIViewController {
         }
         coordinator?.validate(payload: payload, country: country, delegate: self)
     }
-	
-	@objc private func goBack() {
-		if VerificationState.shared.isFollowUpScan {
-			print("[DEBUG] Follow up scan. Dismissing current camera and presenting old `.verificationIsNeeded` screen.")
-			guard let hcert = VerificationState.shared.hCert else { return }
-			VerificationState.shared.userCanceledSecondScan = true
-			self.coordinator?.dismiss(animated: false)
-			self.coordinator?.validate(payload: hcert.payloadString, country: self.country, delegate: self)
-		} else {
-			print("[DEBUG] Dismissing camera, animated.")
-			coordinator?.dismiss(animated: true)
-		}
-	}
-	
-	private func initializeHeaderBar() {
-		self.headerBar = HeaderBar()
-		self.headerBar?.backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+    
+    @objc private func goBack() {
+        if VerificationState.shared.isFollowUpScan {
+            print("[DEBUG] Follow up scan. Dismissing current camera and presenting old `.verificationIsNeeded` screen.")
+            guard let hcert = VerificationState.shared.hCert else { return }
+            VerificationState.shared.userCanceledSecondScan = true
+            self.coordinator?.dismiss(animated: false)
+            self.coordinator?.validate(payload: hcert.payloadString, country: self.country, delegate: self)
+        } else {
+            print("[DEBUG] Dismissing camera, animated.")
+            coordinator?.dismiss(animated: true)
+        }
+    }
+    
+    private func initializeHeaderBar() {
+        self.headerBar = HeaderBar()
+        self.headerBar?.backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         self.headerBar?.switchCameraButton.addTarget(self, action: #selector(switchCameraAction), for: .touchUpInside)
         self.headerBar?.flashButton.addTarget(self, action: #selector(flashSwitchAction), for: .touchUpInside)
-	}
-	
-	private func initializeFooterBar() {
-		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goBack))
-		self.footerBar = FooterBar()
-		self.footerBar?.closeView.addGestureRecognizer(gestureRecognizer)
-	}
+    }
+    
+    private func initializeFooterBar() {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goBack))
+        self.footerBar = FooterBar()
+        self.footerBar?.closeView.addGestureRecognizer(gestureRecognizer)
+    }
     
     private func initializeBackButton() {
         backButton.style = .minimal
@@ -241,7 +241,7 @@ class CameraViewController: UIViewController {
             preferredStyle: .alert
         )
         let alertAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-			self?.coordinator?.dismiss(animated: true)
+            self?.coordinator?.dismiss(animated: true)
         }
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
@@ -249,17 +249,17 @@ class CameraViewController: UIViewController {
 }
 
 extension CameraViewController: HeaderFooterDelegate {
-	public var header: UIView? {
-		return self.headerBar
-	}
-	
-	public var contentVC: UIViewController? {
-		return self
-	}
-	
-	public var footer: UIView? {
-		return self.footerBar
-	}
+    public var header: UIView? {
+        return self.headerBar
+    }
+    
+    public var contentVC: UIViewController? {
+        return self
+    }
+    
+    public var footer: UIView? {
+        return self.footerBar
+    }
 }
 
 extension CameraViewController: CameraDelegate {
@@ -303,7 +303,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         DispatchQueue.main.sync { [weak self] in
             guard let `self` = self else { return }
-			self.stopRunning()
+            self.stopRunning()
             self.found(payload: payload)
         }
     }

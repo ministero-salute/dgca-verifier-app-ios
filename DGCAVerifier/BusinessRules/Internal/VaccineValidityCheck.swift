@@ -93,7 +93,7 @@ struct VaccineValidityCheck {
         guard let validityEnd = preconditions.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
         
         guard let currentDate = Date.startOfDay else { return .notValid }
-		
+        
         // J&J booster is immediately valid
         let fromDate = preconditions.isJJBooster ? preconditions.vaccineDate : validityStart
         
@@ -209,7 +209,7 @@ struct VaccineValidityCheck {
             }
             
             if preconditions.isCurrentDoseIncomplete {
-				return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
+                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
             }
             
             if preconditions.isJJ {
@@ -264,9 +264,9 @@ struct VaccineValidityCheck {
                 return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
             }
             
-			if preconditions.isCurrentDoseIncomplete {
-				return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
-			}
+            if preconditions.isCurrentDoseIncomplete {
+                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
+            }
             
             return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
         default:

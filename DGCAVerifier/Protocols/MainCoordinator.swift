@@ -30,7 +30,7 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
 
     func start()
-	func dismiss(animated: Bool)
+    func dismiss(animated: Bool)
     func dismissToRoot()
 }
 
@@ -48,7 +48,7 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(controller, animated: true)
     }
     
-	func dismiss(animated: Bool = true) {
+    func dismiss(animated: Bool = true) {
         navigationController.popViewController(animated: true)
     }
     
@@ -60,9 +60,9 @@ class MainCoordinator: Coordinator {
 
 extension MainCoordinator: HomeCoordinator {
     func showCamera() {
-		let cameraViewController = CameraViewController(coordinator: self)
-		let controller = HFBackViewController()
-		controller.delegate = cameraViewController
+        let cameraViewController = CameraViewController(coordinator: self)
+        let controller = HFBackViewController()
+        controller.delegate = cameraViewController
         navigationController.pushViewController(controller, animated: true)
     }
     
@@ -76,12 +76,12 @@ extension MainCoordinator: HomeCoordinator {
         controller.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(controller, animated: true)
     }
-	
-	func openCustomPicker(delegate: CustomPickerDelegate) {
-		let controller = CustomPickerController(coordinator: self, customPickerDelegate: delegate)
-		controller.modalPresentationStyle = .overFullScreen
-		navigationController.present(controller, animated: true)
-	}
+    
+    func openCustomPicker(delegate: CustomPickerDelegate) {
+        let controller = CustomPickerController(coordinator: self, customPickerDelegate: delegate)
+        controller.modalPresentationStyle = .overFullScreen
+        navigationController.present(controller, animated: true)
+    }
     
     func openDebug() {
         #if DEBUG
@@ -110,16 +110,16 @@ extension MainCoordinator: CameraCoordinator {
 
 
 extension MainCoordinator: VerificationCoordinator {
-	func dismissVerification(animated: Bool, completion: (()->())?) {
+    func dismissVerification(animated: Bool, completion: (()->())?) {
         navigationController.dismiss(animated: animated, completion: completion)
     }
-	
-	func showCamera(animated: Bool) {
-		let cameraViewController = CameraViewController(coordinator: self)
-		let controller = HFBackViewController()
-		controller.delegate = cameraViewController
-		navigationController.pushViewController(controller, animated: true)
-	}
+    
+    func showCamera(animated: Bool) {
+        let cameraViewController = CameraViewController(coordinator: self)
+        let controller = HFBackViewController()
+        controller.delegate = cameraViewController
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 extension MainCoordinator: SettingsCoordinator {
@@ -133,9 +133,9 @@ extension MainCoordinator: SettingsCoordinator {
 }
 
 extension MainCoordinator: CustomPickerCoordinator {
-	func dismissCustomPicker(completion: (() -> Void)?) {
-		navigationController.dismiss(animated: true, completion: nil)
-	}
+    func dismissCustomPicker(completion: (() -> Void)?) {
+        navigationController.dismiss(animated: true, completion: nil)
+    }
 }
 
 #if DEBUG

@@ -38,25 +38,25 @@ extension Date {
     func sub(_ value: Int, ofType type: Calendar.Component) -> Date? {
         Calendar.current.date(byAdding: type, value: -value, to: self)
     }
-	
-	func startOfMonth() -> Date {
-		return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
-	}
-	
-	func endOfMonth() -> Date {
-		return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
-	}
-	
-	func endOfYear() -> Date? {
-		let components: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: self)
-		
-		guard let month = components.month, let day = components.day else { return nil }
-		
-		return Calendar.current.date(byAdding: DateComponents(
-			year: 1,
-			month: -month + 1,
-			day: -day
-		), to: self)
-	}
+    
+    func startOfMonth() -> Date {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
+    }
+    
+    func endOfMonth() -> Date {
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
+    }
+    
+    func endOfYear() -> Date? {
+        let components: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        
+        guard let month = components.month, let day = components.day else { return nil }
+        
+        return Calendar.current.date(byAdding: DateComponents(
+            year: 1,
+            month: -month + 1,
+            day: -day
+        ), to: self)
+    }
     
 }

@@ -28,7 +28,7 @@ import UIKit
 enum Status {
     case valid
     case notValid
-	case expired
+    case expired
     case notValidYet
     case notGreenPass
     case revokedGreenPass

@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 extension UIView {
-	public func embedSubview(subview: UIView) {
-		let constraints = self.getAnchorConstraintsRelativeTo(view: subview)
-		subview.translatesAutoresizingMaskIntoConstraints = false
-		
-		self.addSubview(subview)
-		NSLayoutConstraint.activate(constraints)
-	}
+    public func embedSubview(subview: UIView) {
+        let constraints = self.getAnchorConstraintsRelativeTo(view: subview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(subview)
+        NSLayoutConstraint.activate(constraints)
+    }
 }

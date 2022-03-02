@@ -33,7 +33,7 @@ protocol HomeCoordinator: Coordinator {
     func showCountries()
     func openSettings()
     func openDebug()
-	func openCustomPicker(delegate: CustomPickerDelegate)
+    func openCustomPicker(delegate: CustomPickerDelegate)
 }
 
 class HomeViewController: UIViewController {
@@ -188,7 +188,7 @@ class HomeViewController: UIViewController {
         let boldLocalizedText = "home.title.bold".localized
         let homeTitle: NSMutableAttributedString = .init(string: localizedBaseHomeTitle, attributes: nil)
         let boldRange: NSRange = (homeTitle.string as NSString).range(of: boldLocalizedText)
-		homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
+        homeTitle.setAttributes([NSAttributedString.Key.font: UIFont(name: "TitilliumWeb-Bold", size: 30)!], range: boldRange)
         titleLabel.attributedText = homeTitle
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.minimumScaleFactor = 0.2
@@ -387,7 +387,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scanModeButtonTapped(_ sender: Any) {
-		coordinator?.openCustomPicker(delegate: self)
+        coordinator?.openCustomPicker(delegate: self)
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -421,8 +421,8 @@ class HomeViewController: UIViewController {
             }
         }
         
-		VerificationState.shared.isFollowUpScan = false
-		coordinator?.showCamera()
+        VerificationState.shared.isFollowUpScan = false
+        coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
@@ -502,12 +502,12 @@ extension HomeViewController: CRLSynchronizationDelegate {
 }
 
 extension HomeViewController: CustomPickerDelegate {
-	
-	func didSetScanMode(scanMode: ScanMode) {
-		setScanModeButton()
-		updateScanButtonStatus()
-	}
-	
+    
+    func didSetScanMode(scanMode: ScanMode) {
+        setScanModeButton()
+        updateScanButtonStatus()
+    }
+    
 }
 
 extension HomeViewController {
@@ -520,17 +520,17 @@ extension HomeViewController {
         switch scanMode{
         case Constants.scanMode3G:
             pickerSelectedOption = 0
-		case Constants.scanMode2G:
-			pickerSelectedOption = 1
+        case Constants.scanMode2G:
+            pickerSelectedOption = 1
         case Constants.scanModeBooster:
             pickerSelectedOption = 2
-		case Constants.scanMode50:
-			pickerSelectedOption = 3
-		case Constants.scanModeItalyEntry:
-			pickerSelectedOption = 4
+        case Constants.scanMode50:
+            pickerSelectedOption = 3
+        case Constants.scanModeItalyEntry:
+            pickerSelectedOption = 4
         case Constants.scanModeSchool:
             pickerSelectedOption = 5
-		default:
+        default:
             break
         }
         
@@ -566,9 +566,9 @@ extension HomeViewController {
         case 4:
             Store.set(Constants.scanModeItalyEntry, for: Store.Key.scanMode)
             Store.set(true, for: .isScanModeSet)
-		    case 5:
-			      Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
-			      Store.set(true, for: .isScanModeSet)
+            case 5:
+                  Store.set(Constants.scanModeSchool, for: Store.Key.scanMode)
+                  Store.set(true, for: .isScanModeSet)
         default:
             break
         }

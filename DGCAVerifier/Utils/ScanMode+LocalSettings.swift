@@ -26,12 +26,12 @@
 import Foundation
 
 extension ScanMode {
-	
-	///	Fetches the currently set scan mode from `UserDefaults`.
-	///	- returns: `nil` if no scan mode was set.
-	public static func fetchFromLocalSettings() -> ScanMode? {
-		guard let scanModeString: String = Store.get(key: .scanMode) else { return nil }
-		return ScanMode.init(rawValue: scanModeString)
-	}
-	
+    
+    ///    Fetches the currently set scan mode from `UserDefaults`.
+    ///    - returns: `nil` if no scan mode was set.
+    public static func fetchFromLocalSettings() -> ScanMode? {
+        guard let scanModeString: String = Store.get(key: .scanMode) else { return nil }
+        return ScanMode.init(rawValue: scanModeString)
+    }
+    
 }

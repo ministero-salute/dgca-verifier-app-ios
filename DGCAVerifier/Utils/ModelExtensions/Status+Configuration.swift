@@ -42,7 +42,7 @@ extension Status {
         switch self {
         case .valid:                return "icon_valid".image
         case .notValid:             return "icon_not-valid".image
-		case .expired:				return "icon_not-valid".image
+        case .expired:                return "icon_not-valid".image
         case .notValidYet:          return "icon_not-valid-yet".image
         case .notGreenPass:         return "icon_not-green-pass".image
         case .revokedGreenPass:     return "icon_not-green-pass".image
@@ -54,7 +54,7 @@ extension Status {
         switch self {
         case .valid:                return "result.title.valid"
         case .notValid:             return "result.title.not.valid"
-		case .expired:				return "result.title.expired"
+        case .expired:                return "result.title.expired"
         case .notValidYet:          return "result.title.not.valid.yet"
         case .notGreenPass:         return "result.title.not.green.pass"
         case .revokedGreenPass:     return "result.title.revoked.green.pass"

@@ -33,12 +33,12 @@ class RecoveryValidityCheckTest: XCTestCase {
     var hcert: HCert!
     var payload: String!
     var bodyString: String!
-	
-	let recoveryStartDaysIT = "recovery_cert_start_day_IT"
-	let recoveryStartDaysNotIT = "recovery_cert_start_day_NOT_IT"
-	let recoveryEndDays = "recovery_cert_end_day"
-	let recoveryEndDaysIT = "recovery_cert_end_day_IT"
-	let recoveryEndDaysNotIT = "recovery_cert_end_day_NOT_IT"
+    
+    let recoveryStartDaysIT = "recovery_cert_start_day_IT"
+    let recoveryStartDaysNotIT = "recovery_cert_start_day_NOT_IT"
+    let recoveryEndDays = "recovery_cert_end_day"
+    let recoveryEndDaysIT = "recovery_cert_end_day_IT"
+    let recoveryEndDaysNotIT = "recovery_cert_end_day_NOT_IT"
 
     
     private func getValidator(mode: ScanMode, hCert: HCert) -> DGCValidator? {
@@ -62,17 +62,17 @@ class RecoveryValidityCheckTest: XCTestCase {
     }
 
     func testValidRecoveryDate() {
-		let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
-		let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
-		let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
-		let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
-		let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
+        let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
+        let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
+        let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
+        let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
+        let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
         SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
         SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
-		
+        
         let todayDate : Date = Date()
         let todayDateFormatted = todayDate.toDateString
         let futureDate = Calendar.current.date(byAdding: .day, value: 2, to: todayDate)!
@@ -88,17 +88,17 @@ class RecoveryValidityCheckTest: XCTestCase {
     }
     
     func testFutureRecoveryDate() {
-		let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
-		let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
-		let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
-		let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
-		let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
-		SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
-		
+        let recoverySettingStartDay = Setting(name: self.recoveryStartDaysIT, type: "GENERIC", value: "0")
+        let recoverySettingStartDayNotIT = Setting(name: self.recoveryStartDaysNotIT, type: "GENERIC", value: "0")
+        let recoverySettingEndDayIT = Setting(name: self.recoveryEndDaysIT, type: "GENERIC", value: "1")
+        let recoverySettingEndDayNotIT = Setting(name: self.recoveryEndDaysNotIT, type: "GENERIC", value: "1")
+        let recoverySettingEndDay = Setting(name: self.recoveryEndDays, type: "GENERIC", value: "1")
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDay)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingStartDayNotIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDayNotIT)
+        SettingDataStorage.sharedInstance.addOrUpdateSettings(recoverySettingEndDay)
+        
         let todayDate : Date = Date()
         let futureDate = Calendar.current.date(byAdding: .day, value: 2, to: todayDate)!
         let dateFormatter = DateFormatter()

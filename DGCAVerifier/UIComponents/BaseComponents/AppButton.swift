@@ -50,7 +50,7 @@ class AppButton: UIButton {
     internal func initialize() {
         contentHorizontalAlignment = .left
         titleLabel?.font = Font.getFont(size: 14, style: .bold)
-		titleLabel?.textColor = style.tintColor
+        titleLabel?.textColor = style.tintColor
         backgroundColor = style.backgroundColor
         tintColor = style.tintColor
         cornerRadius = CORNER_RADIUS

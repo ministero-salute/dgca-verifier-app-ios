@@ -27,27 +27,27 @@ import Foundation
 import SwiftDGC
 
 struct TestOnlyValidator: DGCValidator {
-	
-	func validate(hcert: HCert) -> Status {
-		guard let scanMode: ScanMode = ScanMode.fetchFromLocalSettings() else { return .notValid }
-		
-		var validator: DGCValidator
-		switch scanMode {
-			case .base:
-				validator = TestBaseValidator()
-			case .reinforced:
-				validator = TestReinforcedValidator()
-			case .booster:
-				validator = TestBoosterValidator()
-			case .work:
-				validator = TestWorkValidator()
-			case .italyEntry:
-				validator = TestItalyEntryValidator()
-			case .school:
-				validator = TestSchoolValidator()
-		}
-		
-		return validator.validate(hcert: hcert)
-	}
-	
+    
+    func validate(hcert: HCert) -> Status {
+        guard let scanMode: ScanMode = ScanMode.fetchFromLocalSettings() else { return .notValid }
+        
+        var validator: DGCValidator
+        switch scanMode {
+            case .base:
+                validator = TestBaseValidator()
+            case .reinforced:
+                validator = TestReinforcedValidator()
+            case .booster:
+                validator = TestBoosterValidator()
+            case .work:
+                validator = TestWorkValidator()
+            case .italyEntry:
+                validator = TestItalyEntryValidator()
+            case .school:
+                validator = TestSchoolValidator()
+        }
+        
+        return validator.validate(hcert: hcert)
+    }
+    
 }
