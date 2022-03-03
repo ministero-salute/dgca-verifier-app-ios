@@ -31,7 +31,6 @@ class VerificationViewModel {
     var status: Status
     var hCert: HCert?
     var country: CountryModel?
-   
     
     init(payload: String, country: CountryModel?) {
         self.country = country
@@ -65,6 +64,13 @@ class VerificationViewModel {
         //self.hCert?.ruleCountryCode = country?.code
         //self.status = RulesValidator.getStatus(from: hCert)
         //self.test()
+    }
+    
+    public func isPersonalDataCongruent() -> Bool {
+        if VerificationState.shared.followUpTestScanned {
+            return self.hCert?.fullName == VerificationState.shared.hCert?.fullName
+        }
+        return false
     }
     
     func getCountryName() -> String {
