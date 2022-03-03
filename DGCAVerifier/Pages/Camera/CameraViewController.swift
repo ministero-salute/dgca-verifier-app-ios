@@ -153,7 +153,6 @@ class CameraViewController: UIViewController {
             print("[DEBUG] Follow up scan. Dismissing current camera and presenting old `.verificationIsNeeded` screen.")
             guard let hcert = VerificationState.shared.hCert else { return }
             VerificationState.shared.userCanceledSecondScan = true
-            self.coordinator?.dismiss(animated: false)
             self.coordinator?.validate(payload: hcert.payloadString, country: self.country, delegate: self)
         } else {
             print("[DEBUG] Dismissing camera, animated.")
