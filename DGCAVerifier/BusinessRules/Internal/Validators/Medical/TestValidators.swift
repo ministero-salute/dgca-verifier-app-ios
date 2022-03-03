@@ -92,6 +92,7 @@ class TestReinforcedValidator: TestBaseValidator {
             return .notValid
         }
     }
+    
 }
 
 class TestBoosterValidator: TestReinforcedValidator {}

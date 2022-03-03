@@ -35,7 +35,6 @@ class VerificationViewController: UIViewController {
     private weak var coordinator: VerificationCoordinator?
     private var delegate: CameraDelegate?
     private var viewModel: VerificationViewModel
-    private var isPersonalDataValid: Bool = false
     
     @IBOutlet weak var resultImageHeight: NSLayoutConstraint!
     @IBOutlet weak var resultImageView: UIImageView!
@@ -72,7 +71,6 @@ class VerificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.isPersonalDataValid = self.validatePersonalData()
         initializeViews()
         #if targetEnvironment(simulator)
         let status: Status = .verificationIsNeeded
@@ -118,7 +116,6 @@ class VerificationViewController: UIViewController {
     }
     
     private func addTickView(_ status: Status) {
-
         let firstScanView = VerificationTickView()
         let secondScanView = VerificationTickView()
         let personalDataCheckView = VerificationTickView()
@@ -129,7 +126,7 @@ class VerificationViewController: UIViewController {
         firstScanView.tickImageView.image = iconValid
         firstScanView.tickLabel.text = "result.tick.valid".localized
         
-        if self.checkPersonalDataTickView() {
+        if self.viewModel.isPersonalDataCongruent() {
             personalDataCheckView.tickImageView.image = iconValid
             personalDataCheckView.tickLabel.text = "result.tick.congruent.personal.data".localized
         } else {
@@ -140,7 +137,7 @@ class VerificationViewController: UIViewController {
         switch status {
         case .valid:
             secondScanView.tickImageView.image = iconValid
-                secondScanView.tickLabel.text = "result.tick.test.valid".localized
+            secondScanView.tickLabel.text = "result.tick.test.valid".localized
         default:
             secondScanView.tickImageView.image = iconNotValid
             secondScanView.tickLabel.text = "result.tick.test.not.valid".localized
@@ -148,25 +145,14 @@ class VerificationViewController: UIViewController {
         
         tickStackView.addArrangedSubview(firstScanView)
         tickStackView.addArrangedSubview(secondScanView)
-        if status != .notValid {
+        if status == .valid && !self.viewModel.isPersonalDataCongruent() {
             tickStackView.addArrangedSubview(personalDataCheckView)
         }
     }
     
-    private func checkPersonalDataTickView() -> Bool {
-        return self.viewModel.hCert?.fullName == VerificationState.shared.hCert?.fullName
-    }
-    
-    private func validatePersonalData() -> Bool {
-        if VerificationState.shared.followUpTestScanned {
-            return self.checkPersonalDataTickView()
-        }
-        return false
-    }
-    
     private func validate(_ status: Status) {
         var statusWithValidIdentity: Status = status
-        if !self.isPersonalDataValid && VerificationState.shared.followUpTestScanned {
+        if VerificationState.shared.followUpTestScanned && !self.viewModel.isPersonalDataCongruent() {
             statusWithValidIdentity = .notValid
         }
         
