@@ -27,7 +27,6 @@ import RealmSwift
 
 protocol VerificationCoordinator: Coordinator {
     func dismissVerification(animated: Bool, completion: (()->())?)
-    func showCamera(animated: Bool)
 }
 
 class VerificationViewController: UIViewController {

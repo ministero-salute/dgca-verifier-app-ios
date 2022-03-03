@@ -113,13 +113,6 @@ extension MainCoordinator: VerificationCoordinator {
     func dismissVerification(animated: Bool, completion: (()->())?) {
         navigationController.dismiss(animated: animated, completion: completion)
     }
-    
-    func showCamera(animated: Bool) {
-        let cameraViewController = CameraViewController(coordinator: self)
-        let controller = HFBackViewController()
-        controller.delegate = cameraViewController
-        navigationController.pushViewController(controller, animated: true)
-    }
 }
 
 extension MainCoordinator: SettingsCoordinator {
