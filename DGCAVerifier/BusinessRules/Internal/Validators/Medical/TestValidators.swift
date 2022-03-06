@@ -57,6 +57,7 @@ class TestBaseValidator: DGCValidator {
     }
     
     private func getEndHours(for hcert: HCert) -> String? {
+        if (VerificationState.shared.shouldValidateTestOnly() && ScanMode.fetchFromLocalSettings() == .booster) { return rapidEndHours }
         if (hcert.isMolecularTest) { return molecularEndHours }
         if (hcert.isRapidTest) { return rapidEndHours }
         return nil
