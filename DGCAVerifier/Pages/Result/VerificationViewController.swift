@@ -107,7 +107,7 @@ class VerificationViewController: UIViewController {
         noTestAvailableButton.setTitle("result.scan.button.no.test".localized)
         noTestAvailableButton.setTitleColor(Palette.blue, for: .normal)
         noTestAvailableButton.style = .white
-        noTestAvailableButton.setRightImage(named: "icon_arrow-right")
+        noTestAvailableButton.setRightImage(named: "close")
         noTestAvailableButton.addTarget(self, action: #selector(self.noTestAvailableDidTap), for: .touchUpInside)
         
         buttonStackView.addArrangedSubview(secondScanButton)
