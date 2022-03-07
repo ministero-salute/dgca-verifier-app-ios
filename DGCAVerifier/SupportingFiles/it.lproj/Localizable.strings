@@ -67,6 +67,9 @@
 "result.title.revoked.green.pass" = "Certificazione revocata";
 "result.title.need.verification" = "Certificazione valida richiesto tampone";
 
+"result.second.scan.title.valid" = "Verifica valida";
+"result.second.scan.title.not.valid" = "Verifica non valida";
+
 "result.description.valid" = "Per completare la verifica è necessario confrontare i seguenti dati anagrafici con quelli di un documento di identità valido:";
 "result.description.not.valid" = "La certificazione presenta i seguenti dati anagrafici:";
 "result.description.revoked" = "La certificazione risulta essere revocata";

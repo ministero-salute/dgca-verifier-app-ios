@@ -127,7 +127,10 @@ class CustomPickerController: UIViewController {
     }
     
     @IBAction func didTapConfirm(_ sender: Any) {
-        guard let selectedScanMode = self.selectedScanMode else { return }
+        guard let selectedScanMode = self.selectedScanMode else {
+            self.coordinator?.dismissCustomPicker(completion: nil)
+            return
+        }
         
         Store.set(selectedScanMode.rawValue, for: .scanMode)
         Store.set(true, for: .isScanModeSet)
