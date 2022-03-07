@@ -151,7 +151,7 @@ class VerificationViewController: UIViewController {
     
     private func validate(_ status: Status) {
         var statusWithValidIdentity: Status = status
-        if VerificationState.shared.followUpTestScanned && !self.viewModel.isPersonalDataCongruent() {
+        if VerificationState.shared.followUpTestScanned && !self.viewModel.isPersonalDataCongruent() && status != .notGreenPass {
             statusWithValidIdentity = .notValid
         }
         

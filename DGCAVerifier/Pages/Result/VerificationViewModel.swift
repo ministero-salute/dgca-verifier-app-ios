@@ -39,6 +39,9 @@ class VerificationViewModel {
             let scanMode = ScanMode.fetchFromLocalSettings(),
             let hCert = HCert(from: payload) else {
                 self.status = .notGreenPass
+                if VerificationState.shared.shouldValidateTestOnly() {
+                    VerificationState.shared.followUpTestScanned = true
+                }
                 return
         }
         
