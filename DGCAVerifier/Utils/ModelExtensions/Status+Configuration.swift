@@ -54,7 +54,7 @@ extension Status {
         switch self {
         case .valid:                return "result.title.valid"
         case .notValid:             return "result.title.not.valid"
-        case .expired:                return "result.title.expired"
+        case .expired:              return "result.title.expired"
         case .notValidYet:          return "result.title.not.valid.yet"
         case .notGreenPass:         return "result.title.not.green.pass"
         case .revokedGreenPass:     return "result.title.revoked.green.pass"
@@ -63,12 +63,20 @@ extension Status {
         }
     }
     
+    var secondScanTitle: String {
+        switch self {
+        case .valid:                return "result.second.scan.title.valid"
+        case .notValid:             return "result.second.scan.title.not.valid"
+        default: 					return "result.title.not.green.pass"
+        }
+    }
+    
     var description: String? {
         switch self {
         case .valid:                return "result.description.valid"
         case .notValidYet:          return "result.description.not.valid"
         case .notValid:             return "result.description.not.valid"
-        case .expired:               return "result.description.not.valid"
+        case .expired:              return "result.description.not.valid"
         case .revokedGreenPass:     return "result.description.revoked"
         case .verificationIsNeeded: return "result.description.need.verification"
         default:                    return nil

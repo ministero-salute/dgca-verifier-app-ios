@@ -157,7 +157,11 @@ class VerificationViewController: UIViewController {
         
         view.backgroundColor = statusWithValidIdentity.backgroundColor
         resultImageView.image = statusWithValidIdentity.mainImage
-        titleLabel.text = statusWithValidIdentity.title.localizeWith(getTitleArguments(statusWithValidIdentity))
+        if VerificationState.shared.followUpTestScanned {
+            titleLabel.text = statusWithValidIdentity.secondScanTitle.localizeWith(getTitleArguments(statusWithValidIdentity))
+        } else {
+            titleLabel.text = statusWithValidIdentity.title.localizeWith(getTitleArguments(statusWithValidIdentity))
+        }
         descriptionLabel.text = statusWithValidIdentity.description?.localized
         descriptionLabel.sizeToFit()
         lastFetchLabel.isHidden = !statusWithValidIdentity.showLastFetch
