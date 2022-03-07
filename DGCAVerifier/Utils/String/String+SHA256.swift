@@ -32,4 +32,12 @@ extension String {
         }
         return ""
     }
+    
+    func shortSha256() -> String{
+        if let stringData = self.data(using: String.Encoding.utf8) {
+            let sha256 = stringData.sha256()
+            return sha256[0...16]
+        }
+        return ""
+    }
 }

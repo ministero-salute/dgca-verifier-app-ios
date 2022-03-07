@@ -29,8 +29,26 @@ import SwiftDGC
 struct RevocationValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
+        let shortStatus = shortValidate(hcert: hcert)
+        let longStatus = longValidate(hcert: hcert)
+        let shaValidationStatus = [shortStatus, longStatus]
+        
+        let failedValidations = shaValidationStatus.filter{ $0 != .valid }
+        return failedValidations.isEmpty ? .valid : failedValidations.first!
+    }
+    
+    func longValidate(hcert: HCert) -> Status {
         guard CRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
         let hash = hcert.getUVCI().sha256()
+
+        guard !hash.isEmpty else { return .valid }
+        return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
+    }
+    
+    func shortValidate(hcert: HCert) -> Status {
+        guard CRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
+        let hash = hcert.getUVCI().shortSha256()
+        
         guard !hash.isEmpty else { return .valid }
         return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
     }
