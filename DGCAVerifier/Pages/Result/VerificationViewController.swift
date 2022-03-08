@@ -90,7 +90,7 @@ class VerificationViewController: UIViewController {
         if !VerificationState.shared.followUpTestScanned {
             guard status == .verificationIsNeeded else { return }
             addSecondScanButton()
-        } else if VerificationState.shared.isFollowUpScan {
+        } else if VerificationState.shared.isFollowUpScan && status != .notGreenPass {
             addTickView(status)
         }
     }
@@ -151,7 +151,7 @@ class VerificationViewController: UIViewController {
     
     private func validate(_ status: Status) {
         var statusWithValidIdentity: Status = status
-        if VerificationState.shared.followUpTestScanned && !self.viewModel.isPersonalDataCongruent() {
+        if VerificationState.shared.followUpTestScanned && !self.viewModel.isPersonalDataCongruent() && status != .notGreenPass {
             statusWithValidIdentity = .notValid
         }
         
