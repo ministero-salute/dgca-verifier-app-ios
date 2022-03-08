@@ -231,7 +231,7 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
 
 class RecoveryWorkValidator: RecoveryBaseValidator {}
 
-class RecoveryItalyEntryValidator: RecoveryBaseValidator {
+class RecoveryItalyEntryValidator: RecoveryConcreteValidator {
     override func getStartDays(from hcert: HCert) -> Int? {
         let startDaysConfig: String
         if isSpecialRecovery(hcert: hcert) {

@@ -151,4 +151,4 @@ class TestWorkValidator: TestBaseValidator {
     
 }
 
-class TestItalyEntryValidator: TestBaseValidator {}
+class TestItalyEntryValidator: TestConcreteValidator {}
