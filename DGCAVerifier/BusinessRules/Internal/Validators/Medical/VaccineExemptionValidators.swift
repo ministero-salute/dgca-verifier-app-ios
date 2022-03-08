@@ -26,7 +26,39 @@
 import Foundation
 import SwiftDGC
 
-class VaccineExemptionBaseValidator: DGCValidator {
+class VaccineExemptionConcreteValidator: DGCValidator {
+    func validate(_ current: Date, from validityStart: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        default:
+            return .valid
+        }
+    }
+    
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        default:
+            return .expired
+        }
+    }
+
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        case validityEnd...validityEndExtension:
+            return .verificationIsNeeded
+        default:
+            return .expired
+        }
+    }
     
     func validate(hcert: HCert) -> Status {
         guard let exemption = hcert.vaccineExemptionStatements.last else { return .notValid }
@@ -37,8 +69,9 @@ class VaccineExemptionBaseValidator: DGCValidator {
         }
         return self.validate(currentDate, from: dateFrom, to: dateUntil)
     }
- 
 }
+
+class VaccineExemptionBaseValidator: VaccineExemptionConcreteValidator {}
 
 class VaccineExemptionReinforcedValidator: VaccineExemptionBaseValidator {}
 
@@ -56,7 +89,7 @@ class VaccineExemptionSchoolValidator: VaccineExemptionBaseValidator {}
 
 class VaccineExemptionWorkValidator: VaccineExemptionBaseValidator {}
 
-class VaccineExemptionItalyEntryValidator: VaccineExemptionBaseValidator {
+class VaccineExemptionItalyEntryValidator: VaccineExemptionConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {
         let result = super.validate(hcert: hcert)

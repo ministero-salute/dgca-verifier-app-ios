@@ -41,7 +41,11 @@ protocol DGCValidator {
     func validate(hcert: HCert) -> Status
 }
 
-extension DGCValidator {
+class AlwaysNotValid: DGCValidator {
+    
+    func validate(hcert: HCert) -> Status {
+        return .notValid
+    }
     
     func validate(_ current: Date, from validityStart: Date) -> Status {
         switch current {
@@ -62,7 +66,7 @@ extension DGCValidator {
             return .expired
         }
     }
-    
+
     func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
         switch current {
         case ..<validityStart:
@@ -74,14 +78,6 @@ extension DGCValidator {
         default:
             return .expired
         }
-    }
-        
-}
-
-class AlwaysNotValid: DGCValidator {
-    
-    func validate(hcert: HCert) -> Status {
-        return .notValid
     }
 }
 

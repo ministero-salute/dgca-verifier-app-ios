@@ -53,24 +53,55 @@ struct RecoveryInfo {
     
 }
 
-class RecoveryBaseValidator: DGCValidator {
-    
-    typealias Validator = RecoveryBaseValidator
+class RecoveryConcreteValidator: DGCValidator {
     
     fileprivate var recoveryInfo: RecoveryInfo!
+    
+    func validate(_ current: Date, from validityStart: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        default:
+            return .valid
+        }
+    }
+    
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        default:
+            return .expired
+        }
+    }
+
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        case validityEnd...validityEndExtension:
+            return .verificationIsNeeded
+        default:
+            return .expired
+        }
+    }
     
     func validate(hcert: HCert) -> Status {
         self.recoveryInfo = RecoveryInfo.from(hcert: hcert)
         
         guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
         guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
-
+        
         guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
         guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
         
         guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
         guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
-                
+        
         guard let currentDate = Date.startOfDay else { return .notValid }
         
         return self.validate(currentDate, from: validityStart, to: validityEnd)
@@ -114,8 +145,9 @@ class RecoveryBaseValidator: DGCValidator {
     public func getValue(for name: String) -> String? {
         return LocalData.getSetting(from: name)
     }
-    
 }
+
+class RecoveryBaseValidator: RecoveryConcreteValidator {}
 
 class RecoveryReinforcedValidator: RecoveryBaseValidator {
     
@@ -145,24 +177,7 @@ class RecoveryReinforcedValidator: RecoveryBaseValidator {
 
 class RecoveryBoosterValidator: RecoveryReinforcedValidator {
     
-    override func validate(hcert: HCert) -> Status {
-        self.recoveryInfo = RecoveryInfo.from(hcert: hcert)
-        
-        guard let validityFrom = hcert.recoveryDateFrom?.toRecoveryDate else { return .notValid }
-        guard let validityUntil = hcert.recoveryDateUntil?.toRecoveryDate else { return .notValid }
-
-        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
-        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
-        
-        guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
-        guard let validityEnd = validityEnd(hcert, dateFrom: validityFrom, dateUntil: validityUntil, additionalDays: recoveryEndDays) else { return .notValid }
-        
-        guard let currentDate = Date.startOfDay else { return .notValid }
-        
-        return validate(currentDate, from: validityStart, to: validityEnd)
-    }
-    
-    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
         switch current {
             case ..<validityStart:
                 return .notValidYet
@@ -214,17 +229,7 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
     
 }
 
-class RecoveryWorkValidator: RecoveryBaseValidator {
-    
-    override func getStartDays(from hcert: HCert) -> Int? {
-        return super.getStartDays(from: hcert)
-    }
-    
-    override func getEndDays(from hcert: HCert) -> Int? {
-        return super.getEndDays(from: hcert)
-    }
-    
-}
+class RecoveryWorkValidator: RecoveryBaseValidator {}
 
 class RecoveryItalyEntryValidator: RecoveryBaseValidator {
     override func getStartDays(from hcert: HCert) -> Int? {
