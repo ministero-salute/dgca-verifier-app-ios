@@ -31,6 +31,13 @@ extension Data{
         return base64StringFromData(input: digest(input: self as NSData))
     }
     
+    public func shortSha256() -> String {
+        let digest = digest(input: self as NSData)
+        let halfRange = NSRange(..<(digest.count / 2))
+        let halfDigest = digest.subdata(with: halfRange)
+        return base64StringFromData(input: halfDigest as NSData)
+    }
+    
     private func digest(input : NSData) -> NSData {
         let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
         var hash = [UInt8](repeating: 0, count: digestLength)
