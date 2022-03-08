@@ -66,8 +66,12 @@ extension Status {
     var secondScanTitle: String {
         switch self {
         case .valid:                return "result.second.scan.title.valid"
+        case .notValidYet:          return "result.second.scan.title.not.valid"
         case .notValid:             return "result.second.scan.title.not.valid"
-        default: 					return "result.title.not.green.pass"
+        case .expired:              return "result.second.scan.title.not.valid"
+        case .revokedGreenPass:     return "result.second.scan.title.not.valid"
+        case .verificationIsNeeded: return "result.second.scan.title.not.valid"
+        case .notGreenPass:         return "result.title.not.green.pass"
         }
     }
     
