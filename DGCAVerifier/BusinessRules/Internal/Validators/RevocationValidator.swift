@@ -42,7 +42,7 @@ struct RevocationValidator: DGCValidator {
         let hash = hcert.getUVCI().sha256()
 
         guard !hash.isEmpty else { return .valid }
-        return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
+        return CRLDataStorage.contains(hash: hash) ? .revokedGreenPass : .valid
     }
     
     func shortValidate(hcert: HCert) -> Status {
@@ -50,7 +50,7 @@ struct RevocationValidator: DGCValidator {
         let hash = hcert.getUVCI().shortSha256()
         
         guard !hash.isEmpty else { return .valid }
-        return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
+        return CRLDataStorage.contains(hash: hash) ? .revokedGreenPass : .valid
     }
     
 }
