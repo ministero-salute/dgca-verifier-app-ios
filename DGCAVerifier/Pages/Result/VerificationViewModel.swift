@@ -61,6 +61,13 @@ class VerificationViewModel {
         self.hCert = hCert
         self.status = validator.validate(hcert: hCert)
         
+        #if !DEBUG
+        // Do not show .revokedGreenPass status to end-user.
+        if self.status == .revokedGreenPass {
+            self.status = .notValid
+        }
+        #endif
+        
         //self.hCert?.ruleCountryCode = country?.code
         //self.status = RulesValidator.getStatus(from: hCert)
         //self.test()

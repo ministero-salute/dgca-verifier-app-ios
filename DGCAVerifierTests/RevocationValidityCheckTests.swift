@@ -60,7 +60,7 @@ class RevocationValidityCheckTests: XCTestCase {
         let hash: String = self.hcert.uvci.sha256()
         CRLDataStorage.add(hash: hash, on: realm)
         
-        XCTAssertTrue(RevocationValidator().validate(hcert: hcert) == .notValid)
+        XCTAssertTrue(RevocationValidator().validate(hcert: hcert) == .revokedGreenPass)
     }
     
     func testNonRevokedUVCI() {
