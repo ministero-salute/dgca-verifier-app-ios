@@ -75,14 +75,14 @@ public class AppAlertViewController: UIViewController {
         let font = Font.getFont(size: fontSize, style: .regular)
         messageTextView.font = font
         
-        guard let message = content.message, let isHTMLBased = content.isHTMLBased else {
+        guard let message = content.message else {
             messageTextView.isHidden = content.message == nil
             return
         }
                 
         messageTextView.isHidden = false
                 
-        guard !isHTMLBased else {
+        guard !content.isHTMLBased else {
             let attributedMessage = try? NSMutableAttributedString(data: message.data(using: .utf8) ?? Data(), options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
             messageTextView.attributedText = attributedMessage
             return
