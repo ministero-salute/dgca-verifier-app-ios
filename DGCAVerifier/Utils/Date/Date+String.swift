@@ -50,6 +50,13 @@ extension Date {
         df.dateFormat = "dd/MM/yyyy HH:mm"
         return df.string(from: self)
     }
+    
+    ///	Returns the date in the following format: HH:mm, dd/MM/yyyy.
+    var toTimeDateReadableString: String {
+        let df = DateFormatter.getDefault(utc: false)
+        df.dateFormat = "HH:mm, dd/MM/yyyy"
+        return df.string(from: self)
+    }
 
     var toTimeReadableString: String {
         let df = DateFormatter.getDefault(utc: false)

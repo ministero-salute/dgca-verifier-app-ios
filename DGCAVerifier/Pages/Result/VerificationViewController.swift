@@ -288,7 +288,7 @@ class VerificationViewController: UIViewController {
     
     private func setLastFetch() {
         let text = "result.last.fetch".localized + " "
-        let date = Date().toDateTimeReadableString
+        let date = Date().toTimeDateReadableString
         lastFetchLabel.text = text + date
     }
     
