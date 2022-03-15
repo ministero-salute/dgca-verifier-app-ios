@@ -176,7 +176,7 @@ class VerificationViewController: UIViewController {
     
     private func setFaq(for status: Status) {
         faqStackView.removeAllArrangedSubViews()
-        faqStackView.addArrangedSubview(getFaq())
+        faqStackView.addArrangedSubview(getFaq(for: status))
     }
     
     private func setPersonalData(for status: Status) {
@@ -207,11 +207,11 @@ class VerificationViewController: UIViewController {
         return view
     }
     
-    private func getFaq() -> FaqView {
+    private func getFaq(for status: Status) -> FaqView {
         let view = FaqView()
         let tap = UrlTapGesture(target: self, action: #selector(faqDidTap))
-        tap.url = self.viewModel.status.faqSettingsLink
-        let title = self.viewModel.status.faqSettingsTitle
+        tap.url = status.faqSettingsLink
+        let title = status.faqSettingsTitle
         view.fillView(with: .init(text: title, onTap: tap))
         
         return view
