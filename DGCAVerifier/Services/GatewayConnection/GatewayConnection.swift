@@ -59,7 +59,7 @@ class GatewayConnection {
                     
         // Init session
         let evaluators = [certificateEvaluator: PinnedCertificatesTrustEvaluator(certificates: [certificate])]
-        session = Session(serverTrustManager: ServerTrustManager(evaluators: evaluators))
+        session = Session(interceptor: CustomHeaderInterceptor(), serverTrustManager: ServerTrustManager(evaluators: evaluators))
     }
     
     func initialize(completion: (()->())? = nil) {
