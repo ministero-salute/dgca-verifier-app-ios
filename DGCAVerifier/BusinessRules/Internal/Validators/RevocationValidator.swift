@@ -35,4 +35,16 @@ struct RevocationValidator: DGCValidator {
         return CRLDataStorage.contains(hash: hash) ? .notValid : .valid
     }
     
+    func validate(_ current: Date, from validityStart: Date) -> Status {
+        return .notValid
+    }
+    
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+        return .notValid
+    }
+
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+        return .notValid
+    }
+    
 }

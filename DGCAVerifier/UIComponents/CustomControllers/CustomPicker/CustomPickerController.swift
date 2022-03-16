@@ -22,6 +22,7 @@ class CustomPickerController: UIViewController {
     @IBOutlet weak var shadowViewContainer: AppShadowView!
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var confirmButton: AppButton!
     @IBOutlet weak var titleLabel: AppLabel!
@@ -58,6 +59,16 @@ class CustomPickerController: UIViewController {
         
         self.optionViews.forEach{ $0.reset() }
         self.setupInitiallySelectedOption()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let scanMode = ScanMode.fetchFromLocalSettings() else { return }
+        if (scanMode == .school) {
+            let yOffset = self.scrollView.contentLayoutGuide.layoutFrame.height - self.scrollView.frameLayoutGuide.layoutFrame.size.height
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+        }
     }
 
     private func setupPickerOptionContents() -> Void {
