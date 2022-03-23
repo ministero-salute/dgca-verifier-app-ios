@@ -65,7 +65,7 @@ class CustomPickerController: UIViewController {
         super.viewDidAppear(animated)
         
         guard let scanMode = ScanMode.fetchFromLocalSettings() else { return }
-        if (scanMode == .school) {
+        if (scanMode == .school || scanMode == .italyEntry) {
             let yOffset = self.scrollView.contentLayoutGuide.layoutFrame.height - self.scrollView.frameLayoutGuide.layoutFrame.size.height
             self.scrollView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
         }
