@@ -301,6 +301,10 @@
 		9037A0A7270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */; };
 		9037A0A9270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
 		9037A0AA270EFD490067DCF8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */; };
+		9058D41427EC7B6E007325A2 /* mockedCertificates.json in Resources */ = {isa = PBXBuildFile; fileRef = 9058D41327EC7B6E007325A2 /* mockedCertificates.json */; };
+		9058D41527EC7B6E007325A2 /* mockedCertificates.json in Resources */ = {isa = PBXBuildFile; fileRef = 9058D41327EC7B6E007325A2 /* mockedCertificates.json */; };
+		9058D41627EC7B6E007325A2 /* mockedCertificates.json in Resources */ = {isa = PBXBuildFile; fileRef = 9058D41327EC7B6E007325A2 /* mockedCertificates.json */; };
+		9058D41A27EC7BDC007325A2 /* MockedCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9058D41727EC7BDC007325A2 /* MockedCertificate.swift */; };
 		90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
 		90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878EFD27C8EDCE00A25D71 /* VerificationState.swift */; };
 		90878F0227C9398600A25D71 /* VerificationTickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90878F0127C9398600A25D71 /* VerificationTickView.xib */; };
@@ -572,6 +576,8 @@
 		9037A0A5270EFD2D0067DCF8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9037A0A8270EFD490067DCF8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		9037A0AB270EFD7D0067DCF8 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		9058D41327EC7B6E007325A2 /* mockedCertificates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mockedCertificates.json; sourceTree = "<group>"; };
+		9058D41727EC7BDC007325A2 /* MockedCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedCertificate.swift; sourceTree = "<group>"; };
 		90878EFD27C8EDCE00A25D71 /* VerificationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationState.swift; sourceTree = "<group>"; };
 		90878F0127C9398600A25D71 /* VerificationTickView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerificationTickView.xib; sourceTree = "<group>"; };
 		90878F0427C93AB600A25D71 /* VerificationTickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationTickView.swift; sourceTree = "<group>"; };
@@ -959,6 +965,7 @@
 				65B281352697122300A9A533 /* Info.plist */,
 				1462330727A3EA580073A323 /* HCertGenerator.swift */,
 				14D4F19527B57458002B2F00 /* mockedSettings.json */,
+				9058D41327EC7B6E007325A2 /* mockedCertificates.json */,
 				145CC08A27B5155B00F2D01F /* CasiDiTest.csv */,
 			);
 			path = DGCAVerifierTests;
@@ -1282,6 +1289,7 @@
 		902BB46A27AD850300C397EB /* AutomatedTests */ = {
 			isa = PBXGroup;
 			children = (
+				9058D41727EC7BDC007325A2 /* MockedCertificate.swift */,
 				90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */,
 				902BB46B27AD852400C397EB /* TestModel.swift */,
 			);
@@ -1654,6 +1662,7 @@
 				659605E626E763F5008AD4E2 /* AppAlertViewController.xib in Resources */,
 				14D4F19727B575E8002B2F00 /* mockedSettings.json in Resources */,
 				65E281F12697259D00377913 /* TitilliumWeb-Light.ttf in Resources */,
+				9058D41527EC7B6E007325A2 /* mockedCertificates.json in Resources */,
 				65E281F22697259D00377913 /* Assets.xcassets in Resources */,
 				65E281F32697259D00377913 /* Roboto-BoldItalic.ttf in Resources */,
 				14C3B3D127BD47CC00C2C2A7 /* CustomPickerController.xib in Resources */,
@@ -1702,6 +1711,7 @@
 				653F929026B007B5000BE8F5 /* HomeViewController.xib in Resources */,
 				90CDC6BA271EB48C00707836 /* SettingsCell.xib in Resources */,
 				9F90C5A6265E591E00B2F992 /* Roboto-Bold.ttf in Resources */,
+				9058D41427EC7B6E007325A2 /* mockedCertificates.json in Resources */,
 				14B94A5427BEB13200B2B906 /* CustomPickerOption.xib in Resources */,
 				9F90C598265E591E00B2F992 /* Roboto-Regular.ttf in Resources */,
 				65E7001626AF7BBA00715CCC /* FaqView.xib in Resources */,
@@ -1732,6 +1742,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9058D41627EC7B6E007325A2 /* mockedCertificates.json in Resources */,
 				145CC08D27B5156200F2D01F /* CasiDiTest.csv in Resources */,
 				14D4F19827B575E8002B2F00 /* mockedSettings.json in Resources */,
 			);
@@ -2088,6 +2099,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9058D41A27EC7BDC007325A2 /* MockedCertificate.swift in Sources */,
 				90F9494F27AD79CC00A9CB3E /* AutomatedTests.swift in Sources */,
 				65B28144269712BE00A9A533 /* TestValidityCheckTests.swift in Sources */,
 				65B28140269712BE00A9A533 /* VaccineValidityCheckTests.swift in Sources */,

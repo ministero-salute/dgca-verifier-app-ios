@@ -78,6 +78,7 @@ class AutomatedTests: XCTestCase {
         guard let url = Bundle(for: AutomatedTests.self).url(forResource: "CasiDiTest", withExtension: "csv") else { return }
         self.testCases = loadTestArrayfromCSV(fromURL: url, rowSeparator: "\n")
         
+        self.loadMockedCertificates()
         self.loadMockedSettings()
     }
 
@@ -146,6 +147,15 @@ class AutomatedTests: XCTestCase {
     func getValidator(for hCert: HCert, scanMode: ScanMode) -> DGCValidator? {
         return DGCValidatorBuilder().checkHCert(false).scanMode(scanMode).build(hCert: hCert)
     }
- 
-
+    
+    private func loadMockedCertificates() {
+        guard let mockedCertificatesURL = Bundle(for: AutomatedTests.self).url(forResource: "mockedCertificates", withExtension: "json") else { return }
+        guard let mockedCertificatesString = try? String(contentsOf: mockedCertificatesURL) else { return }
+        guard let mockedCertificatesData = mockedCertificatesString.replacingOccurrences(of: "\n", with: "").data(using: .utf8) else { return }
+        guard let mockedCertificates = try? JSONDecoder().decode([MockedCertificate].self, from: mockedCertificatesData) else { return }
+        
+        mockedCertificates.forEach { mockedCertificate in
+            LocalData.sharedInstance.add(kid: mockedCertificate.kid, encodedPublicKey: mockedCertificate.publicKey)
+        }
+    }
 }
