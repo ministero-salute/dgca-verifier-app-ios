@@ -41,6 +41,17 @@ class HomeViewModel {
     public func startOperations() {
         isLoading.value = true
         GatewayConnection.shared.initialize { [weak self] in self?.load() }
+        self.handleWorkScanModePreference()
+    }
+    
+    ///	Removes the `.work` scanMode preference if previously set.
+    private func handleWorkScanModePreference() -> Void {
+        guard let scanMode: ScanMode = ScanMode.fetchFromLocalSettings() else { return }
+        
+        if scanMode == .work {
+            Store.remove(key: Store.Key.scanMode)
+            Store.set(false, for: .isScanModeSet)
+        }
     }
     
     public func loadComplete(updateLastFetch: Bool) {
