@@ -65,17 +65,48 @@ struct VaccinationInfo {
     
 }
 
-
-class VaccineBaseValidator: DGCValidator {
-            
-    typealias Validator = VaccineBaseValidator
-    
+class VaccineConcreteValidator: DGCValidator {
+        
     var vaccinationInfo: VaccinationInfo!
     
     private var allowedVaccinationInCountry: [String: [String]] {
         [Constants.SputnikVacineCode: [Constants.sanMarinoCode]]
     }
     
+    func validate(_ current: Date, from validityStart: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        default:
+            return .valid
+        }
+    }
+    
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        default:
+            return .expired
+        }
+    }
+
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+        switch current {
+        case ..<validityStart:
+            return .notValidYet
+        case validityStart...validityEnd:
+            return .valid
+        case validityEnd...validityEndExtension:
+            return .verificationIsNeeded
+        default:
+            return .expired
+        }
+    }
+    
+    /// Override this method to manage the scan condition
     func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         self.vaccinationInfo = vaccinationInfo
@@ -103,16 +134,14 @@ class VaccineBaseValidator: DGCValidator {
     }
     
     func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
-       
+        
         guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         
-        
         guard let validityStart = vaccinationInfo.vaccineDate.add(start, ofType: .day) else { return .notValid }
         guard let validityEnd = vaccinationInfo.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
         guard let validityExt = vaccinationInfo.vaccineDate.add(ext, ofType: .day)?.startOfDay else { return .notValid }
-        
         
         guard let currentDate = Date.startOfDay else { return .notValid }
         
@@ -128,7 +157,7 @@ class VaccineBaseValidator: DGCValidator {
         }
         return true
     }
-        
+    
     public func startDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         let setting = Constants.vaccineBoosterStartDays_IT
         return self.getValue(for: setting)?.intValue
@@ -227,16 +256,13 @@ class VaccineBaseValidator: DGCValidator {
     public func getValue(for name: String) -> String? {
         return LocalData.getSetting(from: name)
     }
-    
 }
 
-class VaccineReinforcedValidator: VaccineBaseValidator {
-    override func validate(hcert: HCert) -> Status {
-        super.validate(hcert: hcert)
-    }
-}
+class VaccineBaseValidator: VaccineConcreteValidator {}
 
-class VaccineBoosterValidator: VaccineBaseValidator {
+class VaccineReinforcedValidator: VaccineBaseValidator {}
+
+class VaccineBoosterValidator: VaccineConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
@@ -259,7 +285,7 @@ class VaccineBoosterValidator: VaccineBaseValidator {
     
 }
 
-class VaccineSchoolValidator: VaccineBaseValidator {
+class VaccineSchoolValidator: VaccineConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
@@ -300,7 +326,7 @@ class VaccineWorkValidator: VaccineReinforcedValidator {
     
 }
 
-class VaccineItalyEntryValidator: VaccineBaseValidator {
+class VaccineItalyEntryValidator: VaccineConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
@@ -345,11 +371,7 @@ class VaccineItalyEntryValidator: VaccineBaseValidator {
 
 class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
     
-    public override func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        return getValue(for: Constants.vaccineCompleteExtendedDays_EMA)?.intValue
-    }
-    
-    public override func validate(hcert: HCert) -> Status {
+    override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         self.vaccinationInfo = vaccinationInfo
         
@@ -365,25 +387,7 @@ class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
         return result
     }
     
-    override func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
-       
-        guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        
-        guard let validityStart = vaccinationInfo.vaccineDate.add(start, ofType: .day) else { return .notValid }
-        guard let validityEnd = vaccinationInfo.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
-        guard let validityExt = vaccinationInfo.vaccineDate.add(ext, ofType: .day)?.startOfDay else { return .notValid }
-        
-        guard let currentDate = Date.startOfDay else { return .notValid }
-        
-        // J&J booster is immediately valid
-        let fromDate = vaccinationInfo.isJJBooster ? vaccinationInfo.vaccineDate : validityStart
-        
-        return self.validate(currentDate, from: fromDate, to: validityEnd, extendedTo: validityExt)
-    }
-    
-    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
         switch current {
         case ..<validityStart:
             return .notValidYet
@@ -397,27 +401,13 @@ class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
         }
     }
     
+    public override func extDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
+        return getValue(for: Constants.vaccineCompleteExtendedDays_EMA)?.intValue
+    }
+    
 }
 
 class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
-    
-    override func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
-        
-        guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
-        
-        guard let validityStart = vaccinationInfo.vaccineDate.add(start, ofType: .day) else { return .notValid }
-        guard let validityEnd = vaccinationInfo.vaccineDate.add(end, ofType: .day)?.startOfDay else { return .notValid }
-        guard let validityExt = vaccinationInfo.vaccineDate.add(ext, ofType: .day)?.startOfDay else { return .notValid }
-        
-        guard let currentDate = Date.startOfDay else { return .notValid }
-        
-        // J&J booster is immediately valid
-        let fromDate = vaccinationInfo.isJJBooster ? vaccinationInfo.vaccineDate : validityStart
-        
-        return self.validate(currentDate, from: fromDate, to: validityEnd, extendedTo: validityExt)
-    }
     
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
@@ -438,7 +428,7 @@ class VaccineBoosterValidatorNotItaly: VaccineBoosterValidator {
         return vaccinationInfo.isCurrentDoseComplete ? .verificationIsNeeded : .notValid
     }
     
-    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
         let result: Status = { switch current {
         case ..<validityStart:
             return .notValidYet

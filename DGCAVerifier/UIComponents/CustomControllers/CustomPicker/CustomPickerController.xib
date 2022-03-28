@@ -15,6 +15,7 @@
                 <outlet property="confirmButton" destination="lRU-a9-zsi" id="B0P-rK-cx5"/>
                 <outlet property="headerView" destination="7Py-xg-NSW" id="9Ie-S3-Xfg"/>
                 <outlet property="optionsStackView" destination="He7-Nh-ajR" id="4ws-H4-Dij"/>
+                <outlet property="scrollView" destination="7uV-Ub-Acn" id="WsV-UN-7do"/>
                 <outlet property="shadowViewContainer" destination="HLl-5X-D8r" id="Yq6-mH-aye"/>
                 <outlet property="titleLabel" destination="VyR-Fp-crM" id="xrr-ED-re7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

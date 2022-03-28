@@ -104,10 +104,10 @@ extension Status {
         case .valid:                return true
         case .notValidYet:          return true
         case .notValid:             return true
-        case .expired:             return true
+        case .expired:             	return true
         case .revokedGreenPass:     return true
         case .verificationIsNeeded: return true
-        default:                    return false
+        default:                    return true
         }
     }
     
