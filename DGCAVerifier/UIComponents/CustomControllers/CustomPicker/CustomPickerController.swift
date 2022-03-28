@@ -72,6 +72,8 @@ class CustomPickerController: UIViewController {
 
     private func setupPickerOptionContents() -> Void {
         ScanMode.allCases.forEach{
+            guard $0 != .work else { return }
+            
             self.optionContents.append(.init(
                 scanMode: $0,
                 scanModeName: $0.buttonTitleName,
@@ -163,6 +165,10 @@ class CustomPickerController: UIViewController {
             self.coordinator?.dismissCustomPicker(completion: nil)
             return
         }
+        
+        // If, for some reason, the user managed to get to this point attempting to select the `.work` scan mode,
+        // exit early.
+        guard selectedScanMode != .work else { return }
         
         Store.set(selectedScanMode.rawValue, for: .scanMode)
         Store.set(true, for: .isScanModeSet)
