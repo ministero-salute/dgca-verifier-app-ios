@@ -42,11 +42,6 @@ struct RecoveryInfo {
         return self.hcert.countryCode == Constants.ItalyCountryCode
     }
     
-    var patientOver50: Bool {
-        guard let age = self.hcert.age else { return false }
-        return age >= 50
-    }
-    
     public static func from(hcert: HCert) -> RecoveryInfo {
         return RecoveryInfo(hcert: hcert)
     }
@@ -235,8 +230,6 @@ class RecoverySchoolValidator: RecoveryBaseValidator {
     }
     
 }
-
-class RecoveryWorkValidator: RecoveryBaseValidator {}
 
 class RecoveryItalyEntryValidator: RecoveryConcreteValidator {
     override func getStartDays(from hcert: HCert) -> Int? {

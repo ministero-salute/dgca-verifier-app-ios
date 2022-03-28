@@ -277,8 +277,6 @@ class VerificationViewController: UIViewController {
             mode = "result.scan.mode.Boster".localized
         case Constants.scanModeSchool:
             mode = "result.scan.mode.Scuola".localized
-        case Constants.scanMode50:
-            mode = "result.scan.mode.50".localized
         default:
             break
         }

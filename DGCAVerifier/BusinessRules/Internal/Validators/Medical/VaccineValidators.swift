@@ -34,11 +34,6 @@ struct VaccinationInfo {
     let countryCode: String
     let patientAge: Int?
     
-    var patientOver50: Bool {
-        guard let age = patientAge else { return false }
-        return age >= 50
-    }
-    
     var emaAllProducts: [String]?{
         return LocalData.getSetting(from: "EMA_vaccines")?.split(separator: ";").map{ String($0) }
     }
@@ -307,25 +302,6 @@ class VaccineSchoolValidator: VaccineConcreteValidator {
     
 }
 
-class VaccineWorkValidator: VaccineReinforcedValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-        self.vaccinationInfo = vaccinationInfo
-        
-        if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
-            return .notValid
-        }
-        
-        if vaccinationInfo.patientOver50 {
-            return super.validate(hcert: hcert)
-        } else {
-            return VaccineBaseValidator().validate(hcert: hcert)
-        }
-    }
-    
-}
-
 class VaccineItalyEntryValidator: VaccineConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {
@@ -463,22 +439,4 @@ class VaccineSchoolValidatorNotItaly: VaccineSchoolValidator {
         return vaccinationInfo.isCurrentDoseIncomplete ? .notValid : .valid
     }
     
-}
-
-class VaccineWorkValidatorNotIt: VaccineReinforcedValidatorNotItaly {
-    
-    override func validate(hcert: HCert) -> Status {
-        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-        self.vaccinationInfo = vaccinationInfo
-        
-        if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
-            return .notValid
-        }
-        
-        if vaccinationInfo.patientOver50 {
-            return super.validate(hcert: hcert)
-        } else {
-            return VaccineBaseValidator().validate(hcert: hcert)
-        }
-    }
 }

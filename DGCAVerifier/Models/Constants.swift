@@ -79,7 +79,6 @@ struct Constants {
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
     static let scanModeSchool = "scanModeSchool"
-    static let scanMode50 = "scanMode50"
     static let scanModeItalyEntry = "scanModeItalyEntry"
     
     // MARK: Settings
@@ -91,7 +90,6 @@ struct Constants {
     static let scanModeDescriptionBooster = "booster_scan_mode_description"
     static let scanModeDescriptionItalyEntry = "italy_entry_scan_mode_description"
     static let scanModeDescriptionSchool = "school_scan_mode_description"
-    static let scanModeDescriptionWork = "work_scan_mode_description"
     
     // MARK: Settings Scan Mode Popup
     static let infoScanModePopup = "info_scan_mode_popup"

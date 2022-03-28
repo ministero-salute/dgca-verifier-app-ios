@@ -39,8 +39,6 @@ extension ScanMode {
             return "home.scan.picker.mode.Booster".localized
         case .school:
             return "home.scan.picker.mode.School".localized
-        case .work:
-            return "home.scan.picker.mode.50".localized
         }
     }
     
@@ -56,8 +54,6 @@ extension ScanMode {
             return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescriptionBooster)
         case .school:
             return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescriptionSchool)
-        case .work:
-            return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescriptionWork)
         }
     }
     
@@ -73,8 +69,6 @@ extension ScanMode {
             return "home.scan.button.bold.Booster".localized
         case .school:
             return "home.scan.button.bold.School".localized
-        case .work:
-            return "home.scan.button.bold.50".localized
         }
     }
     
@@ -90,8 +84,6 @@ extension ScanMode {
             return "home.scan.button.mode.Booster".localized
         case .school:
             return "home.scan.button.mode.School".localized
-        case .work:
-            return "home.scan.button.mode.50".localized
         }
     }
     

@@ -22,14 +22,12 @@
 "home.scan.button.bold.3G" = "B - BASE";
 "home.scan.button.bold.2G" = "R - RAFFORZATA";
 "home.scan.button.bold.Booster" = "V - VISITATORI RSA";
-"home.scan.button.bold.50" = "L - LAVORO";
 "home.scan.button.bold.italy.entry" = "I - INGRESSO IT";
 "home.scan.button.bold.School" = "S - STUDENTI";
 
 "home.scan.button.mode.3G" = "B - BASE";
 "home.scan.button.mode.2G" = "R - RAFFORZATA";
 "home.scan.button.mode.Booster" = "V - VISITATORI RSA";
-"home.scan.button.mode.50" = "L - LAVORO";
 "home.scan.button.mode.italy.entry" = "I - INGRESSO IT";
 "home.scan.button.mode.School" = "S - STUDENTI";
 
@@ -37,7 +35,6 @@
 "home.scan.picker.mode.3G" = "B - BASE";
 "home.scan.picker.mode.2G" = "R - RAFFORZATA";
 "home.scan.picker.mode.Booster" = "V - VISITATORI RSA";
-"home.scan.picker.mode.50" = "L - LAVORO";
 "home.scan.picker.mode.italy.entry" = "I - INGRESSO IT";
 "home.scan.picker.mode.School" = "S - STUDENTI";
 
@@ -54,10 +51,8 @@
 "result.scan.mode.3G" = "Tipologia verifica: BASE";
 "result.scan.mode.2G" = "Tipologia verifica: RAFFORZATA";
 "result.scan.mode.Boster" = "Tipologia verifica: VISITATORI RSA";
-"result.scan.mode.50" = "Tipologia verifica: LAVORO";
 "result.scan.mode.italy.entry" = "Tipologia verifica: INGRESSO IT";
 "result.scan.mode.Scuola" = "Tipologia verifica: STUDENTI";
-"result.scan.mode.50" = "Tipologia verifica: LAVORO";
 
 "result.title.valid" = "Certificazione valida";
 "result.title.not.valid" = "Certificazione non valida";
@@ -88,7 +83,6 @@
 "top.bar.scan.mode.3G" = "B - BASE";
 "top.bar.scan.mode.Boster" = "V - VISITATORI RSA";
 "top.bar.scan.mode.Scuola" = "S - STUDENTI";
-"top.bar.scan.mode.50" = "L - LAVORO";
 "top.bar.scan.mode.itEntry" = "I - INGRESSO IT";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
