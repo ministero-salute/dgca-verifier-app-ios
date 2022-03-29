@@ -54,7 +54,7 @@ struct TestValidityCheck {
     
     private func testStatusForScanMode(_ hcert: HCert) -> Status {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
-        if (scanMode == Constants.scanMode2G || scanMode == Constants.scanModeBooster || scanMode == Constants.scanModeSchool) {
+        if (scanMode == Constants.scanMode2G || scanMode == Constants.scanModeBooster) {
             return .notValid
         }
         else { return .valid }

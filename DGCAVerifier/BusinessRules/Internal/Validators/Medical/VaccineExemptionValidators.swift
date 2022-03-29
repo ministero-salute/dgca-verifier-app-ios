@@ -85,8 +85,6 @@ class VaccineExemptionBoosterValidator: VaccineExemptionBaseValidator {
 
 }
 
-class VaccineExemptionSchoolValidator: VaccineExemptionBaseValidator {}
-
 class VaccineExemptionItalyEntryValidator: VaccineExemptionConcreteValidator {
     
     override func validate(hcert: HCert) -> Status {

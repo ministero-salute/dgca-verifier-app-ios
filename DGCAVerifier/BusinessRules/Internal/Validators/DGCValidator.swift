@@ -71,8 +71,6 @@ struct ValidatorProducer {
             return ReinforcedValidatorFactory()
         case .booster:
             return BoosterValidatorFactory()
-        case .school:
-            return SchoolValidatorFactory()
         case .italyEntry:
             return ItalyEntryValidatorFactory()
         }
@@ -136,27 +134,6 @@ struct BoosterValidatorFactory: DCGValidatorFactory {
             return TestBoosterValidator()
         case .vaccineExemption:
             return VaccineExemptionBoosterValidator()
-        }
-    }
-    
-}
-
-struct SchoolValidatorFactory: DCGValidatorFactory {
-    
-    func getValidator(hcert: HCert) -> DGCValidator? {
-        let isIT = hcert.countryCode == Constants.ItalyCountryCode
-        
-        switch hcert.extendedType {
-        case .unknown:
-            return UnknownValidator()
-        case .vaccine:
-            return isIT ? VaccineSchoolValidator() : VaccineSchoolValidatorNotItaly()
-        case .recovery:
-            return RecoverySchoolValidator()
-        case .test:
-            return TestSchoolValidator()
-        case .vaccineExemption:
-            return VaccineExemptionSchoolValidator()
         }
     }
     

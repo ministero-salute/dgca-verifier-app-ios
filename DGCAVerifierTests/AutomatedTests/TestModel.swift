@@ -86,8 +86,6 @@ struct TestResult: Codable, Equatable, CustomStringConvertible {
             return .reinforced
         case "Visitatori RSA":
             return .booster
-        case "Studenti":
-            return .school
         case "Ingresso in italia":
             return .italyEntry
         default:
