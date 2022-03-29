@@ -44,11 +44,11 @@ class HomeViewModel {
         self.handleWorkScanModePreference()
     }
     
-    ///	Removes the `.work` scanMode preference if previously set.
+    ///	Removes the `.work` and `.school` scanMode preference if previously set.
     private func handleWorkScanModePreference() -> Void {
         guard let scanMode: ScanMode = ScanMode.fetchFromLocalSettings() else { return }
         
-        if scanMode == .work {
+        if scanMode == .work, scanMode == .school {
             Store.remove(key: Store.Key.scanMode)
             Store.set(false, for: .isScanModeSet)
         }
