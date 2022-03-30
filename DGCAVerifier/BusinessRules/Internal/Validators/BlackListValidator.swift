@@ -35,6 +35,18 @@ struct BlackListValidator: DGCValidator {
         return blacklist.split(separator: ";").contains("\(hcert.getUVCI())") ? .notValid : .valid
     }
     
+    func validate(_ current: Date, from validityStart: Date) -> Status {
+        return .notValid
+    }
+    
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date) -> Status {
+        return .notValid
+    }
+
+    func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+        return .notValid
+    }
+    
     private func getBlacklist() -> String? {
         return getValue(for: blacklist)
     }

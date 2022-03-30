@@ -22,6 +22,7 @@ class CustomPickerController: UIViewController {
     @IBOutlet weak var shadowViewContainer: AppShadowView!
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var confirmButton: AppButton!
     @IBOutlet weak var titleLabel: AppLabel!
@@ -58,6 +59,15 @@ class CustomPickerController: UIViewController {
         
         self.optionViews.forEach{ $0.reset() }
         self.setupInitiallySelectedOption()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+                        
+        let scrollOffset: Double = self.notVisibleOptionScrollOffset()
+        if (scrollOffset > 0) {
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: scrollOffset), animated: true)
+        }
     }
 
     private func setupPickerOptionContents() -> Void {
@@ -100,6 +110,28 @@ class CustomPickerController: UIViewController {
         
         let scanMode = ScanMode.init(rawValue: rawScanMode)
         self.optionViews.filter{ $0.scanMode == scanMode }.first?.didSelect()
+    }
+    
+    private func notVisibleOptionScrollOffset() -> Double {
+        guard let scanMode: ScanMode = ScanMode.fetchFromLocalSettings() else { return 0.0 }
+        guard let selectedOptionIndex: Int = self.optionViews.enumerated().compactMap({ index, optionView in
+            optionView.scanMode == scanMode ? index : nil
+        }).first else { return 0.0 }
+        
+        // Select first non-selected option to determine the height of a non-selected option.
+        // A selected option spans an additional view containing the scan mode description.
+        var baseNotSelectedOptionHeight: Double = 0.0
+        for index in 0..<self.optionsStackView.arrangedSubviews.count {
+            if index != selectedOptionIndex {
+                baseNotSelectedOptionHeight = self.optionsStackView.arrangedSubviews[index].frame.height
+                break
+            }
+        }
+
+        let unselectedOptionsHeight: Double = Double(selectedOptionIndex) * baseNotSelectedOptionHeight
+        let selectedOptionHeight: Double = self.optionsStackView.arrangedSubviews[selectedOptionIndex].frame.height
+        
+        return unselectedOptionsHeight + selectedOptionHeight - self.scrollView.frameLayoutGuide.layoutFrame.size.height
     }
     
     private func setupConfirmButtonInitialState() -> Void {
