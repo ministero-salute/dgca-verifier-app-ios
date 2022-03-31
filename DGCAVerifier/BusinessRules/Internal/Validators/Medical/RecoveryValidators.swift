@@ -42,11 +42,6 @@ struct RecoveryInfo {
         return self.hcert.countryCode == Constants.ItalyCountryCode
     }
     
-    var patientOver50: Bool {
-        guard let age = self.hcert.age else { return false }
-        return age >= 50
-    }
-    
     public static func from(hcert: HCert) -> RecoveryInfo {
         return RecoveryInfo(hcert: hcert)
     }
@@ -189,54 +184,6 @@ class RecoveryBoosterValidator: RecoveryReinforcedValidator {
     }
     
 }
-
-class RecoverySchoolValidator: RecoveryBaseValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        var validityFrom: Date? = nil
-        
-        if self.isSpecialRecovery(hcert: hcert) {
-            validityFrom = hcert.recoveryDateFrom?.toRecoveryDate
-        } else {
-            validityFrom = hcert.recoveryDateFirstPositive?.toRecoveryDate
-        }
-        
-        guard let validityFrom = validityFrom else { return .notValid }
-        
-        guard let recoveryStartDays = getStartDays(from: hcert) else { return .notValid }
-        guard let recoveryEndDays = getEndDays(from: hcert) else { return .notValid }
-        
-        guard let validityStart = validityFrom.add(recoveryStartDays, ofType: .day) else { return .notValid }
-        guard let validityEnd = validityFrom.add(recoveryEndDays, ofType: .day) else { return .notValid }
-        
-        guard let currentDate = Date.startOfDay else { return .notValid }
-        
-        return self.validate(currentDate, from: validityStart, to: validityEnd)
-    }
-    
-    override func getEndDays(from hcert: HCert) -> Int? {
-        var endDaysConfig = Constants.recoverySchoolEndDays
-        if isSpecialRecovery(hcert: hcert) {
-            endDaysConfig = Constants.recoverySpecialEndDays
-        }
-        return getValue(for: endDaysConfig)?.intValue
-    }
-    
-    override func validityEnd(_ hcert: HCert, dateFrom: Date, dateUntil: Date, additionalDays: Int) -> Date? {
-        if isSpecialRecovery(hcert: hcert) {
-            guard let validityExtension = dateFrom.add(additionalDays, ofType: .day) else { return nil }
-            return validityExtension
-        }
-        else {
-            guard let recoveryDateFirstPositive = hcert.recoveryDateFirstPositive?.toRecoveryDate else { return nil }
-            guard let validityExtension = recoveryDateFirstPositive.add(additionalDays, ofType: .day) else { return nil }
-            return validityExtension
-        }
-    }
-    
-}
-
-class RecoveryWorkValidator: RecoveryBaseValidator {}
 
 class RecoveryItalyEntryValidator: RecoveryConcreteValidator {
     override func getStartDays(from hcert: HCert) -> Int? {

@@ -105,19 +105,10 @@ struct VaccineValidityCheck {
         return scanMode == Constants.scanModeBooster
     }
     
-    func isScanModeSchool() -> Bool {
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        return scanMode == Constants.scanModeSchool
-    }
-    
     func checkBooster(_ preconditions: CertificatePreconditions) -> Status {
         if preconditions.isCurrentDoseBooster { return .valid }
         
         return preconditions.isCurrentDoseComplete ? .verificationIsNeeded : .notValid
-    }
-    
-    func checkSchool(_ preconditions: CertificatePreconditions) -> Status {
-        return preconditions.isCurrentDoseIncomplete ? .notValid : .valid
     }
     
     func isVaccineValid(_ hcert: HCert) -> Status {
@@ -128,10 +119,6 @@ struct VaccineValidityCheck {
         
         guard !isScanModeBooster() else {
             return checkBooster(preconditions)
-        }
-        
-        guard !isScanModeSchool() else {
-            return checkSchool(preconditions)
         }
         
         return result
@@ -203,20 +190,6 @@ struct VaccineValidityCheck {
             }
             return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
         
-        case Constants.scanModeSchool:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            if preconditions.isJJ {
-                let settingName = Constants.vaccineCompleteStartDays
-                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-            }
-            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
         default:
             return nil
         }
@@ -258,17 +231,7 @@ struct VaccineValidityCheck {
             }
             
             return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
-        
-        case Constants.scanModeSchool:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            return self.getValue(for: Constants.vaccineSchoolEndDays)?.intValue
+
         default:
             return nil
         }

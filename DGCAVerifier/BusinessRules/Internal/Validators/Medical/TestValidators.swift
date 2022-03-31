@@ -132,23 +132,4 @@ class TestReinforcedValidator: TestBaseValidator {
 
 class TestBoosterValidator: TestReinforcedValidator {}
 
-class TestSchoolValidator: TestReinforcedValidator {}
-
-class TestWorkValidator: TestBaseValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        let result = super.validate(hcert: hcert)
-        guard result != .expired else { return .expired }
-        guard result != .notValidYet else { return .notValidYet }
-        guard !isOver50(hcert) else { return .notValid }
-        return result
-    }
-    
-    private func isOver50 (_ hcert: HCert) -> Bool {
-        guard let age = hcert.age else { return false }
-        return age >= 50
-    }
-    
-}
-
 class TestItalyEntryValidator: TestConcreteValidator {}
