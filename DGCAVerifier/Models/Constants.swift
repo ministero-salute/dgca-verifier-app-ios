@@ -43,6 +43,7 @@ struct Constants {
     static let vaccineCompleteEndDays_IT = "vaccine_end_day_complete_IT"
     static let vaccineCompleteStartDays_NOT_IT = "vaccine_start_day_complete_NOT_IT"
     static let vaccineCompleteEndDays_NOT_IT = "vaccine_end_day_complete_NOT_IT"
+    static let vaccineCompleteEndDays_under_18 = "vaccine_end_day_complete_under_18"
     static let vaccineBoosterStartDays_IT = "vaccine_start_day_booster_IT"
     static let vaccineBoosterEndDays_IT = "vaccine_end_day_booster_IT"
     static let vaccineBoosterStartDays_NOT_IT = "vaccine_start_day_booster_NOT_IT"
