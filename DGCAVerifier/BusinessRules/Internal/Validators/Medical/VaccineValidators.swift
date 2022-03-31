@@ -48,6 +48,11 @@ struct VaccinationInfo {
     var isCurrentDoseComplete: Bool { self.currentDoses == self.totalDoses && !self.isJJBooster && !self.isNonJJBooster }
     var isCurrentDoseBooster: Bool { (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster) }
     
+    var isPatientUnder18: Bool {
+        guard let age = self.patientAge else { return false }
+        return age < 18
+    }
+    
     var isEMAProduct: Bool {
         if (emaAllProducts?.contains(medicalProduct) ?? false) // (Sputnik-V solo se emesso da San marino ovvero co="SM")
             || (countryCode == Constants.sanMarinoCode && medicalProduct == Constants.SputnikVacineCode) {
@@ -215,7 +220,6 @@ class VaccineConcreteValidator: DGCValidator {
         return endDaysForCompleteDose(vaccinationInfo)
     }
     
-    
     public func extDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         return endDaysForBoosterDose(vaccinationInfo)
     }
@@ -307,7 +311,11 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
     }
     
     public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = Constants.vaccineCompleteEndDays_NOT_IT
+        var setting = Constants.vaccineCompleteEndDays_NOT_IT
+        if vaccinationInfo.isPatientUnder18 {
+        	setting = Constants.vaccineCompleteEndDays_under_18
+        }
+        
         return self.getValue(for: setting)?.intValue
     }
     
