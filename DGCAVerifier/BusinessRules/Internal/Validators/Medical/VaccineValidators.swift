@@ -134,7 +134,6 @@ class VaccineConcreteValidator: DGCValidator {
     }
     
     func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
-        
         guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
@@ -285,7 +284,7 @@ class VaccineBoosterValidator: VaccineConcreteValidator {
 }
 
 class VaccineItalyEntryValidator: VaccineConcreteValidator {
-    
+
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         
@@ -304,6 +303,29 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
         
         return result
     }
+    
+//    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
+//        guard let vaccineCompleteEndDaysUnder18 = self.getValue(for: Constants.vaccineCompleteEndDays_under_18)?.intValue else {
+//            print("[DEBUG - Italy Entry Vaccine Validator] Vaccine complete end days under 18 is missing setting value.")
+//            return .notValid
+//        }
+//        
+//        guard let under18ValidityEnd = validityStart.add(vaccineCompleteEndDaysUnder18, ofType: .day) else {
+//            print("[DEBUG - Italy Entry Vaccine Validator] Vaccine complete end days int value is nil.")
+//            return .notValid
+//        }
+//        
+//        switch current {
+//            case ..<validityStart:
+//                return .notValidYet
+//            case validityStart...validityEnd:
+//                return .valid
+//            case validityEnd...under18ValidityEnd, validityEnd...validityEndExtension:
+//                return .verificationIsNeeded
+//            default:
+//                return .expired
+//        }
+//    }
     
     public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         let setting = Constants.vaccineCompleteStartDays_NOT_IT
