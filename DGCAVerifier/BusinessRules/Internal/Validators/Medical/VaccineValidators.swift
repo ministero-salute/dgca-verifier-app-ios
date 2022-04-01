@@ -53,7 +53,7 @@ struct VaccinationInfo {
         guard let patientBirthDate = self.patientBirthDate?.add(vaccineUnder18Offset, ofType: .day) else { return false }
         let computedPatientAge = Calendar.current.dateComponents([.year, .month, .day], from: patientBirthDate, to: Date())
         guard let computedPatientAgeYear = computedPatientAge.year else { return false }
-        return computedPatientAgeYear >= 18
+        return computedPatientAgeYear < 18
     }
     
     var isEMAProduct: Bool {
