@@ -402,6 +402,6 @@
     {
         "name":"vaccine_complete_under_18_offset",
         "type":"GENERIC",
-        "value":"14"
+        "value":"0"
     }
 ]
