@@ -33,6 +33,7 @@ struct VaccinationInfo {
     let vaccineDate: Date
     let countryCode: String
     let patientAge: Int?
+    let patientBirthDate: Date?
     
     var emaAllProducts: [String]?{
         return LocalData.getSetting(from: "EMA_vaccines")?.split(separator: ";").map{ String($0) }
@@ -48,9 +49,11 @@ struct VaccinationInfo {
     var isCurrentDoseComplete: Bool { self.currentDoses == self.totalDoses && !self.isJJBooster && !self.isNonJJBooster }
     var isCurrentDoseBooster: Bool { (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster) }
     
-    var isPatientUnder18: Bool {
-        guard let age = self.patientAge else { return false }
-        return age < 18
+    func isPatientUnder18(vaccineUnder18Offset: Int) -> Bool {
+        guard let patientBirthDate = self.patientBirthDate?.add(vaccineUnder18Offset, ofType: .day) else { return false }
+        let computedPatientAge = Calendar.current.dateComponents([.year, .month, .day], from: patientBirthDate, to: Date())
+        guard let computedPatientAgeYear = computedPatientAge.year else { return false }
+        return computedPatientAgeYear >= 18
     }
     
     var isEMAProduct: Bool {
@@ -130,7 +133,7 @@ class VaccineConcreteValidator: DGCValidator {
         guard let medicalProduct = hcert.medicalProduct else { return nil }
         guard let countryCode = hcert.countryCode else { return nil }
         
-        return VaccinationInfo(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode, patientAge: hcert.age)
+        return VaccinationInfo(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode, patientAge: hcert.age, patientBirthDate: hcert.birthDate)
     }
     
     func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
@@ -304,22 +307,6 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
         return result
     }
     
-    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
-        let vaccineUnder18Offset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
-        let under18ValidityEnd: Date = self.vaccinationInfo.isPatientUnder18 ? (validityEnd.add(vaccineUnder18Offset, ofType: .day) ?? validityEnd) : validityEnd
-        
-        switch current {
-            case ..<validityStart:
-                return .notValidYet
-            case validityStart...under18ValidityEnd:
-                return .valid
-            case validityEnd...validityEndExtension:
-                return .verificationIsNeeded
-            default:
-                return .expired
-        }
-    }
-    
     public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         let setting = Constants.vaccineCompleteStartDays_NOT_IT
         return self.getValue(for: setting)?.intValue
@@ -327,7 +314,8 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
     
     public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         var setting = Constants.vaccineCompleteEndDays_NOT_IT
-        if vaccinationInfo.isPatientUnder18 {
+        let vaccineUnder18Offset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
+        if vaccinationInfo.isPatientUnder18(vaccineUnder18Offset: vaccineUnder18Offset) {
         	setting = Constants.vaccineCompleteEndDays_under_18
         }
         

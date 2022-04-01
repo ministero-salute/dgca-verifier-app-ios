@@ -185,9 +185,9 @@ class VerificationViewController: UIViewController {
         guard status.showPersonalData else { return }
         guard let cert = viewModel.hCert else { return }
         guard !cert.name.isEmpty else { return }
-        guard !cert.birthDate.isEmpty else { return }
+        guard !cert.birthDateString.isEmpty else { return }
         let name = getResult(cert.name, for: "result.name")
-        let birthDate = getResult(cert.birthDate, for: "result.birthdate")
+        let birthDate = getResult(cert.birthDateString, for: "result.birthdate")
         personalDataStackView.addArrangedSubview(name)
         personalDataStackView.addArrangedSubview(birthDate)
         personalDataStackView.superview?.isHidden = false
