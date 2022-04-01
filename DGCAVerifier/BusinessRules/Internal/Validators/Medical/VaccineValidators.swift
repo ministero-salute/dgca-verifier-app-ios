@@ -307,22 +307,6 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
         return result
     }
     
-    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
-        let vaccineUnder18Offset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
-        let under18ValidityEnd: Date = self.vaccinationInfo.isPatientUnder18 ? (validityEnd.add(vaccineUnder18Offset, ofType: .day) ?? validityEnd) : validityEnd
-        
-        switch current {
-            case ..<validityStart:
-                return .notValidYet
-            case validityStart...under18ValidityEnd:
-                return .valid
-            case validityEnd...validityEndExtension:
-                return .verificationIsNeeded
-            default:
-                return .expired
-        }
-    }
-    
     public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         let setting = Constants.vaccineCompleteStartDays_NOT_IT
         return self.getValue(for: setting)?.intValue
