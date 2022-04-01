@@ -304,40 +304,21 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
         return result
     }
     
-//    override func validate(_ current: Date, from validityStart: Date, to validityEnd: Date, extendedTo validityEndExtension: Date) -> Status {
-//        guard let vaccineCompleteEndDaysUnder18 = self.getValue(for: Constants.vaccineCompleteEndDays_under_18)?.intValue else {
-//            print("[DEBUG - Italy Entry Vaccine Validator] Vaccine complete end days under 18 is missing setting value.")
-//            return .notValid
-//        }
-//        
-//        guard let under18ValidityEnd = validityStart.add(vaccineCompleteEndDaysUnder18, ofType: .day) else {
-//            print("[DEBUG - Italy Entry Vaccine Validator] Vaccine complete end days int value is nil.")
-//            return .notValid
-//        }
-//        
-//        switch current {
-//            case ..<validityStart:
-//                return .notValidYet
-//            case validityStart...validityEnd:
-//                return .valid
-//            case validityEnd...under18ValidityEnd, validityEnd...validityEndExtension:
-//                return .verificationIsNeeded
-//            default:
-//                return .expired
-//        }
-//    }
-    
     public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         let setting = Constants.vaccineCompleteStartDays_NOT_IT
         return self.getValue(for: setting)?.intValue
     }
     
     public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        var setting = Constants.vaccineCompleteEndDays_NOT_IT
         if vaccinationInfo.isPatientUnder18 {
-        	setting = Constants.vaccineCompleteEndDays_under_18
+        	let setting = Constants.vaccineCompleteEndDays_under_18
+            let under18EndDayOffset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
+            
+            guard let settingValue = self.getValue(for: setting)?.intValue else { return nil }
+            return settingValue + under18EndDayOffset
         }
         
+        let setting = Constants.vaccineCompleteEndDays_NOT_IT
         return self.getValue(for: setting)?.intValue
     }
     
