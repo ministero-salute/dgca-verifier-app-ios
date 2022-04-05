@@ -34,7 +34,7 @@ class AutomatedTests: XCTestCase {
     var testCases = [TestCase]()
     
     var scanModeCols = ["Base", "Ingresso in italia", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro"]
-    
+
     private func loadTestArrayfromCSV(fromURL url: URL, rowSeparator: String = "\r", colSeparator: String = ";") -> [TestCase] {
         guard let csv = try? String(contentsOf: url, encoding: .utf8) else { return [] }
         let rows = csv.components(separatedBy: rowSeparator)
@@ -116,7 +116,7 @@ class AutomatedTests: XCTestCase {
     func printTestsReport() {
         
         var resultsCSVString: String = "TEST ID;Base;Ex. Base;Rafforzata;Ex. Rafforzata;Visitatori RSA;Ex. Visitatori RSA;Studenti;Ex. Studenti;Lavoro;Ex. Lavoro;Ingresso in Italia;Ex. Ingresso in Italia;\n"
-        
+
         if plainResults {
             resultsCSVString = "TEST ID;Base;Rafforzata;Visitatori RSA;Studenti;Lavoro;Ingresso in Italia;\n"
         }
@@ -124,7 +124,7 @@ class AutomatedTests: XCTestCase {
         testCases.map{ testCase in
             // Re-order scanModeCols to generate the CSV with columns aligned with Android
             self.scanModeCols = ["Base", "Rafforzata", "Visitatori RSA", "Studenti", "Lavoro", "Ingresso in italia"]
-            
+
             let results: String = scanModeCols.map{ scanMode in
                 let actualValidity: String         = testCase.actualValidity?.filter{ $0.mode == scanMode }.first?.result ?? ""
                 var expectedValidity: String     = testCase.expectedValidity.filter{ $0.mode == scanMode }.first?.result ?? "-"

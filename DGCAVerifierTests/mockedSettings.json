@@ -393,5 +393,15 @@
         "name":"not_eu_dgc_faq_link",
         "type":"IT",
         "value":"https://www.dgc.gov.it/web/faq.html#verifica19"
+    },
+    {
+        "name":"vaccine_end_day_complete_under_18",
+        "type":"GENERIC",
+        "value":"540"
+    },
+    {
+        "name":"vaccine_complete_under_18_offset",
+        "type":"GENERIC",
+        "value":"0"
     }
 ]

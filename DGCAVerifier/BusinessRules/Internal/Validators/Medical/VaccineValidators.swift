@@ -33,6 +33,7 @@ struct VaccinationInfo {
     let vaccineDate: Date
     let countryCode: String
     let patientAge: Int?
+    let patientBirthDate: Date?
     
     var emaAllProducts: [String]?{
         return LocalData.getSetting(from: "EMA_vaccines")?.split(separator: ";").map{ String($0) }
@@ -47,6 +48,13 @@ struct VaccinationInfo {
     var isCurrentDoseIncomplete: Bool { self.currentDoses < self.totalDoses }
     var isCurrentDoseComplete: Bool { self.currentDoses == self.totalDoses && !self.isJJBooster && !self.isNonJJBooster }
     var isCurrentDoseBooster: Bool { (self.currentDoses > self.totalDoses) || (isJJBooster || self.isNonJJBooster) }
+    
+    func isPatientUnder18(vaccineUnder18Offset: Int) -> Bool {
+        guard let patientBirthDate = self.patientBirthDate?.add(vaccineUnder18Offset, ofType: .day) else { return false }
+        let computedPatientAge = Calendar.current.dateComponents([.year, .month, .day], from: patientBirthDate, to: Date())
+        guard let computedPatientAgeYear = computedPatientAge.year else { return false }
+        return computedPatientAgeYear < 18
+    }
     
     var isEMAProduct: Bool {
         if (emaAllProducts?.contains(medicalProduct) ?? false) // (Sputnik-V solo se emesso da San marino ovvero co="SM")
@@ -125,11 +133,10 @@ class VaccineConcreteValidator: DGCValidator {
         guard let medicalProduct = hcert.medicalProduct else { return nil }
         guard let countryCode = hcert.countryCode else { return nil }
         
-        return VaccinationInfo(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode, patientAge: hcert.age)
+        return VaccinationInfo(currentDoses: currentDoses, totalDoses: totalDoses, medicalProduct: medicalProduct, vaccineDate: vaccineDate, countryCode: countryCode, patientAge: hcert.age, patientBirthDate: hcert.birthDate)
     }
     
     func checkVaccinationInterval(_ vaccinationInfo: VaccinationInfo) -> Status {
-        
         guard let start = getStartDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let end = getEndDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
         guard let ext = getExtensionDays(vaccinationInfo: vaccinationInfo) else { return .notValid }
@@ -215,7 +222,6 @@ class VaccineConcreteValidator: DGCValidator {
         return endDaysForCompleteDose(vaccinationInfo)
     }
     
-    
     public func extDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
         return endDaysForBoosterDose(vaccinationInfo)
     }
@@ -281,7 +287,7 @@ class VaccineBoosterValidator: VaccineConcreteValidator {
 }
 
 class VaccineItalyEntryValidator: VaccineConcreteValidator {
-    
+
     override func validate(hcert: HCert) -> Status {
         guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
         
@@ -307,7 +313,12 @@ class VaccineItalyEntryValidator: VaccineConcreteValidator {
     }
     
     public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = Constants.vaccineCompleteEndDays_NOT_IT
+        var setting = Constants.vaccineCompleteEndDays_NOT_IT
+        let vaccineUnder18Offset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
+        if vaccinationInfo.isPatientUnder18(vaccineUnder18Offset: vaccineUnder18Offset) {
+        	setting = Constants.vaccineCompleteEndDays_under_18
+        }
+        
         return self.getValue(for: setting)?.intValue
     }
     
