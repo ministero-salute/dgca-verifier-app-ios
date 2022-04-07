@@ -2,3 +2,4 @@
 baseUrl = https:\/\/get.dgc.gov.it/v1/dgc/
 certificateEvaluator = get.dgc.gov.it
 certificateFilename = get-dgc-gov-it.der
+secondCertificateFilename = testaka4-sogei-it.der
