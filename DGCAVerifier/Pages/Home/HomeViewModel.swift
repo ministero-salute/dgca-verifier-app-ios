@@ -147,8 +147,8 @@ extension HomeViewModel {
     }
 
     private func loadRevocationList(in loadingGroup: DispatchGroup) {
-        CRLDataStorage.initialize {
-            print("log.crl.done")
+        DRLDataStorage.initialize {
+            print("log.drl.done")
             loadingGroup.leave()
         }
         loadingGroup.enter()

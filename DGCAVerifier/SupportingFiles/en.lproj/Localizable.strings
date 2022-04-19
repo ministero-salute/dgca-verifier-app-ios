@@ -99,14 +99,14 @@
 "alert.no.countries.title" = "Impossibile accedere ai paesi";
 "alert.no.countries.message" = "L'applicazione deve connettersi alla rete almeno una volta per selezionare i paesi europei";
 
-"alert.crl.outdated.title" = "Impossibile scansionare";
-"alert.crl.outdated.message" = "Per utilizzare l'applicazione è necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
+"alert.drl.outdated.title" = "Impossibile scansionare";
+"alert.drl.outdated.message" = "Per utilizzare l'applicazione è necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
 
-"alert.no.crl.download.title" = "Impossibile scansionare";
-"alert.no.crl.download.message" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate. Attendere la fine del download per procedere con le scansioni.";
+"alert.no.drl.download.title" = "Impossibile scansionare";
+"alert.no.drl.download.message" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate. Attendere la fine del download per procedere con le scansioni.";
 
-"alert.crl.update.resume.title" = "Impossibile scansionare";
-"alert.crl.update.resume.message" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
+"alert.drl.update.resume.title" = "Impossibile scansionare";
+"alert.drl.update.resume.message" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
 
 "alert.no.connection.title" = "Connessione internet assente";
 "alert.no.connection.message" = "Connessione internet assente. Assicurati di essere connesso alla rete e riprova.";
@@ -128,17 +128,17 @@
 "links.qr.code.validity.range" = "Quali sono i tempi di inizio validità?";
 "links.which.qr.code.scan" = "Quale QR Code scansionare?";
 
-"crl.update.loading.title" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate.";
-"crl.update.resume.title" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
-"crl.update.alert.title" = "Aggiornamento lista Certificazioni revocate da %@ MB";
-"crl.update.title" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate per un totale di %@ MB.";
-"crl.update.title.no.size" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
-"crl.update.message" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate, per un totale di %@ MB. Controlla il tuo piano dati oppure connettiti a una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.La lista verrà aggiornata ogni 24 ore.";
-"crl.update.download.now" = "Scarica ora";
-"crl.update.try.later" = "Più tardi";
-"crl.update.resume" = "Riprendi";
-"crl.update.progress" = "Pacchetto %d di %d";
-"crl.update.progress.mb" = "%@MB di %@MB";
+"drl.update.loading.title" = "È in corso l'aggiornamento della lista delle Certificazioni verdi COVID-19 revocate.";
+"drl.update.resume.title" = "L'aggiornamento della lista delle Certificazione verdi COVID-19 revocate è incompleto. Assicurati di essere connesso a Internet e clicca per continuare.";
+"drl.update.alert.title" = "Aggiornamento lista Certificazioni revocate da %@ MB";
+"drl.update.title" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate per un totale di %@ MB.";
+"drl.update.title.no.size" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate.";
+"drl.update.message" = "È necessario aggiornare la lista delle Certificazione verdi COVID-19 revocate, per un totale di %@ MB. Controlla il tuo piano dati oppure connettiti a una rete wi-fi prima di procedere. Il tempo di aggiornamento dipende dalla velocità di connessione e dal tipo di device in uso.La lista verrà aggiornata ogni 24 ore.";
+"drl.update.download.now" = "Scarica ora";
+"drl.update.try.later" = "Più tardi";
+"drl.update.resume" = "Riprendi";
+"drl.update.progress" = "Pacchetto %d di %d";
+"drl.update.progress.mb" = "%@MB di %@MB";
 
 "settings.title" = "IMPOSTAZIONI";
 "settings.preferences" = "Preferenze";

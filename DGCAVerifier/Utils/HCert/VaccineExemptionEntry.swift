@@ -28,7 +28,11 @@ import SwiftDGC
 import SwiftyJSON
 
 
-struct VaccineExemptionEntry : HCertEntry {
+struct VaccineExemptionEntry: HCertEntry {
+    
+    var walletInfo: [InfoSection] {
+        return []
+    }
     
     var info: [InfoSection] {
         return []

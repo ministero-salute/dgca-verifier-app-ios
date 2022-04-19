@@ -17,7 +17,7 @@
 */
 
 //
-//  CRLProgress.swift
+//  DRLProgress.swift
 //  Verifier
 //
 //  Created by Andrea Prosseda on 07/09/21.
@@ -25,7 +25,7 @@
 
 import Foundation
 
-struct CRLProgress: Codable {
+struct DRLProgress: Codable {
     var currentVersion: Int
     var requestedVersion: Int
     var currentChunk: Int?
@@ -38,15 +38,15 @@ struct CRLProgress: Codable {
     static let FIRST_CHUNK: Int = 1
     
     public init(version: Int? = nil) {
-        currentVersion = version ?? CRLProgress.FIRST_VERSION
-        requestedVersion = version ?? CRLProgress.FIRST_VERSION
+        currentVersion = version ?? DRLProgress.FIRST_VERSION
+        requestedVersion = version ?? DRLProgress.FIRST_VERSION
     }
     
-    init(serverStatus: CRLStatus?) {
+    init(serverStatus: DRLStatus?) {
         self.init(
             currentVersion: serverStatus?.fromVersion,
             requestedVersion: serverStatus?.version,
-            currentChunk: CRLProgress.FIRST_CHUNK,
+            currentChunk: DRLProgress.FIRST_CHUNK,
             totalChunk: serverStatus?.totalChunk,
             sizeSingleChunkInByte: serverStatus?.sizeSingleChunkInByte,
             totalSizeInByte: serverStatus?.totalSizeInByte
@@ -62,8 +62,8 @@ struct CRLProgress: Codable {
         totalSizeInByte: Int? = nil,
         downloadedSize: Double? = nil
     ) {
-        self.currentVersion = currentVersion ?? CRLProgress.FIRST_VERSION
-        self.requestedVersion = requestedVersion ?? CRLProgress.FIRST_VERSION
+        self.currentVersion = currentVersion ?? DRLProgress.FIRST_VERSION
+        self.requestedVersion = requestedVersion ?? DRLProgress.FIRST_VERSION
         self.currentChunk = currentChunk
         self.totalChunk = totalChunk
         self.sizeSingleChunkInByte = sizeSingleChunkInByte
@@ -86,7 +86,7 @@ struct CRLProgress: Codable {
     var chunksMessage: String {
         guard let currentChunk = currentChunk else { return "" }
         guard let totalChunks = totalChunk else { return "" }
-        return "crl.update.progress".localizeWith(currentChunk, totalChunks)
+        return "drl.update.progress".localizeWith(currentChunk, totalChunks)
     }
     
     var downloadedMessage: String {
@@ -94,7 +94,7 @@ struct CRLProgress: Codable {
         guard let downloadedSize = downloadedSize else { return "" }
         let total = responseSize.toMegaBytes.byteReadableValue
         let downloaded = downloadedSize.toMegaBytes.byteReadableValue
-        return "crl.update.progress.mb".localizeWith(downloaded, total)
+        return "drl.update.progress.mb".localizeWith(downloaded, total)
     }
     
 }

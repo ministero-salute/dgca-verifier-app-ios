@@ -24,6 +24,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftDGC
 
 protocol VerificationCoordinator: Coordinator {
     func dismissVerification(animated: Bool, completion: (()->())?)

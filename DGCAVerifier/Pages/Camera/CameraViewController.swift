@@ -139,10 +139,10 @@ class CameraViewController: UIViewController {
         guard !(vc is VerificationViewController) else { return }
         stopRunning()
         hapticFeedback()
-        let isCRLDownloadCompleted = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed = SettingDataStorage.sharedInstance.getFirstSetting(withName: "DRL_SYNC_ACTIVE")?.boolValue ?? true
-        if !isCRLDownloadCompleted && isCRLAllowed {
-            showAlert(key: "no.crl.download")
+        let isDRLDownloadCompleted = DRLDataStorage.shared.isDRLDownloadCompleted
+        let isDRLAllowed = SettingDataStorage.sharedInstance.getFirstSetting(withName: "DRL_SYNC_ACTIVE")?.boolValue ?? true
+        if !isDRLDownloadCompleted && isDRLAllowed {
+            showAlert(key: "no.drl.download")
             return
         }
         coordinator?.validate(payload: payload, country: country, delegate: self)

@@ -1,14 +1,14 @@
 /*
  *  license-start
- *  
+ *
  *  Copyright (C) 2021 Ministero della Salute and all other contributors
- *  
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,11 +17,12 @@
 */
 
 //
-//  GatewayConnection+Revocation.swift
+//  GatewayConnection+RevocationEU.swift
 //  Verifier
 //
-//  Created by Andrea Prosseda on 25/08/21.
+//  Created by Emilio Apuzzo on 20/04/22.
 //
+
 import Foundation
 import SwiftDGC
 
@@ -31,10 +32,10 @@ extension GatewayConnection {
     
     private var statusUrl: String { baseUrl + "drl/check" }
     
-    func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
+    func revocationStatusEU(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
-        status(version: version, chunk: chunk) { drlStatus, statusCode in
+        statusEU(version: version, chunk: chunk) { drlStatus, statusCode in
             
             guard let drlStatus = drlStatus else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
@@ -45,11 +46,11 @@ extension GatewayConnection {
         }
     }
     
-    func updateRevocationList(_ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
+    func updateRevocationListEU(_ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
         
-        getDRL(version: version, chunk: chunk) { drl, statusCode in
+        getDRLEU(version: version, chunk: chunk) { drl, statusCode in
             
             guard let drl = drl else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
@@ -60,8 +61,8 @@ extension GatewayConnection {
         }
     }
     
-    private func getDRL(version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[DRL - IT] [REST]")
+    private func getDRLEU(version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
+        let restStartTime = Log.start(key: "[DRL - EU] [REST]")
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
         
@@ -71,20 +72,20 @@ extension GatewayConnection {
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200, $0.error == nil else {
-                Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [ERROR]")
-                Log.end(key: "[DRL - IT] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "[DRL - EU] [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "[DRL - EU STATUS] [ERROR]")
+                Log.end(key: "[DRL - EU] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
+            Log.end(key: "[DRL - EU] [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[DRL - IT] [JSON]")
+            let jsonStartTime = Log.start(key: "[DRL - EU] [JSON]")
             let decoder = JSONDecoder()
             var data = try? decoder.decode(DRL.self, from: $0.data ?? .init())
             data?.responseSize = $0.data?.count.doubleValue
-            Log.end(key: "[DRL - IT] [JSON]", startTime: jsonStartTime)
+            Log.end(key: "[DRL - EU] [JSON]", startTime: jsonStartTime)
             
             guard let drl = data else {
                 completion?(nil, responseStatusCode)
@@ -95,8 +96,8 @@ extension GatewayConnection {
         }
     }
     
-    private func status(version: Int?, chunk: Int?, completion: ((DRLStatus?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[DRL - IT STATUS] [REST]")
+    private func statusEU(version: Int?, chunk: Int?, completion: ((DRLStatus?, Int?) -> Void)?) {
+        let restStartTime = Log.start(key: "[DRL - EU STATUS] [REST]")
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
         
@@ -105,19 +106,19 @@ extension GatewayConnection {
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
-                Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [ERROR]")
-                Log.end(key: "[DRL - IT] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "[DRL - EU] [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "[DRL - EU STATUS] [ERROR]")
+                Log.end(key: "[DRL - EU] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[DRL - IT STATUS] [REST]", startTime: restStartTime)
+            Log.end(key: "[DRL - EU STATUS] [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [JSON]")
+            let jsonStartTime = Log.start(key: "[DRL - EU STATUS] [JSON]")
             let decoder = JSONDecoder()
             let data = try? decoder.decode(DRLStatus.self, from: $0.data ?? .init())
-            Log.end(key: "[DRL - IT STATUS] [JSON]", startTime: jsonStartTime)
+            Log.end(key: "[DRL - EU STATUS] [JSON]", startTime: jsonStartTime)
             
             guard let status = data else {
                 completion?(nil, responseStatusCode)

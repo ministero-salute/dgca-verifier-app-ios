@@ -39,27 +39,27 @@ class ProgressView: AppView {
     @IBOutlet weak var downloadView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
     
-    func fillView(with progress: CRLProgress) {
+    func fillView(with progress: DRLTotalProgress) {
         stop()
         showMoreLabel.fillView(with: .init(text: "home.show.more"))
-        messageLabel.text = "crl.update.title".localizeWith(progress.remainingSize)
+        messageLabel.text = "drl.update.title".localizeWith(progress.remainingSize)
     }
     
-    func downloading(with progress: CRLProgress) {
+    func downloading(with progress: DRLTotalProgress) {
         start()
         progressView.progress = progress.current
-        messageLabel.text = "crl.update.loading.title".localized
+        messageLabel.text = "drl.update.loading.title".localized
         progressInfoLabel.text = progress.chunksMessage
         progressInfoSubLabel.text = progress.downloadedMessage
     }
     
-    func pause(with progress: CRLProgress) {
+    func pause(with progress: DRLTotalProgress) {
         downloading(with: progress)
         resumeButton.isHidden = false
-        messageLabel.text = "crl.update.resume.title".localized
+        messageLabel.text = "drl.update.resume.title".localized
     }
     
-    func error(with progress: CRLProgress, noSize: Bool = false) {
+    func error(with progress: DRLTotalProgress, noSize: Bool = false) {
         downloading(with: progress)
         stop()
         
@@ -67,7 +67,7 @@ class ProgressView: AppView {
         showMoreLabel.isHidden = noSize
         confirmButton.isHidden = false
             
-        messageLabel.text = (noSize ? "crl.update.title.no.size" : "crl.update.title").localizeWith(progress.remainingSize)
+        messageLabel.text = (noSize ? "drl.update.title.no.size" : "drl.update.title").localizeWith(progress.remainingSize)
     }
     
     private func start() {

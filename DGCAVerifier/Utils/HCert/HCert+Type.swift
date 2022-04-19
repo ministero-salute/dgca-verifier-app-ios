@@ -38,7 +38,7 @@ public enum HCertExtensionTypes: String {
 extension HCert {
     
     var extendedType: HCertExtensionTypes {
-        switch self.type {
+        switch self.certificateType {
         case .recovery:
             return .recovery
         case .vaccine:

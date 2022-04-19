@@ -59,7 +59,7 @@ struct LocalData: Codable {
     }
     
     public func save() {
-        Self.storage.save(self)
+        Self.storage.save(self, completion: { _ in } )
     }
     
     static let storage = SecureStorage<LocalData>(fileName: "secure")
@@ -74,7 +74,8 @@ struct LocalData: Codable {
             LocalData.sharedInstance = result
             completion()
         }
-        HCert.publicKeyStorageDelegate = LocalDataDelegate.instance
+        
+        CoreManager.publicKeyEncoder = LocalDataDelegate.instance
     }
 }
 

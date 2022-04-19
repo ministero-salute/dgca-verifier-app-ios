@@ -107,4 +107,9 @@ struct Constants {
     
     static let boosterMinimumDosesNumber = 3
     static let jjBoosterMinimumDosesNumber = 2
+    
+    // MARK: Synchronization Context
+    static let synchronizationStatusIT = "Sync_Status_IT"
+    static let synchronizationStatusEU = "Sync_Status_EU"
+
 }

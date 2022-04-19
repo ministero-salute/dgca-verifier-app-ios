@@ -17,21 +17,22 @@
 */
 
 //
-//  CRLStatus.swift
+//  DRL.swift
 //  Verifier
 //
-//  Created by Andrea Prosseda on 07/09/21.
+//  Created by Andrea Prosseda on 25/08/21.
 //
 
 import Foundation
 
-struct CRLStatus: Codable {
+struct DRL: Codable {
     var id: String?
-    var fromVersion: Int?
     var version: Int?
     var chunk: Int?
-    var totalSizeInByte: Int?
+    var lastChunk: Int?
+    var revokedUcvi: [String]?
+    var delta: Delta?
     var sizeSingleChunkInByte: Int?
-    var totalChunk: Int?
     var totalNumberUCVI: Int?
+    var responseSize: Double?
 }

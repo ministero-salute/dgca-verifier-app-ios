@@ -57,8 +57,9 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var lastFetchLabel: AppLabel!
-    
-    var sync: CRLSynchronizationManager { CRLSynchronizationManager.shared }
+        
+    var sync: DRLSynchronizationManager { DRLSynchronizationManager.shared }
+
     let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var settingsView: UIView!
@@ -159,7 +160,7 @@ class HomeViewController: UIViewController {
     }
     
     func bindShowMore() {
-        let tap = Tap(target: self, action: #selector(crlShowMore))
+        let tap = Tap(target: self, action: #selector(drlShowMore))
         progressView.showMoreLabel.add(tap)
     }
     
@@ -216,13 +217,13 @@ class HomeViewController: UIViewController {
         setScanModeButtonText()
     }
     
-    @objc func showInfoAlert(){
+    @objc func showCustomInfoAlert(){
         guard !viewModel.isInfoPopupTextSettingMissing() else { return showCustomAlert(key: "no.keys") }
         showCustomAlert(key: "scan.mode.info", isHTMLBased: true, messagefromSetting: Constants.infoScanModePopup)
     }
     
     private func setInfoButton() {
-        infoButton.addTarget(self, action: #selector(showInfoAlert), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(self.showCustomInfoAlert), for: .touchUpInside)
     }
     
     private func setScanModeButtonStyle() {
@@ -276,12 +277,12 @@ class HomeViewController: UIViewController {
         let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
         let certFetchUpdated            = certFetch > 0
 
-        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        let drlFetchOutdated            = DRLSynchronizationManager.shared.isFetchOutdated
 
-        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
+        let isDRLDownloadCompleted      = DRLDataStorage.shared.isDRLDownloadCompleted
+        let isDRLAllowed                = DRLSynchronizationManager.shared.isSyncEnabled
 
-        let hideCondition = (viewModel.isVersionOutdated() || !Store.getBool(key: .isScanModeSet) || !certFetchUpdated || (isCRLAllowed && (crlFetchOutdated || !isCRLDownloadCompleted)))
+        let hideCondition = (viewModel.isVersionOutdated() || !Store.getBool(key: .isScanModeSet) || !certFetchUpdated || (isDRLAllowed && (drlFetchOutdated || !isDRLDownloadCompleted)))
         return hideCondition
     }
     
@@ -299,7 +300,7 @@ class HomeViewController: UIViewController {
     }
     
     func initializeSync() {
-        CRLSynchronizationManager.shared.initialize(delegate: self)
+        DRLSynchronizationManager.shared.initialize(delegate: self)
     }
     
     private func updateLastFetch(isLoading: Bool) {
@@ -328,8 +329,8 @@ class HomeViewController: UIViewController {
         UIApplication.shared.open(url)
     }
     
-    @objc func crlShowMore() {
-        sync.showCRLUpdateAlert()
+    @objc func drlShowMore() {
+        sync.showDRLUpdateAlert()
     }
     
     @objc func startSync() {
@@ -396,10 +397,10 @@ class HomeViewController: UIViewController {
         let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
         let certFetchUpdated            = certFetch > 0
         
-        let crlFetchOutdated            = CRLSynchronizationManager.shared.isFetchOutdated
+        let drlFetchOutdated            = DRLSynchronizationManager.shared.isFetchOutdated
         
-        let isCRLDownloadCompleted      = CRLDataStorage.shared.isCRLDownloadCompleted
-        let isCRLAllowed                = CRLSynchronizationManager.shared.isSyncEnabled
+        let isDRLDownloadCompleted      = DRLDataStorage.shared.isDRLDownloadCompleted
+        let isDRLAllowed                = DRLSynchronizationManager.shared.isSyncEnabled
                 
         guard certFetchUpdated else {
             showCustomAlert(key: "no.keys")
@@ -410,13 +411,13 @@ class HomeViewController: UIViewController {
             return viewModel.isScanModeNotChosenPopupTextMissing() ? showCustomAlert(key: "scan.no.keys") : showCustomAlert(key: "scan.unset", isHTMLBased: true, messagefromSetting: Constants.errorScanModePopup)
         }
         
-        if isCRLAllowed {
-            guard !crlFetchOutdated else {
-                showCustomAlert(key: "crl.outdated")
+        if isDRLAllowed {
+            guard !drlFetchOutdated else {
+                showCustomAlert(key: "drl.outdated")
                 return
             }
-            guard isCRLDownloadCompleted else {
-                showCustomAlert(key: "crl.update.resume")
+            guard isDRLDownloadCompleted else {
+                showCustomAlert(key: "drl.update.resume")
                 return
             }
         }
@@ -445,53 +446,54 @@ class HomeViewController: UIViewController {
         lastFetchLabel.text = "home.not.available".localized
     }
     
-    private func crlDownloadNeeded() {
+    private func drlDownloadNeeded() {
         progressView.fillView(with: sync.progress)
         progressView.error(with: sync.progress, noSize: true)
-        showCRL(true)
+        showDRL(true)
     }
     
     private func showDownloadingProgress() {
         updateScanButtonStatus()
         progressView.downloading(with: sync.progress)
-        showCRL(true)
+        showDRL(true)
     }
     
     private func downloadCompleted() {
         updateScanButtonStatus()
-        showCRL(false)
+        showDRL(false)
     }
     
     private func downloadPaused() {
         updateScanButtonStatus()
         progressView.pause(with: sync.progress)
-        showCRL(true)
+        showDRL(true)
     }
     
     private func downloadError() {
         updateScanButtonStatus()
         progressView.error(with: sync.progress)
-        showCRL(true)
+        showDRL(true)
     }
     
     private func networkStatusError() {
         updateScanButtonStatus()
         progressView.error(with: sync.progress, noSize: true)
-        showCRL(true)
+        showDRL(true)
     }
     
-    private func showCRL(_ value: Bool) {
+    private func showDRL(_ value: Bool) {
         lastFetchContainer.isHidden = value
         progressContainer.isHidden = !value
     }
     
+    
 }
 
-extension HomeViewController: CRLSynchronizationDelegate {
+extension HomeViewController: DRLSynchronizationDelegate {
     
-    func statusDidChange(with result: CRLSynchronizationManager.Result) {
+    func statusDidChange(with result: DRLSynchronizationManager.Result) {
         switch result {
-        case .downloadReady:        crlDownloadNeeded()
+        case .downloadReady:        drlDownloadNeeded()
         case .downloading:          showDownloadingProgress()
         case .completed:            downloadCompleted()
         case .paused:               downloadPaused()

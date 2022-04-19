@@ -37,7 +37,7 @@ class VerificationViewModel {
         
         guard
             let scanMode = ScanMode.fetchFromLocalSettings(),
-            let hCert = HCert(from: payload) else {
+            let hCert = try? HCert(from: payload) else {
                 self.status = .notGreenPass
                 if VerificationState.shared.shouldValidateTestOnly() {
                     VerificationState.shared.followUpTestScanned = true
@@ -83,17 +83,6 @@ class VerificationViewModel {
     private func test() {
 //        self.hCert = setNewValue(to: hCert, old: "EU\\/1", new: "AU\\/1")
 //        self.status = RulesValidator.getStatus(from: hCert)
-    }
-    
-    private func setNewValue(to hCert: HCert?, old: String, new: String) -> HCert? {
-        #if targetEnvironment(simulator)
-        var hCert = hCert
-        var bodyString = hCert?.body.rawString()
-        bodyString = bodyString?.replacingOccurrences(of: old, with: new)
-        guard let newValue = bodyString else { return hCert }
-        hCert?.body = JSON(parseJSON: newValue)
-        #endif
-        return hCert
     }
     
 }

@@ -105,10 +105,10 @@
 		658CB72326AF3B5B00B90EC0 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658CB72126AF3B5B00B90EC0 /* Status.swift */; };
 		658CB72526AF3C1200B90EC0 /* Status+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */; };
 		658CB72626AF3C1200B90EC0 /* Status+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */; };
-		659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* CRLStatus.swift */; };
-		659605D926E75A6E008AD4E2 /* CRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* CRLStatus.swift */; };
-		659605DB26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */; };
-		659605DC26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */; };
+		659605D826E75A6E008AD4E2 /* DRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* DRLStatus.swift */; };
+		659605D926E75A6E008AD4E2 /* DRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* DRLStatus.swift */; };
+		659605DB26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */; };
+		659605DC26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */; };
 		659605DE26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605DF26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605E526E763F5008AD4E2 /* AppAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659605E226E763F5008AD4E2 /* AppAlertViewController.xib */; };
@@ -121,8 +121,8 @@
 		659605F426E7911E008AD4E2 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605F226E7911E008AD4E2 /* ProgressView.swift */; };
 		659605F626E7927C008AD4E2 /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659605F526E79126008AD4E2 /* ProgressView.xib */; };
 		659605F726E7927C008AD4E2 /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659605F526E79126008AD4E2 /* ProgressView.xib */; };
-		659605F926E7A6E0008AD4E2 /* CRLProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605F826E7A6E0008AD4E2 /* CRLProgress.swift */; };
-		659605FA26E7A6E0008AD4E2 /* CRLProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605F826E7A6E0008AD4E2 /* CRLProgress.swift */; };
+		659605F926E7A6E0008AD4E2 /* DRLProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605F826E7A6E0008AD4E2 /* DRLProgress.swift */; };
+		659605FA26E7A6E0008AD4E2 /* DRLProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605F826E7A6E0008AD4E2 /* DRLProgress.swift */; };
 		659605FC26E7A868008AD4E2 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605FB26E7A868008AD4E2 /* UIApplication+TopViewController.swift */; };
 		659605FD26E7A868008AD4E2 /* UIApplication+TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605FB26E7A868008AD4E2 /* UIApplication+TopViewController.swift */; };
 		659DE89126B2D75B0026A39A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DE89026B2D75B0026A39A /* Font.swift */; };
@@ -261,14 +261,14 @@
 		65EFB63026B1829E0081682B /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EFB62E26B1829E0081682B /* Link.swift */; };
 		65EFB63326B183CF0081682B /* Link+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EFB63226B183CF0081682B /* Link+Values.swift */; };
 		65EFB63426B183CF0081682B /* Link+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EFB63226B183CF0081682B /* Link+Values.swift */; };
-		65F280C226D64AEF009BC452 /* CRLDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C126D64AEF009BC452 /* CRLDataStorage.swift */; };
-		65F280C326D64AEF009BC452 /* CRLDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C126D64AEF009BC452 /* CRLDataStorage.swift */; };
+		65F280C226D64AEF009BC452 /* DRLDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C126D64AEF009BC452 /* DRLDataStorage.swift */; };
+		65F280C326D64AEF009BC452 /* DRLDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C126D64AEF009BC452 /* DRLDataStorage.swift */; };
 		65F280C826D65269009BC452 /* GatewayConnection+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C726D65269009BC452 /* GatewayConnection+Revocation.swift */; };
 		65F280C926D65269009BC452 /* GatewayConnection+Revocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280C726D65269009BC452 /* GatewayConnection+Revocation.swift */; };
-		65F280CB26D655E3009BC452 /* CRL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280CA26D655E3009BC452 /* CRL.swift */; };
-		65F280CC26D655E3009BC452 /* CRL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280CA26D655E3009BC452 /* CRL.swift */; };
-		65F280D126D658CB009BC452 /* CRL+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D026D658CB009BC452 /* CRL+Entity.swift */; };
-		65F280D226D658CB009BC452 /* CRL+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D026D658CB009BC452 /* CRL+Entity.swift */; };
+		65F280CB26D655E3009BC452 /* DRL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280CA26D655E3009BC452 /* DRL.swift */; };
+		65F280CC26D655E3009BC452 /* DRL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280CA26D655E3009BC452 /* DRL.swift */; };
+		65F280D126D658CB009BC452 /* DRL+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D026D658CB009BC452 /* DRL+Entity.swift */; };
+		65F280D226D658CB009BC452 /* DRL+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D026D658CB009BC452 /* DRL+Entity.swift */; };
 		65F280D426D659AC009BC452 /* Delta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D326D659AC009BC452 /* Delta.swift */; };
 		65F280D526D659AC009BC452 /* Delta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D326D659AC009BC452 /* Delta.swift */; };
 		65F280D726D66777009BC452 /* PerformanceLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F280D626D66777009BC452 /* PerformanceLog.swift */; };
@@ -311,6 +311,8 @@
 		90878F0627C93AB600A25D71 /* VerificationTickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90878F0427C93AB600A25D71 /* VerificationTickView.swift */; };
 		9093B3E72758CCA40054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
 		9093B3E82758CCB50054C811 /* StatementValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902155CF274E55490020DA88 /* StatementValidityCheck.swift */; };
+		90987D172811A52D00BB557F /* DRLTotalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90987D162811A52D00BB557F /* DRLTotalProgress.swift */; };
+		90987D182811A52D00BB557F /* DRLTotalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90987D162811A52D00BB557F /* DRLTotalProgress.swift */; };
 		90A2C59C276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */; };
 		90A2C59D276CE2AC008D9B5B /* HCert+Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */; };
 		90A3E613273AFC3700D161BD /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A3E612273AFC3700D161BD /* Connectivity.swift */; };
@@ -344,6 +346,14 @@
 		90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
 		90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
 		90F9494F27AD79CC00A9CB3E /* AutomatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */; };
+		90F9AE352810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */; };
+		90F9AE362810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */; };
+		90F9AE382810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */; };
+		90F9AE392810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */; };
+		90F9AE3B2810598D00C3D8CF /* EURevokedDCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */; };
+		90F9AE3C2810598D00C3D8CF /* EURevokedDCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */; };
+		90F9AE3F2811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */; };
+		90F9AE402811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */; };
 		98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B727A9469400B8FB1A /* ScanMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B527A9469400B8FB1A /* ScanMode.swift */; };
 		98BF53B927A9471700B8FB1A /* DGCValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BF53B827A9471700B8FB1A /* DGCValidator.swift */; };
@@ -491,15 +501,15 @@
 		658CB71D26AF359100B90EC0 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		658CB72126AF3B5B00B90EC0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+Configuration.swift"; sourceTree = "<group>"; };
-		659605D726E75A6E008AD4E2 /* CRLStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLStatus.swift; sourceTree = "<group>"; };
-		659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLSynchronizationManager.swift; sourceTree = "<group>"; };
+		659605D726E75A6E008AD4E2 /* DRLStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLStatus.swift; sourceTree = "<group>"; };
+		659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLITSynchronizationManager.swift; sourceTree = "<group>"; };
 		659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlertViewController.swift; sourceTree = "<group>"; };
 		659605E226E763F5008AD4E2 /* AppAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppAlertViewController.xib; sourceTree = "<group>"; };
 		659605E726E76622008AD4E2 /* AlertContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContent.swift; sourceTree = "<group>"; };
 		659605EB26E77B40008AD4E2 /* Double+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+String.swift"; sourceTree = "<group>"; };
 		659605F226E7911E008AD4E2 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		659605F526E79126008AD4E2 /* ProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressView.xib; sourceTree = "<group>"; };
-		659605F826E7A6E0008AD4E2 /* CRLProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLProgress.swift; sourceTree = "<group>"; };
+		659605F826E7A6E0008AD4E2 /* DRLProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLProgress.swift; sourceTree = "<group>"; };
 		659605FB26E7A868008AD4E2 /* UIApplication+TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+TopViewController.swift"; sourceTree = "<group>"; };
 		659DE89026B2D75B0026A39A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		65B281302697122200A9A533 /* DGCAVerifierUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGCAVerifierUITests.swift; sourceTree = "<group>"; };
@@ -551,10 +561,10 @@
 		65EFB62B26B0C2390081682B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		65EFB62E26B1829E0081682B /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		65EFB63226B183CF0081682B /* Link+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Link+Values.swift"; sourceTree = "<group>"; };
-		65F280C126D64AEF009BC452 /* CRLDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRLDataStorage.swift; sourceTree = "<group>"; };
+		65F280C126D64AEF009BC452 /* DRLDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLDataStorage.swift; sourceTree = "<group>"; };
 		65F280C726D65269009BC452 /* GatewayConnection+Revocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GatewayConnection+Revocation.swift"; sourceTree = "<group>"; };
-		65F280CA26D655E3009BC452 /* CRL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRL.swift; sourceTree = "<group>"; };
-		65F280D026D658CB009BC452 /* CRL+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CRL+Entity.swift"; sourceTree = "<group>"; };
+		65F280CA26D655E3009BC452 /* DRL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRL.swift; sourceTree = "<group>"; };
+		65F280D026D658CB009BC452 /* DRL+Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DRL+Entity.swift"; sourceTree = "<group>"; };
 		65F280D326D659AC009BC452 /* Delta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delta.swift; sourceTree = "<group>"; };
 		65F280D626D66777009BC452 /* PerformanceLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceLog.swift; sourceTree = "<group>"; };
 		6B155162265BE463001D19E2 /* VaccineValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaccineValidityCheck.swift; sourceTree = "<group>"; };
@@ -579,6 +589,7 @@
 		90878EFD27C8EDCE00A25D71 /* VerificationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationState.swift; sourceTree = "<group>"; };
 		90878F0127C9398600A25D71 /* VerificationTickView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerificationTickView.xib; sourceTree = "<group>"; };
 		90878F0427C93AB600A25D71 /* VerificationTickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationTickView.swift; sourceTree = "<group>"; };
+		90987D162811A52D00BB557F /* DRLTotalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLTotalProgress.swift; sourceTree = "<group>"; };
 		90A2C59B276CE2AC008D9B5B /* HCert+Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCert+Certificate.swift"; sourceTree = "<group>"; };
 		90A3E612273AFC3700D161BD /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		90A3E615273C6B2C00D161BD /* Array+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
@@ -594,6 +605,10 @@
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
 		90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+FAQ.swift"; sourceTree = "<group>"; };
 		90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomatedTests.swift; sourceTree = "<group>"; };
+		90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLEUSynchronizationManager.swift; sourceTree = "<group>"; };
+		90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GatewayConnection+RevocationEU.swift"; sourceTree = "<group>"; };
+		90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EURevokedDCC.swift; sourceTree = "<group>"; };
+		90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLSynchronizationManager.swift; sourceTree = "<group>"; };
 		98BF53B527A9469400B8FB1A /* ScanMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMode.swift; sourceTree = "<group>"; };
 		98BF53B827A9471700B8FB1A /* DGCValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGCValidator.swift; sourceTree = "<group>"; };
 		98BF53BB27A94BD300B8FB1A /* VaccineValidators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineValidators.swift; sourceTree = "<group>"; };
@@ -1193,7 +1208,7 @@
 			isa = PBXGroup;
 			children = (
 				9F4F3C3E2649D60B00F59BA2 /* LocalData.swift */,
-				65F280C126D64AEF009BC452 /* CRLDataStorage.swift */,
+				65F280C126D64AEF009BC452 /* DRLDataStorage.swift */,
 				65EFB60B26B06AD80081682B /* SettingsDataStorage.swift */,
 				65E3C1D52716D87A004B2E98 /* Store.swift */,
 			);
@@ -1207,6 +1222,7 @@
 				65EFB5ED26B04D850081682B /* GatewayConnection+Certificates.swift */,
 				65EFB5F026B04D900081682B /* GatewayConnection+Settings.swift */,
 				65F280C726D65269009BC452 /* GatewayConnection+Revocation.swift */,
+				90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */,
 				6BF86E2E27DF4D8A002DF298 /* CustomHeaderInterceptor.swift */,
 			);
 			path = GatewayConnection;
@@ -1231,7 +1247,7 @@
 				65E2818E269721ED00377913 /* LocalData+Setting.swift */,
 				658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */,
 				65EFB63226B183CF0081682B /* Link+Values.swift */,
-				65F280D026D658CB009BC452 /* CRL+Entity.swift */,
+				65F280D026D658CB009BC452 /* DRL+Entity.swift */,
 				90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */,
 			);
 			path = ModelExtensions;
@@ -1241,6 +1257,7 @@
 			isa = PBXGroup;
 			children = (
 				656433B326D787C000A41590 /* RevokedDCC.swift */,
+				90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -1249,9 +1266,9 @@
 			isa = PBXGroup;
 			children = (
 				6B155165265BE463001D19E2 /* Setting.swift */,
-				65F280CA26D655E3009BC452 /* CRL.swift */,
+				65F280CA26D655E3009BC452 /* DRL.swift */,
 				65F280D326D659AC009BC452 /* Delta.swift */,
-				659605D726E75A6E008AD4E2 /* CRLStatus.swift */,
+				659605D726E75A6E008AD4E2 /* DRLStatus.swift */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
@@ -1261,8 +1278,9 @@
 			children = (
 				65EFB62E26B1829E0081682B /* Link.swift */,
 				658CB72126AF3B5B00B90EC0 /* Status.swift */,
-				659605F826E7A6E0008AD4E2 /* CRLProgress.swift */,
+				659605F826E7A6E0008AD4E2 /* DRLProgress.swift */,
 				98BF53B527A9469400B8FB1A /* ScanMode.swift */,
+				90987D162811A52D00BB557F /* DRLTotalProgress.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1347,6 +1365,16 @@
 			path = "Settings Cell";
 			sourceTree = "<group>";
 		};
+		90F9AE3D2811532700C3D8CF /* SynchronizationManager */ = {
+			isa = PBXGroup;
+			children = (
+				659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */,
+				90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */,
+				90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */,
+			);
+			path = SynchronizationManager;
+			sourceTree = "<group>";
+		};
 		98BF53C727A94C5200B8FB1A /* Validators */ = {
 			isa = PBXGroup;
 			children = (
@@ -1404,8 +1432,8 @@
 		9F4F3C432649D60B00F59BA2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				90F9AE3D2811532700C3D8CF /* SynchronizationManager */,
 				65EFB60626B068EA0081682B /* GatewayConnection */,
-				659605DA26E75F5A008AD4E2 /* CRLSynchronizationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1813,6 +1841,7 @@
 				90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
 				65E281BB2697259D00377913 /* HCert+PersonalData.swift in Sources */,
 				65E3C1DE2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
+				90F9AE362810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */,
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
 				140B09CE27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */,
@@ -1820,23 +1849,24 @@
 				98DCD73F278C853200D4B418 /* HCert+Type.swift in Sources */,
 				98BF53CA27A94CD800B8FB1A /* UnknownValidators.swift in Sources */,
 				90BED816276A4F15006225CE /* String+HTML.swift in Sources */,
+				90F9AE3C2810598D00C3D8CF /* EURevokedDCC.swift in Sources */,
 				65021B6926AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65021B5426AEC88E004C3D14 /* UIView+Shadow.swift in Sources */,
 				65EFB60D26B06AD80081682B /* SettingsDataStorage.swift in Sources */,
 				65E281BC2697259D00377913 /* HCert+Recovery.swift in Sources */,
 				659605ED26E77B40008AD4E2 /* Double+String.swift in Sources */,
-				659605DC26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */,
+				659605DC26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */,
 				65E281BD2697259D00377913 /* LocalData+Setting.swift in Sources */,
 				65E281BE2697259D00377913 /* RulesValidator.swift in Sources */,
 				65021B6326AEDCF3004C3D14 /* Palette.swift in Sources */,
 				98BF53E227AC3AE900B8FB1A /* ScanMode+UI.swift in Sources */,
 				6B797DDE26D052B800EB2873 /* Data+SHA256.swift in Sources */,
 				658CB71C26AF27D200B90EC0 /* UIBarButtonItem+Appearance.swift in Sources */,
-				65F280D226D658CB009BC452 /* CRL+Entity.swift in Sources */,
+				65F280D226D658CB009BC452 /* DRL+Entity.swift in Sources */,
 				65E7000226AF6E1F00715CCC /* UIStackView+ArrangedSubViews.swift in Sources */,
 				6BF86E3027DF4D8A002DF298 /* CustomHeaderInterceptor.swift in Sources */,
 				14C3B3CF27BD47CC00C2C2A7 /* CustomPickerController.swift in Sources */,
-				659605FA26E7A6E0008AD4E2 /* CRLProgress.swift in Sources */,
+				659605FA26E7A6E0008AD4E2 /* DRLProgress.swift in Sources */,
 				65021B4D26AEC889004C3D14 /* ButtonStyle.swift in Sources */,
 				98BF53D327A987F500B8FB1A /* HCertValidator.swift in Sources */,
 				65021B5126AEC88E004C3D14 /* CALayer+Shadow.swift in Sources */,
@@ -1850,6 +1880,7 @@
 				65E281C32697259D00377913 /* LocalData.swift in Sources */,
 				98DCD749278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */,
 				90CDC6DA271F049A00707836 /* UIView+NibFile.swift in Sources */,
+				90F9AE402811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */,
 				65E281C42697259D00377913 /* AppDelegate.swift in Sources */,
 				98BF53DC27AA8A2400B8FB1A /* DGCValidatorBuilder.swift in Sources */,
 				90CDC6B8271EB48000707836 /* SettingsCell.swift in Sources */,
@@ -1860,8 +1891,8 @@
 				90878F0627C93AB600A25D71 /* VerificationTickView.swift in Sources */,
 				98BF53BD27A94BD300B8FB1A /* VaccineValidators.swift in Sources */,
 				6559D94B271998FC00E0E30D /* VNBarcodeObservation+Allowed.swift in Sources */,
-				659605D926E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
-				65F280CC26D655E3009BC452 /* CRL.swift in Sources */,
+				659605D926E75A6E008AD4E2 /* DRLStatus.swift in Sources */,
+				65F280CC26D655E3009BC452 /* DRL.swift in Sources */,
 				659DE89726B2E9410026A39A /* UIButton+Inspectable.swift in Sources */,
 				658CB72626AF3C1200B90EC0 /* Status+Configuration.swift in Sources */,
 				65021B5326AEC88E004C3D14 /* UIView+Set.swift in Sources */,
@@ -1885,11 +1916,13 @@
 				65021B4B26AEC883004C3D14 /* AppShadowView.swift in Sources */,
 				659605E926E76622008AD4E2 /* AlertContent.swift in Sources */,
 				65F280D826D66777009BC452 /* PerformanceLog.swift in Sources */,
-				65F280C326D64AEF009BC452 /* CRLDataStorage.swift in Sources */,
+				90F9AE392810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */,
+				65F280C326D64AEF009BC452 /* DRLDataStorage.swift in Sources */,
 				65E281C92697259D00377913 /* HCert+Test.swift in Sources */,
 				90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
 				65E281CA2697259D00377913 /* ResultView.swift in Sources */,
 				65E281CB2697259D00377913 /* HomeViewController.swift in Sources */,
+				90987D182811A52D00BB557F /* DRLTotalProgress.swift in Sources */,
 				658CB72326AF3B5B00B90EC0 /* Status.swift in Sources */,
 				98DCD74C278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				65E281CC2697259D00377913 /* Date.swift in Sources */,
@@ -1956,20 +1989,22 @@
 				98BF53D827AA89C800B8FB1A /* ChainValidator.swift in Sources */,
 				658CB72226AF3B5B00B90EC0 /* Status.swift in Sources */,
 				98DCD748278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */,
-				65F280C226D64AEF009BC452 /* CRLDataStorage.swift in Sources */,
+				65F280C226D64AEF009BC452 /* DRLDataStorage.swift in Sources */,
 				65E281A6269721ED00377913 /* UIView+Set.swift in Sources */,
-				659605DB26E75F5A008AD4E2 /* CRLSynchronizationManager.swift in Sources */,
+				659605DB26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */,
 				65E281A9269721ED00377913 /* HCert+PersonalData.swift in Sources */,
 				90CDC6D9271F049A00707836 /* UIView+NibFile.swift in Sources */,
 				98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */,
 				90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
 				65021B6526AEE30F004C3D14 /* UIColor+RGB.swift in Sources */,
 				65021B5B26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
+				90F9AE352810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */,
 				65E3C1DD2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
 				65EFB62626B0BFB90081682B /* MedicalRulesValidator.swift in Sources */,
 				143EEC7827CCD9E100446964 /* TestOnlyValidator.swift in Sources */,
 				65C3A55E26AF01EB000BBCC5 /* AppLabel.swift in Sources */,
 				6570422026E9387400370B2A /* Int+String.swift in Sources */,
+				90F9AE3F2811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */,
 				65E281A8269721ED00377913 /* HCert+Recovery.swift in Sources */,
 				98DCD74B278EDECF00D4B418 /* VaccineExemptionValidityCheck.swift in Sources */,
 				658CB71E26AF359100B90EC0 /* UIImage+Rotate.swift in Sources */,
@@ -2012,6 +2047,7 @@
 				98BF53D527A9927C00B8FB1A /* BlackListValidator.swift in Sources */,
 				65E281A5269721ED00377913 /* String+Localization.swift in Sources */,
 				65EFB5EE26B04D850081682B /* GatewayConnection+Certificates.swift in Sources */,
+				90987D172811A52D00BB557F /* DRLTotalProgress.swift in Sources */,
 				65E3C1D92716E05D004B2E98 /* AVCaptureDevice+Torch.swift in Sources */,
 				65E281A7269721ED00377913 /* HCert+Test.swift in Sources */,
 				140B09D727B2D1B2003A017F /* HeaderBar.swift in Sources */,
@@ -2020,6 +2056,7 @@
 				65E2816C2697217B00377913 /* ResultView.swift in Sources */,
 				9037A0A6270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */,
 				90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
+				90F9AE382810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */,
 				90BED818276A570E006225CE /* String+Link.swift in Sources */,
 				65E281682697217B00377913 /* HomeViewController.swift in Sources */,
 				65E2819B269721ED00377913 /* Date.swift in Sources */,
@@ -2037,7 +2074,7 @@
 				65E281702697217B00377913 /* CameraViewController.swift in Sources */,
 				90C421CC2729A60900B50ABC /* Int+Bytes.swift in Sources */,
 				65E7001326AF7BB000715CCC /* FaqView.swift in Sources */,
-				65F280D126D658CB009BC452 /* CRL+Entity.swift in Sources */,
+				65F280D126D658CB009BC452 /* DRL+Entity.swift in Sources */,
 				9F4F3C5A2649D60C00F59BA2 /* MainCoordinator.swift in Sources */,
 				6BF86E2F27DF4D8A002DF298 /* CustomHeaderInterceptor.swift in Sources */,
 				98BF53D227A987F500B8FB1A /* HCertValidator.swift in Sources */,
@@ -2061,20 +2098,21 @@
 				98BF53E127AC3AE900B8FB1A /* ScanMode+UI.swift in Sources */,
 				140B09D027B2CF24003A017F /* UIView+EmbedSubview.swift in Sources */,
 				90A3E616273C6B2C00D161BD /* Array+Utils.swift in Sources */,
-				659605F926E7A6E0008AD4E2 /* CRLProgress.swift in Sources */,
+				659605F926E7A6E0008AD4E2 /* DRLProgress.swift in Sources */,
 				65021B6826AEEC48004C3D14 /* UIImage+Colors.swift in Sources */,
 				65E281AA269721ED00377913 /* HCert+Vaccine.swift in Sources */,
 				90C2EB1B2726BA9B00E06A5F /* SettingsHeaderCell.swift in Sources */,
 				98DCD742278C853200D4B418 /* VaccineExemptionEntry.swift in Sources */,
 				65E2816D2697217B00377913 /* VerificationViewController.swift in Sources */,
 				143EEC7B27CCDF4B00446964 /* ScanMode+LocalSettings.swift in Sources */,
-				65F280CB26D655E3009BC452 /* CRL.swift in Sources */,
+				65F280CB26D655E3009BC452 /* DRL.swift in Sources */,
 				90A3E613273AFC3700D161BD /* Connectivity.swift in Sources */,
 				98BF53B927A9471700B8FB1A /* DGCValidator.swift in Sources */,
 				65021B4826AEC768004C3D14 /* UIView+Shadow.swift in Sources */,
 				65021B4326AEC202004C3D14 /* UIButton+Inspectable.swift in Sources */,
 				65EFB62F26B1829E0081682B /* Link.swift in Sources */,
 				90BED81B276A682C006225CE /* String+Range.swift in Sources */,
+				90F9AE3B2810598D00C3D8CF /* EURevokedDCC.swift in Sources */,
 				1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */,
 				65E281A0269721ED00377913 /* UIViewController+Alert.swift in Sources */,
 				98BF53C227A94C2000B8FB1A /* TestValidators.swift in Sources */,
@@ -2082,7 +2120,7 @@
 				6B797DDA26D0528200EB2873 /* String+SHA256.swift in Sources */,
 				6B797DDD26D052B800EB2873 /* Data+SHA256.swift in Sources */,
 				98DCD73E278C853200D4B418 /* HCert+Type.swift in Sources */,
-				659605D826E75A6E008AD4E2 /* CRLStatus.swift in Sources */,
+				659605D826E75A6E008AD4E2 /* DRLStatus.swift in Sources */,
 				65EFB63326B183CF0081682B /* Link+Values.swift in Sources */,
 				65E2819F269721ED00377913 /* Date+Utils.swift in Sources */,
 				659DE89126B2D75B0026A39A /* Font.swift in Sources */,
