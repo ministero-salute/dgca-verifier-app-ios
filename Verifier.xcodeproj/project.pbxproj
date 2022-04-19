@@ -278,6 +278,8 @@
 		6B155168265BE463001D19E2 /* TestValidityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155164265BE463001D19E2 /* TestValidityCheck.swift */; };
 		6B155169265BE463001D19E2 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B155165265BE463001D19E2 /* Setting.swift */; };
 		6B24E85C266275920003808F /* get-dgc-gov-it.der in Resources */ = {isa = PBXBuildFile; fileRef = 6B24E85A2660E0030003808F /* get-dgc-gov-it.der */; };
+		6B2A88D22805F4C700139838 /* testaka4-sogei-it-new.der in Resources */ = {isa = PBXBuildFile; fileRef = 6B2A88D12805F4C500139838 /* testaka4-sogei-it-new.der */; };
+		6B5DC95128085B7C00B209E5 /* get-dgc-gov-it-new.der in Resources */ = {isa = PBXBuildFile; fileRef = 6B5DC95028085B7C00B209E5 /* get-dgc-gov-it-new.der */; };
 		6B797DCF26D041AA00EB2873 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6B797DCE26D041AA00EB2873 /* Realm */; };
 		6B797DD126D041AA00EB2873 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B797DD026D041AA00EB2873 /* RealmSwift */; };
 		6B797DD326D041ED00EB2873 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6B797DD226D041ED00EB2873 /* Realm */; };
@@ -560,6 +562,8 @@
 		6B155164265BE463001D19E2 /* TestValidityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestValidityCheck.swift; sourceTree = "<group>"; };
 		6B155165265BE463001D19E2 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		6B24E85A2660E0030003808F /* get-dgc-gov-it.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = "get-dgc-gov-it.der"; sourceTree = "<group>"; };
+		6B2A88D12805F4C500139838 /* testaka4-sogei-it-new.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = "testaka4-sogei-it-new.der"; sourceTree = "<group>"; };
+		6B5DC95028085B7C00B209E5 /* get-dgc-gov-it-new.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = "get-dgc-gov-it-new.der"; sourceTree = "<group>"; };
 		6B797DD926D0528200EB2873 /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
 		6B797DDC26D052B800EB2873 /* Data+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+SHA256.swift"; sourceTree = "<group>"; };
 		6BA8B9DF266EB8E80060D767 /* VaccineValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineValidityCheckTests.swift; sourceTree = "<group>"; };
@@ -1136,6 +1140,8 @@
 		65E282062697276400377913 /* Certificates */ = {
 			isa = PBXGroup;
 			children = (
+				6B5DC95028085B7C00B209E5 /* get-dgc-gov-it-new.der */,
+				6B2A88D12805F4C500139838 /* testaka4-sogei-it-new.der */,
 				9F90C579265E284A00B2F992 /* testaka4-sogei-it.der */,
 				6B24E85A2660E0030003808F /* get-dgc-gov-it.der */,
 			);
@@ -1634,6 +1640,7 @@
 				65E281E42697259D00377913 /* VerificationViewController.xib in Resources */,
 				14EB429A275FAFFF006E9183 /* DebugView.xib in Resources */,
 				65E281E52697259D00377913 /* Roboto-Italic.ttf in Resources */,
+				6B2A88D22805F4C700139838 /* testaka4-sogei-it-new.der in Resources */,
 				14CD25E427B2BA6B007DF2A4 /* HFBackViewController.xib in Resources */,
 				140B09D427B2D16F003A017F /* HeaderBar.xib in Resources */,
 				65E281E62697259D00377913 /* Roboto-MediumItalic.ttf in Resources */,
@@ -1698,6 +1705,7 @@
 				1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */,
 				9F4F3C612649D71F00F59BA2 /* Localizable.strings in Resources */,
 				65E7000F26AF75AD00715CCC /* ResultView.xib in Resources */,
+				6B5DC95128085B7C00B209E5 /* get-dgc-gov-it-new.der in Resources */,
 				9F90C596265E591E00B2F992 /* TitilliumWeb-Bold.ttf in Resources */,
 				653F929026B007B5000BE8F5 /* HomeViewController.xib in Resources */,
 				90CDC6BA271EB48C00707836 /* SettingsCell.xib in Resources */,
@@ -2150,7 +2158,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2174,7 +2182,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2261,7 +2269,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2286,7 +2294,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2417,7 +2425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2442,7 +2450,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2636,7 +2644,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2661,7 +2669,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = it.ministerodellasalute.VerificaC19;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

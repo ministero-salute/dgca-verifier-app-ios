@@ -83,5 +83,7 @@
 	<string>$(certificateEvaluator)</string>
 	<key>certificateFilename</key>
 	<string>$(certificateFilename)</string>
+	<key>secondCertificateFilename</key>
+	<string>$(secondCertificateFilename)</string>
 </dict>
 </plist>

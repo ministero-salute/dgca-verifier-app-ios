@@ -2,3 +2,4 @@
 baseUrl = https:\/\/testaka4.sogei.it/v1/dgc/
 certificateEvaluator = testaka4.sogei.it
 certificateFilename = testaka4-sogei-it.der
+secondCertificateFilename = testaka4-sogei-it-new.der

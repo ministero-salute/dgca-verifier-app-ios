@@ -43,6 +43,7 @@ class GatewayConnection {
     var timer: Timer?
     
     private let certificateFilename: String
+    private let secondCertificateFilename: String
     private let certificateEvaluator: String
     
     static let shared = GatewayConnection()
@@ -50,15 +51,21 @@ class GatewayConnection {
     private init() {
         baseUrl = Bundle.main.infoForKey("baseUrl")!
         certificateFilename = Bundle.main.infoForKey("certificateFilename")!
+        secondCertificateFilename = Bundle.main.infoForKey("secondCertificateFilename")!
         certificateEvaluator = Bundle.main.infoForKey("certificateEvaluator")!
         
         // Init certificate for pinning
         let filePath = Bundle.main.path(forResource: certificateFilename, ofType: nil)!
         let data = try! Data(contentsOf: URL(fileURLWithPath: filePath))
         let certificate = SecCertificateCreateWithData(nil, data as CFData)!
+        
+        // Init certificate for pinning
+        let secondFilePath = Bundle.main.path(forResource: secondCertificateFilename, ofType: nil)!
+        let secondData = try! Data(contentsOf: URL(fileURLWithPath: secondFilePath))
+        let secondCertificate = SecCertificateCreateWithData(nil, secondData as CFData)!
                     
         // Init session
-        let evaluators = [certificateEvaluator: PinnedCertificatesTrustEvaluator(certificates: [certificate])]
+        let evaluators = [certificateEvaluator: PinnedCertificatesTrustEvaluator(certificates: [certificate, secondCertificate])]
         session = Session(interceptor: CustomHeaderInterceptor(), serverTrustManager: ServerTrustManager(evaluators: evaluators))
     }
     
