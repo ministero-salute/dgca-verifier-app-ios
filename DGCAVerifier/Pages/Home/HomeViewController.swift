@@ -57,9 +57,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var lastFetchLabel: AppLabel!
-        
-    var sync: DRLSynchronizationManager { DRLSynchronizationManager.shared }
-
+    
     let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var settingsView: UIView!
@@ -330,30 +328,41 @@ class HomeViewController: UIViewController {
     }
     
     @objc func drlShowMore() {
-        sync.showDRLUpdateAlert()
+        self.showDRLUpdateAlert()
+    }
+    
+    public func showDRLUpdateAlert() {
+        let totalRemainingSize = viewModel.downloadProgress.remainingSize
+        let content: AlertContent = .init(
+            title: "drl.update.alert.title".localizeWith(totalRemainingSize),
+            message: "drl.update.message".localizeWith(totalRemainingSize),
+            confirmAction: { self.viewModel.startDownload()},
+            confirmActionTitle: "drl.update.download.now",
+            cancelAction: { self.viewModel.readyToDownload()},
+            cancelActionTitle: "drl.update.try.later"
+        )
+
+        UIApplication.showAppAlert(content: content)
     }
     
     @objc func startSync() {
         guard Connectivity.isOnline else {
             showCustomAlert(key: "no.connection")
-            networkStatusError()
+            networkStatusError(progress: viewModel.downloadProgress)
             return
         }
         
-        if sync.noPendingDownload || sync.needsServerStatusUpdate {
-            sync.start()
-        } else {
-            sync.download()
-        }
+        viewModel.startDownload()
     }
     
     @objc func resumeSync() {
         guard Connectivity.isOnline else {
             showCustomAlert(key: "no.connection")
-            downloadPaused()
+            downloadPaused(progress: viewModel.downloadProgress)
             return
         }
-        sync.download()
+        
+        viewModel.resumeDownload()
     }
 
     private func showAlert(key: String) {
@@ -392,38 +401,21 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func scan(_ sender: Any) {
-        guard !viewModel.isVersionOutdated() else { return showCustomAlert(key: "version.outdated") }
-                
-        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
-        let certFetchUpdated            = certFetch > 0
         
-        let drlFetchOutdated            = DRLSynchronizationManager.shared.isFetchOutdated
-        
-        let isDRLDownloadCompleted      = DRLDataStorage.shared.isDRLDownloadCompleted
-        let isDRLAllowed                = DRLSynchronizationManager.shared.isSyncEnabled
-                
-        guard certFetchUpdated else {
+        switch viewModel.getScanState() {
+        case .versionOutdated:
+            showCustomAlert(key: "version.outdated")
+        case .certFetchOutdated:
             showCustomAlert(key: "no.keys")
-            return
+        case .scanModeUnset:
+            showCustomAlert(key: "scan.unset", isHTMLBased: true, messagefromSetting: Constants.errorScanModePopup)
+        case .drlFetchOutdated:
+            showCustomAlert(key: "drl.outdated")
+        case .DRLDownloadNotCompleted:
+            showCustomAlert(key: "drl.update.resume")
+        case .ready:
+            coordinator?.showCamera()
         }
-        
-        guard Store.getBool(key: .isScanModeSet) else {
-            return viewModel.isScanModeNotChosenPopupTextMissing() ? showCustomAlert(key: "scan.no.keys") : showCustomAlert(key: "scan.unset", isHTMLBased: true, messagefromSetting: Constants.errorScanModePopup)
-        }
-        
-        if isDRLAllowed {
-            guard !drlFetchOutdated else {
-                showCustomAlert(key: "drl.outdated")
-                return
-            }
-            guard isDRLDownloadCompleted else {
-                showCustomAlert(key: "drl.update.resume")
-                return
-            }
-        }
-        
-        VerificationState.shared.isFollowUpScan = false
-        coordinator?.showCamera()
     }
     
     @IBAction func chooseCountry(_ sender: Any) {
@@ -446,15 +438,15 @@ class HomeViewController: UIViewController {
         lastFetchLabel.text = "home.not.available".localized
     }
     
-    private func drlDownloadNeeded() {
-        progressView.fillView(with: sync.progress)
-        progressView.error(with: sync.progress, noSize: true)
+    private func drlDownloadNeeded(progress: DRLTotalProgress) {
+        progressView.fillView(with: progress)
+        progressView.error(with: progress, noSize: true)
         showDRL(true)
     }
     
-    private func showDownloadingProgress() {
+    private func showDownloadingProgress(progress: DRLTotalProgress) {
         updateScanButtonStatus()
-        progressView.downloading(with: sync.progress)
+        progressView.downloading(with: progress)
         showDRL(true)
     }
     
@@ -463,21 +455,21 @@ class HomeViewController: UIViewController {
         showDRL(false)
     }
     
-    private func downloadPaused() {
+    private func downloadPaused(progress: DRLTotalProgress) {
         updateScanButtonStatus()
-        progressView.pause(with: sync.progress)
+        progressView.pause(with: progress)
         showDRL(true)
     }
     
-    private func downloadError() {
+    private func downloadError(progress: DRLTotalProgress) {
         updateScanButtonStatus()
-        progressView.error(with: sync.progress)
+        progressView.error(with: progress)
         showDRL(true)
     }
     
-    private func networkStatusError() {
+    private func networkStatusError(progress: DRLTotalProgress) {
         updateScanButtonStatus()
-        progressView.error(with: sync.progress, noSize: true)
+        progressView.error(with: progress, noSize: true)
         showDRL(true)
     }
     
@@ -485,20 +477,19 @@ class HomeViewController: UIViewController {
         lastFetchContainer.isHidden = value
         progressContainer.isHidden = !value
     }
-    
-    
 }
 
 extension HomeViewController: DRLSynchronizationDelegate {
     
-    func statusDidChange(with result: DRLSynchronizationManager.Result) {
+    func statusDidChange(with result: DRLSynchronizationManager.Status, progress: DRLTotalProgress) {
         switch result {
-        case .downloadReady:        drlDownloadNeeded()
-        case .downloading:          showDownloadingProgress()
-        case .completed:            downloadCompleted()
-        case .paused:               downloadPaused()
-        case .error:                downloadError()
-        case .statusNetworkError:   networkStatusError()
+        case .downloadReady:            drlDownloadNeeded(progress: progress)
+        case .downloading:              showDownloadingProgress(progress: progress)
+        case .completed:                downloadCompleted()
+        case .paused:                   downloadPaused(progress: progress)
+        case .error:                    downloadError(progress: progress)
+        case .statusNetworkError:       networkStatusError(progress: progress)
+        case .userInteractionRequired:  showDRLUpdateAlert()
         }
     }
 }

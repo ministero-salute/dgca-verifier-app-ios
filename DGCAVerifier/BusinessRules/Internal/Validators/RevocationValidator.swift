@@ -27,12 +27,25 @@ import Foundation
 import SwiftDGC
 
 struct RevocationValidator: DGCValidator {
+        
+    func uvciHash(string: String) -> Data? {
+        return SHA256.sha256(data: string.data(using: .utf8)!) //.hexString
+    }
+    
+    func countryCodeUvciHash(string: String, countryCode: String) -> Data? {
+        let countryCodeUvciData = (countryCode + string).data(using: .utf8)
+        return SHA256.sha256(data: countryCodeUvciData!)  //.hexString
+    }
     
     func validate(hcert: HCert) -> Status {
         guard DRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
-        let hash = hcert.getUVCI().sha256()
-        guard !hash.isEmpty else { return .valid }
-        return DRLDataStorage.contains(hash: hash) ? .notValid : .valid
+        let hashesArray = [hcert.uvciHash?.prefix(16), hcert.signatureHash?.prefix(16), hcert.countryCodeUvciHash?.prefix(16)]
+        let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(hash: $0?.hexString ?? "")}
+        #if DEBUG
+        return hashesResult.contains(true) ? .revokedGreenPass : .valid
+        #else
+        return hashesResult.contains(true) ? .notValid : .valid
+        #endif
     }
     
     func validate(_ current: Date, from validityStart: Date) -> Status {

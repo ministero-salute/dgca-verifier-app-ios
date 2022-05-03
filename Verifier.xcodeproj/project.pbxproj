@@ -21,6 +21,8 @@
 		140B09E427B41C91003A017F /* FooterBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140B09E227B41C91003A017F /* FooterBar.xib */; };
 		1410B20B271DBADD00F912BA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		1410B20D271EAE6000F912BA /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
+		143BB2BB28211D7F0077FB3E /* DRLSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143BB2BA28211D7F0077FB3E /* DRLSynchronizer.swift */; };
+		143BB2BC28211D7F0077FB3E /* DRLSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143BB2BA28211D7F0077FB3E /* DRLSynchronizer.swift */; };
 		143EEC7827CCD9E100446964 /* TestOnlyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7727CCD9E100446964 /* TestOnlyValidator.swift */; };
 		143EEC7927CCD9E200446964 /* TestOnlyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7727CCD9E100446964 /* TestOnlyValidator.swift */; };
 		143EEC7B27CCDF4B00446964 /* ScanMode+LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */; };
@@ -107,8 +109,6 @@
 		658CB72626AF3C1200B90EC0 /* Status+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */; };
 		659605D826E75A6E008AD4E2 /* DRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* DRLStatus.swift */; };
 		659605D926E75A6E008AD4E2 /* DRLStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605D726E75A6E008AD4E2 /* DRLStatus.swift */; };
-		659605DB26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */; };
-		659605DC26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */; };
 		659605DE26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605DF26E761D0008AD4E2 /* AppAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */; };
 		659605E526E763F5008AD4E2 /* AppAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659605E226E763F5008AD4E2 /* AppAlertViewController.xib */; };
@@ -346,10 +346,6 @@
 		90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
 		90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */; };
 		90F9494F27AD79CC00A9CB3E /* AutomatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */; };
-		90F9AE352810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */; };
-		90F9AE362810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */; };
-		90F9AE382810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */; };
-		90F9AE392810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */; };
 		90F9AE3B2810598D00C3D8CF /* EURevokedDCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */; };
 		90F9AE3C2810598D00C3D8CF /* EURevokedDCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */; };
 		90F9AE3F2811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */; };
@@ -452,6 +448,7 @@
 		140B09E227B41C91003A017F /* FooterBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterBar.xib; sourceTree = "<group>"; };
 		1410B20A271DBADD00F912BA /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		1410B20C271EAE6000F912BA /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
+		143BB2BA28211D7F0077FB3E /* DRLSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLSynchronizer.swift; sourceTree = "<group>"; };
 		143EEC7727CCD9E100446964 /* TestOnlyValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOnlyValidator.swift; sourceTree = "<group>"; };
 		143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanMode+LocalSettings.swift"; sourceTree = "<group>"; };
 		143EEC8127CFCE6500446964 /* UIView+WTFAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+WTFAutoLayout.swift"; sourceTree = "<group>"; };
@@ -502,7 +499,6 @@
 		658CB72126AF3B5B00B90EC0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		658CB72426AF3C1200B90EC0 /* Status+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+Configuration.swift"; sourceTree = "<group>"; };
 		659605D726E75A6E008AD4E2 /* DRLStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLStatus.swift; sourceTree = "<group>"; };
-		659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLITSynchronizationManager.swift; sourceTree = "<group>"; };
 		659605DD26E761D0008AD4E2 /* AppAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlertViewController.swift; sourceTree = "<group>"; };
 		659605E226E763F5008AD4E2 /* AppAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppAlertViewController.xib; sourceTree = "<group>"; };
 		659605E726E76622008AD4E2 /* AlertContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContent.swift; sourceTree = "<group>"; };
@@ -605,8 +601,6 @@
 		90CDC6D8271F049A00707836 /* UIView+NibFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibFile.swift"; sourceTree = "<group>"; };
 		90EFADC727C691D7001E9EA9 /* Status+FAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+FAQ.swift"; sourceTree = "<group>"; };
 		90F9494E27AD79CC00A9CB3E /* AutomatedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomatedTests.swift; sourceTree = "<group>"; };
-		90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLEUSynchronizationManager.swift; sourceTree = "<group>"; };
-		90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GatewayConnection+RevocationEU.swift"; sourceTree = "<group>"; };
 		90F9AE3A2810598D00C3D8CF /* EURevokedDCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EURevokedDCC.swift; sourceTree = "<group>"; };
 		90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRLSynchronizationManager.swift; sourceTree = "<group>"; };
 		98BF53B527A9469400B8FB1A /* ScanMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanMode.swift; sourceTree = "<group>"; };
@@ -1222,7 +1216,6 @@
 				65EFB5ED26B04D850081682B /* GatewayConnection+Certificates.swift */,
 				65EFB5F026B04D900081682B /* GatewayConnection+Settings.swift */,
 				65F280C726D65269009BC452 /* GatewayConnection+Revocation.swift */,
-				90F9AE372810555B00C3D8CF /* GatewayConnection+RevocationEU.swift */,
 				6BF86E2E27DF4D8A002DF298 /* CustomHeaderInterceptor.swift */,
 			);
 			path = GatewayConnection;
@@ -1368,8 +1361,7 @@
 		90F9AE3D2811532700C3D8CF /* SynchronizationManager */ = {
 			isa = PBXGroup;
 			children = (
-				659605DA26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift */,
-				90F9AE342810543800C3D8CF /* DRLEUSynchronizationManager.swift */,
+				143BB2BA28211D7F0077FB3E /* DRLSynchronizer.swift */,
 				90F9AE3E2811578F00C3D8CF /* DRLSynchronizationManager.swift */,
 			);
 			path = SynchronizationManager;
@@ -1841,7 +1833,6 @@
 				90EFADC927C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
 				65E281BB2697259D00377913 /* HCert+PersonalData.swift in Sources */,
 				65E3C1DE2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
-				90F9AE362810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */,
 				90C421D0272AFFCE00B50ABC /* Int+String.swift in Sources */,
 				90C421D1272AFFCE00B50ABC /* Double+Bytes.swift in Sources */,
 				140B09CE27B2CB4C003A017F /* UIView+NSLayoutConstraint.swift in Sources */,
@@ -1855,7 +1846,6 @@
 				65EFB60D26B06AD80081682B /* SettingsDataStorage.swift in Sources */,
 				65E281BC2697259D00377913 /* HCert+Recovery.swift in Sources */,
 				659605ED26E77B40008AD4E2 /* Double+String.swift in Sources */,
-				659605DC26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */,
 				65E281BD2697259D00377913 /* LocalData+Setting.swift in Sources */,
 				65E281BE2697259D00377913 /* RulesValidator.swift in Sources */,
 				65021B6326AEDCF3004C3D14 /* Palette.swift in Sources */,
@@ -1883,6 +1873,7 @@
 				90F9AE402811578F00C3D8CF /* DRLSynchronizationManager.swift in Sources */,
 				65E281C42697259D00377913 /* AppDelegate.swift in Sources */,
 				98BF53DC27AA8A2400B8FB1A /* DGCValidatorBuilder.swift in Sources */,
+				143BB2BC28211D7F0077FB3E /* DRLSynchronizer.swift in Sources */,
 				90CDC6B8271EB48000707836 /* SettingsCell.swift in Sources */,
 				149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */,
 				65EFB62726B0BFB90081682B /* MedicalRulesValidator.swift in Sources */,
@@ -1916,7 +1907,6 @@
 				65021B4B26AEC883004C3D14 /* AppShadowView.swift in Sources */,
 				659605E926E76622008AD4E2 /* AlertContent.swift in Sources */,
 				65F280D826D66777009BC452 /* PerformanceLog.swift in Sources */,
-				90F9AE392810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */,
 				65F280C326D64AEF009BC452 /* DRLDataStorage.swift in Sources */,
 				65E281C92697259D00377913 /* HCert+Test.swift in Sources */,
 				90878EFF27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
@@ -1991,14 +1981,13 @@
 				98DCD748278D7F1C00D4B418 /* HCert+UVCI.swift in Sources */,
 				65F280C226D64AEF009BC452 /* DRLDataStorage.swift in Sources */,
 				65E281A6269721ED00377913 /* UIView+Set.swift in Sources */,
-				659605DB26E75F5A008AD4E2 /* DRLITSynchronizationManager.swift in Sources */,
 				65E281A9269721ED00377913 /* HCert+PersonalData.swift in Sources */,
+				143BB2BB28211D7F0077FB3E /* DRLSynchronizer.swift in Sources */,
 				90CDC6D9271F049A00707836 /* UIView+NibFile.swift in Sources */,
 				98BF53B627A9469400B8FB1A /* ScanMode.swift in Sources */,
 				90878EFE27C8EDCE00A25D71 /* VerificationState.swift in Sources */,
 				65021B6526AEE30F004C3D14 /* UIColor+RGB.swift in Sources */,
 				65021B5B26AED0A1004C3D14 /* AppLabelUrl.swift in Sources */,
-				90F9AE352810543800C3D8CF /* DRLEUSynchronizationManager.swift in Sources */,
 				65E3C1DD2716E444004B2E98 /* AVCaptureDevice+Camera.swift in Sources */,
 				65EFB62626B0BFB90081682B /* MedicalRulesValidator.swift in Sources */,
 				143EEC7827CCD9E100446964 /* TestOnlyValidator.swift in Sources */,
@@ -2056,7 +2045,6 @@
 				65E2816C2697217B00377913 /* ResultView.swift in Sources */,
 				9037A0A6270EFD2D0067DCF8 /* SettingsViewController.swift in Sources */,
 				90EFADC827C691D7001E9EA9 /* Status+FAQ.swift in Sources */,
-				90F9AE382810555B00C3D8CF /* GatewayConnection+RevocationEU.swift in Sources */,
 				90BED818276A570E006225CE /* String+Link.swift in Sources */,
 				65E281682697217B00377913 /* HomeViewController.swift in Sources */,
 				65E2819B269721ED00377913 /* Date.swift in Sources */,

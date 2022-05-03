@@ -37,7 +37,8 @@ class HomeViewModel {
     let isLoading: Observable<Bool>     = Observable(true)
     let isScanEnabled: Observable<Bool> = Observable(false)
     var dispatchGroupErrors: [String]   = .init()
-    
+    var sync: DRLSynchronizationManager { DRLSynchronizationManager.shared }
+
     public func startOperations() {
         isLoading.value = true
         GatewayConnection.shared.initialize { [weak self] in self?.load() }
@@ -154,4 +155,69 @@ extension HomeViewModel {
         loadingGroup.enter()
     }
 
+}
+
+extension HomeViewModel {
+    
+    enum ScanState {
+        case versionOutdated
+        case certFetchOutdated
+        case scanModeUnset
+        case drlFetchOutdated
+        case DRLDownloadNotCompleted
+        case ready
+    }
+    
+    public func startDownload(){
+        if sync.noPendingDownload || sync.needsServerStatusUpdate {
+            sync.start()
+        } else {
+            sync.download()
+        }
+    }
+    
+    public func readyToDownload(){
+        sync.readyToDownload()
+    }
+    
+    public func resumeDownload(){
+        sync.download()
+    }
+    
+    public var downloadProgress: DRLTotalProgress{
+        return sync.progress
+    }
+    
+    public func getScanState() -> ScanState{
+        guard !self.isVersionOutdated() else { return ScanState.versionOutdated }
+                
+        let certFetch                   = LocalData.sharedInstance.lastFetch.timeIntervalSince1970
+        let certFetchUpdated            = certFetch > 0
+        
+        let drlFetchOutdated            = sync.isFetchOutdated
+        
+        let isDRLDownloadCompleted      = DRLDataStorage.shared.isDRLDownloadCompleted
+        let isDRLAllowed                = sync.isSyncEnabled
+                
+        guard certFetchUpdated else {
+            return ScanState.certFetchOutdated
+        }
+        
+        guard Store.getBool(key: .isScanModeSet) else {
+            return ScanState.scanModeUnset
+        }
+        
+        if isDRLAllowed {
+            guard !drlFetchOutdated else {
+                return ScanState.drlFetchOutdated
+            }
+            guard isDRLDownloadCompleted else {
+                return ScanState.DRLDownloadNotCompleted
+            }
+        }
+        
+        VerificationState.shared.isFollowUpScan = false
+        return ScanState.ready
+    }
+    
 }

@@ -88,10 +88,10 @@ extension DRLDataStorage {
     
     private static var realm: Realm { try! Realm() }
     
-    public static func store(drl: DRL, isEUDCC: Bool) {
+    public static func store(drl: DRL, isEUDGC: Bool) {
         let startTime = Log.start(key: "[DRL] [STORAGE]")
-        if (drl.isSnapshot) { storeSnapshot(drl, isEUDCC: isEUDCC) }
-        if (drl.isDelta)    { storeDelta(drl, isEUDCC: isEUDCC) }
+        if (drl.isSnapshot) { storeSnapshot(drl, isEUDCC: isEUDGC) }
+        if (drl.isDelta)    { storeDelta(drl, isEUDCC: isEUDGC) }
         Log.end(key: "[DRL] [STORAGE]", startTime: startTime)
     }
     

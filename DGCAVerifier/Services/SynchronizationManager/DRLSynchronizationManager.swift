@@ -41,39 +41,55 @@ enum SyncManagerType {
 }
 
 protocol DRLSynchronizationDelegate {
-    func statusDidChange(with result: DRLSynchronizationManager.Result)
+    func statusDidChange(with result: DRLSynchronizationManager.Status, progress: DRLTotalProgress)
+    func showDRLUpdateAlert()
+}
+
+protocol DRLSynchronizerDelegate {
+    func signalDownloadCompleted(managerType: SyncManagerType)
+    func statusDidChange(managerType: SyncManagerType)
 }
 
 class DRLSynchronizationManager {
     
     static let shared = DRLSynchronizationManager()
     
-    private var ITSync: DRLITSynchronizationManager
-    private var EUSync: DRLEUSynchronizationManager
-    var progress: DRLTotalProgress
+    private lazy var ITSync: DRLSynchronizer = DRLSynchronizer(managerType: .IT)
+    private lazy var EUSync: DRLSynchronizer = DRLSynchronizer(managerType: .EU)
+    var progress: DRLTotalProgress!
     
-    private var delegate: DRLSynchronizationDelegate?
-    
-    enum Result {
+    private var homeViewControllerDelegate: DRLSynchronizationDelegate?
+        
+    enum Status {
         case downloadReady
         case downloading
         case completed
         case paused
         case error
         case statusNetworkError
+        case userInteractionRequired
     }
     
     func initialize(delegate: DRLSynchronizationDelegate?) {
-        self.delegate = delegate
+        self.homeViewControllerDelegate = delegate
         
-        ITSync.initialize(delegate: delegate)
-        EUSync.initialize(delegate: delegate)
+        self.initializeSynchronizers()
+        
+        self.progress = DRLTotalProgress(progressAccessors: self.getProgressAccessors)
     }
-
-    init(){
-        ITSync = DRLITSynchronizationManager.shared
-        EUSync = DRLEUSynchronizationManager.shared
-        progress = DRLTotalProgress()
+    
+    func initializeSynchronizers() {
+        switch self.synchronizationContext {
+            case .IT:
+                self.ITSync.initialize(delegate: self)
+            case .EU:
+                self.EUSync.initialize(delegate: self)
+            case .ALL:
+                self.ITSync.initialize(delegate: self)
+                self.EUSync.initialize(delegate: self)
+            case .NONE:
+                break
+        }
     }
     
     var isSyncEnabled: Bool {
@@ -81,11 +97,19 @@ class DRLSynchronizationManager {
     }
     
     var isFetchOutdated: Bool {
-        return ITSync.isFetchOutdated && EUSync.isFetchOutdated
+        switch self.synchronizationContext {
+            case .IT:
+                return ITSync.isFetchOutdated
+            case .EU:
+                return EUSync.isFetchOutdated
+            case .ALL:
+                return ITSync.isFetchOutdated && EUSync.isFetchOutdated
+            case .NONE:
+                return false
+        }
     }
     
     private var synchronizationContext: SynchronizationContext{
-        
         #if DEBUG
             return .ALL
         #else
@@ -110,6 +134,19 @@ class DRLSynchronizationManager {
         
         return .NONE
         #endif
+    }
+    
+    private var getProgressAccessors: [ProgressAccessor] {
+        switch self.synchronizationContext {
+            case .IT:
+                return [{ return self.ITSync.progress }]
+            case .EU:
+                return [{ return self.EUSync.progress }]
+            case .ALL:
+                return [{ return self.ITSync.progress }, { return self.EUSync.progress }]
+            case .NONE:
+                return []
+        }
     }
     
     public func start() {
@@ -173,19 +210,23 @@ class DRLSynchronizationManager {
         if managerType == .IT {
             if synchronizationContext == .IT{
                 ITSync.completeProgress()
+                homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
-            if synchronizationContext == .ALL && !EUSync.chunksNotYetCompleted {
+            if synchronizationContext == .ALL && EUSync.syncCompleted{
                 EUSync.completeProgress()
                 ITSync.completeProgress()
+                homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
         }
         else if managerType == .EU {
             if synchronizationContext == .EU{
                 EUSync.completeProgress()
+                homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
-            if synchronizationContext == .ALL && !ITSync.chunksNotYetCompleted {
+            if synchronizationContext == .ALL && ITSync.syncCompleted{
                 EUSync.completeProgress()
                 ITSync.completeProgress()
+                homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
         }
     }
@@ -213,18 +254,79 @@ class DRLSynchronizationManager {
         let sameRequestedVersionEU = EUSync.sameRequestedVersion
         return (sameRequestedVersionIT && sameRequestedVersionEU)
     }
-    
-    public func showDRLUpdateAlert() {
-        let totalRemainingSize = ITSync.progress.remainingSize + EUSync.progress.remainingSize
-        let content: AlertContent = .init(
-            title: "drl.update.alert.title".localizeWith(totalRemainingSize),
-            message: "drl.update.message".localizeWith(totalRemainingSize),
-            confirmAction: { self.startDownload()},
-            confirmActionTitle: "drl.update.download.now",
-            cancelAction: { self.readyToDownload()},
-            cancelActionTitle: "drl.update.try.later"
-        )
+}
 
-        UIApplication.showAppAlert(content: content)
+extension DRLSynchronizationManager: DRLSynchronizerDelegate {
+    
+    func signalDownloadCompleted(managerType: SyncManagerType) {
+        self.signalProgressCompletion(managerType: managerType)
+    }
+    
+    func statusDidChange(managerType: SyncManagerType) {
+        switch synchronizationContext{
+        case .IT:
+            guard let ITSyncStatus = ITSync.syncStatus else { return }
+            self.homeViewControllerDelegate?.statusDidChange(with: ITSyncStatus, progress: self.progress)
+            return
+        case .EU:
+            guard let EUSyncStatus = EUSync.syncStatus else { return }
+            self.homeViewControllerDelegate?.statusDidChange(with: EUSyncStatus, progress: self.progress)
+            return
+        case .ALL:
+            handleSyncStatus(managerType: managerType)
+            return
+        case .NONE:
+            return
+        }
+    }
+    
+    private func handleSyncStatus(managerType: SyncManagerType){
+        
+        guard let ITSyncStatus = ITSync.syncStatus, let EUSyncStatus = EUSync.syncStatus else { return }
+        
+        if (ITSyncStatus == .userInteractionRequired && EUSyncStatus == .userInteractionRequired) {
+            self.homeViewControllerDelegate?.statusDidChange(with: .userInteractionRequired, progress: self.progress)
+            return
+        }
+        
+        if ITSyncStatus == .statusNetworkError || EUSyncStatus == .statusNetworkError {
+            self.homeViewControllerDelegate?.statusDidChange(with: .statusNetworkError, progress: self.progress)
+            if (managerType == .IT) {
+                EUSync.abortDownload = true
+            }
+            else {
+                ITSync.abortDownload = true
+            }
+            return
+        }
+        if ITSyncStatus == .error || EUSyncStatus == .error {
+            if ITSyncStatus == .downloading || EUSyncStatus == .downloading {
+                self.homeViewControllerDelegate?.statusDidChange(with: .statusNetworkError, progress: self.progress)
+            }
+            else {
+                self.homeViewControllerDelegate?.statusDidChange(with: .error, progress: self.progress)
+            }
+            if (managerType == .IT) {
+                EUSync.abortDownload = true
+            }
+            else {
+                ITSync.abortDownload = true
+            }
+            return
+        }
+        if ITSyncStatus == .downloadReady || EUSyncStatus == .downloadReady {
+            self.homeViewControllerDelegate?.statusDidChange(with: .downloadReady, progress: self.progress)
+            return
+        }
+        if ITSyncStatus == .paused || EUSyncStatus == .paused {
+            self.homeViewControllerDelegate?.statusDidChange(with: .paused, progress: self.progress)
+            return
+        }
+        if ITSyncStatus == .downloading || EUSyncStatus == .downloading {
+            self.homeViewControllerDelegate?.statusDidChange(with: .downloading, progress: self.progress)
+            return
+        }
+        self.homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+        
     }
 }

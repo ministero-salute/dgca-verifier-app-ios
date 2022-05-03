@@ -25,59 +25,75 @@
 
 import Foundation
 
-struct DRLTotalProgress: Codable {
-    var ITProgress: DRLProgress {
-        DRLITSynchronizationManager.shared.progress
-    }
-    var EUProgress: DRLProgress {
-        DRLEUSynchronizationManager.shared.progress
+typealias ProgressAccessor = () -> DRLProgress
+
+struct DRLTotalProgress {
+    private let progressAccessors: [ProgressAccessor]
+    
+    init(progressAccessors: [ProgressAccessor]) {
+        self.progressAccessors = progressAccessors
     }
     
     var remainingSize: String {
-        guard let responseSizeIT = ITProgress.totalSizeInByte?.doubleValue,
-              let responseSizeEU = EUProgress.totalSizeInByte?.doubleValue,
-              let downloadedSizeIT = ITProgress.downloadedSize,
-              let downloadedSizeEU = EUProgress.downloadedSize
-        else {
-            return ""
-        }
-        let responseSize = responseSizeIT + responseSizeEU
-        let downloadedSize = downloadedSizeIT + downloadedSizeEU
-        return (responseSize - downloadedSize).toMegaBytes.byteReadableValue
+       let isTotalSizeEmpty = self.progressAccessors
+        	.map{ $0().totalSizeInByte?.doubleValue }
+            .filter{ $0 == nil }
+            .isEmpty
+        
+        let isDownloadedSizeEmpty = self.progressAccessors
+            .map{ $0().downloadedSize }
+            .filter{ $0 == nil }
+            .isEmpty
+        
+        guard isTotalSizeEmpty && isDownloadedSizeEmpty else { return "" }
+        
+        let responseSizes = self.progressAccessors
+            .map{ $0().totalSizeInByte?.doubleValue ?? 0 }
+            .reduce(0, +)
+        let downloadedSizes = self.progressAccessors
+            .map{ $0().downloadedSize ?? 0 }
+            .reduce(0, +)
+        
+        return (responseSizes - downloadedSizes).toMegaBytes.byteReadableValue
     }
     
     var current: Float {
-        let currentChunkIT = ITProgress.currentChunk ?? 0
-        let totalChunksIT = ITProgress.totalChunk ?? 0
-        let currentChunkEU = EUProgress.currentChunk ?? 0
-        let totalChunksEU = EUProgress.totalChunk ?? 0
-        return Float(currentChunkIT + currentChunkEU)/Float(totalChunksIT + totalChunksEU)
+        let currentChunks = self.progressAccessors
+            .map{ $0().currentChunk ?? 0 }
+            .reduce(0, +)
+        	
+        let totalChunks = self.progressAccessors
+            .map{ $0().totalChunk ?? 0 }
+            .reduce(0, +)
+
+        return Float(currentChunks)/Float(totalChunks)
     }
     
     var chunksMessage: String {
-        let currentChunkIT = ITProgress.currentChunk ?? 0
-        let totalChunksIT = ITProgress.totalChunk ?? 0
-        let currentChunkEU = EUProgress.currentChunk ?? 0
-        let totalChunksEU = EUProgress.totalChunk ?? 0
+        let currentChunks = self.progressAccessors
+            .map{ $0().currentChunk ?? 0 }
+            .reduce(0, +)
         
-        let currentChunk = currentChunkIT + currentChunkEU
-        let totalChunks = totalChunksIT + totalChunksEU
-        return "drl.update.progress".localizeWith(currentChunk, totalChunks)
+        let totalChunks = self.progressAccessors
+            .map{ $0().totalChunk ?? 0 }
+            .reduce(0, +)
+        
+        return "drl.update.progress".localizeWith(currentChunks, totalChunks)
     }
     
     var downloadedMessage: String {
+        let responseSizes = self.progressAccessors
+            .map{ $0().totalSizeInByte?.doubleValue ?? 0 }
+            .reduce(0, +)
+            .toMegaBytes
+            .byteReadableValue
         
-        let responseSizeIT = ITProgress.totalSizeInByte ?? 0
-        let downloadedSizeIT = ITProgress.downloadedSize ?? 0
-        let responseSizeEU = EUProgress.totalSizeInByte ?? 0
-        let downloadedSizeEU = EUProgress.downloadedSize ?? 0
+        let downloadedSizes = self.progressAccessors
+            .map{ $0().downloadedSize ?? 0 }
+            .reduce(0, +)
+            .toMegaBytes
+            .byteReadableValue
         
-        let totalIT = responseSizeIT.toMegaBytes
-        let downloadedIT = downloadedSizeIT.toMegaBytes
-        let totalEU = responseSizeEU.toMegaBytes
-        let downloadedEU = downloadedSizeEU.toMegaBytes
-        let total = totalIT + totalEU
-        let downloaded = downloadedIT + downloadedEU
-        return "drl.update.progress.mb".localizeWith(downloaded.byteReadableValue, total.byteReadableValue)
+        return "drl.update.progress.mb".localizeWith(downloadedSizes, responseSizes)
     }
 }

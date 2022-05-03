@@ -27,14 +27,15 @@ import SwiftDGC
 
 extension GatewayConnection {
     
-    private var revocationUrl: String { baseUrl + "drl" }
+    private var itRevocationURL: String { self.baseUrl + "drl" }
+    private var itStatusURL: String { self.baseUrl + "drl/check" }
+    private var euRevocationURL: String { self.baseUrl + "drl" }
+    private var euStatusURL: String { self.baseUrl + "drl/check" }
     
-    private var statusUrl: String { baseUrl + "drl/check" }
-    
-    func revocationStatus(_ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
+    func revocationStatus(managerType: SyncManagerType, _ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
-        status(version: version, chunk: chunk) { drlStatus, statusCode in
+        status(managerType: managerType, version: version, chunk: chunk) { drlStatus, statusCode in
             
             guard let drlStatus = drlStatus else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
@@ -45,11 +46,11 @@ extension GatewayConnection {
         }
     }
     
-    func updateRevocationList(_ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
+    func updateRevocationList(managerType: SyncManagerType, _ progress: DRLProgress?, completion: ((DRL?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
         let chunk = progress?.currentChunk
         
-        getDRL(version: version, chunk: chunk) { drl, statusCode in
+        getDRL(managerType: managerType, version: version, chunk: chunk) { drl, statusCode in
             
             guard let drl = drl else {
                 completion?(nil, "server.error.generic.error".localized, statusCode)
@@ -60,31 +61,35 @@ extension GatewayConnection {
         }
     }
     
-    private func getDRL(version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[DRL - IT] [REST]")
+    private func getDRL(managerType: SyncManagerType, version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
+        let identity: String = "[DRL - \(managerType)]"
+        
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
+        let drlURL: String = managerType == .IT ? itRevocationURL : euRevocationURL
         
-        session.request("\(revocationUrl)?version=\(versionString)&chunk=\(chunkString)").response {
+        let restStartTime = Log.start(key: "\(identity) [REST]")
+        
+        session.request("\(drlURL)?version=\(versionString)&chunk=\(chunkString)").response {
             //  Were the response to be `nil` (AFRequest failed, see $0.result),
             //  it'd be okay for it to be handled just like a statusCode 408.
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200, $0.error == nil else {
-                Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [ERROR]")
-                Log.end(key: "[DRL - IT] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "\(identity) [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "\(identity) [STATUS] [ERROR]")
+                Log.end(key: "\(identity) [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
+            Log.end(key: "\(identity) [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[DRL - IT] [JSON]")
+            let jsonStartTime = Log.start(key: "\(identity) [JSON]")
             let decoder = JSONDecoder()
             var data = try? decoder.decode(DRL.self, from: $0.data ?? .init())
             data?.responseSize = $0.data?.count.doubleValue
-            Log.end(key: "[DRL - IT] [JSON]", startTime: jsonStartTime)
+            Log.end(key: "\(identity) [JSON]", startTime: jsonStartTime)
             
             guard let drl = data else {
                 completion?(nil, responseStatusCode)
@@ -95,29 +100,33 @@ extension GatewayConnection {
         }
     }
     
-    private func status(version: Int?, chunk: Int?, completion: ((DRLStatus?, Int?) -> Void)?) {
-        let restStartTime = Log.start(key: "[DRL - IT STATUS] [REST]")
+    private func status(managerType: SyncManagerType, version: Int?, chunk: Int?, completion: ((DRLStatus?, Int?) -> Void)?) {
+        let identity: String = "[DRL - \(managerType)]"
+
+        let restStartTime = Log.start(key: "\(identity) [STATUS] [REST]")
         let versionString: Int = version ?? 0
         let chunkString: Int = chunk ?? 1
         
-        session.request("\(statusUrl)?version=\(versionString)&chunk=\(chunkString)").response {
+        let statusURL: String = managerType == .IT ? itStatusURL : euStatusURL
+        
+        session.request("\(statusURL)?version=\(versionString)&chunk=\(chunkString)").response {
             // Were the response to be `nil`, it'd okay for it to be handled just like a statusCode 400.
             let responseStatusCode = $0.response?.statusCode ?? 408
             
             guard responseStatusCode == 200 else {
-                Log.end(key: "[DRL - IT] [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [ERROR]")
-                Log.end(key: "[DRL - IT] [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
+                Log.end(key: "\(identity) [REST]", startTime: restStartTime)
+                let jsonStartTime = Log.start(key: "\(identity) [STATUS] [ERROR]")
+                Log.end(key: "\(identity) [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return
             }
             
-            Log.end(key: "[DRL - IT STATUS] [REST]", startTime: restStartTime)
+            Log.end(key: "\(identity) [STATUS] [REST]", startTime: restStartTime)
             
-            let jsonStartTime = Log.start(key: "[DRL - IT STATUS] [JSON]")
+            let jsonStartTime = Log.start(key: "\(identity) [STATUS] [JSON]")
             let decoder = JSONDecoder()
             let data = try? decoder.decode(DRLStatus.self, from: $0.data ?? .init())
-            Log.end(key: "[DRL - IT STATUS] [JSON]", startTime: jsonStartTime)
+            Log.end(key: "\(identity) [STATUS] [JSON]", startTime: jsonStartTime)
             
             guard let status = data else {
                 completion?(nil, responseStatusCode)

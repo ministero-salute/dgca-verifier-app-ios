@@ -111,5 +111,9 @@ struct Constants {
     // MARK: Synchronization Context
     static let synchronizationStatusIT = "Sync_Status_IT"
     static let synchronizationStatusEU = "Sync_Status_EU"
+    
+    //MARK: Revocation DRL
+    static let itRevocationIsEnabled = "is_drl_sync_active"
+    static let euRevocationIsEnabled = "is_drl_sync_active_eu"
 
 }
