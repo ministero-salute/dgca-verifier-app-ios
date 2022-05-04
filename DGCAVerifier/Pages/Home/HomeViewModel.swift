@@ -41,6 +41,18 @@ class HomeViewModel {
     public func startOperations() {
         isLoading.value = true
         GatewayConnection.shared.initialize { [weak self] in self?.load() }
+        
+        self.patchHiddenScanModeSettings()
+    }
+    
+    private func patchHiddenScanModeSettings() -> Void {
+        //    Patch .base and .reinforced previously set as scan mode, as they are currently hidden.
+        let scanMode: ScanMode? = ScanMode.fetchFromLocalSettings()
+        
+        if scanMode == .base || scanMode == .reinforced {
+            Store.set(ScanMode.booster.rawValue, for: .scanMode)
+            Store.set(false, for: .isScanModeSet)
+        }
     }
     
     public func loadComplete(updateLastFetch: Bool) {

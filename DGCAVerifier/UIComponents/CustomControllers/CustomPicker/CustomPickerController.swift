@@ -90,6 +90,10 @@ class CustomPickerController: UIViewController {
 
     private func setupPickerOptionContents() -> Void {
         ScanMode.allCases.forEach{
+            if $0 == .base || $0 == .reinforced {
+                return
+            }
+            
             self.optionContents.append(.init(
                 scanMode: $0,
                 scanModeName: $0.buttonTitleName,
