@@ -113,7 +113,7 @@ struct Constants {
     static let synchronizationStatusEU = "Sync_Status_EU"
     
     //MARK: Revocation DRL
-    static let itRevocationIsEnabled = "is_drl_sync_active"
-    static let euRevocationIsEnabled = "is_drl_sync_active_eu"
+    static let itRevocationIsEnabled = "DRL_SYNC_ACTIVE"
+    static let euRevocationIsEnabled = "DRL_SYNC_ACTIVE_EU"
 
 }

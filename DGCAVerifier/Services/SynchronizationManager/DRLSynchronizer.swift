@@ -45,7 +45,6 @@ class DRLSynchronizer {
     var progress: DRLProgress { _progress }
     var gateway: GatewayConnection { GatewayConnection.shared }
     var syncCompleted: Bool = false
-    var abortDownload: Bool = false
     var syncStatus: DRLSynchronizationManager.Status?
     
     private var delegate: DRLSynchronizerDelegate?
@@ -126,12 +125,6 @@ class DRLSynchronizer {
             self.resumeDownload()
             return
         }
-        guard !abortDownload else {
-            abortDownload = false
-            errorFlow()
-            clean()
-            return
-        }
         isDownloadingDRL = true
         download()
     }
@@ -172,6 +165,7 @@ class DRLSynchronizer {
         }
         DRLDataStorage.shared.save()
         isDownloadingDRL = false
+        updateSyncStatus(status: .completed)
     }
     
     func handleRetry() {

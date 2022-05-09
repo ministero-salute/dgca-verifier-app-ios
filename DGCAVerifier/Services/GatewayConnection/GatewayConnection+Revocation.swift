@@ -62,6 +62,7 @@ extension GatewayConnection {
     }
     
     private func getDRL(managerType: SyncManagerType, version: Int?, chunk: Int?, completion: ((DRL?, Int?) -> Void)?) {
+        
         let identity: String = "[DRL - \(managerType)]"
         
         let versionString: Int = version ?? 0

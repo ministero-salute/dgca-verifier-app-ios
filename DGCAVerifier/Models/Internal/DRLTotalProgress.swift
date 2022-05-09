@@ -35,17 +35,17 @@ struct DRLTotalProgress {
     }
     
     var remainingSize: String {
-       let isTotalSizeEmpty = self.progressAccessors
+       let isTotalSizeSet = self.progressAccessors
         	.map{ $0().totalSizeInByte?.doubleValue }
             .filter{ $0 == nil }
-            .isEmpty
+            .count < 2
         
-        let isDownloadedSizeEmpty = self.progressAccessors
+        let isDownloadedSizeSet = self.progressAccessors
             .map{ $0().downloadedSize }
             .filter{ $0 == nil }
-            .isEmpty
+            .count < 2
         
-        guard isTotalSizeEmpty && isDownloadedSizeEmpty else { return "" }
+        guard isTotalSizeSet && isDownloadedSizeSet else { return "" }
         
         let responseSizes = self.progressAccessors
             .map{ $0().totalSizeInByte?.doubleValue ?? 0 }

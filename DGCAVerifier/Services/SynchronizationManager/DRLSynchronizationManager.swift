@@ -208,24 +208,20 @@ class DRLSynchronizationManager {
     
     func signalProgressCompletion(managerType: SyncManagerType){
         if managerType == .IT {
+            ITSync.completeProgress()
             if synchronizationContext == .IT{
-                ITSync.completeProgress()
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
             if synchronizationContext == .ALL && EUSync.syncCompleted{
-                EUSync.completeProgress()
-                ITSync.completeProgress()
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
         }
         else if managerType == .EU {
+            EUSync.completeProgress()
             if synchronizationContext == .EU{
-                EUSync.completeProgress()
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
             if synchronizationContext == .ALL && ITSync.syncCompleted{
-                EUSync.completeProgress()
-                ITSync.completeProgress()
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
             }
         }
@@ -282,21 +278,17 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
     
     private func handleSyncStatus(managerType: SyncManagerType){
         
-        guard let ITSyncStatus = ITSync.syncStatus, let EUSyncStatus = EUSync.syncStatus else { return }
-        
+        guard let ITSyncStatus = ITSync.syncStatus, let EUSyncStatus = EUSync.syncStatus else {
+            return
+        }
+
         if (ITSyncStatus == .userInteractionRequired && EUSyncStatus == .userInteractionRequired) {
             self.homeViewControllerDelegate?.statusDidChange(with: .userInteractionRequired, progress: self.progress)
             return
         }
-        
+
         if ITSyncStatus == .statusNetworkError || EUSyncStatus == .statusNetworkError {
             self.homeViewControllerDelegate?.statusDidChange(with: .statusNetworkError, progress: self.progress)
-            if (managerType == .IT) {
-                EUSync.abortDownload = true
-            }
-            else {
-                ITSync.abortDownload = true
-            }
             return
         }
         if ITSyncStatus == .error || EUSyncStatus == .error {
@@ -305,12 +297,6 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
             }
             else {
                 self.homeViewControllerDelegate?.statusDidChange(with: .error, progress: self.progress)
-            }
-            if (managerType == .IT) {
-                EUSync.abortDownload = true
-            }
-            else {
-                ITSync.abortDownload = true
             }
             return
         }
@@ -326,7 +312,9 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
             self.homeViewControllerDelegate?.statusDidChange(with: .downloading, progress: self.progress)
             return
         }
-        self.homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
-        
+        if ITSyncStatus == .completed && EUSyncStatus == .completed {
+            self.homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+            return
+        }
     }
 }
