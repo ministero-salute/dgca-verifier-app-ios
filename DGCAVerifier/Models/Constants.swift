@@ -108,11 +108,7 @@ struct Constants {
     static let boosterMinimumDosesNumber = 3
     static let jjBoosterMinimumDosesNumber = 2
     
-    // MARK: Synchronization Context
-    static let synchronizationStatusIT = "Sync_Status_IT"
-    static let synchronizationStatusEU = "Sync_Status_EU"
-    
-    //MARK: Revocation DRL
+    // MARK: Revocation DRL
     static let itRevocationIsEnabled = "DRL_SYNC_ACTIVE"
     static let euRevocationIsEnabled = "DRL_SYNC_ACTIVE_EU"
 

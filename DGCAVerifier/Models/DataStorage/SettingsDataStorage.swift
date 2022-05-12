@@ -51,7 +51,7 @@ struct SettingDataStorage: Codable {
     static let storage = SecureStorage<SettingDataStorage>(fileName: "setting_secure")
     
     static func initialize(completion: @escaping () -> Void) {
-        storage.loadOverride(fallback: SettingDataStorage.sharedInstance) { success in
+        storage.loadStoredData(fallback: SettingDataStorage.sharedInstance) { success in
             guard let result = success else {
                 return
             }

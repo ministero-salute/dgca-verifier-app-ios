@@ -29,8 +29,8 @@ extension GatewayConnection {
     
     private var itRevocationURL: String { self.baseUrl + "drl" }
     private var itStatusURL: String { self.baseUrl + "drl/check" }
-    private var euRevocationURL: String { self.baseUrl + "drl" }
-    private var euStatusURL: String { self.baseUrl + "drl/check" }
+    private var euRevocationURL: String { self.baseUrl + "eu/drl" }
+    private var euStatusURL: String { self.baseUrl + "eu/drl/check" }
     
     func revocationStatus(managerType: SyncManagerType, _ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
@@ -78,7 +78,7 @@ extension GatewayConnection {
             
             guard responseStatusCode == 200, $0.error == nil else {
                 Log.end(key: "\(identity) [REST]", startTime: restStartTime)
-                let jsonStartTime = Log.start(key: "\(identity) [STATUS] [ERROR]")
+                let jsonStartTime = Log.start(key: "\(identity) [DRL] [ERROR]")
                 Log.end(key: "\(identity) [ERROR \(responseStatusCode.stringValue)]", startTime: jsonStartTime)
                 completion?(nil, responseStatusCode)
                 return

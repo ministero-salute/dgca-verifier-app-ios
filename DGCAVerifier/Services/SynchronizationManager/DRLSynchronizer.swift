@@ -53,6 +53,9 @@ class DRLSynchronizer {
     private var isDownloadingDRL: Bool = false
     
     private var _serverStatus: DRLStatus?
+    public var serverStatus: DRLStatus? {
+        get { self._serverStatus }
+    }
     private var _progress: DRLProgress
     {
         get {
@@ -73,7 +76,6 @@ class DRLSynchronizer {
         guard isSyncEnabled else { return }
         log("initialize")
         self.delegate = delegate
-        setTimer() { self.start() }
         drlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
         drlStatusFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
     }
@@ -112,10 +114,6 @@ class DRLSynchronizer {
     
     func checkDownload() {
         _progress = DRLProgress(serverStatus: _serverStatus)
-        guard !requireUserInteraction else {
-            updateSyncStatus(status: .userInteractionRequired)
-            return
-        }
         startDownload()
     }
     
@@ -145,6 +143,18 @@ class DRLSynchronizer {
     func readyToResume() {
         log("user can resume download")
         updateSyncStatus(status: .paused)
+    }
+    
+    func fetchRemainingSize(completion: @escaping (Double?) -> ()) {
+        gateway.revocationStatus(managerType: self.managerType, progress) { (serverStatus, error, responseCode) in
+            guard error == nil, responseCode == 200 else {
+                return completion(nil)
+            }
+            
+            self._serverStatus = serverStatus
+            
+            return completion(serverStatus?.totalSizeInByte?.doubleValue)
+        }
     }
     
     func downloadCompleted() {
@@ -305,7 +315,7 @@ extension DRLSynchronizer {
     public var sameRequestedVersion: Bool {
         _serverStatus?.version == _progress.requestedVersion
     }
-    
+        
     public var chunksNotYetCompleted: Bool { !noMoreChunks }
     
     public var noMoreChunks: Bool {

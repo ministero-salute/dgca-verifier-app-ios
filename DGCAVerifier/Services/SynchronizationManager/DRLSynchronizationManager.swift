@@ -42,7 +42,7 @@ enum SyncManagerType {
 
 protocol DRLSynchronizationDelegate {
     func statusDidChange(with result: DRLSynchronizationManager.Status, progress: DRLTotalProgress)
-    func showDRLUpdateAlert()
+    func showDRLUpdateAlert(remainingSize: String)
 }
 
 protocol DRLSynchronizerDelegate {
@@ -67,7 +67,6 @@ class DRLSynchronizationManager {
         case paused
         case error
         case statusNetworkError
-        case userInteractionRequired
     }
     
     func initialize(delegate: DRLSynchronizationDelegate?) {
@@ -76,6 +75,24 @@ class DRLSynchronizationManager {
         self.initializeSynchronizers()
         
         self.progress = DRLTotalProgress(progressAccessors: self.getProgressAccessors)
+        
+        if DRLDataStorage.shared.isDRLDownloadCompleted {
+            self.homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+        } else {
+            self.fetchTotalRemainingSize { totalRemainingSize in
+                guard let totalRemainingSize = totalRemainingSize else {
+                    self.start()
+                    return
+                }
+                
+                guard totalRemainingSize > self.ITSync.AUTOMATIC_MAX_SIZE else {
+                    self.start()
+                    return
+                }
+                
+                self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
+            }
+        }
     }
     
     func initializeSynchronizers() {
@@ -87,6 +104,27 @@ class DRLSynchronizationManager {
             case .ALL:
                 self.ITSync.initialize(delegate: self)
                 self.EUSync.initialize(delegate: self)
+            case .NONE:
+                break
+        }
+    }
+    
+    func fetchTotalRemainingSize(completion: @escaping (Double?) -> ()) {
+        switch self.synchronizationContext {
+            case .IT:
+                self.ITSync.fetchRemainingSize{ completion($0) }
+            case .EU:
+                self.EUSync.fetchRemainingSize{ completion($0) }
+            case .ALL:
+            self.ITSync.fetchRemainingSize { remainingSizeIT in
+                self.EUSync.fetchRemainingSize { remainingSizeEU in
+                    if remainingSizeIT == nil && remainingSizeEU == nil {
+                        return completion(nil)
+                    }
+                    
+                    completion((remainingSizeIT ?? 0) + (remainingSizeEU ?? 0))
+                }
+            }
             case .NONE:
                 break
         }
@@ -104,6 +142,19 @@ class DRLSynchronizationManager {
                 return EUSync.isFetchOutdated
             case .ALL:
                 return ITSync.isFetchOutdated && EUSync.isFetchOutdated
+            case .NONE:
+                return false
+        }
+    }
+    
+    var isFetchOutdatedAndAllowed: Bool {
+        switch self.synchronizationContext {
+            case .IT:
+                return ITSync.isFetchOutdatedAndAllowed
+            case .EU:
+                return EUSync.isFetchOutdatedAndAllowed
+            case .ALL:
+                return ITSync.isFetchOutdatedAndAllowed && EUSync.isFetchOutdatedAndAllowed
             case .NONE:
                 return false
         }
@@ -279,11 +330,6 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
     private func handleSyncStatus(managerType: SyncManagerType){
         
         guard let ITSyncStatus = ITSync.syncStatus, let EUSyncStatus = EUSync.syncStatus else {
-            return
-        }
-
-        if (ITSyncStatus == .userInteractionRequired && EUSyncStatus == .userInteractionRequired) {
-            self.homeViewControllerDelegate?.statusDidChange(with: .userInteractionRequired, progress: self.progress)
             return
         }
 

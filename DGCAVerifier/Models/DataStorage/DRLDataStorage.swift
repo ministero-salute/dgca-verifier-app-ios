@@ -204,7 +204,7 @@ extension DRLDataStorage {
     public func save() { Self.storage.save(self, completion: {_ in }) }
     
     static func initialize(completion: @escaping () -> Void) {
-        storage.loadOverride(fallback: DRLDataStorage.shared) { success in
+        storage.loadStoredData(fallback: DRLDataStorage.shared) { success in
             guard let result = success else { return }
             DRLDataStorage.shared = result
             completion()

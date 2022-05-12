@@ -328,14 +328,13 @@ class HomeViewController: UIViewController {
     }
     
     @objc func drlShowMore() {
-        self.showDRLUpdateAlert()
+        self.showDRLUpdateAlert(remainingSize: self.viewModel.downloadProgress.remainingSize)
     }
     
-    public func showDRLUpdateAlert() {
-        let totalRemainingSize = viewModel.downloadProgress.remainingSize
+    public func showDRLUpdateAlert(remainingSize: String) {
         let content: AlertContent = .init(
-            title: "drl.update.alert.title".localizeWith(totalRemainingSize),
-            message: "drl.update.message".localizeWith(totalRemainingSize),
+            title: "drl.update.alert.title".localizeWith(remainingSize),
+            message: "drl.update.message".localizeWith(remainingSize),
             confirmAction: { self.viewModel.startDownload()},
             confirmActionTitle: "drl.update.download.now",
             cancelAction: { self.viewModel.readyToDownload()},
@@ -489,8 +488,11 @@ extension HomeViewController: DRLSynchronizationDelegate {
         case .paused:                   downloadPaused(progress: progress)
         case .error:                    downloadError(progress: progress)
         case .statusNetworkError:       networkStatusError(progress: progress)
-        case .userInteractionRequired:  showDRLUpdateAlert()
         }
+    }
+    
+    func requireUserInteraction(remainingSize: String) {
+        showDRLUpdateAlert(remainingSize: remainingSize)
     }
 }
 
