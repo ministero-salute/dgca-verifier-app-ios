@@ -42,7 +42,7 @@ class DRLSynchronizer {
         set {_drlFailCounter = newValue}
     }
     
-    var progress: DRLProgress { _progress }
+    var progress: DRLProgress? { _progress }
     var gateway: GatewayConnection { GatewayConnection.shared }
     var syncCompleted: Bool = false
     var syncStatus: DRLSynchronizationManager.Status?
@@ -56,7 +56,7 @@ class DRLSynchronizer {
     public var serverStatus: DRLStatus? {
         get { self._serverStatus }
     }
-    private var _progress: DRLProgress
+    private var _progress: DRLProgress?
     {
         get {
             self.managerType == .IT ? DRLDataStorage.shared.progress ?? .init() : DRLDataStorage.shared.progressEU ?? .init()
@@ -182,6 +182,7 @@ class DRLSynchronizer {
         self.drlFailCounter -= 1
         if self.drlFailCounter < 0 {
             log("failed too many times")
+            guard let progress = self.progress else { return }
             if progress.remainingSize == "0.00" || progress.remainingSize == "" {
                 updateSyncStatus(status: .statusNetworkError)
             } else {
@@ -209,7 +210,7 @@ class DRLSynchronizer {
     }
     
     func clean() {
-        _progress = .init()
+        _progress = nil
         _serverStatus = nil
         isDownloadingDRL = false
         self.managerType == .IT ? DRLDataStorage.clearIT() : DRLDataStorage.clearEU()
@@ -224,6 +225,7 @@ class DRLSynchronizer {
     
     func download() {
         guard chunksNotYetCompleted else { return downloadCompleted() }
+        guard let progress = self.progress else { return }
         log(progress)
         updateSyncStatus(status: .downloading)
         gateway.updateRevocationList(managerType: self.managerType, progress) { drl, error, statusCode in
@@ -267,13 +269,18 @@ class DRLSynchronizer {
     }
     
     private func updateProgress(with size: Int?) {
+        guard let progress = self.progress else {
+            return
+
+        }
         let current = progress.currentChunk ?? DRLProgress.FIRST_CHUNK
         let downloadedSize = progress.downloadedSize ?? 0
-        _progress.currentChunk = current + 1
-        _progress.downloadedSize = downloadedSize + (size?.doubleValue ?? 0)
+        _progress?.currentChunk = current + 1
+        _progress?.downloadedSize = downloadedSize + (size?.doubleValue ?? 0)
     }
     
     func completeProgress() {
+        guard let progress = self.progress else { return }
         let completedVersion = progress.requestedVersion
         _progress = .init(version: completedVersion)
     }
@@ -305,32 +312,38 @@ extension DRLSynchronizer {
     }
     
     public var noPendingDownload: Bool {
-        progress.currentVersion == progress.requestedVersion
+        guard let progress = self.progress else { return false }
+        return progress.currentVersion == progress.requestedVersion
     }
     
     public var outdatedVersion: Bool {
-        _serverStatus?.version != _progress.currentVersion
+        guard let progress = self.progress else { return false }
+        return _serverStatus?.version != progress.currentVersion
     }
     
     public var sameRequestedVersion: Bool {
-        _serverStatus?.version == _progress.requestedVersion
+        guard let progress = self.progress else { return false }
+        return _serverStatus?.version == progress.requestedVersion
     }
         
     public var chunksNotYetCompleted: Bool { !noMoreChunks }
     
     public var noMoreChunks: Bool {
-        guard let lastChunkDownloaded = _progress.currentChunk else { return false }
+        guard let progress = self.progress else { return false }
+        guard let lastChunkDownloaded = progress.currentChunk else { return false }
         guard let allChunks = _serverStatus?.totalChunk else { return false }
         return lastChunkDownloaded > allChunks
     }
     
     private var oneChunkAlreadyDownloaded: Bool {
-        guard let currentChunk = _progress.currentChunk else { return true }
+        guard let progress = self.progress else { return false }
+        guard let currentChunk = progress.currentChunk else { return true }
         return currentChunk > DRLProgress.FIRST_CHUNK
     }
     
     private var sameChunkSize: Bool {
-        guard let localChunkSize = _progress.sizeSingleChunkInByte else { return false }
+        guard let progress = self.progress else { return false }
+        guard let localChunkSize = progress.sizeSingleChunkInByte else { return false }
         guard let serverChunkSize = _serverStatus?.sizeSingleChunkInByte else { return false }
         return localChunkSize == serverChunkSize
     }
@@ -341,6 +354,7 @@ extension DRLSynchronizer {
     }
     
     private func isConsistent(_ drl: DRL) -> Bool {
+        guard let progress = self.progress else { return false }
         guard let drlVersion = drl.version else { return false }
         return drlVersion == progress.requestedVersion
     }

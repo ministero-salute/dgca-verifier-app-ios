@@ -28,7 +28,7 @@ import UIKit
 import SwiftDGC
 import SwiftyJSON
 
-enum SynchronizationContext {
+enum SynchronizationContext: Codable {
     case IT
     case EU
     case ALL
@@ -76,22 +76,18 @@ class DRLSynchronizationManager {
         
         self.progress = DRLTotalProgress(progressAccessors: self.getProgressAccessors)
         
-        if DRLDataStorage.shared.isDRLDownloadCompleted {
-            self.homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
-        } else {
-            self.fetchTotalRemainingSize { totalRemainingSize in
-                guard let totalRemainingSize = totalRemainingSize else {
-                    self.start()
-                    return
-                }
-                
-                guard totalRemainingSize > self.ITSync.AUTOMATIC_MAX_SIZE else {
-                    self.start()
-                    return
-                }
-                
-                self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
+        self.fetchTotalRemainingSize { totalRemainingSize in
+            guard let totalRemainingSize = totalRemainingSize else {
+                self.start()
+                return
             }
+            
+            guard totalRemainingSize > self.ITSync.AUTOMATIC_MAX_SIZE else {
+                self.start()
+                return
+            }
+            
+            self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
         }
     }
     
@@ -131,7 +127,16 @@ class DRLSynchronizationManager {
     }
     
     var isSyncEnabled: Bool {
-        LocalData.getSetting(from: "DRL_SYNC_ACTIVE")?.boolValue ?? true
+        switch self.synchronizationContext {
+            case .IT:
+                return ITSync.isSyncEnabled
+            case .EU:
+                return EUSync.isSyncEnabled
+            case .ALL:
+                return ITSync.isSyncEnabled && EUSync.isSyncEnabled
+            case .NONE:
+                return false
+        }
     }
     
     var isFetchOutdated: Bool {
@@ -161,30 +166,30 @@ class DRLSynchronizationManager {
     }
     
     private var synchronizationContext: SynchronizationContext{
-        #if DEBUG
-            return .ALL
-        #else
-        
         let settings = SettingDataStorage.sharedInstance
-        let syncStatusIT = settings.getFirstSetting(withName: Constants.synchronizationStatusIT)?
-            .boolValue ?? false
-        let syncStatusEU = settings.getFirstSetting(withName: Constants.synchronizationStatusEU)?
-            .boolValue ?? false
+        let syncStatusIT = settings.getFirstSetting(withName: Constants.itRevocationIsEnabled)?
+            .boolValue ?? true
+        let syncStatusEU = settings.getFirstSetting(withName: Constants.euRevocationIsEnabled)?
+            .boolValue ?? true
+        
+        var syncContext = SynchronizationContext.NONE
         
         if syncStatusIT && syncStatusEU {
-            return .ALL
+            syncContext = .ALL
         }
         
         else if syncStatusIT {
-            return .IT
+            syncContext = .IT
         }
         
         else if syncStatusEU {
-            return .EU
+            syncContext = .EU
         }
         
-        return .NONE
-        #endif
+        DRLDataStorage.shared.syncContext = syncContext
+        DRLDataStorage.shared.save()
+        
+        return syncContext
     }
     
     private var getProgressAccessors: [ProgressAccessor] {
@@ -332,7 +337,14 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
         guard let ITSyncStatus = ITSync.syncStatus, let EUSyncStatus = EUSync.syncStatus else {
             return
         }
-
+        if ITSyncStatus == .downloading || EUSyncStatus == .downloading {
+            self.homeViewControllerDelegate?.statusDidChange(with: .downloading, progress: self.progress)
+            return
+        }
+        if ITSyncStatus == .paused || EUSyncStatus == .paused {
+            self.homeViewControllerDelegate?.statusDidChange(with: .paused, progress: self.progress)
+            return
+        }
         if ITSyncStatus == .statusNetworkError || EUSyncStatus == .statusNetworkError {
             self.homeViewControllerDelegate?.statusDidChange(with: .statusNetworkError, progress: self.progress)
             return
@@ -348,14 +360,6 @@ extension DRLSynchronizationManager: DRLSynchronizerDelegate {
         }
         if ITSyncStatus == .downloadReady || EUSyncStatus == .downloadReady {
             self.homeViewControllerDelegate?.statusDidChange(with: .downloadReady, progress: self.progress)
-            return
-        }
-        if ITSyncStatus == .paused || EUSyncStatus == .paused {
-            self.homeViewControllerDelegate?.statusDidChange(with: .paused, progress: self.progress)
-            return
-        }
-        if ITSyncStatus == .downloading || EUSyncStatus == .downloading {
-            self.homeViewControllerDelegate?.statusDidChange(with: .downloading, progress: self.progress)
             return
         }
         if ITSyncStatus == .completed && EUSyncStatus == .completed {

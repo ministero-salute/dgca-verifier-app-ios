@@ -40,7 +40,8 @@ struct RevocationValidator: DGCValidator {
     func validate(hcert: HCert) -> Status {
         guard DRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
         let hashesArray = [hcert.uvciHash?.prefix(16), hcert.signatureHash?.prefix(16), hcert.countryCodeUvciHash?.prefix(16)]
-        let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(hash: $0?.hexString ?? "")}
+        guard let syncContext = DRLDataStorage.shared.syncContext else { return .notValid }
+        let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(syncContext: syncContext, hash: $0?.hexString ?? "")}
         #if DEBUG
         return hashesResult.contains(true) ? .revokedGreenPass : .valid
         #else

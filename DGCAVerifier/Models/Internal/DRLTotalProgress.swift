@@ -25,7 +25,7 @@
 
 import Foundation
 
-typealias ProgressAccessor = () -> DRLProgress
+typealias ProgressAccessor = () -> DRLProgress?
 
 struct DRLTotalProgress {
     private let progressAccessors: [ProgressAccessor]
@@ -36,22 +36,22 @@ struct DRLTotalProgress {
     
     var remainingSize: String {
        let isTotalSizeSet = self.progressAccessors
-        	.map{ $0().totalSizeInByte?.doubleValue }
+        	.map{ $0()?.totalSizeInByte?.doubleValue }
             .filter{ $0 == nil }
             .count < 2
         
         let isDownloadedSizeSet = self.progressAccessors
-            .map{ $0().downloadedSize }
+            .map{ $0()?.downloadedSize }
             .filter{ $0 == nil }
             .count < 2
         
         guard isTotalSizeSet && isDownloadedSizeSet else { return "" }
         
         let responseSizes = self.progressAccessors
-            .map{ $0().totalSizeInByte?.doubleValue ?? 0 }
+            .map{ $0()?.totalSizeInByte?.doubleValue ?? 0 }
             .reduce(0, +)
         let downloadedSizes = self.progressAccessors
-            .map{ $0().downloadedSize ?? 0 }
+            .map{ $0()?.downloadedSize ?? 0 }
             .reduce(0, +)
         
         return (responseSizes - downloadedSizes).toMegaBytes.byteReadableValue
@@ -59,11 +59,11 @@ struct DRLTotalProgress {
     
     var current: Float {
         let currentChunks = self.progressAccessors
-            .map{ $0().currentChunk ?? 0 }
+            .map{ $0()?.currentChunk ?? 0 }
             .reduce(0, +)
         	
         let totalChunks = self.progressAccessors
-            .map{ $0().totalChunk ?? 0 }
+            .map{ $0()?.totalChunk ?? 0 }
             .reduce(0, +)
 
         return Float(currentChunks)/Float(totalChunks)
@@ -71,11 +71,11 @@ struct DRLTotalProgress {
     
     var chunksMessage: String {
         let currentChunks = self.progressAccessors
-            .map{ $0().currentChunk ?? 0 }
+            .map{ $0()?.currentChunk ?? 0 }
             .reduce(0, +)
         
         let totalChunks = self.progressAccessors
-            .map{ $0().totalChunk ?? 0 }
+            .map{ $0()?.totalChunk ?? 0 }
             .reduce(0, +)
         
         return "drl.update.progress".localizeWith(currentChunks, totalChunks)
@@ -83,13 +83,13 @@ struct DRLTotalProgress {
     
     var downloadedMessage: String {
         let responseSizes = self.progressAccessors
-            .map{ $0().totalSizeInByte?.doubleValue ?? 0 }
+            .map{ $0()?.totalSizeInByte?.doubleValue ?? 0 }
             .reduce(0, +)
             .toMegaBytes
             .byteReadableValue
         
         let downloadedSizes = self.progressAccessors
-            .map{ $0().downloadedSize ?? 0 }
+            .map{ $0()?.downloadedSize ?? 0 }
             .reduce(0, +)
             .toMegaBytes
             .byteReadableValue

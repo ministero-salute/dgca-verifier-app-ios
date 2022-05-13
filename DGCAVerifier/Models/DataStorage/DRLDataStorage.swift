@@ -33,18 +33,29 @@ struct DRLDataStorage: Codable {
     static var shared = DRLDataStorage()
     static let storage = SecureStorage<DRLDataStorage>(fileName: "drl_secure")
 
+    var syncContext: SynchronizationContext?
     var progress: DRLProgress?
     var lastFetchRaw: Date?
     
     var isDRLDownloadCompletedIT: Bool {
-        if let currentVersion = progress?.currentVersion, let requestedVersion = progress?.requestedVersion, let currentChunk = progress?.currentChunk, let totalChunk = progress?.totalChunk {
-            return currentVersion == requestedVersion && currentChunk == totalChunk
+        if let currentVersion = progress?.currentVersion, let requestedVersion = progress?.requestedVersion {
+            return currentVersion == requestedVersion
         }
-        return true
+        return false
     }
     
     var isDRLDownloadCompleted: Bool {
-        return isDRLDownloadCompletedIT && isDRLDownloadCompletedEU
+        guard let syncContext = self.syncContext else { return false }
+        switch syncContext {
+            case .IT:
+                return self.isDRLDownloadCompletedIT
+            case .EU:
+                return self.isDRLDownloadCompletedEU
+            case .ALL:
+                return self.isDRLDownloadCompletedIT && self.isDRLDownloadCompletedEU
+            case .NONE:
+                return false
+        }
     }
     
     var lastFetch: Date
@@ -64,10 +75,10 @@ struct DRLDataStorage: Codable {
     var lastFetchRawEU: Date?
     
     var isDRLDownloadCompletedEU: Bool {
-        if let currentVersion = progressEU?.currentVersion, let requestedVersion = progressEU?.requestedVersion, let currentChunk = progressEU?.currentChunk, let totalChunk = progressEU?.totalChunk {
-            return currentVersion == requestedVersion && currentChunk == totalChunk
+        if let currentVersion = progressEU?.currentVersion, let requestedVersion = progressEU?.requestedVersion {
+            return currentVersion == requestedVersion
         }
-        return true
+        return false
     }
     
     var lastFetchEU: Date
@@ -139,8 +150,17 @@ extension DRLDataStorage {
             .first != nil
     }
     
-    public static func contains(hash: String) -> Bool {
-        return containsIT(hash: hash) || containsEU(hash: hash)
+    public static func contains(syncContext: SynchronizationContext, hash: String) -> Bool {
+        switch syncContext {
+            case .IT:
+                return containsIT(hash: hash)
+            case .EU:
+                return containsEU(hash: hash)
+            case .ALL:
+                return containsIT(hash: hash) || containsEU(hash: hash)
+            case .NONE:
+                return false
+        }
     }
     
     public static func drlTotalNumberIT() -> Int {
@@ -157,8 +177,17 @@ extension DRLDataStorage {
             .count
     }
     
-    public static func drlTotalNumber() -> Int {
-        return drlTotalNumberIT() + drlTotalNumberEU()
+    public static func drlTotalNumber(syncContext: SynchronizationContext) -> Int {
+        switch syncContext {
+            case .IT:
+                return drlTotalNumberIT()
+            case .EU:
+                return drlTotalNumberEU()
+            case .ALL:
+                return drlTotalNumberIT() + drlTotalNumberEU()
+            case .NONE:
+                return 0
+        }
     }
     
     public static func clearAll() {

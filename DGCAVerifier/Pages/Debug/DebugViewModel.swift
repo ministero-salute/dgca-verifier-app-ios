@@ -29,7 +29,8 @@ class DebugViewModel {
     private var publicKeys: [String]?
     
     public func getUCVICount() -> Int {
-        return DRLDataStorage.drlTotalNumber()
+        guard let syncContext = DRLDataStorage.shared.syncContext else { return 0 }
+        return DRLDataStorage.drlTotalNumber(syncContext: syncContext)
     }
     
     public func getKIDCount() -> Int {
