@@ -28,6 +28,14 @@ import Foundation
 class DebugViewModel {
     private var publicKeys: [String]?
     
+    public func getUCVICountIT() -> Int {
+        return DRLDataStorage.drlTotalNumberIT()
+    }
+    
+    public func getUCVICountEU() -> Int {
+        return DRLDataStorage.drlTotalNumberEU()
+    }
+    
     public func getUCVICount() -> Int {
         guard let syncContext = DRLDataStorage.shared.syncContext else { return 0 }
         return DRLDataStorage.drlTotalNumber(syncContext: syncContext)

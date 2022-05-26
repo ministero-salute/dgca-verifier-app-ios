@@ -34,7 +34,8 @@ class DebugViewController: UIViewController {
     private var viewModel: DebugViewModel
     
     @IBOutlet weak var backButton: AppButton!
-    @IBOutlet weak var ucviCountLabel: UILabel!
+    @IBOutlet weak var ucviCountLabelIT: UILabel!
+    @IBOutlet weak var ucviCountLabelEU: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     init(coordinator: DebugCoordinator, viewModel: DebugViewModel) {
@@ -50,9 +51,12 @@ class DebugViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.ucviCountLabelIT.text = "download..."
+        self.ucviCountLabelEU.text = "download..."
         
         self.setupBackButton()
-        self.setupUCVICountLabel()
+        self.setupUCVICountLabelIT()
+        self.setupUCVICountLabelEU()
         self.setupTableView()
     }
     
@@ -61,14 +65,16 @@ class DebugViewController: UIViewController {
         self.backButton.setLeftImage(named: "icon_back")
     }
     
-    private func setupUCVICountLabel() -> Void {
-        if !self.viewModel.isDRLDownloadCompleted() {
-            self.ucviCountLabel.text = "download..."
-            return
-        }
+    private func setupUCVICountLabelIT() -> Void {
         
-        print(self.viewModel.getUCVICount())
-        self.ucviCountLabel.text = self.viewModel.getUCVICount().stringValue
+        print(self.viewModel.getUCVICountIT())
+        self.ucviCountLabelIT.text = self.viewModel.getUCVICountIT().stringValue
+    }
+    
+    private func setupUCVICountLabelEU() -> Void {
+        
+        print(self.viewModel.getUCVICountEU())
+        self.ucviCountLabelEU.text = self.viewModel.getUCVICountEU().stringValue
     }
     
     private func setupTableView() -> Void {

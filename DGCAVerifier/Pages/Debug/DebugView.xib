@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +13,8 @@
             <connections>
                 <outlet property="backButton" destination="rIx-dN-Oey" id="Jm3-8m-Dbq"/>
                 <outlet property="tableView" destination="Elu-ae-3EU" id="Jrz-o4-4Xa"/>
-                <outlet property="ucviCountLabel" destination="5aS-0g-zZY" id="0gS-UI-Aem"/>
+                <outlet property="ucviCountLabelEU" destination="NON-Oy-DUk" id="zhE-g3-QbD"/>
+                <outlet property="ucviCountLabelIT" destination="5aS-0g-zZY" id="Fse-Mj-jm0"/>
                 <outlet property="view" destination="VCv-wk-6LI" id="Q8B-jP-Y3V"/>
             </connections>
         </placeholder>
@@ -28,7 +29,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fl-fe-hM6">
                             <rect key="frame" x="0.0" y="0.0" width="92" height="58"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIx-dN-Oey" customClass="AppButton" customModule="VerificaC19" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIx-dN-Oey" customClass="AppButton" customModule="VerificaC19_Dev" customModuleProvider="target">
                                     <rect key="frame" x="16" y="0.0" width="46" height="58"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="58" id="83m-zn-gZo"/>
@@ -59,37 +60,59 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHH-63-aEC" userLabel="ucviView">
-                    <rect key="frame" x="16" y="110" width="382" height="36.5"/>
+                    <rect key="frame" x="16" y="110" width="382" height="41"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPM-mR-CR3" userLabel="HStack">
-                            <rect key="frame" x="8" y="8" width="366" height="20.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cdJ-AU-4O7">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numero di UCVI salvate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdD-Tu-hA6" userLabel="ucviDescriptionLabel">
-                                    <rect key="frame" x="0.0" y="0.0" width="355.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5aS-0g-zZY" userLabel="ucviCountLabel">
-                                    <rect key="frame" x="355.5" y="0.0" width="10.5" height="20.5"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPM-mR-CR3" userLabel="HStack">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="12.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numero di UCVI IT:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdD-Tu-hA6" userLabel="ucviDescriptionLabelIT">
+                                            <rect key="frame" x="0.0" y="0.0" width="371.5" height="12.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5aS-0g-zZY" userLabel="ucviCountLabelIT">
+                                            <rect key="frame" x="371.5" y="0.0" width="10.5" height="12.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W16-Aw-PmG">
+                                    <rect key="frame" x="0.0" y="20.5" width="382" height="20.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Numero di UCVI EU:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVn-Ed-Ign" userLabel="ucviDescriptionLabelEU">
+                                            <rect key="frame" x="0.0" y="0.0" width="371.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NON-Oy-DUk" userLabel="ucviCountLabelEU">
+                                            <rect key="frame" x="371.5" y="0.0" width="10.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="wPM-mR-CR3" secondAttribute="trailing" constant="8" id="UCK-s9-VPJ"/>
-                        <constraint firstItem="wPM-mR-CR3" firstAttribute="leading" secondItem="RHH-63-aEC" secondAttribute="leading" constant="8" id="g3R-kJ-h3z"/>
-                        <constraint firstItem="wPM-mR-CR3" firstAttribute="top" secondItem="RHH-63-aEC" secondAttribute="top" constant="8" id="sSg-Jg-74j"/>
-                        <constraint firstAttribute="bottom" secondItem="wPM-mR-CR3" secondAttribute="bottom" constant="8" id="z1S-s3-5Kn"/>
+                        <constraint firstItem="cdJ-AU-4O7" firstAttribute="top" secondItem="RHH-63-aEC" secondAttribute="top" id="L4F-DA-CV8"/>
+                        <constraint firstAttribute="bottom" secondItem="cdJ-AU-4O7" secondAttribute="bottom" id="PzB-lI-SRI"/>
+                        <constraint firstItem="cdJ-AU-4O7" firstAttribute="leading" secondItem="RHH-63-aEC" secondAttribute="leading" id="oOG-GT-8bA"/>
+                        <constraint firstAttribute="trailing" secondItem="cdJ-AU-4O7" secondAttribute="trailing" id="rOu-gM-r0w"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Elu-ae-3EU">
-                    <rect key="frame" x="16" y="162.5" width="382" height="683.5"/>
+                    <rect key="frame" x="16" y="167" width="382" height="679"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
