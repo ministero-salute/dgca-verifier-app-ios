@@ -31,7 +31,6 @@
 		145CC08B27B5155B00F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
 		145CC08C27B5156100F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
 		145CC08D27B5156200F2D01F /* CasiDiTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 145CC08A27B5155B00F2D01F /* CasiDiTest.csv */; };
-		1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462330727A3EA580073A323 /* HCertGenerator.swift */; };
 		149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */; };
 		149FF57D2745143C00DFC035 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410B20A271DBADD00F912BA /* PickerViewController.swift */; };
 		149FF57E2745144300DFC035 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1410B20C271EAE6000F912BA /* PickerViewController.xib */; };
@@ -437,7 +436,6 @@
 		143EEC7A27CCDF4B00446964 /* ScanMode+LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanMode+LocalSettings.swift"; sourceTree = "<group>"; };
 		143EEC8127CFCE6500446964 /* UIView+WTFAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+WTFAutoLayout.swift"; sourceTree = "<group>"; };
 		145CC08A27B5155B00F2D01F /* CasiDiTest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CasiDiTest.csv; sourceTree = "<group>"; };
-		1462330727A3EA580073A323 /* HCertGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCertGenerator.swift; sourceTree = "<group>"; };
 		149FF575273D6F7400DFC035 /* RevocationValidityCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationValidityCheckTests.swift; sourceTree = "<group>"; };
 		14B94A5027BEB11C00B2B906 /* CustomPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerOption.swift; sourceTree = "<group>"; };
 		14B94A5327BEB13200B2B906 /* CustomPickerOption.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPickerOption.xib; sourceTree = "<group>"; };
@@ -946,7 +944,6 @@
 				6BA8B9E3266F840B0060D767 /* TestValidityCheckTests.swift */,
 				6BA8B9E72671227C0060D767 /* LocalDataTests.swift */,
 				65B281352697122300A9A533 /* Info.plist */,
-				1462330727A3EA580073A323 /* HCertGenerator.swift */,
 				14D4F19527B57458002B2F00 /* mockedSettings.json */,
 				145CC08A27B5155B00F2D01F /* CasiDiTest.csv */,
 			);
@@ -2070,7 +2067,6 @@
 				65B28144269712BE00A9A533 /* TestValidityCheckTests.swift in Sources */,
 				65B28140269712BE00A9A533 /* VaccineValidityCheckTests.swift in Sources */,
 				902BB46C27AD852400C397EB /* TestModel.swift in Sources */,
-				1462330927A3ED9C0073A323 /* HCertGenerator.swift in Sources */,
 				149FF578273D6F7D00DFC035 /* RevocationValidityCheckTests.swift in Sources */,
 				65B28143269712BE00A9A533 /* RecoveryValidityCheckTests.swift in Sources */,
 				65B2813F269712BE00A9A533 /* LocalDataTests.swift in Sources */,

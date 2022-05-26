@@ -98,7 +98,7 @@ class AutomatedTests: XCTestCase {
               }
             
               var actualValidity = [TestResult]()
-              guard let hCert = HCert(from: self.testCases[index].payload) else { continue }
+              guard let hCert = try? HCert(from: self.testCases[index].payload) else { continue }
             
               for validity in self.testCases[index].expectedValidity {
                   guard let scanMode = validity.scanMode() else { continue }
