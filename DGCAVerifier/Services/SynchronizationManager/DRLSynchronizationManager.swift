@@ -77,6 +77,12 @@ class DRLSynchronizationManager {
         self.progress = DRLTotalProgress(progressAccessors: self.getProgressAccessors)
         
         self.fetchTotalRemainingSize { totalRemainingSize in
+            
+            guard self.isDRLUpdated() else {
+                self.start()
+                return
+            }
+            
             guard let totalRemainingSize = totalRemainingSize else {
                 self.start()
                 return
@@ -88,6 +94,27 @@ class DRLSynchronizationManager {
             }
             
             self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
+        }
+    }
+    
+    func isDRLUpdated() -> Bool{
+        switch self.synchronizationContext {
+            case .IT:
+                guard let serverStatus = ITSync.serverStatus,
+                      let progress = ITSync.progress else {return false}
+                return serverStatus.version ?? 0 > progress.currentVersion
+            case .EU:
+                guard let serverStatus = EUSync.serverStatus,
+                      let progress = EUSync.progress else {return false}
+                return serverStatus.version ?? 0 > progress.currentVersion
+            case .ALL:
+            guard let serverStatusEU = EUSync.serverStatus,
+                  let progressEU = EUSync.progress,
+                  let serverStatusIT = ITSync.serverStatus,
+                  let progressIT = ITSync.progress else {return false}
+            return serverStatusIT.version ?? 0 > progressIT.currentVersion && serverStatusEU.version ?? 0 > progressEU.currentVersion
+            case .NONE:
+                return false
         }
     }
     
