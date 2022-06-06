@@ -78,7 +78,7 @@ class DRLSynchronizationManager {
         
         self.fetchTotalRemainingSize { totalRemainingSize in
             
-            guard self.isDRLUpdated() else {
+            guard !self.isDRLOutdated() else {
                 self.start()
                 return
             }
@@ -97,7 +97,7 @@ class DRLSynchronizationManager {
         }
     }
     
-    func isDRLUpdated() -> Bool{
+    func isDRLOutdated() -> Bool{
         switch self.synchronizationContext {
             case .IT:
                 guard let serverStatus = ITSync.serverStatus,
