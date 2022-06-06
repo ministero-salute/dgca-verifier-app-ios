@@ -78,7 +78,7 @@ class DRLSynchronizationManager {
         
         self.fetchTotalRemainingSize { totalRemainingSize in
             
-            guard !self.isDRLOutdated() else {
+            guard self.isDRLOutdated() else {
                 self.start()
                 return
             }
