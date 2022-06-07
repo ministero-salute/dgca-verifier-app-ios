@@ -78,7 +78,6 @@ struct Constants {
     static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
     static let scanModeBooster = "scanModeBooster"
-    static let scanModeItalyEntry = "scanModeItalyEntry"
     
     // MARK: Settings
     static let drlMaxRetries = "MAX_RETRY"
@@ -87,7 +86,6 @@ struct Constants {
     static let scanModeDescription3G = "3G_scan_mode_description"
     static let scanModeDescription2G = "2G_scan_mode_description"
     static let scanModeDescriptionBooster = "booster_scan_mode_description"
-    static let scanModeDescriptionItalyEntry = "italy_entry_scan_mode_description"
     
     // MARK: Settings Scan Mode Popup
     static let infoScanModePopup = "info_scan_mode_popup"

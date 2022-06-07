@@ -286,54 +286,6 @@ class VaccineBoosterValidator: VaccineConcreteValidator {
     
 }
 
-class VaccineItalyEntryValidator: VaccineConcreteValidator {
-
-    override func validate(hcert: HCert) -> Status {
-        guard let vaccinationInfo = getVaccinationData(hcert) else { return .notValid }
-        
-        if !vaccinationInfo.isEMAProduct && vaccinationInfo.isCurrentDoseIncomplete {
-            return .notValid
-        }
-        
-        self.vaccinationInfo = vaccinationInfo
-        let result = super.checkVaccinationInterval(vaccinationInfo)
-        
-        guard result == .valid else { return result }
-        
-        if !vaccinationInfo.isEMAProduct || vaccinationInfo.isCurrentDoseIncomplete {
-            return .notValid
-        }
-        
-        return result
-    }
-    
-    public override func startDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = Constants.vaccineCompleteStartDays_NOT_IT
-        return self.getValue(for: setting)?.intValue
-    }
-    
-    public override func endDaysForCompleteDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        var setting = Constants.vaccineCompleteEndDays_NOT_IT
-        let vaccineUnder18Offset: Int = self.getValue(for: Constants.vaccineCompleteEndDays_under_18_offset)?.intValue ?? 0
-        if vaccinationInfo.isPatientUnder18(vaccineUnder18Offset: vaccineUnder18Offset) {
-        	setting = Constants.vaccineCompleteEndDays_under_18
-        }
-        
-        return self.getValue(for: setting)?.intValue
-    }
-    
-    public override func startDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = Constants.vaccineBoosterStartDays_NOT_IT
-        return self.getValue(for: setting)?.intValue
-    }
-    
-    public override func endDaysForBoosterDose(_ vaccinationInfo: VaccinationInfo) -> Int? {
-        let setting = Constants.vaccineBoosterEndDays_NOT_IT
-        return self.getValue(for: setting)?.intValue
-    }
-    
-}
-
 class VaccineReinforcedValidatorNotItaly: VaccineReinforcedValidator {
     
     override func validate(hcert: HCert) -> Status {
