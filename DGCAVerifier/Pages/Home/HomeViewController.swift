@@ -98,7 +98,9 @@ class HomeViewController: UIViewController {
     private func initialize() {
         
         if ScanMode.init(rawValue: Store.get(key: .scanMode) ?? "") == nil {
-            Store.set(Constants.scanMode3G, for: .scanMode)
+            Store.remove(key: .scanMode)
+            Store.set(false, for: .isScanModeSet)
+            updateScanButtonStatus()
         }
         
         bindScanEnabled()
