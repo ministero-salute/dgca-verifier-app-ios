@@ -96,6 +96,11 @@ class HomeViewController: UIViewController {
     }
     
     private func initialize() {
+        
+        if ScanMode.init(rawValue: Store.get(key: .scanMode) ?? "") == nil {
+            Store.set(Constants.scanMode3G, for: .scanMode)
+        }
+        
         bindScanEnabled()
         setUpSettingsAction()
         setHomeTitle()
