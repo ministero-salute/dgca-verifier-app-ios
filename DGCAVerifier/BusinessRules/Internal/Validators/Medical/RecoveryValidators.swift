@@ -185,26 +185,3 @@ class RecoveryBoosterValidator: RecoveryReinforcedValidator {
     
 }
 
-class RecoveryItalyEntryValidator: RecoveryConcreteValidator {
-    override func getStartDays(from hcert: HCert) -> Int? {
-        let startDaysConfig: String
-        if isSpecialRecovery(hcert: hcert) {
-            startDaysConfig = Constants.recoverySpecialStartDays
-        }
-        else {
-            startDaysConfig = Constants.recoveryStartDays_NOT_IT
-        }
-        return getValue(for: startDaysConfig)?.intValue
-    }
-    
-    override func getEndDays(from hcert: HCert) -> Int? {
-        let endDaysConfig: String
-        if isSpecialRecovery(hcert: hcert) {
-            endDaysConfig = Constants.recoverySpecialEndDays
-        }
-        else {
-            endDaysConfig = Constants.recoveryEndDays_NOT_IT
-        }
-        return getValue(for: endDaysConfig)?.intValue
-    }
-}

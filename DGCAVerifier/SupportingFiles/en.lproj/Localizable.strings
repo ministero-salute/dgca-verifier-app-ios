@@ -78,7 +78,6 @@
 "top.bar.scan.mode.2G" = "R - RAFFORZATA";
 "top.bar.scan.mode.3G" = "B - BASE";
 "top.bar.scan.mode.Boster" = "V - VISITATORI RSA";
-"top.bar.scan.mode.itEntry" = "I - INGRESSO IT";
 
 "server.error.error.with.status" = "Ricevuto errore con status ";
 "server.error.generic.error" = "Errore generico nell'utilizzo del servizio";

@@ -84,18 +84,3 @@ class VaccineExemptionBoosterValidator: VaccineExemptionBaseValidator {
     }
 
 }
-
-class VaccineExemptionItalyEntryValidator: VaccineExemptionConcreteValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        let result = super.validate(hcert: hcert)
-        switch result {
-        case .expired:
-            return .expired
-        case .notValidYet:
-            return .notValidYet
-        default:
-            return .notValid
-        }
-    }
-}
