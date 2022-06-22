@@ -153,6 +153,10 @@ class DRLSynchronizer {
             
             self._serverStatus = serverStatus
             
+            guard self._serverStatus?.version == self.progress?.currentVersion else {
+                return completion(0)
+            }
+            
             return completion(serverStatus?.totalSizeInByte?.doubleValue)
         }
     }
