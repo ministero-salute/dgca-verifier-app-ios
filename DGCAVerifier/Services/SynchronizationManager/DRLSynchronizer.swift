@@ -161,6 +161,24 @@ class DRLSynchronizer {
         }
     }
     
+    func getServerStatus(completion: @escaping (String?) ->()){
+        gateway.revocationStatus(managerType: self.managerType, progress) { (serverStatus, error, responseCode) in
+            guard error == nil, responseCode == 200 else {
+                self.log("status failed")
+                
+                if self.isFetchOutdated {
+                    self.log("fetch outdated, scans not allowed")
+                }
+                
+                completion("Error")
+                return
+            }
+            
+            self._serverStatus = serverStatus
+            completion(nil)
+        }
+    }
+    
     func downloadCompleted() {
         log("download completed")
         guard sameDatabaseSize else {
@@ -333,10 +351,11 @@ extension DRLSynchronizer {
     public var chunksNotYetCompleted: Bool { !noMoreChunks }
     
     public var noMoreChunks: Bool {
-        guard let progress = self.progress else { return false }
-        guard let lastChunkDownloaded = progress.currentChunk else { return false }
-        guard let allChunks = _serverStatus?.totalChunk else { return false }
-        return lastChunkDownloaded > allChunks
+        guard let progress = self.progress else { return true }
+        guard let lastChunkDownloaded = progress.currentChunk else { return true }
+        guard let allChunks = _serverStatus?.totalChunk else { return true }
+        let noMoreChunks = lastChunkDownloaded > allChunks
+        return noMoreChunks
     }
     
     private var oneChunkAlreadyDownloaded: Bool {

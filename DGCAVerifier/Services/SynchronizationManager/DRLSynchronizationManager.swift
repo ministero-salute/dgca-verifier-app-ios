@@ -112,7 +112,7 @@ class DRLSynchronizationManager {
                   let progressEU = EUSync.progress,
                   let serverStatusIT = ITSync.serverStatus,
                   let progressIT = ITSync.progress else {return false}
-            return serverStatusIT.version ?? 0 > progressIT.currentVersion && serverStatusEU.version ?? 0 > progressEU.currentVersion
+            return serverStatusIT.version ?? 0 > progressIT.currentVersion || serverStatusEU.version ?? 0 > progressEU.currentVersion
             case .NONE:
                 return false
         }
@@ -173,7 +173,7 @@ class DRLSynchronizationManager {
             case .EU:
                 return EUSync.isFetchOutdated
             case .ALL:
-                return ITSync.isFetchOutdated && EUSync.isFetchOutdated
+                return ITSync.isFetchOutdated || EUSync.isFetchOutdated
             case .NONE:
                 return false
         }
@@ -261,15 +261,36 @@ class DRLSynchronizationManager {
         }
     }
     
-    func startDownload() {
+    public func resumeDownload(){
         switch synchronizationContext {
         case .IT:
-            ITSync.startDownload()
+            ITSync.getServerStatus{ error in
+                guard error == nil else {
+                    return
+                }
+                self.ITSync.download()
+            }
         case .EU:
-            EUSync.startDownload()
+            EUSync.getServerStatus{ error in
+                guard error == nil else {
+                    return
+                }
+                self.EUSync.download()
+            }
         case .ALL:
-            ITSync.startDownload()
-            EUSync.startDownload()
+            ITSync.getServerStatus{ error in
+                guard error == nil else {
+                    return
+                }
+                
+                self.EUSync.getServerStatus{ error in
+                    guard error == nil else {
+                        return
+                    }
+                    self.ITSync.download()
+                    self.EUSync.download()
+                }
+            }
         case .NONE:
             break
         }
@@ -311,28 +332,35 @@ class DRLSynchronizationManager {
     }
     
     public var needsServerStatusUpdate: Bool {
-        let needsServerStatusUpdateIT = ITSync.needsServerStatusUpdate
-        let needsServerStatusUpdateEU = EUSync.needsServerStatusUpdate
-        return (needsServerStatusUpdateIT && needsServerStatusUpdateEU)
+        switch synchronizationContext {
+        case .IT:
+            return ITSync.needsServerStatusUpdate
+        case .EU:
+            return EUSync.needsServerStatusUpdate
+        case .ALL:
+            let needsServerStatusUpdateIT = ITSync.needsServerStatusUpdate
+            let needsServerStatusUpdateEU = EUSync.needsServerStatusUpdate
+            return (needsServerStatusUpdateIT || needsServerStatusUpdateEU)
+        case .NONE:
+            return false
+        }
     }
     
     public var noPendingDownload: Bool {
-        let noPendingDownloadIT = ITSync.noPendingDownload
-        let noPendingDownloadEU = EUSync.noPendingDownload
-        return (noPendingDownloadIT && noPendingDownloadEU)
+        switch synchronizationContext {
+        case .IT:
+            return ITSync.noPendingDownload
+        case .EU:
+            return EUSync.noPendingDownload
+        case .ALL:
+            let noPendingDownloadIT = ITSync.noPendingDownload
+            let noPendingDownloadEU = EUSync.noPendingDownload
+            return (noPendingDownloadIT || noPendingDownloadEU)
+        case .NONE:
+            return false
+        }
     }
     
-    private var outdatedVersion: Bool {
-        let outdatedVersionIT = ITSync.outdatedVersion
-        let outdatedVersionEU = EUSync.outdatedVersion
-        return (outdatedVersionIT && outdatedVersionEU)
-    }
-    
-    private var sameRequestedVersion: Bool {
-        let sameRequestedVersionIT = ITSync.sameRequestedVersion
-        let sameRequestedVersionEU = EUSync.sameRequestedVersion
-        return (sameRequestedVersionIT && sameRequestedVersionEU)
-    }
 }
 
 extension DRLSynchronizationManager: DRLSynchronizerDelegate {

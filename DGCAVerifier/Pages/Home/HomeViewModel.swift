@@ -181,7 +181,7 @@ extension HomeViewModel {
     }
     
     public func resumeDownload(){
-        sync.download()
+        sync.resumeDownload()
     }
     
     public var downloadProgress: DRLTotalProgress{
