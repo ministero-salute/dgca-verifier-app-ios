@@ -150,9 +150,7 @@ class DRLSynchronizer {
             guard error == nil, responseCode == 200 else {
                 return completion(nil)
             }
-            
-            self._serverStatus = serverStatus
-            
+                        
             guard self._serverStatus?.version != self.progress?.currentVersion else {
                 return completion(0)
             }
@@ -187,7 +185,6 @@ class DRLSynchronizer {
         }
         self.syncCompleted = true
         self.delegate?.signalDownloadCompleted(managerType: self.managerType)
-        _serverStatus = nil
         drlFailCounter = LocalData.getSetting(from: Constants.drlMaxRetries)?.intValue ?? 1
         switch self.managerType {
         case .IT:
@@ -386,9 +383,11 @@ extension DRLSynchronizer {
         guard let serverStatus = _serverStatus, let serverTotalNumberUCVI = serverStatus.totalNumberUCVI else {return false}
         switch self.managerType {
         case .IT:
-            return serverTotalNumberUCVI == DRLDataStorage.drlTotalNumberIT()
+            let conditionIT = serverTotalNumberUCVI == DRLDataStorage.drlTotalNumberIT()
+            return conditionIT
         case .EU:
-            return serverTotalNumberUCVI == DRLDataStorage.drlTotalNumberEU()
+            let conditionEU = serverTotalNumberUCVI == DRLDataStorage.drlTotalNumberEU()
+            return conditionEU
         }
     }
     

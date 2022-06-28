@@ -54,8 +54,8 @@ class DRLSynchronizationManager {
     
     static let shared = DRLSynchronizationManager()
     
-    private lazy var ITSync: DRLSynchronizer = DRLSynchronizer(managerType: .IT)
-    private lazy var EUSync: DRLSynchronizer = DRLSynchronizer(managerType: .EU)
+    private var ITSync: DRLSynchronizer = DRLSynchronizer(managerType: .IT)
+    private var EUSync: DRLSynchronizer = DRLSynchronizer(managerType: .EU)
     var progress: DRLTotalProgress!
     
     private var homeViewControllerDelegate: DRLSynchronizationDelegate?
@@ -94,6 +94,23 @@ class DRLSynchronizationManager {
             }
             
             self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
+        }
+    }
+    
+    func getServerStatus(completion: ()->()){
+        switch self.synchronizationContext {
+            case .IT:
+                ITSync.getServerStatus { _ in }
+                return completion()
+            case .EU:
+                EUSync.getServerStatus { _ in }
+                return completion()
+            case .ALL:
+                ITSync.getServerStatus { _ in }
+                EUSync.getServerStatus { _ in }
+                return completion()
+            case .NONE:
+                return completion()
         }
     }
     

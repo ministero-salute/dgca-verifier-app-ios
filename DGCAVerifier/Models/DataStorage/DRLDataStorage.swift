@@ -199,15 +199,16 @@ extension DRLDataStorage {
         let storage = realm
         try! storage.write {
             let obj = storage.objects(EURevokedDCC.self)
-            realm.delete(obj)
+            storage.delete(obj)
         }
     }
     
     public static func clearIT() {
+        // let realm = try! Realm()
         let storage = realm
         try! storage.write {
             let obj = storage.objects(RevokedDCC.self)
-            realm.delete(obj)
+            storage.delete(obj)
         }
     }
     

@@ -23,7 +23,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SwiftDGC
 
 protocol VerificationCoordinator: Coordinator {

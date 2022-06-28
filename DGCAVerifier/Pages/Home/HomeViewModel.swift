@@ -149,8 +149,10 @@ extension HomeViewModel {
 
     private func loadRevocationList(in loadingGroup: DispatchGroup) {
         DRLDataStorage.initialize {
-            print("log.drl.done")
-            loadingGroup.leave()
+            self.sync.getServerStatus{
+                print("log.drl.done")
+                loadingGroup.leave()
+            }
         }
         loadingGroup.enter()
     }
