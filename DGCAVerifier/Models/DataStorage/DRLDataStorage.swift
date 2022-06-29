@@ -204,7 +204,6 @@ extension DRLDataStorage {
     }
     
     public static func clearIT() {
-        // let realm = try! Realm()
         let storage = realm
         try! storage.write {
             let obj = storage.objects(RevokedDCC.self)
