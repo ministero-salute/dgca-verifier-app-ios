@@ -85,6 +85,7 @@ class DRLSynchronizer {
     func start() {
         log("check status")
         self.syncCompleted = false
+        
         gateway.revocationStatus(managerType: self.managerType, progress) { (serverStatus, error, responseCode) in
             guard error == nil, responseCode == 200 else {
                 self.log("status failed")
@@ -111,6 +112,15 @@ class DRLSynchronizer {
         log("start synchronization")
         guard outdatedVersion else { return downloadCompleted() }
         guard noPendingDownload else { return resumeDownload() }
+        
+        // If all chunks were downloaded but progress was not yet reset due to the other synchronizer not having completed,
+        // this manages the edge case and puts this synchronizer in "resume flow".
+        if let currentChunk = self.progress?.currentChunk, let totalChunk = self.progress?.totalChunk {
+            if currentChunk > totalChunk {
+                return resumeDownload()
+            }
+        }
+        
         checkDownload()
     }
     

@@ -34,7 +34,7 @@ extension GatewayConnection {
     
     func revocationStatus(managerType: SyncManagerType, _ progress: DRLProgress?, completion: ((DRLStatus?, String?, Int?) -> Void)? = nil) {
         let version = progress?.currentVersion
-        let chunk = progress?.currentChunk
+        let chunk = min(progress?.currentChunk ?? 1, progress?.totalChunk ?? 1)
         status(managerType: managerType, version: version, chunk: chunk) { drlStatus, statusCode in
             
             guard let drlStatus = drlStatus else {

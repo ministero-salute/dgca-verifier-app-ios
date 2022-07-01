@@ -93,6 +93,11 @@ class DRLSynchronizationManager {
                 return
             }
             
+            guard self.noPendingDownload else {
+                self.start()
+                return
+            }
+            
             self.homeViewControllerDelegate?.showDRLUpdateAlert(remainingSize: totalRemainingSize.toMegaBytes.byteReadableValue)
         }
     }
@@ -324,6 +329,20 @@ class DRLSynchronizationManager {
             EUSync.readyToDownload()
         case .NONE:
             break
+        }
+    }
+    
+    func readyToResume() {
+        switch synchronizationContext {
+            case .IT:
+                ITSync.readyToResume()
+            case .EU:
+                EUSync.readyToResume()
+            case .ALL:
+                ITSync.readyToResume()
+                EUSync.readyToResume()
+            case .NONE:
+                break
         }
     }
     
