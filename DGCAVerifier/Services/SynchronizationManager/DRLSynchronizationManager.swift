@@ -327,23 +327,31 @@ class DRLSynchronizationManager {
         }
     }
     
-    func signalProgressCompletion(managerType: SyncManagerType){
+    func signalProgressCompletion(managerType: SyncManagerType) {
         if managerType == .IT {
-            ITSync.completeProgress()
-            if synchronizationContext == .IT{
+            if synchronizationContext == .IT {
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+                ITSync.completeProgress()
             }
-            if synchronizationContext == .ALL && EUSync.syncCompleted{
+            if synchronizationContext == .ALL && EUSync.syncCompleted {
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+                
+                // ITSync downloaded all chunks, and so did EUSync. Complete both progresses.
+                ITSync.completeProgress()
+                EUSync.completeProgress()
             }
         }
         else if managerType == .EU {
-            EUSync.completeProgress()
-            if synchronizationContext == .EU{
+            if synchronizationContext == .EU {
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+                EUSync.completeProgress()
             }
-            if synchronizationContext == .ALL && ITSync.syncCompleted{
+            if synchronizationContext == .ALL && ITSync.syncCompleted {
                 homeViewControllerDelegate?.statusDidChange(with: .completed, progress: self.progress)
+                
+                // ITSync downloaded all chunks, and so did EUSync. Complete both progresses.
+                EUSync.completeProgress()
+                ITSync.completeProgress()
             }
         }
     }

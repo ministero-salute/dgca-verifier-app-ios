@@ -73,12 +73,14 @@ struct DRLTotalProgress {
         let currentChunks = self.progressAccessors
             .map{ $0()?.currentChunk ?? 0 }
             .reduce(0, +)
-        
+
         let totalChunks = self.progressAccessors
             .map{ $0()?.totalChunk ?? 0 }
             .reduce(0, +)
         
-        return "drl.update.progress".localizeWith(currentChunks, totalChunks)
+        let lerpedCurrentChunks = min(currentChunks, totalChunks)
+
+        return "drl.update.progress".localizeWith(lerpedCurrentChunks, totalChunks)
     }
     
     var downloadedMessage: String {

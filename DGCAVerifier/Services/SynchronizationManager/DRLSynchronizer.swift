@@ -44,8 +44,10 @@ class DRLSynchronizer {
     
     var progress: DRLProgress? { _progress }
     var gateway: GatewayConnection { GatewayConnection.shared }
-    var syncCompleted: Bool = false
     var syncStatus: DRLSynchronizationManager.Status?
+    
+    /// Determines whether all chunks were downloaded or not; depends exclusively on the synchronizer's download flow.
+    var syncCompleted: Bool = false
     
     private var delegate: DRLSynchronizerDelegate?
     private var timer: Timer?
