@@ -39,14 +39,26 @@ struct RevocationValidator: DGCValidator {
     
     func validate(hcert: HCert) -> Status {
         guard DRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
-        let hashesArray = [hcert.uvciHash?.prefix(16), hcert.signatureHash?.prefix(16), hcert.countryCodeUvciHash?.prefix(16)]
+        
         let syncContext: SynchronizationContext = hcert.countryCode == "IT" ? .IT : .EU
-        let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(syncContext: syncContext, hash: $0?.hexString ?? "")}
-        #if DEBUG
-        return hashesResult.contains(true) ? .revokedGreenPass : .valid
-        #else
-        return hashesResult.contains(true) ? .notValid : .valid
-        #endif
+
+        if syncContext == .IT {
+            let base64Hash = hcert.uvci.sha256()
+            
+            #if DEBUG
+            return DRLDataStorage.containsIT(hash: base64Hash) ? .revokedGreenPass : .valid
+            #else
+            return DRLDataStorage.containsIT(hash: base64Hash) ? .notValid : .valid
+            #endif
+        } else {
+            let hashesArray = [hcert.uvciHash?.prefix(16), hcert.signatureHash?.prefix(16), hcert.countryCodeUvciHash?.prefix(16)]
+            let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(syncContext: syncContext, hash: $0?.hexString ?? "")}
+            #if DEBUG
+            return hashesResult.contains(true) ? .revokedGreenPass : .valid
+            #else
+            return hashesResult.contains(true) ? .notValid : .valid
+            #endif
+        }
     }
     
     func validate(_ current: Date, from validityStart: Date) -> Status {
