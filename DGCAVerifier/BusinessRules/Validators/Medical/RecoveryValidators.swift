@@ -31,7 +31,7 @@ struct RecoveryInfo {
     private var hcert: HCert!
     
     public var isCBIS: Bool {
-        guard self.hcert.rcountryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
+        guard self.hcert.countryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
         guard let signedCerficate = self.hcert.signedCerficate else { return false }
         let extendedKeyUsage = signedCerficate.extendedKeyUsage
         let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT }
@@ -130,7 +130,7 @@ class RecoveryConcreteValidator: DGCValidator {
     }
    
     public func isSpecialRecovery(hcert: HCert) -> Bool {
-        guard hcert.rcountryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
+        guard hcert.countryCode?.uppercased() == Constants.ItalyCountryCode.uppercased() else { return false }
         guard let signedCerficate = hcert.signedCerficate else { return false }
         let extendedKeyUsage = signedCerficate.extendedKeyUsage
         let validKeysUsages = extendedKeyUsage.filter{ $0 == Constants.OID_RECOVERY || $0 == Constants.OID_RECOVERY_ALT }

@@ -48,9 +48,4 @@ extension HCert {
     var vaccineDate: String? {
         body["v"].array?.map{ $0[dateKey] }.first?.string
     }
-    
-    var countryCode: String? {
-        return body["v"].array?.map{ $0[countryCodeKey] }.first?.string
-    }
-
 }

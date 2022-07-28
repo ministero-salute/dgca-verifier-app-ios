@@ -40,7 +40,7 @@ struct RevocationValidator: DGCValidator {
     func validate(hcert: HCert) -> Status {
         guard DRLSynchronizationManager.shared.isSyncEnabled else { return .valid }
         
-        let syncContext: SynchronizationContext = hcert.rcountryCode == "IT" ? .IT : .EU
+        let syncContext: SynchronizationContext = hcert.countryCode == Constants.ItalyCountryCode.uppercased() ? .IT : .EU
 
         if syncContext == .IT {
             let base64Hash = hcert.uvci.sha256()
