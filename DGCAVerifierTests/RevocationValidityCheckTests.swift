@@ -63,7 +63,7 @@ class RevocationValidityCheckTests: XCTestCase {
     }
 
     func testRevokedUVCI() {
-        let hash = (self.hcert.uvciHash?.prefix(16).hexString)!
+        let hash = (self.hcert.uvciHash?.prefix(16).base64EncodedString())!
         DRLDataStorage.add(hash: hash, on: realm, isEUDCC: false)
         
         XCTAssertTrue(RevocationValidator().validate(hcert: hcert) == .notValid)

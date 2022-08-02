@@ -52,7 +52,7 @@ struct RevocationValidator: DGCValidator {
             #endif
         } else {
             let hashesArray = [hcert.uvciHash?.prefix(16), hcert.signatureHash?.prefix(16), hcert.countryCodeUvciHash?.prefix(16)]
-            let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(syncContext: syncContext, hash: $0?.hexString ?? "")}
+            let hashesResult = hashesArray.filter{ $0 != nil }.map{DRLDataStorage.contains(syncContext: syncContext, hash: $0?.base64EncodedString() ?? "")}
             #if DEBUG
             return hashesResult.contains(true) ? .revokedGreenPass : .valid
             #else
