@@ -49,9 +49,7 @@ struct RecoveryValidityCheck {
         guard let currentDate = Date.startOfDay else { return .notValid }
         
         let recoveryStatus = Validator.validate(currentDate, from: validityStart, to: validityEnd)
-        
-        guard !isBoosterScanMode() else { return recoveryStatus == .valid ? .verificationIsNeeded : recoveryStatus }
-        
+
         return recoveryStatus
     }
     
@@ -59,9 +57,6 @@ struct RecoveryValidityCheck {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         let isSpecialRecovery = isSpecialRecovery(hcert: hcert)
         switch scanMode {
-        case Constants.scanMode2G, Constants.scanModeBooster:
-            let endDaysConfig = isSpecialRecovery ? Constants.recoverySpecialEndDays : Constants.recoveryEndDays_IT
-            return getValue(for: endDaysConfig)?.intValue
         case Constants.scanMode3G:
             let isITCode = hcert.countryCode == Constants.ItalyCountryCode
             let endDaysConfig: String
@@ -81,9 +76,6 @@ struct RecoveryValidityCheck {
         let scanMode: String = Store.get(key: .scanMode) ?? ""
         let isSpecialRecovery = isSpecialRecovery(hcert: hcert)
         switch scanMode {
-        case Constants.scanMode2G, Constants.scanModeBooster:
-            let startDaysConfig = isSpecialRecovery ? Constants.recoverySpecialStartDays : Constants.recoveryStartDays_IT
-            return getValue(for: startDaysConfig)?.intValue
         case Constants.scanMode3G:
             let isITCode = hcert.countryCode == Constants.ItalyCountryCode
             let startDaysConfig: String
@@ -97,11 +89,6 @@ struct RecoveryValidityCheck {
         default:
             return nil
         }
-    }
-    
-    private func isBoosterScanMode() -> Bool{
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        return scanMode == Constants.scanModeBooster
     }
     
     private func isSpecialRecovery(hcert: HCert) -> Bool {

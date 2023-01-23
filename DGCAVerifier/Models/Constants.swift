@@ -75,17 +75,13 @@ struct Constants {
     static let ItalyCountryCode = "IT"
     
     // MARK: SwitchScanMode
-    static let scanMode2G = "scanMode2G"
     static let scanMode3G = "scanMode3G"
-    static let scanModeBooster = "scanModeBooster"
     
     // MARK: Settings
     static let drlMaxRetries = "MAX_RETRY"
     
     // MARK: Settings Home View
     static let scanModeDescription3G = "3G_scan_mode_description"
-    static let scanModeDescription2G = "2G_scan_mode_description"
-    static let scanModeDescriptionBooster = "booster_scan_mode_description"
     
     // MARK: Settings Scan Mode Popup
     static let infoScanModePopup = "info_scan_mode_popup"

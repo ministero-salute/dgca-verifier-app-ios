@@ -36,19 +36,10 @@ struct VaccineExemptionValidityCheck {
         guard let currentDate = Date.startOfDay else { return .notValid }
         guard let dateUntil = exemption.dateUntil else {
             let validity = Validator.validate(currentDate, from: dateFrom)
-            return isBoosterScanModeActive ? checkValidityOnBoosterScanMode(validity) : validity
+            return validity
         }
         let validity = Validator.validate(currentDate, from: dateFrom, to: dateUntil)
-        return isBoosterScanModeActive ? checkValidityOnBoosterScanMode(validity) : validity
-    }
-    
-    private var isBoosterScanModeActive: Bool {
-        return Store.get(key: .scanMode) == Constants.scanModeBooster
-    }
-    
-    private func checkValidityOnBoosterScanMode(_ certStatus: Status) -> Status {
-        guard isBoosterScanModeActive, certStatus == .valid else { return certStatus }
-        return .verificationIsNeeded
+        return validity
     }
         
 }

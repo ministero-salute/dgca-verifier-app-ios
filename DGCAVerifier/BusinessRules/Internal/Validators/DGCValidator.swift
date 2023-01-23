@@ -67,10 +67,6 @@ struct ValidatorProducer {
         switch scanMode {
         case .base:
             return BaseValidatorFactory()
-        case .reinforced:
-            return ReinforcedValidatorFactory()
-        case .booster:
-            return BoosterValidatorFactory()
         }
     }
     
@@ -91,47 +87,6 @@ struct BaseValidatorFactory: DCGValidatorFactory {
             return TestBaseValidator()
         case .vaccineExemption:
             return VaccineExemptionBaseValidator()
-        }
-    }
-    
-}
-
-
-struct ReinforcedValidatorFactory: DCGValidatorFactory {
-    
-    func getValidator(hcert: HCert) -> DGCValidator? {
-        let isIT = hcert.countryCode == Constants.ItalyCountryCode
-        switch hcert.extendedType {
-        case .unknown:
-            return UnknownValidator()
-        case .vaccine:
-            return isIT ? VaccineReinforcedValidator() : VaccineReinforcedValidatorNotItaly()
-        case .recovery:
-            return RecoveryReinforcedValidator()
-        case .test:
-            return TestReinforcedValidator()
-        case .vaccineExemption:
-            return VaccineExemptionReinforcedValidator()
-        }
-    }
-    
-}
-
-struct BoosterValidatorFactory: DCGValidatorFactory {
-    
-    func getValidator(hcert: HCert) -> DGCValidator? {
-        let isIT = hcert.countryCode == Constants.ItalyCountryCode
-        switch hcert.extendedType {
-        case .unknown:
-            return UnknownValidator()
-        case .vaccine:
-            return isIT ? VaccineBoosterValidator() : VaccineBoosterValidatorNotItaly()
-        case .recovery:
-            return RecoveryBoosterValidator()
-        case .test:
-            return TestBoosterValidator()
-        case .vaccineExemption:
-            return VaccineExemptionBoosterValidator()
         }
     }
     

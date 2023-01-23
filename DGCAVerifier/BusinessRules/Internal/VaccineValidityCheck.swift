@@ -100,27 +100,10 @@ struct VaccineValidityCheck {
         return Validator.validate(currentDate, from: fromDate, to: validityEnd)
     }
     
-    func isScanModeBooster() -> Bool {
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        return scanMode == Constants.scanModeBooster
-    }
-    
-    func checkBooster(_ preconditions: CertificatePreconditions) -> Status {
-        if preconditions.isCurrentDoseBooster { return .valid }
-        
-        return preconditions.isCurrentDoseComplete ? .verificationIsNeeded : .notValid
-    }
-    
     func isVaccineValid(_ hcert: HCert) -> Status {
         guard let preconditions = checkPreconditions(hcert) else { return .notValid }
         let result = checkCertificateDate(preconditions)
-        
-        guard result == .valid else { return result }
-        
-        guard !isScanModeBooster() else {
-            return checkBooster(preconditions)
-        }
-        
+                
         return result
     }
     
@@ -160,36 +143,6 @@ struct VaccineValidityCheck {
             let settingName =  preconditions.isIT ? Constants.vaccineCompleteStartDays_IT : Constants.vaccineCompleteStartDays_NOT_IT
             return self.getValue(for: settingName)?.intValue
             
-        case Constants.scanMode2G:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            if preconditions.isJJ {
-                let settingName = Constants.vaccineCompleteStartDays
-                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-            }
-            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
-        
-        case Constants.scanModeBooster:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterStartDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteStartDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            if preconditions.isJJ {
-                let settingName = Constants.vaccineCompleteStartDays
-                return self.getValue(for: settingName, type: preconditions.medicalProduct)?.intValue
-            }
-            return self.getValue(for: Constants.vaccineCompleteStartDays_IT)?.intValue
-        
         default:
             return nil
         }
@@ -210,28 +163,6 @@ struct VaccineValidityCheck {
             let settingName =  preconditions.isIT ? Constants.vaccineCompleteEndDays_IT : Constants.vaccineCompleteEndDays_NOT_IT
             return self.getValue(for: settingName)?.intValue
         
-        case Constants.scanMode2G:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
-        
-        case Constants.scanModeBooster:
-            if preconditions.isCurrentDoseBooster {
-                return self.getValue(for: Constants.vaccineBoosterEndDays_IT)?.intValue
-            }
-            
-            if preconditions.isCurrentDoseIncomplete {
-                return self.getValue(for: Constants.vaccineIncompleteEndDays, type: preconditions.medicalProduct)?.intValue
-            }
-            
-            return self.getValue(for: Constants.vaccineCompleteEndDays_IT)?.intValue
-
         default:
             return nil
         }

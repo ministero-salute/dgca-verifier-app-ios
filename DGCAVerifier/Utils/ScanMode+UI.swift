@@ -31,10 +31,6 @@ extension ScanMode {
         switch self {
         case .base:
             return "home.scan.picker.mode.3G".localized
-        case .reinforced:
-            return "home.scan.picker.mode.2G".localized
-        case .booster:
-            return "home.scan.picker.mode.Booster".localized
         }
     }
     
@@ -42,10 +38,6 @@ extension ScanMode {
         switch self {
         case .base:
             return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescription3G)
-        case .reinforced:
-            return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescription2G)
-        case .booster:
-            return SettingDataStorage.sharedInstance.getFirstSetting(withName: Constants.scanModeDescriptionBooster)
         }
     }
     
@@ -53,10 +45,6 @@ extension ScanMode {
         switch self {
         case .base:
             return "home.scan.button.bold.3G".localized
-        case .reinforced:
-            return "home.scan.button.bold.2G".localized
-        case .booster:
-            return "home.scan.button.bold.Booster".localized
         }
     }
     
@@ -64,10 +52,6 @@ extension ScanMode {
         switch self {
         case .base:
             return "home.scan.button.mode.3G".localized
-        case .reinforced:
-            return "home.scan.button.mode.2G".localized
-        case .booster:
-            return "home.scan.button.mode.Booster".localized
         }
     }
     

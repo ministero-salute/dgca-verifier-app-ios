@@ -52,16 +52,7 @@ struct TestValidityCheck {
         return isNegative ? .valid : .notValid
     }
     
-    private func testStatusForScanMode(_ hcert: HCert) -> Status {
-        let scanMode: String = Store.get(key: .scanMode) ?? ""
-        if (scanMode == Constants.scanMode2G || scanMode == Constants.scanModeBooster) {
-            return .notValid
-        }
-        else { return .valid }
-    }
-    
     func isTestValid(_ hcert: HCert) -> Status {
-        guard testStatusForScanMode(hcert) == .valid else { return .notValid }
         let testValidityResults = [isTestNegative(hcert), isTestDateValid(hcert)]
         return testValidityResults.first(where: {$0 != .valid}) ?? .valid
     }
