@@ -82,10 +82,6 @@ struct TestResult: Codable, Equatable, CustomStringConvertible {
         switch self.mode {
         case "Base":
             return .base
-        case "Rafforzata":
-            return .reinforced
-        case "Visitatori RSA":
-            return .booster
         default:
             return nil
         }
