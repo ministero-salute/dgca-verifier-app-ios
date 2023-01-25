@@ -246,8 +246,7 @@ class HomeViewController: UIViewController {
             
             let isScanMode2GKeyExists = Store.valueExist(forKey: .isScanMode2G)
             if isScanMode2GKeyExists {
-                let isScanMode2G = Store.getBool(key: .isScanMode2G)
-                isScanMode2G ? Store.set(Constants.scanMode2G, for: .scanMode) : Store.set(Constants.scanMode3G, for: .scanMode)
+                Store.set(Constants.scanMode3G, for: .scanMode)
                 Store.remove(key: .isScanMode2G)
             }
 

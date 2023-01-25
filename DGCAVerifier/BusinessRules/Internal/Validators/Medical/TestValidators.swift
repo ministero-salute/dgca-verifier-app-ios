@@ -90,7 +90,7 @@ class TestConcreteValidator: DGCValidator {
     }
     
     private func getEndHours(for hcert: HCert) -> String? {
-        if (VerificationState.shared.shouldValidateTestOnly() && ScanMode.fetchFromLocalSettings() == .booster) { return rapidEndHours }
+        if (VerificationState.shared.shouldValidateTestOnly()) { return rapidEndHours }
         if (hcert.isMolecularTest) { return molecularEndHours }
         if (hcert.isRapidTest) { return rapidEndHours }
         return nil
@@ -113,21 +113,3 @@ class TestConcreteValidator: DGCValidator {
 }
 
 class TestBaseValidator: TestConcreteValidator {}
-
-class TestReinforcedValidator: TestBaseValidator {
-    
-    override func validate(hcert: HCert) -> Status {
-        let result = isTestDateValid(hcert)
-        switch result {
-        case .expired:
-            return .expired
-        case .notValidYet:
-            return .notValidYet
-        default:
-            return .notValid
-        }
-    }
-    
-}
-
-class TestBoosterValidator: TestReinforcedValidator {}
